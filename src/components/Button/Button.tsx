@@ -1,12 +1,21 @@
 interface ButtonProps {
+  label: string;
+  size?: 'lg' | 'md' | 'sm';
+  primary?: boolean;
+  backgroundColor?: string;
   onClick: () => void;
-  children: React.ReactNode;
 }
 
-const Button = ({ onClick, children }: ButtonProps) => {
+const Button = ({
+  label,
+  size = 'md',
+  primary = true,
+  backgroundColor = '#cccccc',
+  onClick,
+}: ButtonProps) => {
   return (
-    <button type={'button'} onClick={onClick}>
-      {children}
+    <button type={'button'} style={{ backgroundColor: backgroundColor }} onClick={onClick}>
+      {label}
     </button>
   );
 };
