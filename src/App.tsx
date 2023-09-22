@@ -1,6 +1,6 @@
 import Button from './components/Button/Button';
 
-function App() {
+const App = () => {
   const handleButtonClick = () => {
     console.log('hello');
   };
@@ -10,6 +10,6 @@ function App() {
       <Button onClick={handleButtonClick}>hello</Button>
     </div>
   );
-}
+};
 
 export default App;
