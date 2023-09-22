@@ -1,7 +1,7 @@
 interface ButtonProps {
   label: string;
   size?: 'lg' | 'md' | 'sm';
-  primary?: boolean;
+  type?: 'primary' | 'secondary';
   backgroundColor?: string;
   onClick: () => void;
 }
@@ -9,7 +9,7 @@ interface ButtonProps {
 const Button = ({
   label,
   size = 'md',
-  primary = true,
+  type = 'primary',
   backgroundColor = '#cccccc',
   onClick,
 }: ButtonProps) => {
