@@ -1,14 +1,11 @@
-import Button from './components/Button/Button';
+import React from 'react';
+import Router from './routes';
 
 const App = () => {
-  const handleButtonClick = () => {
-    console.log('hello');
-  };
-
   return (
-    <div>
-      <Button onClick={handleButtonClick}>hello</Button>
-    </div>
+    <>
+      <Router />
+    </>
   );
 };
 
