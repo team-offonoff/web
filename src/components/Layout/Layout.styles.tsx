@@ -11,4 +11,8 @@ export const Main = styled.main`
 
 export const Header = styled.header``;
 
-export const NavigationContainer = styled.div``;
+export const NavigationContainer = styled.div`
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+`;
