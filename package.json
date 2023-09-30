@@ -17,8 +17,7 @@
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.16.0",
     "styled-components": "^6.0.8",
-    "styled-normalize": "^8.0.7",
-    "vite-plugin-svgr": "^4.1.0"
+    "styled-normalize": "^8.0.7"
   },
   "devDependencies": {
     "@storybook/addon-essentials": "^7.4.0",
@@ -43,7 +42,8 @@
     "prettier": "^3.0.3",
     "storybook": "^7.4.0",
     "typescript": "^5.0.2",
-    "vite": "^4.4.5"
+    "vite": "^4.4.5",
+    "vite-plugin-svgr": "^4.1.0"
   },
   "resolutions": {
     "jackspeak": "2.1.1",
