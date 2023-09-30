@@ -1,11 +1,14 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
 import BottomNavigation from '../BottomNavigation/BottomNavigation';
+import { Header } from './Layout.styles';
 
-const Layout = () => {
+interface LayoutProps {}
+
+const Layout = ({}: LayoutProps) => {
   return (
     <main>
-      <header>heder</header>
+      <Header></Header>
       <Outlet />
       <BottomNavigation />
     </main>
