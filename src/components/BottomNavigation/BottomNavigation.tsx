@@ -1,22 +1,22 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { ABIcn, PlusBoxIcn, ProfileIcn, SelectedHomeIcn } from '../../assets/icons';
 import { Container } from './BottomNavigation.styles';
+import { SelectedHomeIcon, ABIcon, PlusBoxIcon, ProfileIcon } from '../../assets/icons';
 
 const BottomNavigation = () => {
   return (
     <Container>
       <NavLink to={'/'}>
-        <SelectedHomeIcn />
+        <SelectedHomeIcon />
       </NavLink>
       <NavLink to={'/ab'}>
-        <ABIcn />
+        <ABIcon />
       </NavLink>
       <NavLink to={'/write'}>
-        <PlusBoxIcn />
+        <PlusBoxIcon />
       </NavLink>
       <NavLink to={'/profile'}>
-        <ProfileIcn />
+        <ProfileIcon />
       </NavLink>
     </Container>
   );
