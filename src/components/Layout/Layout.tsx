@@ -1,7 +1,8 @@
+/* eslint-disable no-empty-pattern */
 import React from 'react';
 import { Outlet } from 'react-router-dom';
 import BottomNavigation from '../BottomNavigation/BottomNavigation';
-import { Header, Main, NavigationContainer } from './Layout.styles';
+import { Header, Main, NavigationContainer, OutletContainer } from './Layout.styles';
 
 interface LayoutProps {}
 
@@ -9,7 +10,9 @@ const Layout = ({}: LayoutProps) => {
   return (
     <Main>
       <Header></Header>
-      <Outlet />
+      <OutletContainer>
+        <Outlet />
+      </OutletContainer>
       <NavigationContainer>
         <BottomNavigation />
       </NavigationContainer>

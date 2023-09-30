@@ -11,8 +11,14 @@ export const Main = styled.main`
 
 export const Header = styled.header``;
 
+export const OutletContainer = styled.div`
+  height: 100%;
+`;
+
 export const NavigationContainer = styled.div`
-  position: absolute;
+  position: fixed;
   bottom: 0;
   width: 100%;
+  max-width: 512px;
+  margin: 0 auto;
 `;

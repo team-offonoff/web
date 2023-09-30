@@ -11,6 +11,7 @@ const GlobalStyle = styled.createGlobalStyle`
   }
 
   body {
+    min-height: 100vh;
     font-size: 1.6rem;
     background-color: #f6f6f6;
   }
