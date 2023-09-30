@@ -1,12 +1,12 @@
 import { styled } from 'styled-components';
 
 export const Main = styled.main`
-  overflow-y: scroll;
   position: relative;
   max-width: 512px;
   height: 100vh;
-  background-color: #ffffff;
   margin: 0 auto;
+  overflow-y: scroll;
+  background-color: #fff;
 `;
 
 export const Header = styled.header``;
