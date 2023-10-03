@@ -52,7 +52,7 @@ export const NavigateButton = styled.button`
   background-color: transparent;
 `;
 
-export const UnderlineTextButtonContainer = styled.button`
+export const SkipButtonContainer = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -60,7 +60,7 @@ export const UnderlineTextButtonContainer = styled.button`
   margin-top: 4px;
 `;
 
-export const UnderlineTextButton = styled.button`
+export const SkipButton = styled.button`
   font-size: 1.3rem;
   font-weight: 400;
   color: rgb(255 255 255 / 40%);
