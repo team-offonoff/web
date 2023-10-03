@@ -15,6 +15,16 @@ const GlobalStyle = styled.createGlobalStyle`
     font-size: 1.6rem;
     background-color: #f6f6f6;
   }
+
+  button {
+    padding: 0;
+    overflow: visible;
+    cursor: pointer;
+    background: inherit;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+  }
 `;
 
 export default GlobalStyle;
