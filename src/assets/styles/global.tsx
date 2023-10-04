@@ -6,7 +6,12 @@ const styled = { createGlobalStyle };
 const GlobalStyle = styled.createGlobalStyle`
   ${normalize}
 
+  * {
+    box-sizing: inherit;
+  }
+
   html {
+    box-sizing: border-box;
     font-size: 62.5%;
   }
 
