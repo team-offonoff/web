@@ -17,12 +17,14 @@ export const Header = styled.header`
   box-sizing: border-box;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: space-between;
   width: 100%;
   height: 48px;
-  padding: 0 20px 0 0;
+  padding: 0 20px;
   background-color: #242036;
 `;
+
+export const HeaderSection = styled.div``;
 
 export const OutletContainer = styled.div`
   height: 100%;
