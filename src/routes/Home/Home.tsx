@@ -1,4 +1,11 @@
+<<<<<<< HEAD
 import React, { useState } from 'react';
+=======
+import React from 'react';
+
+import { NextIcon } from '../../assets/icons';
+
+>>>>>>> dev
 import {
   BestTopicCotainer,
   BestTopicTitle,
@@ -15,8 +22,11 @@ import {
   UserProfileImage,
   UserProfileName,
 } from './Home.styles';
+<<<<<<< HEAD
 import { startTimer } from '../../hooks/Timer';
 import { NextIcon } from '../../assets/icons';
+=======
+>>>>>>> dev
 
 const Home = () => {
   const profileName = '체리체리체리체리';
