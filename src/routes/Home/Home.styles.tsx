@@ -26,7 +26,6 @@ export const BestTopicTitle = styled.div`
 `;
 
 export const TopicContainer = styled.div`
-  box-sizing: border-box;
   display: flex;
   align-items: center;
   justify-content: space-between;
