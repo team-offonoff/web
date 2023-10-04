@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   BestTopicCotainer,
   BestTopicTitle,
@@ -15,6 +15,7 @@ import {
   UserProfileImage,
   UserProfileName,
 } from './Home.styles';
+import { startTimer } from '../../hooks/Timer';
 import { NextIcon } from '../../assets/icons';
 
 const Home = () => {
@@ -22,6 +23,7 @@ const Home = () => {
 
   const topic = '10년전 또는 후로 갈 수 있다면?';
 
+  const [timer, setTimer] = useState('24 : 00 : 00');
   const handleNextButton = () => {
     /*다음토픽으로 이동*/
   };
@@ -29,6 +31,13 @@ const Home = () => {
   const handleSkipButton = () => {
     /*현재토픽 skip 후 다음토픽 으로 이동*/
   };
+
+  const someServerTime = '1696431600000';
+
+  startTimer(Number(someServerTime), (timeString) => {
+    console.log('타이머', timeString);
+    setTimer(timeString);
+  });
 
   return (
     <Container>
@@ -46,7 +55,7 @@ const Home = () => {
         <SkipButton onClick={handleSkipButton}>이런 토픽은 안볼래요</SkipButton>
       </SkipButtonContainer>
       <TimerContainer>
-        <Timer>01 : 00 : 00</Timer>
+        <Timer>{timer}</Timer>
       </TimerContainer>
       <SelectContainer></SelectContainer>
       <UserInfoContainer>
