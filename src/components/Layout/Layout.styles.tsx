@@ -7,9 +7,23 @@ export const Main = styled.main`
   margin: 0 auto;
   overflow-y: scroll;
   background-color: #fff;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
-export const Header = styled.header``;
+export const Header = styled.header`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 48px;
+  padding: 0 20px;
+  background-color: #242036;
+`;
+
+export const HeaderSection = styled.div``;
 
 export const OutletContainer = styled.div`
   height: 100%;
