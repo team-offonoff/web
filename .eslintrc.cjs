@@ -18,11 +18,11 @@ module.exports = {
     'import/resolver': {
       alias: {
         extensions: ['.ts', '.tsx'],
-        map: [
-          ['@components', './src/components'],
-          ['@icons', './src/assets/icons'],
-          ['@styles', './src/assets/styles'],
-        ],
+        map: Object.entries(aliases).map(([key, value]) => {
+          const newPathKey = key.replace('/*', '');
+          const newPathValue = `./${value[0].replace('/*', '')}`;
+          return [newPathKey, newPathValue];
+        }),
       },
     },
   },
