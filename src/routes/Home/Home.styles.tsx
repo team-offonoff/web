@@ -51,7 +51,7 @@ export const NavigateButton = styled.button`
   background-color: transparent;
 `;
 
-export const SkipButtonContainer = styled.button`
+export const SkipButtonContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
