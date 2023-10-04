@@ -1,16 +1,26 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
 
-import BottomNavigation from '@components/BottomNavigation/BottomNavigation';
+import { AlarmIcon } from '../../assets/icons';
+import { AlarmButton } from '../../routes/Home/Home.styles';
+import BottomNavigation from '../BottomNavigation/BottomNavigation';
 
-import { Header, Main, NavigationContainer, OutletContainer } from './Layout.styles';
+import { Header, HeaderSection, Main, NavigationContainer, OutletContainer } from './Layout.styles';
 
 interface LayoutProps {}
 
 const Layout = ({}: LayoutProps) => {
   return (
     <Main>
-      <Header></Header>
+      <Header>
+        <HeaderSection></HeaderSection>
+        <HeaderSection></HeaderSection>
+        <HeaderSection>
+          <AlarmButton>
+            <AlarmIcon />
+          </AlarmButton>
+        </HeaderSection>
+      </Header>
       <OutletContainer>
         <Outlet />
       </OutletContainer>
