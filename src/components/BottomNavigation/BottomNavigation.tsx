@@ -1,7 +1,9 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+
+import { ABIcon, PlusBoxIcon, ProfileIcon, SelectedHomeIcon } from '@icons/index';
+
 import { Container } from './BottomNavigation.styles';
-import { SelectedHomeIcon, ABIcon, PlusBoxIcon, ProfileIcon } from '../../assets/icons';
 
 const BottomNavigation = () => {
   return (

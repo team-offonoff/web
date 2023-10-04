@@ -1,4 +1,7 @@
 import React from 'react';
+
+import { NextIcon } from '../../assets/icons';
+
 import {
   BestTopicCotainer,
   BestTopicTitle,
@@ -15,7 +18,6 @@ import {
   UserProfileImage,
   UserProfileName,
 } from './Home.styles';
-import { NextIcon } from '../../assets/icons';
 
 const Home = () => {
   const profileName = '체리체리체리체리';

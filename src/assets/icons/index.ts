@@ -1,5 +1,5 @@
-import SelectedHomeIcon from './home-selected.svg?react';
 import ABIcon from './ab.svg?react';
+import SelectedHomeIcon from './home-selected.svg?react';
 import PlusBoxIcon from './plus-box.svg?react';
 import ProfileIcon from './profile.svg?react';
 import AlarmIcon from './alarm-default.svg?react';
