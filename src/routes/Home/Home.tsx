@@ -1,6 +1,4 @@
-import React from 'react';
-
-import { NextIcon } from '../../assets/icons';
+import React, { useState } from 'react';
 
 import {
   BestTopicCotainer,
@@ -19,6 +17,9 @@ import {
   UserProfileName,
 } from './Home.styles';
 
+import { NextIcon } from '@icons/index';
+import useTimer from '@hooks/useTimer';
+
 const Home = () => {
   const profileName = '체리체리체리체리';
 
@@ -31,6 +32,14 @@ const Home = () => {
   const handleSkipButton = () => {
     /*현재토픽 skip 후 다음토픽 으로 이동*/
   };
+
+  /* 서버에서 주는 만료시간 예) '1696431600000' -> 10월 5일 자정
+  timer.isFinished 변수를 이용하면 타이머 종료 이벤트에 활용 할 수 있음*/
+
+  const futureTime = 1696431600000 + 1000 * 60 * 60 * 18;
+  const timer = useTimer({
+    endTime: futureTime,
+  });
 
   return (
     <Container>
@@ -48,7 +57,7 @@ const Home = () => {
         <SkipButton onClick={handleSkipButton}>이런 토픽은 안볼래요</SkipButton>
       </SkipButtonContainer>
       <TimerContainer>
-        <Timer>01 : 00 : 00</Timer>
+        <Timer isLessThanOneHour={timer.isLessThanOneHour}>{timer.displayTime}</Timer>
       </TimerContainer>
       <SelectContainer></SelectContainer>
       <UserInfoContainer>

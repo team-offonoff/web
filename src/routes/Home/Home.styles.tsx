@@ -76,7 +76,7 @@ export const TimerContainer = styled.div`
   margin-top: 37px;
 `;
 
-export const Timer = styled.div`
+export const Timer = styled.div<{ isLessThanOneHour: boolean }>`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -84,9 +84,9 @@ export const Timer = styled.div`
   height: 37px;
   font-size: 1.5rem;
   font-weight: 700;
-  color: rgb(255 255 255 / 40%);
+  color: ${(props) => (props.isLessThanOneHour ? '#3C3457' : 'rgb(255 255 255 / 40%)')};
   text-align: center;
-  background-color: #3c3457;
+  background-color: ${(props) => (props.isLessThanOneHour ? '#A46FF3' : '#3c3457')};
   border-radius: 50px;
 `;
 
