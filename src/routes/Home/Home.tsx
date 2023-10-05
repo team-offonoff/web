@@ -18,14 +18,13 @@ import {
 } from './Home.styles';
 
 import { NextIcon } from '@icons/index';
-import { startTimer } from '@hooks/Timer';
+import useTimer from '@hooks/useTimer';
 
 const Home = () => {
   const profileName = '체리체리체리체리';
 
   const topic = '10년전 또는 후로 갈 수 있다면?';
 
-  const [timer, setTimer] = useState('24 : 00 : 00');
   const handleNextButton = () => {
     /*다음토픽으로 이동*/
   };
@@ -34,11 +33,12 @@ const Home = () => {
     /*현재토픽 skip 후 다음토픽 으로 이동*/
   };
 
-  const someServerTime = '1696431600000';
+  /* 서버에서 주는 만료시간 예) '1696431600000' -> 10월 5일 자정
+  timer.isFinished 변수를 이용하면 타이머 종료 이벤트에 활용 할 수 있음*/
 
-  startTimer(Number(someServerTime), (timeString) => {
-    console.log('타이머', timeString);
-    setTimer(timeString);
+  const futureTime = 1696431600000 + 1000 * 60 * 60 * 18;
+  const timer = useTimer({
+    endTime: futureTime,
   });
 
   return (
@@ -57,7 +57,14 @@ const Home = () => {
         <SkipButton onClick={handleSkipButton}>이런 토픽은 안볼래요</SkipButton>
       </SkipButtonContainer>
       <TimerContainer>
-        <Timer>{timer}</Timer>
+        <Timer
+          style={{
+            color: timer.isOneHour ? '#3C3457' : 'rgb(255 255 255 / 40%)',
+            backgroundColor: timer.isOneHour ? '#A46FF3' : '#3c3457',
+          }}
+        >
+          {timer.timeString}
+        </Timer>
       </TimerContainer>
       <SelectContainer></SelectContainer>
       <UserInfoContainer>
