@@ -57,14 +57,7 @@ const Home = () => {
         <SkipButton onClick={handleSkipButton}>이런 토픽은 안볼래요</SkipButton>
       </SkipButtonContainer>
       <TimerContainer>
-        <Timer
-          style={{
-            color: timer.isOneHour ? '#3C3457' : 'rgb(255 255 255 / 40%)',
-            backgroundColor: timer.isOneHour ? '#A46FF3' : '#3c3457',
-          }}
-        >
-          {timer.timeString}
-        </Timer>
+        <Timer isLessThanOneHour={timer.isLessThanOneHour}>{timer.displayTime}</Timer>
       </TimerContainer>
       <SelectContainer></SelectContainer>
       <UserInfoContainer>
