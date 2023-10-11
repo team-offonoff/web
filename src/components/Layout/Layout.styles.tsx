@@ -2,6 +2,8 @@ import { styled } from 'styled-components';
 
 export const Main = styled.main`
   position: relative;
+  display: flex;
+  flex-direction: column;
   max-width: 512px;
   height: 100vh;
   margin: 0 auto;
@@ -26,12 +28,13 @@ export const Header = styled.header`
 export const HeaderSection = styled.div``;
 
 export const OutletContainer = styled.div`
-  height: 100%;
+  flex: 1;
 `;
 
 export const NavigationContainer = styled.div`
   position: fixed;
   bottom: 0;
+  z-index: 1200;
   width: 100%;
   max-width: 512px;
   margin: 0 auto;
