@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
+
+import BottomSheet from '@components/BottomSheet/BottomSheet';
 
 import { NextIcon } from '../../assets/icons';
 
@@ -20,6 +22,8 @@ import {
 } from './Home.styles';
 
 const Home = () => {
+  const [isOpenBottomSheet, setIsOpenBottomSheet] = useState(true);
+
   const profileName = '체리체리체리체리';
 
   const topic = '10년전 또는 후로 갈 수 있다면?';
@@ -57,6 +61,9 @@ const Home = () => {
           <b>{profileName}</b> 님의 토픽
         </UserProfileName>
       </UserInfoContainer>
+      <BottomSheet open={isOpenBottomSheet} setIsOpen={setIsOpenBottomSheet}>
+        <div style={{ backgroundColor: 'white', height: '100%' }}>I'm BottomSheet</div>
+      </BottomSheet>
     </Container>
   );
 };

@@ -34,6 +34,7 @@ export const OutletContainer = styled.div`
 export const NavigationContainer = styled.div`
   position: fixed;
   bottom: 0;
+  z-index: 1200;
   width: 100%;
   max-width: 512px;
   margin: 0 auto;
