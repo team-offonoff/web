@@ -71,7 +71,7 @@ const Home = () => {
         </UserProfileName>
       </UserInfoContainer>
       <BottomSheet open={isOpenBottomSheet} setIsOpen={setIsOpenBottomSheet}>
-        <div style={{ backgroundColor: 'white', height: '100%' }}>I'm BottomSheet</div>
+        <div style={{ backgroundColor: 'transparent', height: '100%' }}>I'm BottomSheet</div>
       </BottomSheet>
     </Container>
   );

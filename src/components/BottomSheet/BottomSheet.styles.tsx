@@ -2,14 +2,13 @@ import { motion } from 'framer-motion';
 import { styled } from 'styled-components';
 
 export const SheetContainer = styled.div`
-  position: fixed;
-  inset: 0 0 0 calc((100vw - 512px) / 2);
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
   width: 100%;
   max-width: 512px;
-  overflow: hidden;
+  padding: 100px 0 0;
+  margin: 0 auto;
 `;
 
 // display: "inline-block",
@@ -27,8 +26,9 @@ export const Sheet = styled(motion.div)`
   z-index: 1000;
   display: inline-block;
   height: calc(100vh - 100px);
-  border-top-left-radius: 12px;
-  border-top-right-radius: 12px;
+  background-color: #3c3457;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
   box-shadow:
     0 2px 5px rgb(0 0 0 / 6%),
     0 2px 13px rgb(0 0 0 / 12%);

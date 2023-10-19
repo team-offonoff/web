@@ -22,6 +22,8 @@ const useTimer = ({ endTime }: UseTimerProps) => {
 
     if (timeLeft <= 0) {
       clearInterval(timer);
+      setTimeLeft(0);
+
       setIsFinished(true);
     }
 
