@@ -5,6 +5,12 @@ export const Container = styled.div`
   background-color: #242036;
 `;
 
+export const SheetContainer = styled.div`
+  height: 100%;
+  background-color: #3c3457;
+  border-radius: 20px 20px 0 0;
+`;
+
 export const AlarmButton = styled.div`
   width: 24px;
   height: 24px;

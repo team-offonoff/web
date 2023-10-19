@@ -17,6 +17,7 @@ import {
   UserInfoContainer,
   UserProfileImage,
   UserProfileName,
+  SheetContainer,
 } from './Home.styles';
 
 import { NextIcon } from '@icons/index';
@@ -71,7 +72,7 @@ const Home = () => {
         </UserProfileName>
       </UserInfoContainer>
       <BottomSheet open={isOpenBottomSheet} setIsOpen={setIsOpenBottomSheet}>
-        <div style={{ backgroundColor: 'transparent', height: '100%' }}>I'm BottomSheet</div>
+        <SheetContainer>dsds</SheetContainer>
       </BottomSheet>
     </Container>
   );
