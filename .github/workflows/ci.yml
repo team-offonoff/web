@@ -1,7 +1,7 @@
 name: CI
 on:
   pull_request:
-    branches: ["dev", "main"]
+    branches: ['dev', 'main']
 
 jobs:
   build:
@@ -14,4 +14,4 @@ jobs:
         run: yarn install
 
       - name: build
-        run: yarn run dev
+        run: yarn run build
