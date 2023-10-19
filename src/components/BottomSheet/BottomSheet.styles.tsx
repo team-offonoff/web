@@ -26,7 +26,6 @@ export const Sheet = styled(motion.div)`
   z-index: 1000;
   display: inline-block;
   height: calc(100vh - 100px);
-  background-color: #3c3457;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
   box-shadow:
