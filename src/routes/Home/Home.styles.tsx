@@ -8,8 +8,7 @@ export const Container = styled.div`
 export const SheetContainer = styled.div`
   height: 100%;
   background-color: #3c3457;
-  border-top-left-radius: 20px;
-  border-top-right-radius: 20px;
+  border-radius: 20px 20px 0 0;
 `;
 
 export const AlarmButton = styled.div`
