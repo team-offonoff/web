@@ -11,9 +11,10 @@ export const SheetContainer = styled.div`
   border-radius: 20px 20px 0 0;
 `;
 
-export const AlarmButton = styled.div`
+export const AlarmButton = styled.button`
   width: 24px;
   height: 24px;
+  cursor: pointer;
 `;
 
 export const BestTopicCotainer = styled.div`
@@ -54,6 +55,7 @@ export const Topic = styled.div`
 export const NavigateButton = styled.button`
   width: 40px;
   height: 40px;
+  cursor: pointer;
   background-color: transparent;
 `;
 
@@ -63,6 +65,7 @@ export const SkipButtonContainer = styled.div`
   justify-content: center;
   width: 100%;
   margin-top: 4px;
+  cursor: pointer;
 `;
 
 export const SkipButton = styled.button`
@@ -71,6 +74,7 @@ export const SkipButton = styled.button`
   color: rgb(255 255 255 / 40%);
   text-align: center;
   text-decoration: underline;
+  cursor: pointer;
 `;
 
 export const TimerContainer = styled.div`
