@@ -5,5 +5,19 @@ import ProfileIcon from './profile.svg?react';
 import AlarmIcon from './alarm-default.svg?react';
 import NewAlarmIcon from './alarm-new.svg?react';
 import NextIcon from './next.svg?react';
+import KakaoLoginIcon from './kakao-login.svg?react';
+import AppleLoginIcon from './apple-login.svg?react';
+import GoogleLoginIcon from './google-login.svg?react';
 
-export { SelectedHomeIcon, ABIcon, PlusBoxIcon, ProfileIcon, AlarmIcon, NewAlarmIcon, NextIcon };
+export {
+  SelectedHomeIcon,
+  ABIcon,
+  PlusBoxIcon,
+  ProfileIcon,
+  AlarmIcon,
+  NewAlarmIcon,
+  NextIcon,
+  KakaoLoginIcon,
+  AppleLoginIcon,
+  GoogleLoginIcon,
+};

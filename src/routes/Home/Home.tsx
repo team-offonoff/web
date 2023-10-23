@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import BottomSheet from '@components/BottomSheet/BottomSheet';
 
@@ -24,6 +25,8 @@ import { NextIcon } from '@icons/index';
 import useTimer from '@hooks/useTimer';
 
 const Home = () => {
+  const navigate = useNavigate();
+
   const [isOpenBottomSheet, setIsOpenBottomSheet] = useState(true);
 
   const profileName = '체리체리체리체리';
@@ -36,6 +39,11 @@ const Home = () => {
 
   const handleSkipButton = () => {
     /*현재토픽 skip 후 다음토픽 으로 이동*/
+    navigate('/login');
+  };
+
+  const handleAlramButton = () => {
+    /*알람 확인 화면으로 이동*/
   };
 
   /* 서버에서 주는 만료시간 예) '1696431600000' -> 10월 5일 자정
@@ -72,7 +80,7 @@ const Home = () => {
         </UserProfileName>
       </UserInfoContainer>
       <BottomSheet open={isOpenBottomSheet} setIsOpen={setIsOpenBottomSheet}>
-        <SheetContainer>asd</SheetContainer>
+        <SheetContainer>바텀시트</SheetContainer>
       </BottomSheet>
     </Container>
   );
