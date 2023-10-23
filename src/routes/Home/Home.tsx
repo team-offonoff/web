@@ -72,7 +72,7 @@ const Home = () => {
         </UserProfileName>
       </UserInfoContainer>
       <BottomSheet open={isOpenBottomSheet} setIsOpen={setIsOpenBottomSheet}>
-        <SheetContainer>dsds</SheetContainer>
+        <SheetContainer>asd</SheetContainer>
       </BottomSheet>
     </Container>
   );
