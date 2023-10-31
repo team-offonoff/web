@@ -1,15 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react';
-import {
-  BoundingBox,
-  CustomValueType,
-  motion,
-  MotionValue,
-  PanInfo,
-  useAnimation,
-  useDragControls,
-  useMotionValue,
-  useTransform,
-} from 'framer-motion';
+import React from 'react';
+import { motion, PanInfo, useAnimation, useMotionValue, useTransform } from 'framer-motion';
 
 import ReactPortal from '@components/Portal/Portal';
 
@@ -46,6 +36,8 @@ const BottomSheet = ({ open, setIsOpen, children }: BottomSheetProps) => {
   const handleDragEnd = (_: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
     if (info.velocity.y < 0 && info.point.y < window.innerHeight - HIDDEN) {
       controls.start('visible');
+    } else {
+      controls.start('hidden');
     }
   };
 
