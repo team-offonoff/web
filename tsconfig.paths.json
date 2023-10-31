@@ -8,10 +8,6 @@
       "@styles/*": ["src/assets/styles/*"],
       "@icons/*": ["src/assets/icons/*"],
       "@hooks/*": ["src/hooks/*"]
-      //   "@configs/*": ["src/configs/*"],
-      //   "@constants/*": ["src/constants/*"],
-      //   "@utils/*": ["src/utils/*"],
-      //   "@apis/*": ["src/apis/*"]
     }
   }
 }
