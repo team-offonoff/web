@@ -10,10 +10,11 @@ module.exports = {
     'plugin:storybook/recommended',
     'plugin:import/errors',
     'plugin:import/warnings',
+    'plugin:@tanstack/eslint-plugin-query/recommended',
   ],
   ignorePatterns: ['dist', '.eslintrc.cjs'],
   parser: '@typescript-eslint/parser',
-  plugins: ['react-refresh'],
+  plugins: ['react-refresh', '@tanstack/query'],
   settings: {
     'import/resolver': {
       alias: {
@@ -27,6 +28,8 @@ module.exports = {
     },
   },
   rules: {
+    '@tanstack/query/exhaustive-deps': 'error',
+    '@tanstack/query/stable-query-client': 'error',
     '@typescript-eslint/no-unused-vars': 'warn',
     'no-empty-pattern': 'warn',
     'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
