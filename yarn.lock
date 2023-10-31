@@ -2675,6 +2675,13 @@
     "@svgr/hast-util-to-babel-ast" "8.0.0"
     svg-parser "^2.0.4"
 
+"@tanstack/eslint-plugin-query@^5.0.5":
+  version "5.0.5"
+  resolved "https://registry.yarnpkg.com/@tanstack/eslint-plugin-query/-/eslint-plugin-query-5.0.5.tgz#3f1fc0ad472462c3ca0a8a99601206049dfa7211"
+  integrity sha512-kYbh5Cboz1BzN6LeUWnI1B0BCikXMYQjxaEO7cV+0rycllU0qZqSEkd2LdgWIZhuLTc4WBt0li1s+O6RhM5Cog==
+  dependencies:
+    "@typescript-eslint/utils" "^5.54.0"
+
 "@tanstack/query-core@5.4.3":
   version "5.4.3"
   resolved "https://registry.yarnpkg.com/@tanstack/query-core/-/query-core-5.4.3.tgz#fbdd36ccf1acf70579980f2e7cf16d2c2aa2a5e9"
@@ -3145,7 +3152,7 @@
     "@typescript-eslint/typescript-estree" "6.7.4"
     semver "^7.5.4"
 
-"@typescript-eslint/utils@^5.45.0":
+"@typescript-eslint/utils@^5.45.0", "@typescript-eslint/utils@^5.54.0":
   version "5.62.0"
   resolved "https://registry.yarnpkg.com/@typescript-eslint/utils/-/utils-5.62.0.tgz#141e809c71636e4a75daa39faed2fb5f4b10df86"
   integrity sha512-n8oxjeb5aIbPFEtmQxQYOLI0i9n5ySBEY/ZEHHZqKQSFnxio1rv6dthascc9dLuwrL0RC5mPCxB7vnAVGAYWAQ==
