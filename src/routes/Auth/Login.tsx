@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import { Container, LoginButton, LoginButtonContainer } from './Login.styles';
+
 import { AppleLoginIcon, GoogleLoginIcon, KakaoLoginIcon } from '@icons/index';
+
+import { Container, LoginButton, LoginButtonContainer } from './Login.styles';
 
 const Login = () => {
   const KakaoRestApiKey = import.meta.env.VITE_KAKAO_OAUTH_KEY;
