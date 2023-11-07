@@ -3,10 +3,10 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
 import Layout from '@components/Layout/Layout';
 
-import Home from './Home/Home';
-import Login from './Auth/Login';
-import KakaoLogin from './Auth/kakao/KakaoLogin';
 import GoogleLogin from './Auth/google/GoogleLogin';
+import KakaoLogin from './Auth/kakao/KakaoLogin';
+import Login from './Auth/Login';
+import Home from './Home/Home';
 
 const Router = () => {
   const router = createBrowserRouter([
