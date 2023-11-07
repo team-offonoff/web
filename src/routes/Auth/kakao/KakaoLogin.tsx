@@ -4,6 +4,7 @@ import { Container } from './KakaoLogin.styles';
 const KakaoLogin = () => {
   const kakaoCode = new URL(window.location.href).searchParams.get('code');
   // console.log('카카오 인가코드:', kakaoCode);
+  const [kakaoToken, setKakaoToken] = useState('');
 
   return <Container>카카오로딩화면</Container>;
 };

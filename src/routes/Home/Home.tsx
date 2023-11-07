@@ -49,7 +49,7 @@ const Home = () => {
   /* 서버에서 주는 만료시간 예) '1696431600000' -> 10월 5일 자정
   timer.isFinished 변수를 이용하면 타이머 종료 이벤트에 활용 할 수 있음*/
 
-  const futureTime = 1696431600000 + 1000 * 60 * 60 * 18;
+  const futureTime = 1696431600000 + 1000 * 60 * 60 * 24 * 16 + 1000 * 60 * 60 * 18;
   const timer = useTimer({
     endTime: futureTime,
   });
