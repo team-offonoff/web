@@ -1,9 +1,9 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { motion, PanInfo, useAnimation, useDragControls, useMotionValue } from 'framer-motion';
+import React from 'react';
+import { motion, PanInfo, useAnimation, useMotionValue, useTransform } from 'framer-motion';
 
 import ReactPortal from '@components/Portal/Portal';
 
-import { SheetContainer, Sheet } from './BottomSheet.styles';
+import { styled } from 'styled-components';
 
 interface BottomSheetProps {
   open: boolean;
@@ -12,54 +12,70 @@ interface BottomSheetProps {
 }
 
 const BottomSheet = ({ open, setIsOpen, children }: BottomSheetProps) => {
-  const hiddenHeight = 240;
+  const VISIBLE = 600;
+  const HIDDEN = 200;
+  const INITIAL = HIDDEN;
+  const variants = {
+    visible: {
+      y: -600,
+    },
+    hidden: {
+      y: -200,
+    },
+    closed: {
+      y: 0,
+    },
+  };
 
-  const constraintsRef = useRef(null);
-  const animationControls = useAnimation();
   const y = useMotionValue(0);
+  const height = useTransform(y, (latest) => {
+    return -latest;
+  });
+  const controls = useAnimation();
 
-  const onClose = () => setIsOpen(false);
-
-  const onOpen = () => setIsOpen(true);
-
-  const onDragEnd = (event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
-    console.log('🚀 ~ file: BottomSheet.tsx:26 ~ onDragEnd ~ info:', info);
-    if (info.velocity.y < 0) {
-      animationControls.start('visible');
+  const handleDragEnd = (_: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
+    if (info.velocity.y < 0 && info.point.y < window.innerHeight - HIDDEN) {
+      controls.start('visible');
     } else {
-      animationControls.start('hidden');
+      controls.start('hidden');
     }
   };
 
   return (
     <ReactPortal>
-      <SheetContainer ref={constraintsRef}>
-        <Sheet
-          layout
-          drag="y"
-          dragConstraints={{ top: 0 }}
-          dragElastic={0}
-          onDragEnd={onDragEnd}
-          initial="hidden"
-          animate={animationControls}
-          transition={{
-            type: 'spring',
-            damping: 40,
-            stiffness: 400,
-            bounce: 0,
-          }}
-          variants={{
-            visible: { y: 100 },
-            hidden: { y: `calc(100% - ${hiddenHeight}px)` },
-            // closed: { y: '100%' },
-          }}
-          style={{ y }}
-        >
-          {children}
-        </Sheet>
-      </SheetContainer>
+      <Wrapper
+        drag="y"
+        dragConstraints={{
+          top: -window.innerHeight,
+          bottom: 0,
+          left: 0,
+          right: 0,
+        }}
+        dragElastic={0}
+        dragTransition={{ bounceStiffness: 400, bounceDamping: 40 }}
+        initial={'hidden'}
+        animate={controls}
+        onDragEnd={handleDragEnd}
+        variants={variants}
+        style={{ y: y }}
+      >
+        <Container style={{ height: height }}>{children}</Container>
+      </Wrapper>
     </ReactPortal>
   );
 };
+
+export const Wrapper = styled(motion.div)`
+  position: fixed;
+  right: 0;
+  left: 0;
+  max-width: 512px;
+  height: 100vh;
+  margin: 0 auto;
+`;
+
+export const Container = styled(motion.div)`
+  height: 100%;
+`;
 
 export default BottomSheet;
