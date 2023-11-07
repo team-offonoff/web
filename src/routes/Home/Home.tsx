@@ -3,6 +3,10 @@ import { useNavigate } from 'react-router-dom';
 
 import BottomSheet from '@components/BottomSheet/BottomSheet';
 
+import { NextIcon } from '@icons/index';
+
+import useTimer from '@hooks/useTimer';
+
 import {
   BestTopicCotainer,
   BestTopicTitle,
@@ -20,9 +24,6 @@ import {
   UserProfileName,
   SheetContainer,
 } from './Home.styles';
-
-import { NextIcon } from '@icons/index';
-import useTimer from '@hooks/useTimer';
 
 const Home = () => {
   const navigate = useNavigate();
