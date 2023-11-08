@@ -1,17 +1,10 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 
-type TextWeight = 'regular' | 'semibold' | 'bold';
-const fontWeight: Record<TextWeight, number> = {
-  regular: 400,
-  semibold: 600,
-  bold: 700,
-};
-
 export interface TextProps {
   tagName?: keyof JSX.IntrinsicElements;
-  color?: string;
-  weight?: TextWeight;
+  color?: React.CSSProperties['color'];
+  weight?: React.CSSProperties['fontWeight'];
   size?: number;
   children: React.ReactNode;
 }
@@ -30,7 +23,7 @@ const Text = (props: TextProps) => {
     ${({ weight }) =>
       weight &&
       css`
-        font-weight: ${fontWeight[weight]};
+        font-weight: ${weight};
       `}
    ${({ size }) =>
       size &&

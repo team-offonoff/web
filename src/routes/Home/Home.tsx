@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import BottomSheet from '@components/BottomSheet/BottomSheet';
+import Text from '@components/Text/Text';
 
 import { NextIcon } from '@icons/index';
 
@@ -9,7 +10,6 @@ import useTimer from '@hooks/useTimer';
 
 import {
   BestTopicCotainer,
-  BestTopicTitle,
   Container,
   NavigateButton,
   TimerContainer,
@@ -21,7 +21,6 @@ import {
   SelectContainer,
   UserInfoContainer,
   UserProfileImage,
-  UserProfileName,
   SheetContainer,
 } from './Home.styles';
 
@@ -58,7 +57,9 @@ const Home = () => {
   return (
     <Container>
       <BestTopicCotainer>
-        <BestTopicTitle>실시간 인기토픽</BestTopicTitle>
+        <Text size={20} color="#a46ff3">
+          실시간 인기토픽
+        </Text>
       </BestTopicCotainer>
       <TopicContainer>
         <NavigateButton></NavigateButton>
@@ -76,9 +77,9 @@ const Home = () => {
       <SelectContainer></SelectContainer>
       <UserInfoContainer>
         <UserProfileImage></UserProfileImage>
-        <UserProfileName>
+        <Text size={18}>
           <b>{profileName}</b> 님의 토픽
-        </UserProfileName>
+        </Text>
       </UserInfoContainer>
       <BottomSheet open={isOpenBottomSheet} setIsOpen={setIsOpenBottomSheet}>
         <SheetContainer>바텀시트</SheetContainer>

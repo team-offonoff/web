@@ -25,13 +25,6 @@ export const BestTopicCotainer = styled.div`
   height: 28px;
 `;
 
-export const BestTopicTitle = styled.div`
-  font-size: 2rem;
-  font-weight: 400;
-  color: #a46ff3;
-  text-align: center;
-`;
-
 export const TopicContainer = styled.div`
   display: flex;
   align-items: center;
@@ -124,12 +117,4 @@ export const UserProfileImage = styled.div`
   height: 20px;
   background-color: #bcbcbc;
   border-radius: 50%;
-`;
-
-export const UserProfileName = styled.div`
-  margin-top: 2.5px;
-  font-size: 1.8rem;
-  font-weight: 400;
-  color: #fff;
-  text-align: center;
 `;
