@@ -6,7 +6,7 @@ import { Container, LoginButton, LoginButtonContainer } from './Login.styles';
 
 const Login = () => {
   const KakaoRestApiKey = import.meta.env.VITE_KAKAO_OAUTH_KEY;
-  const KakaoRedirectUri = 'http://localhost:5173/login/kakao';
+  const KakaoRedirectUri = import.meta.env.VITE_KAKAO_REDIRECT_URI;
   const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${KakaoRestApiKey}&redirect_uri=${KakaoRedirectUri}&response_type=code`;
 
   const GoogleClientID = import.meta.env.VITE_GOOGLE_OAUTH_KEY;
