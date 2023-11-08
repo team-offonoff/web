@@ -26,7 +26,7 @@ const BottomSheet = ({ open, setIsOpen, children }: BottomSheetProps) => {
     },
   };
 
-  const y = useMotionValue(0);
+  const y = useMotionValue(INITIAL);
   const height = useTransform(y, (latest) => {
     return -latest;
   });
