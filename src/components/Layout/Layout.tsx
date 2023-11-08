@@ -1,8 +1,9 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
 
+import { AlarmButton } from '@components/TopicCard/TopicCard.styles';
+
 import { AlarmIcon } from '../../assets/icons';
-import { AlarmButton } from '../../routes/Home/Home.styles';
 import BottomNavigation from '../BottomNavigation/BottomNavigation';
 
 import { Header, HeaderSection, Main, NavigationContainer, OutletContainer } from './Layout.styles';
