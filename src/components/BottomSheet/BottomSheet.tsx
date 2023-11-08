@@ -1,9 +1,8 @@
-import React from 'react';
 import { motion, PanInfo, useAnimation, useMotionValue, useTransform } from 'framer-motion';
+import React from 'react';
+import { styled } from 'styled-components';
 
 import ReactPortal from '@components/Portal/Portal';
-
-import { styled } from 'styled-components';
 
 interface BottomSheetProps {
   open: boolean;
