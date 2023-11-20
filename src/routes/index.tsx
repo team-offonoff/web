@@ -9,15 +9,20 @@ import Login from './Auth/Login';
 import Home from './Home/Home';
 
 const Router = () => {
-  const router = createBrowserRouter([
+  const [isAuthorized, setIsAuthorized] = React.useState(false);
+
+  const authorizedRoutes = [
+    {
+      index: true,
+      element: <Home />,
+    },
+  ];
+
+  const publicRoutes = [
     {
       path: '/',
       element: <Layout />,
       children: [
-        {
-          index: true,
-          element: <Home />,
-        },
         {
           path: 'login',
           element: <Login />,
@@ -32,7 +37,11 @@ const Router = () => {
         },
       ],
     },
-  ]);
+  ];
+
+  const routes = isAuthorized ? authorizedRoutes : publicRoutes;
+
+  const router = createBrowserRouter(routes);
 
   return <RouterProvider router={router} />;
 };
