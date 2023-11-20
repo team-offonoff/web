@@ -5,7 +5,8 @@ import Layout from '@components/Layout/Layout';
 
 import GoogleLogin from './Auth/google/GoogleLogin';
 import KakaoLogin from './Auth/kakao/KakaoLogin';
-import Login from './Auth/Login';
+import Login from './Auth/login/Login';
+import Signup from './Auth/signup/Signup';
 import Home from './Home/Home';
 
 const Router = () => {
@@ -13,16 +14,24 @@ const Router = () => {
 
   const authorizedRoutes = [
     {
-      index: true,
-      element: <Home />,
+      element: <Layout />,
+      children: [
+        {
+          path: '/',
+          element: <Home />,
+        },
+      ],
     },
   ];
 
   const publicRoutes = [
     {
       path: '/',
-      element: <Layout />,
       children: [
+        {
+          path: 'signup',
+          element: <Signup />,
+        },
         {
           path: 'login',
           element: <Login />,
