@@ -1,17 +1,22 @@
+import { OAuthLoginRequest, OAuthResponse } from '@interfaces/api/oauth';
+
 import client from '@apis/fetch';
 
-interface KakaoLoginResponse {
-  newMember: boolean;
-  accessToken: string;
-}
-
 export const kakaoLogin = async (authorizeCode: string) => {
-  const response = await client.post<KakaoLoginResponse>({
+  const body: OAuthLoginRequest = {
+    type: 'BY_CODE',
+    code: authorizeCode,
+    redirect_uri: import.meta.env.VITE_KAKAO_REDIRECT_URI,
+    id_token: null,
+    provider: null,
+  };
+
+  const response = await client.post<OAuthResponse>({
     path: '/oauth/kakao/authorize',
-    body: {
-      authorizeCode: authorizeCode,
-      redirectUri: import.meta.env.VITE_KAKAO_REDIRECT_URI,
+    headers: {
+      'Content-Type': 'application/json;charset=UTF-8',
     },
+    body,
   });
 
   if (response.accessToken) {
