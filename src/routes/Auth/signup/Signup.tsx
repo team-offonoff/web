@@ -8,21 +8,16 @@ import 정보입력 from './정보입력';
 
 const Signup = () => {
   const [registerData, setRegisterData] = useState();
-  const [Funnel, setStep] = useFunnel(['가입방식' | '주민번호' | '집주소' | '가입성공']);
+  const [currentStep, setCurrentStep] = useState('정보입력'); // Add currentStep state
+  const [Funnel, setStep] = useFunnel(['가입방식', '주민번호', '집주소', '가입성공']);
+  const steps = ['정보입력', '약관동의', '가입성공'];
 
   return (
-    <></>
-    // <Funnel>
-    //   <Funnel.Step name="정보입력">
-    //     <정보입력 />
-    //   </Funnel.Step>
-    //   <Funnel.Step name="약관동의">
-    //     <약관동의 />
-    //   </Funnel.Step>
-    //   <Funnel.Step name="가입성공">
-    //     <가입성공 />
-    //   </Funnel.Step>
-    // </Funnel>
+    <>
+      {currentStep === '정보입력' && <정보입력 />}
+      {currentStep === '약관동의' && <약관동의 />}
+      {currentStep === '가입성공' && <가입성공 />}
+    </>
   );
 };
 
