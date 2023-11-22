@@ -1,4 +1,4 @@
-import { OAuthLoginRequest, OAuthResponse } from '@types/api/oauth';
+import { OAuthLoginRequest, OAuthResponse } from '@interfaces/api/oauth';
 
 import client from '@apis/fetch';
 
