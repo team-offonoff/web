@@ -27,7 +27,7 @@ const BottomNavigation = () => {
         </StyledNavLink>
         <Empty />
         <StyledNavLink to={'/b'}>
-          <ABIcon />
+          <ABIcon width={26} height={26} />
           <Text size={12}>B사이드</Text>
         </StyledNavLink>
         <StyledNavLink to={'/profile'}>

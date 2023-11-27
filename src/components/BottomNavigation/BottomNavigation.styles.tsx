@@ -43,6 +43,7 @@ export const Empty = styled.div`
 export const StyledNavLink = styled(NavLink)`
   display: flex;
   flex-direction: column;
+  gap: 0.4rem;
   align-items: center;
   justify-content: space-between;
   color: inherit;
