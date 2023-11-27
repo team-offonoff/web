@@ -1,25 +1,45 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-import { ABIcon, PlusBoxIcon, ProfileIcon, SelectedHomeIcon } from '@icons/index';
+import Text from '@components/Text/Text';
 
-import { Container } from './BottomNavigation.styles';
+import { ABIcon, WriteBoxIcon, ProfileIcon, SelectedHomeIcon } from '@icons/index';
+
+import {
+  Container,
+  Empty,
+  PlusContainer,
+  RadiusContainer,
+  StyledNavLink,
+} from './BottomNavigation.styles';
 
 const BottomNavigation = () => {
   return (
     <Container>
-      <NavLink to={'/'}>
-        <SelectedHomeIcon />
-      </NavLink>
-      <NavLink to={'/ab'}>
-        <ABIcon />
-      </NavLink>
-      <NavLink to={'/write'}>
-        <PlusBoxIcon />
-      </NavLink>
-      <NavLink to={'/profile'}>
-        <ProfileIcon />
-      </NavLink>
+      <RadiusContainer>
+        <StyledNavLink to={'/'}>
+          <SelectedHomeIcon />
+          <Text size={12}>홈</Text>
+        </StyledNavLink>
+        <StyledNavLink to={'/a'}>
+          <ABIcon />
+          <Text size={12}>A사이드</Text>
+        </StyledNavLink>
+        <Empty />
+        <StyledNavLink to={'/b'}>
+          <ABIcon />
+          <Text size={12}>B사이드</Text>
+        </StyledNavLink>
+        <StyledNavLink to={'/profile'}>
+          <ProfileIcon />
+          <Text size={12}>MY</Text>
+        </StyledNavLink>
+      </RadiusContainer>
+      <StyledNavLink to={'/plus'}>
+        <PlusContainer>
+          <WriteBoxIcon />
+        </PlusContainer>
+      </StyledNavLink>
     </Container>
   );
 };
