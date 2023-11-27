@@ -8,13 +8,11 @@ import KakaoLoginIcon from './kakao-login.svg?react';
 import NextIcon from './next.svg?react';
 import PlusBoxIcon from './plus-box.svg?react';
 import ProfileIcon from './profile.svg?react';
-import WriteBoxIcon from './write-box.svg?react';
 
 export {
   SelectedHomeIcon,
   ABIcon,
   PlusBoxIcon,
-  WriteBoxIcon,
   ProfileIcon,
   AlarmIcon,
   NewAlarmIcon,
