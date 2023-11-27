@@ -6,15 +6,21 @@ export interface TextProps {
   color?: React.CSSProperties['color'];
   weight?: React.CSSProperties['fontWeight'];
   size?: number;
+  align?: React.CSSProperties['textAlign'];
   children: React.ReactNode;
 }
 
 const getFontSize = (sizeInPx: number) => `${sizeInPx / 10}rem`;
 
 const Text = (props: TextProps) => {
-  const { tagName = 'div', color = '#ffffff', weight, size, children } = props;
+  const { tagName = 'div', color = '#ffffff', align = 'start', weight, size, children } = props;
   const Tag = styled(tagName)<TextProps>`
     line-height: 140%;
+    ${({ align }) =>
+      align &&
+      css`
+        text-align: ${align};
+      `}
     ${({ color }) =>
       color &&
       css`
@@ -32,7 +38,7 @@ const Text = (props: TextProps) => {
       `}
   `;
   return (
-    <Tag color={color} weight={weight} size={size}>
+    <Tag color={color} weight={weight} size={size} align={align}>
       {children}
     </Tag>
   );
