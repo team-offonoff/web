@@ -33,10 +33,6 @@ export const RadiusContainer = styled.div`
   padding: 1.6rem 4rem 1.5rem;
   background-color: #161421;
   border-radius: 50px;
-
-  a {
-    font-size: 0;
-  }
 `;
 
 export const Empty = styled.div`
@@ -47,9 +43,8 @@ export const Empty = styled.div`
 export const StyledNavLink = styled(NavLink)`
   display: flex;
   flex-direction: column;
-  gap: 0.4rem;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   color: inherit;
   text-decoration: none;
 `;

@@ -18,11 +18,11 @@ const BottomNavigation = () => {
     <Container>
       <RadiusContainer>
         <StyledNavLink to={'/'}>
-          <SelectedHomeIcon />
+          <SelectedHomeIcon width={26} height={26} />
           <Text size={12}>홈</Text>
         </StyledNavLink>
         <StyledNavLink to={'/a'}>
-          <ABIcon />
+          <ABIcon width={26} height={26} />
           <Text size={12}>A사이드</Text>
         </StyledNavLink>
         <Empty />
@@ -31,13 +31,13 @@ const BottomNavigation = () => {
           <Text size={12}>B사이드</Text>
         </StyledNavLink>
         <StyledNavLink to={'/profile'}>
-          <ProfileIcon />
+          <ProfileIcon width={26} height={26} />
           <Text size={12}>MY</Text>
         </StyledNavLink>
       </RadiusContainer>
       <StyledNavLink to={'/plus'}>
         <PlusContainer>
-          <WriteBoxIcon />
+          <WriteBoxIcon width={26} height={26} />
         </PlusContainer>
       </StyledNavLink>
     </Container>
