@@ -1,10 +1,21 @@
 import { createGlobalStyle } from 'styled-components';
 import normalize from 'styled-normalize';
 
+import PretendardVariable from '@fonts/PretendardVariable.woff2';
+
 const styled = { createGlobalStyle };
 
 const GlobalStyle = styled.createGlobalStyle`
   ${normalize}
+
+  @font-face {
+    font-family: 'Pretendard Variable';
+    font-style: normal;
+    font-weight: 45 920;
+    src: local('Pretendard Variable'), local('Pretendard Variable');
+    src: url(${PretendardVariable}) format('woff2-variations');
+    font-display: swap;
+  }
 
   * {
     box-sizing: inherit;
@@ -12,6 +23,7 @@ const GlobalStyle = styled.createGlobalStyle`
 
   html {
     box-sizing: border-box;
+    font-family: 'Pretendard Variable', 'Noto Sans KR', sans-serif;
     font-size: 62.5%;
   }
 
