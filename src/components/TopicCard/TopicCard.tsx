@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router';
 
 import Text from '@components/Text/Text';
 
+import { colors } from '@styles/theme';
+
 import { NextIcon } from '@icons/index';
 
 import useTimer from '@hooks/useTimer';
@@ -19,6 +21,7 @@ import {
   SelectContainer,
   UserInfoContainer,
   UserProfileImage,
+  TopicCardContainer,
 } from './TopicCard.styles';
 
 const TopicCard = () => {
@@ -41,10 +44,10 @@ const TopicCard = () => {
   };
 
   return (
-    <React.Fragment>
+    <TopicCardContainer>
       <BestTopicCotainer>
-        <Text size={20} color="#a46ff3">
-          실시간 인기토픽
+        <Text size={18} color={colors.purple}>
+          실시간 인기 토픽
         </Text>
       </BestTopicCotainer>
       <TopicContainer>
@@ -69,7 +72,7 @@ const TopicCard = () => {
           <b>{profileName}</b> 님의 토픽
         </Text>
       </UserInfoContainer>
-    </React.Fragment>
+    </TopicCardContainer>
   );
 };
 

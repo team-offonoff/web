@@ -7,5 +7,5 @@ export const Container = styled.div`
   height: 100%;
   font-size: large;
   color: white;
-  background-color: #242036;
+  background-color: ${(props) => props.theme.colors.navy};
 `;

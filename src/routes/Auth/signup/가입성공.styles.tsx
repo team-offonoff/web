@@ -6,7 +6,7 @@ export const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   height: 100vh;
-  background-color: #242036;
+  background-color: ${(props) => props.theme.colors.navy};
 `;
 
 export const NextButton = styled.button`

@@ -19,7 +19,7 @@ export const PlusContainer = styled.div`
   height: 56px;
   padding: 1.5rem;
   background-color: #161421;
-  border-color: #4d3b7c;
+  border-color: ${(props) => props.theme.colors.navy2};
   border-style: solid;
   border-width: 1px;
   border-radius: 50%;

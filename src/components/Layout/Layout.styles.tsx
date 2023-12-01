@@ -22,7 +22,7 @@ export const Header = styled.header`
   width: 100%;
   height: 48px;
   padding: 0 20px;
-  background-color: #242036;
+  background-color: ${(props) => props.theme.colors.navy};
 `;
 
 export const HeaderSection = styled.div``;
