@@ -1,5 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router';
+import { useSwiper } from 'swiper/react';
 
 import Text from '@components/Text/Text';
 import Timer from '@components/Timer/Timer';
@@ -29,10 +30,6 @@ const TopicCard = () => {
 
   const navigate = useNavigate();
 
-  const handleNextButton = () => {
-    /*다음토픽으로 이동*/
-  };
-
   const handleSkipButton = () => {
     /*현재토픽 skip 후 다음토픽 으로 이동*/
     navigate('/login');
@@ -46,13 +43,7 @@ const TopicCard = () => {
         </Text>
       </BestTopicCotainer>
       <TopicContainer>
-        <NavigateButton>
-          <NextIcon style={{ transform: 'rotate(180deg)' }} />
-        </NavigateButton>
         <Topic>{topic}</Topic>
-        <NavigateButton onClick={handleNextButton}>
-          <NextIcon />
-        </NavigateButton>
       </TopicContainer>
       <SkipButtonContainer>
         <SkipButton onClick={handleSkipButton}>이런 토픽은 안볼래요</SkipButton>

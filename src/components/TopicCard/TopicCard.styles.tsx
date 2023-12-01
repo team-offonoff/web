@@ -29,7 +29,7 @@ export const TopicContainer = styled.div`
   box-sizing: border-box;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   width: 100%;
   height: 68px;
   padding: 0 12px;
