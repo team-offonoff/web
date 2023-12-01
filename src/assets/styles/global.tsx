@@ -14,7 +14,7 @@ const GlobalStyle = styled.createGlobalStyle`
     font-weight: 45 920;
     src: local('Pretendard Variable'), local('Pretendard Variable');
     src: url(${PretendardVariable}) format('woff2-variations');
-    font-display: swap;
+    font-display: fallback;
   }
 
   * {
