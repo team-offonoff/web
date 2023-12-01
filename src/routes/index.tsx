@@ -1,5 +1,5 @@
 import React from 'react';
-import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import { RouteObject, RouterProvider, createBrowserRouter } from 'react-router-dom';
 
 import Layout from '@components/Layout/Layout';
 
@@ -12,19 +12,19 @@ import Home from './Home/Home';
 const Router = () => {
   const [isAuthorized, setIsAuthorized] = React.useState(true);
 
-  const authorizedRoutes = [
+  const authorizedRoutes: RouteObject[] = [
     {
-      element: <Layout />,
+      path: '/',
       children: [
         {
-          path: '/',
+          index: true,
           element: <Home />,
         },
       ],
     },
   ];
 
-  const publicRoutes = [
+  const publicRoutes: RouteObject[] = [
     {
       path: '/',
       children: [

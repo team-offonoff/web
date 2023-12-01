@@ -13,7 +13,7 @@ export interface TextProps {
 
 const getFontSize = (sizeInPx: number) => `${sizeInPx / 10}rem`;
 
-const Text = (props: TextProps) => {
+const Text = React.memo((props: TextProps) => {
   const {
     tagName = 'div',
     color = '#ffffff',
@@ -23,39 +23,48 @@ const Text = (props: TextProps) => {
     size,
     children,
   } = props;
-  const Tag = styled(tagName)<TextProps>`
-    line-height: 140%;
-    ${({ lineHeight }) =>
-      lineHeight &&
-      css`
-        line-height: ${lineHeight};
-      `}
-    ${({ align }) =>
-      align &&
-      css`
-        text-align: ${align};
-      `}
-    ${({ color }) =>
-      color &&
-      css`
-        color: ${color};
-      `}
-    ${({ weight }) =>
-      weight &&
-      css`
-        font-weight: ${weight};
-      `}
-   ${({ size }) =>
-      size &&
-      css`
-        font-size: ${getFontSize(size)};
-      `}
-  `;
+
   return (
-    <Tag color={color} weight={weight} size={size} align={align} lineHeight={lineHeight}>
+    <Tag
+      as={tagName}
+      color={color}
+      weight={weight}
+      size={size}
+      align={align}
+      lineHeight={lineHeight}
+    >
       {children}
     </Tag>
   );
-};
+});
+
+const Tag = styled.div<TextProps>`
+  line-height: 140%;
+  ${({ lineHeight }) =>
+    lineHeight &&
+    css`
+      line-height: ${lineHeight};
+    `}
+  ${({ align }) =>
+    align &&
+    css`
+      text-align: ${align};
+    `}
+    ${({ color }) =>
+    color &&
+    css`
+      color: ${color};
+    `}
+    ${({ weight }) =>
+    weight &&
+    css`
+      font-weight: ${weight};
+    `}
+   ${({ size }) =>
+    size &&
+    css`
+      font-size: ${getFontSize(size)};
+    `}
+`;
 
 export default Text;

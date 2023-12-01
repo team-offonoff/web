@@ -27,7 +27,7 @@ export const Header = styled.header`
 
 export const HeaderSection = styled.div``;
 
-export const OutletContainer = styled.div`
+export const ChildrenContainer = styled.div`
   flex: 1;
 `;
 

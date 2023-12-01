@@ -1,33 +1,39 @@
 import React from 'react';
-import { Outlet } from 'react-router-dom';
 
-import { AlarmButton } from '@components/TopicCard/TopicCard.styles';
-
-import { AlarmIcon } from '../../assets/icons';
 import BottomNavigation from '../BottomNavigation/BottomNavigation';
 
-import { Header, HeaderSection, Main, NavigationContainer, OutletContainer } from './Layout.styles';
+import {
+  ChildrenContainer,
+  Header,
+  HeaderSection,
+  Main,
+  NavigationContainer,
+} from './Layout.styles';
 
-interface LayoutProps {}
+interface LayoutProps {
+  HeaderLeft?: () => React.ReactNode;
+  HeaderCenter?: () => React.ReactNode;
+  HeaderRight?: () => React.ReactNode;
+  hasBottomNavigation?: boolean;
+  children: React.ReactNode;
+}
 
-const Layout = ({}: LayoutProps) => {
+const Layout = (props: LayoutProps) => {
+  const { HeaderLeft, HeaderCenter, HeaderRight, hasBottomNavigation = true, children } = props;
+
   return (
     <Main>
       <Header>
-        <HeaderSection></HeaderSection>
-        <HeaderSection></HeaderSection>
-        <HeaderSection>
-          <AlarmButton>
-            <AlarmIcon />
-          </AlarmButton>
-        </HeaderSection>
+        <HeaderSection>{HeaderLeft && <HeaderLeft />}</HeaderSection>
+        <HeaderSection>{HeaderCenter && <HeaderCenter />}</HeaderSection>
+        <HeaderSection>{HeaderRight && <HeaderRight />}</HeaderSection>
       </Header>
-      <OutletContainer>
-        <Outlet />
-      </OutletContainer>
-      <NavigationContainer>
-        <BottomNavigation />
-      </NavigationContainer>
+      <ChildrenContainer>{children}</ChildrenContainer>
+      {hasBottomNavigation && (
+        <NavigationContainer>
+          <BottomNavigation />
+        </NavigationContainer>
+      )}
     </Main>
   );
 };
