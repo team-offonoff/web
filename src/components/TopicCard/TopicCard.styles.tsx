@@ -46,13 +46,6 @@ export const Topic = styled.div`
   letter-spacing: 0.2px;
 `;
 
-export const NavigateButton = styled.button`
-  width: 40px;
-  height: 40px;
-  cursor: pointer;
-  background-color: transparent;
-`;
-
 export const SkipButtonContainer = styled.div`
   display: flex;
   align-items: center;

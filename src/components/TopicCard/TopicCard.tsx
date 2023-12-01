@@ -1,18 +1,14 @@
 import React from 'react';
 import { useNavigate } from 'react-router';
-import { useSwiper } from 'swiper/react';
 
 import Text from '@components/Text/Text';
 import Timer from '@components/Timer/Timer';
 
 import { colors } from '@styles/theme';
 
-import { NextIcon } from '@icons/index';
-
 import {
   BestTopicCotainer,
   TopicContainer,
-  NavigateButton,
   Topic,
   SkipButtonContainer,
   SkipButton,
