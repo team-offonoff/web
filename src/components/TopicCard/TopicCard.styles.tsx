@@ -17,12 +17,6 @@ export const SheetContainer = styled.div`
   border-radius: 20px 20px 0 0;
 `;
 
-export const AlarmButton = styled.button`
-  width: 24px;
-  height: 24px;
-  cursor: pointer;
-`;
-
 export const BestTopicCotainer = styled.div`
   display: flex;
   align-items: center;
