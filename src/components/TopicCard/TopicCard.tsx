@@ -1,13 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router';
 
 import Text from '@components/Text/Text';
+import Timer from '@components/Timer/Timer';
 
 import { colors } from '@styles/theme';
 
 import { NextIcon } from '@icons/index';
-
-import useTimer from '@hooks/useTimer';
 
 import {
   BestTopicCotainer,
@@ -16,8 +15,6 @@ import {
   Topic,
   SkipButtonContainer,
   SkipButton,
-  TimerContainer,
-  Timer,
   SelectContainer,
   UserInfoContainer,
   UserProfileImage,
@@ -25,14 +22,12 @@ import {
 } from './TopicCard.styles';
 
 const TopicCard = () => {
-  const futureTime = 1696431600000 + 1000 * 60 * 60 * 24 * 16 + 1000 * 60 * 60 * 18;
   const profileName = '체리체리체리체리';
   const topic = '10년전 또는 후로 갈 수 있다면?';
+  const endTime = new Date();
+  endTime.setHours(endTime.getHours() + 4);
 
   const navigate = useNavigate();
-  const timer = useTimer({
-    endTime: futureTime,
-  });
 
   const handleNextButton = () => {
     /*다음토픽으로 이동*/
@@ -62,9 +57,7 @@ const TopicCard = () => {
       <SkipButtonContainer>
         <SkipButton onClick={handleSkipButton}>이런 토픽은 안볼래요</SkipButton>
       </SkipButtonContainer>
-      <TimerContainer>
-        <Timer isLessThanOneHour={timer.isLessThanOneHour}>{timer.displayTime}</Timer>
-      </TimerContainer>
+      <Timer endTime={endTime.getTime()} />
       <SelectContainer></SelectContainer>
       <UserInfoContainer>
         <UserProfileImage></UserProfileImage>
