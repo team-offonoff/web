@@ -10,7 +10,7 @@ import Signup from './Auth/signup/Signup';
 import Home from './Home/Home';
 
 const Router = () => {
-  const [isAuthorized, setIsAuthorized] = React.useState(false);
+  const [isAuthorized, setIsAuthorized] = React.useState(true);
 
   const authorizedRoutes = [
     {

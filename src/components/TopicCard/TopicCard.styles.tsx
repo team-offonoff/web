@@ -2,7 +2,13 @@ import { styled } from 'styled-components';
 
 export const Container = styled.div`
   height: 100%;
-  background-color: #242036;
+  background-color: ${(props) => props.theme.colors.navy};
+`;
+
+export const TopicCardContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 `;
 
 export const SheetContainer = styled.div`
@@ -90,7 +96,7 @@ export const Timer = styled.div<{ isLessThanOneHour: boolean }>`
   font-weight: 700;
   color: ${(props) => (props.isLessThanOneHour ? '#3C3457' : 'rgb(255 255 255 / 40%)')};
   text-align: center;
-  background-color: ${(props) => (props.isLessThanOneHour ? '#A46FF3' : '#3c3457')};
+  background-color: ${(props) => (props.isLessThanOneHour ? props.theme.colors.purple : '#3c3457')};
   border-radius: 50px;
 `;
 
