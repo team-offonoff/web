@@ -29,7 +29,7 @@ export const TopicContainer = styled.div`
   box-sizing: border-box;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   width: 100%;
   height: 68px;
   padding: 0 12px;
@@ -44,13 +44,6 @@ export const Topic = styled.div`
   color: #fff;
   text-align: center;
   letter-spacing: 0.2px;
-`;
-
-export const NavigateButton = styled.button`
-  width: 40px;
-  height: 40px;
-  cursor: pointer;
-  background-color: transparent;
 `;
 
 export const SkipButtonContainer = styled.div`

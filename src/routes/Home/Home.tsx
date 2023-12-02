@@ -7,6 +7,7 @@ import 'swiper/css/scrollbar';
 import NotificationButton from '@components/Header/NotificationButton/NotificationButton';
 import Layout from '@components/Layout/Layout';
 import TopicCard from '@components/TopicCard/TopicCard';
+import TopicSwiper from '@components/TopicSwiper/TopicSwiper';
 
 import { Container } from './Home.styles';
 
@@ -14,20 +15,11 @@ const Home = () => {
   return (
     <Layout HeaderRight={() => <NotificationButton />}>
       <Container>
-        <Swiper spaceBetween={0} slidesPerView={1} style={{ height: '100%' }}>
-          <SwiperSlide>
-            <TopicCard />
-          </SwiperSlide>
-          <SwiperSlide>
-            <TopicCard />
-          </SwiperSlide>
-          <SwiperSlide>
-            <TopicCard />
-          </SwiperSlide>
-          <SwiperSlide>
-            <TopicCard />
-          </SwiperSlide>
-        </Swiper>
+        <TopicSwiper>
+          <TopicCard />
+          <TopicCard />
+          <TopicCard />
+        </TopicSwiper>
       </Container>
     </Layout>
   );
