@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router';
+import { Swiper, SwiperSlide } from 'swiper/react';
 
+import ChoiceSlide from '@components/ChoiceSlide/ChoiceSlide';
 import CommentBox from '@components/CommentBox/CommentBox';
 import Text from '@components/Text/Text';
 import Timer from '@components/Timer/Timer';
@@ -40,6 +42,24 @@ const TopicCard = () => {
       <TopicContainer>
         <Topic>{topic}</Topic>
       </TopicContainer>
+      <UserInfoContainer>
+        <UserProfileImage></UserProfileImage>
+        <Text size={14} weight={'regular'} color={colors.white_60}>
+          {profileName}
+        </Text>
+      </UserInfoContainer>
+      <SelectContainer
+        drag="x"
+        dragElastic={0}
+        dragConstraints={{
+          left: -800,
+          right: 400,
+        }}
+        dragTransition={{ bounceStiffness: 400, bounceDamping: 40 }}
+      >
+        <ChoiceSlide side={'A'} />
+        <ChoiceSlide side={'B'} />
+      </SelectContainer>
       <UserInfoContainer>
         <UserProfileImage></UserProfileImage>
         <Text size={14} weight={'regular'} color={colors.white_60}>
