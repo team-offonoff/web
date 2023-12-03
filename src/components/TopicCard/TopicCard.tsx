@@ -1,6 +1,9 @@
+import { motion } from 'framer-motion';
 import React from 'react';
 import { useNavigate } from 'react-router';
+import { Swiper, SwiperSlide } from 'swiper/react';
 
+import ChoiceSlide from '@components/ChoiceSlide/ChoiceSlide';
 import Text from '@components/Text/Text';
 import Timer from '@components/Timer/Timer';
 
@@ -45,7 +48,18 @@ const TopicCard = () => {
         <SkipButton onClick={handleSkipButton}>이런 토픽은 안볼래요</SkipButton>
       </SkipButtonContainer>
       <Timer endTime={endTime.getTime()} />
-      <SelectContainer></SelectContainer>
+      <SelectContainer
+        drag="x"
+        dragElastic={0}
+        dragConstraints={{
+          left: -800,
+          right: 400,
+        }}
+        dragTransition={{ bounceStiffness: 400, bounceDamping: 40 }}
+      >
+        <ChoiceSlide side={'A'} />
+        <ChoiceSlide side={'B'} />
+      </SelectContainer>
       <UserInfoContainer>
         <UserProfileImage></UserProfileImage>
         <Text size={18}>
