@@ -1,6 +1,8 @@
 import React from 'react';
 import { styled } from 'styled-components';
 
+import { colors } from '@styles/theme';
+
 import useTimer from '@hooks/useTimer';
 
 interface TimerProps {
@@ -25,18 +27,19 @@ export const TimerContainer = styled.div`
   justify-content: center;
   width: 100%;
   height: 37px;
-  margin-top: 37px;
 `;
 
 export const TimerChip = styled.div<{ isLessThanOneHour: boolean }>`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 115px;
-  height: 37px;
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: ${(props) => (props.isLessThanOneHour ? '#3C3457' : 'rgb(255 255 255 / 40%)')};
+  width: 112px;
+  height: 30px;
+  padding: 2px 0 0;
+  font-family: 'Montserrat Medium', 'Noto Sans KR', sans-serif;
+  font-size: 1.6rem;
+  line-height: 0%;
+  color: ${(props) => (props.isLessThanOneHour ? colors.navy2 : 'rgba(255, 255, 255, 0.80)')};
   text-align: center;
   background-color: ${(props) => (props.isLessThanOneHour ? props.theme.colors.purple : '#3c3457')};
   border-radius: 50px;
