@@ -1,4 +1,3 @@
-import { motion } from 'framer-motion';
 import { styled } from 'styled-components';
 
 export const Container = styled.div`
@@ -10,7 +9,6 @@ export const TopicCardContainer = styled.div`
   display: flex;
   flex-direction: column;
   height: 100%;
-  overflow: hidden;
 `;
 
 export const SheetContainer = styled.div`
@@ -66,15 +64,13 @@ export const SkipButton = styled.button`
   cursor: pointer;
 `;
 
-export const SelectContainer = styled(motion.div)`
-  position: relative;
+export const SelectContainer = styled.div`
   display: flex;
-  gap: 15px;
+  align-items: center;
   justify-content: center;
-  width: max-content;
-  padding: 36px 0;
-  margin: 7px 0 19px;
-  overflow: hidden;
+  width: 100%;
+  height: 188px;
+  margin-top: 37px;
 `;
 
 export const UserInfoContainer = styled.div`
