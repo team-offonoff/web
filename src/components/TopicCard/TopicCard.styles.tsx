@@ -74,11 +74,10 @@ export const SelectContainer = styled(motion.div)`
   display: flex;
   gap: 15px;
   justify-content: center;
-  height: 220px;
-  width: 100%;
-  height: 220px;
-  margin-top: 20px;
-  margin-bottom: 7px;
+  width: max-content;
+  padding: 36px 0;
+  margin: 19px 0 7px;
+  overflow: hidden;
 `;
 
 export const UserInfoContainer = styled.div`
