@@ -1,11 +1,13 @@
 import styled from 'styled-components';
 
 const SlideContainer = styled.div`
+  position: relative;
   display: flex;
   align-items: center;
   width: 325px;
   height: 148px;
   padding: 0 44px;
+  overflow: hidden;
 `;
 
 export const AlphaSideContainer = styled(SlideContainer)`
