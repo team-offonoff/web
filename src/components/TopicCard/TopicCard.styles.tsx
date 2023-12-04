@@ -1,5 +1,7 @@
 import { styled } from 'styled-components';
 
+import { colors } from '@styles/theme';
+
 export const Container = styled.div`
   height: 100%;
   background-color: ${(props) => props.theme.colors.navy};
@@ -8,6 +10,7 @@ export const Container = styled.div`
 export const TopicCardContainer = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: center;
   height: 100%;
 `;
 
@@ -22,7 +25,7 @@ export const BestTopicCotainer = styled.div`
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 28px;
+  height: 25px;
 `;
 
 export const TopicContainer = styled.div`
@@ -33,7 +36,7 @@ export const TopicContainer = styled.div`
   width: 100%;
   height: 68px;
   padding: 0 12px;
-  margin-top: 12px;
+  margin-top: 20px;
 `;
 
 export const Topic = styled.div`
@@ -46,31 +49,14 @@ export const Topic = styled.div`
   letter-spacing: 0.2px;
 `;
 
-export const SkipButtonContainer = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  margin-top: 4px;
-  cursor: pointer;
-`;
-
-export const SkipButton = styled.button`
-  font-size: 1.3rem;
-  font-weight: 400;
-  color: rgb(255 255 255 / 40%);
-  text-align: center;
-  text-decoration: underline;
-  cursor: pointer;
-`;
-
 export const SelectContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 188px;
-  margin-top: 37px;
+  height: 220px;
+  margin-top: 20px;
+  margin-bottom: 7px;
 `;
 
 export const UserInfoContainer = styled.div`
@@ -80,12 +66,21 @@ export const UserInfoContainer = styled.div`
   justify-content: center;
   width: 100%;
   height: 25px;
-  margin-top: 49px;
+  margin-top: 4px;
 `;
 
 export const UserProfileImage = styled.div`
   width: 20px;
   height: 20px;
-  background-color: #bcbcbc;
+  background-color: #555;
   border-radius: 50%;
+`;
+
+export const SelectTextContainer = styled.div`
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  justify-content: space-between;
+  height: 25px;
+  margin: 4px 0 0;
 `;

@@ -1,35 +1,34 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router';
 
+import CommentBox from '@components/CommentBox/CommentBox';
 import Text from '@components/Text/Text';
 import Timer from '@components/Timer/Timer';
 
 import { colors } from '@styles/theme';
 
+import { LeftDoubleArrowIcon, MeatballIcon, RightDoubleArrowIcon } from '@icons/index';
+
 import {
   BestTopicCotainer,
   TopicContainer,
   Topic,
-  SkipButtonContainer,
-  SkipButton,
   SelectContainer,
   UserInfoContainer,
   UserProfileImage,
   TopicCardContainer,
+  SelectTextContainer,
 } from './TopicCard.styles';
 
 const TopicCard = () => {
-  const profileName = '체리체리체리체리';
+  const [hasVoted, setHasVoted] = useState(false);
+
+  const profileName = '닉네임닉네임';
   const topic = '10년전 또는 후로 갈 수 있다면?';
   const endTime = new Date();
   endTime.setHours(endTime.getHours() + 4);
 
   const navigate = useNavigate();
-
-  const handleSkipButton = () => {
-    /*현재토픽 skip 후 다음토픽 으로 이동*/
-    navigate('/login');
-  };
 
   return (
     <TopicCardContainer>
@@ -41,17 +40,29 @@ const TopicCard = () => {
       <TopicContainer>
         <Topic>{topic}</Topic>
       </TopicContainer>
-      <SkipButtonContainer>
-        <SkipButton onClick={handleSkipButton}>이런 토픽은 안볼래요</SkipButton>
-      </SkipButtonContainer>
-      <Timer endTime={endTime.getTime()} />
-      <SelectContainer></SelectContainer>
       <UserInfoContainer>
         <UserProfileImage></UserProfileImage>
-        <Text size={18}>
-          <b>{profileName}</b> 님의 토픽
+        <Text size={14} weight={'regular'} color={colors.white_60}>
+          {profileName}
         </Text>
       </UserInfoContainer>
+      <SelectContainer></SelectContainer>
+      <Timer endTime={endTime.getTime()} />
+      <SelectTextContainer>
+        <LeftDoubleArrowIcon />
+        <Text size={14} weight={'regular'} color={colors.white_40}>
+          밀어서 선택하기
+        </Text>
+        <RightDoubleArrowIcon />
+      </SelectTextContainer>
+      <CommentBox
+        hasVoted={hasVoted}
+        side={'A'}
+        keyword={'키워드'}
+        commentCount={0}
+        voteCount={0}
+        topComment={'top comment here!'}
+      />
     </TopicCardContainer>
   );
 };
