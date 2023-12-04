@@ -23,6 +23,11 @@ import {
 } from './TopicCard.styles';
 
 const TopicCard = () => {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  const controls = useAnimation();
+  const navigate = useNavigate();
+  const [containerWidth, setContainerWidth] = useState(0);
   const [hasVoted, setHasVoted] = useState(false);
 
   const profileName = '닉네임닉네임';
@@ -50,15 +55,12 @@ const TopicCard = () => {
     if (info.velocity.x < 0 && info.offset.x < -(containerWidth / 2 + 7.5)) {
       // B 슬라이드
       controls.start('B');
+      setHasVoted(true);
     } else if (info.velocity.x > 0 && info.offset.x > containerWidth / 2 + 7.5) {
       // A 슬라이드
       controls.start('A');
+      setHasVoted(true);
     }
-  };
-
-  const handleSkipButton = () => {
-    /*현재토픽 skip 후 다음토픽 으로 이동*/
-    navigate('/login');
   };
 
   return (
@@ -77,25 +79,29 @@ const TopicCard = () => {
           {profileName}
         </Text>
       </UserInfoContainer>
-      <SelectContainer
-        drag="x"
-        dragElastic={0}
-        dragConstraints={{
-          left: -800,
-          right: 400,
-        }}
-        dragTransition={{ bounceStiffness: 400, bounceDamping: 40 }}
-      >
-        <ChoiceSlide side={'A'} />
-        <ChoiceSlide side={'B'} />
-      </SelectContainer>
-      <UserInfoContainer>
-        <UserProfileImage></UserProfileImage>
-        <Text size={14} weight={'regular'} color={colors.white_60}>
-          {profileName}
-        </Text>
-      </UserInfoContainer>
-      <SelectContainer></SelectContainer>
+      {hasVoted ? (
+        <div>선택 완료</div> // TODO: 선택 완료 컴포넌트
+      ) : (
+        <SelectContainer
+          animate={controls}
+          drag="x"
+          // initial={{ translateX: `${containerWidth / 2 - 420.5}px` }}
+          onDragEnd={handleDragEnd}
+          variants={variants}
+          dragSnapToOrigin={true}
+          dragConstraints={
+            {
+              // left: -(containerWidth / 2 + 7.5), // -(413 + 15 - contain erWidth / 2 - 420.5)
+              // right: containerWidth / 2 + 7.5, // 413 + 15 - 236
+            }
+          }
+          dragElastic={0.1}
+          dragTransition={{ bounceStiffness: 200, bounceDamping: 20 }}
+        >
+          <ChoiceSlide side={'A'} />
+          <ChoiceSlide side={'B'} />
+        </SelectContainer>
+      )}
       <Timer endTime={endTime.getTime()} />
       <SelectTextContainer>
         <LeftDoubleArrowIcon />
