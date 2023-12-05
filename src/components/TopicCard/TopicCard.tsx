@@ -30,6 +30,10 @@ const TopicCard = () => {
   const endTime = new Date();
   endTime.setHours(endTime.getHours() + 4);
 
+  const handleOnVote = (choiceId: number) => {
+    setHasVoted(true);
+  };
+
   return (
     <TopicCardContainer>
       <BestTopicCotainer>
@@ -49,7 +53,7 @@ const TopicCard = () => {
       {hasVoted ? (
         <div>선택 완료</div> // TODO: 선택 완료 컴포넌트
       ) : (
-        <ChoiceSlider />
+        <ChoiceSlider onVote={handleOnVote} />
       )}
       <Timer endTime={endTime.getTime()} />
       <SelectTextContainer>

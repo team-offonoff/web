@@ -4,13 +4,15 @@ import styled from 'styled-components';
 
 import ChoiceSlide from '@components/ChoiceSlide/ChoiceSlide';
 
-interface ChoiceSliderProps {}
+interface ChoiceSliderProps {
+  onVote: (choiceId: number) => void;
+}
 
 const getScreenWidth = () => {
   return window.innerWidth > 512 ? 512 : window.innerWidth;
 };
 
-const ChoiceSlider = () => {
+const ChoiceSlider = ({ onVote }: ChoiceSliderProps) => {
   const screenWidth = getScreenWidth();
 
   const controls = useAnimation();
@@ -27,14 +29,14 @@ const ChoiceSlider = () => {
   };
 
   const handleDragEnd = (_: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
-    if (info.velocity.x < 0 && info.offset.x < -(screenWidth / 2 + 7.5)) {
-      // B 슬라이드
-      controls.start('B');
-      //   setHasVoted(true);
-    } else if (info.velocity.x > 0 && info.offset.x > screenWidth / 2 + 7.5) {
+    if (info.velocity.x > 0 && info.offset.x > screenWidth / 2 + 7.5) {
       // A 슬라이드
       controls.start('A');
-      //   setHasVoted(true);
+      onVote(0);
+    } else if (info.velocity.x < 0 && info.offset.x < -(screenWidth / 2 + 7.5)) {
+      // B 슬라이드
+      controls.start('B');
+      onVote(1);
     }
   };
 
