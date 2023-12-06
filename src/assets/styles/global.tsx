@@ -1,7 +1,8 @@
-import MontserratMedium from '@fonts/MontserratMedium.woff2';
-import PretendardVariable from '@fonts/PretendardVariable.woff2';
 import { createGlobalStyle } from 'styled-components';
 import normalize from 'styled-normalize';
+
+import MontserratMedium from '@fonts/MontserratMedium.woff2';
+import PretendardVariable from '@fonts/PretendardVariable.woff2';
 
 const styled = { createGlobalStyle };
 
