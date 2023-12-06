@@ -7,6 +7,7 @@ import ChoiceSlider from '@components/ChoiceSlider/ChoiceSlider';
 import CommentBox from '@components/CommentBox/CommentBox';
 import Text from '@components/Text/Text';
 import Timer from '@components/Timer/Timer';
+import { TopicResponse } from '@interfaces/api/topic';
 
 import { colors } from '@styles/theme';
 
@@ -25,8 +26,48 @@ import {
 const TopicCard = () => {
   const [hasVoted, setHasVoted] = useState(false);
 
-  const profileName = '닉네임닉네임';
-  const topic = '10년전 또는 후로 갈 수 있다면?';
+  const data: TopicResponse = {
+    topicId: 1,
+    topicSide: 'left',
+    topicTitle: 'Example Topic',
+    deadline: null,
+    voteCount: 10,
+    topicContent: 'topicContent',
+    keywords: [
+      {
+        keywordId: 1,
+        keywordName: 'keyword1',
+        topicSide: 'left',
+      },
+      {
+        keywordId: 2,
+        keywordName: 'keyword2',
+        topicSide: 'right',
+      },
+    ],
+    choices: [
+      {
+        choiceId: 1,
+        content: {
+          text: 'Choice 1',
+          imageUrl: 'https://example.com/image1.jpg',
+          type: 'image',
+        },
+        choiceOption: 'A',
+      },
+      {
+        choiceId: 2,
+        content: {
+          text: 'Choice 2',
+          imageUrl: undefined,
+          type: 'text',
+        },
+        choiceOption: 'B',
+      },
+    ],
+    author: 'jinhoda',
+  };
+
   const endTime = new Date();
   endTime.setHours(endTime.getHours() + 4);
 
@@ -42,18 +83,18 @@ const TopicCard = () => {
         </Text>
       </BestTopicCotainer>
       <TopicContainer>
-        <Topic>{topic}</Topic>
+        <Topic>{data.topicTitle}</Topic>
       </TopicContainer>
       <UserInfoContainer>
         <UserProfileImage></UserProfileImage>
         <Text size={14} weight={'regular'} color={colors.white_60}>
-          {profileName}
+          {data.author}
         </Text>
       </UserInfoContainer>
       {hasVoted ? (
         <div>선택 완료</div> // TODO: 선택 완료 컴포넌트
       ) : (
-        <ChoiceSlider onVote={handleOnVote} choices={[]} />
+        <ChoiceSlider onVote={handleOnVote} choices={data.choices} />
       )}
       <Timer endTime={endTime.getTime()} />
       <SelectTextContainer>
