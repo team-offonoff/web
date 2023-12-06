@@ -2,6 +2,7 @@ import { PanInfo, motion, useAnimation } from 'framer-motion';
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router';
 
+import ChoicedCard from '@components/ChoicedCard/ChoicedCard';
 import ChoiceSlide from '@components/ChoiceSlide/ChoiceSlide';
 import ChoiceSlider from '@components/ChoiceSlider/ChoiceSlider';
 import CommentBox from '@components/CommentBox/CommentBox';
@@ -92,7 +93,7 @@ const TopicCard = () => {
         </Text>
       </UserInfoContainer>
       {hasVoted ? (
-        <div>선택 완료</div> // TODO: 선택 완료 컴포넌트
+        <ChoicedCard side={'A'} />
       ) : (
         <ChoiceSlider onVote={handleOnVote} choices={data.choices} />
       )}
