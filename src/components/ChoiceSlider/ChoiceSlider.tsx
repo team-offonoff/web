@@ -3,19 +3,23 @@ import React from 'react';
 import styled from 'styled-components';
 
 import ChoiceSlide from '@components/ChoiceSlide/ChoiceSlide';
+import { Choice } from '@interfaces/api/topic';
 
 interface ChoiceSliderProps {
   onVote: (choiceId: number) => void;
+  choices: Choice[];
 }
 
 const getScreenWidth = () => {
   return window.innerWidth > 512 ? 512 : window.innerWidth;
 };
 
-const ChoiceSlider = ({ onVote }: ChoiceSliderProps) => {
+const ChoiceSlider = ({ onVote, choices }: ChoiceSliderProps) => {
   const screenWidth = getScreenWidth();
 
   const controls = useAnimation();
+
+  const [A, B] = choices;
 
   const variants = {
     A: {
@@ -51,8 +55,8 @@ const ChoiceSlider = ({ onVote }: ChoiceSliderProps) => {
       dragTransition={{ bounceStiffness: 200, bounceDamping: 20 }}
       transition={{ ease: 'easeOut' }}
     >
-      <ChoiceSlide side={'A'} />
-      <ChoiceSlide side={'B'} />
+      <ChoiceSlide side={'A'} topicContent={A.content} />
+      <ChoiceSlide side={'B'} topicContent={B.content} />
     </SelectContainer>
   );
 };

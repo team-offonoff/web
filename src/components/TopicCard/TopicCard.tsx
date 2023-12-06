@@ -53,7 +53,7 @@ const TopicCard = () => {
       {hasVoted ? (
         <div>선택 완료</div> // TODO: 선택 완료 컴포넌트
       ) : (
-        <ChoiceSlider onVote={handleOnVote} />
+        <ChoiceSlider onVote={handleOnVote} choices={[]} />
       )}
       <Timer endTime={endTime.getTime()} />
       <SelectTextContainer>
