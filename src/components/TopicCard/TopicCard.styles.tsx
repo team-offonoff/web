@@ -69,17 +69,6 @@ export const SkipButton = styled.button`
   cursor: pointer;
 `;
 
-export const SelectContainer = styled(motion.div)`
-  position: relative;
-  display: flex;
-  gap: 15px;
-  justify-content: center;
-  width: max-content;
-  padding: 36px 0;
-  margin: 19px 0 7px;
-  overflow: hidden;
-`;
-
 export const UserInfoContainer = styled.div`
   display: flex;
   gap: 8px;
