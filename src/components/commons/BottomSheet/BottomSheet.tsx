@@ -40,6 +40,10 @@ const BottomSheet = ({ open, setIsOpen, children }: BottomSheetProps) => {
     }
   };
 
+  if (!open) {
+    return <></>;
+  }
+
   return (
     <ReactPortal>
       <Wrapper
@@ -68,6 +72,7 @@ export const Wrapper = styled(motion.div)`
   position: fixed;
   right: 0;
   left: 0;
+  z-index: ${(props) => props.theme.zIndex.sheet};
   max-width: 512px;
   height: 100vh;
   margin: 0 auto;
