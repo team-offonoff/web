@@ -27,6 +27,14 @@ export const KeywordContainer = styled.div`
   justify-content: flex-start;
 `;
 
+export const CommnetBodyContainer = styled.div`
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+`;
+
 export const CommentInfoContainer = styled.div`
   display: flex;
   gap: 12px;

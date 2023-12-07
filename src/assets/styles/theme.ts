@@ -14,8 +14,16 @@ export const colors = {
   white_80: 'rgba(255, 255, 255, 0.80)',
 };
 
+export const zIndex = {
+  navigation: 100,
+  modal: 200,
+  toast: 300,
+  sheet: 400,
+};
+
 export type ColorsTypes = typeof colors;
 
 export const theme: DefaultTheme = {
   colors,
+  zIndex,
 };
