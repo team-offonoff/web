@@ -1,5 +1,5 @@
 import { motion, PanInfo, useAnimation, useMotionValue, useTransform } from 'framer-motion';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { styled } from 'styled-components';
 
 import ReactPortal from '@components/commons/Portal/Portal';
@@ -7,38 +7,74 @@ import ReactPortal from '@components/commons/Portal/Portal';
 interface BottomSheetProps {
   open: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  snapPoints?: number[];
+  initialSnap?: number;
   children: React.ReactNode;
 }
 
-const BottomSheet = ({ open, setIsOpen, children }: BottomSheetProps) => {
-  const VISIBLE = 600;
-  const HIDDEN = 200;
-  const INITIAL = HIDDEN;
-  const variants = {
-    visible: {
-      y: -600,
-    },
-    hidden: {
-      y: -200,
-    },
-    closed: {
-      y: 0,
-    },
-  };
+const BottomSheet = ({
+  open,
+  setIsOpen,
+  snapPoints = [0.9, 0.7, 0],
+  initialSnap = 0.7,
+  children,
+}: BottomSheetProps) => {
+  const screenHeight = window.innerHeight;
 
-  const y = useMotionValue(INITIAL);
+  const variants = snapPoints.reduce(
+    (acc, snapPoint, index) => {
+      acc[index] = {
+        y: -(screenHeight * snapPoint),
+      };
+      return acc;
+    },
+    {} as Record<number, { y: number }>
+  );
+  const initial = snapPoints.indexOf(initialSnap);
+
+  const y = useMotionValue(0);
   const height = useTransform(y, (latest) => {
     return -latest;
   });
   const controls = useAnimation();
 
+  useEffect(() => {
+    controls.start('1');
+  }, []);
+
   const handleDragEnd = (_: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
-    if (info.velocity.y < 0 && info.point.y < window.innerHeight - HIDDEN) {
-      controls.start('visible');
-    } else {
-      controls.start('hidden');
+    const variant1Position = screenHeight + variants['1'].y;
+
+    // 1 -> 0
+    if (info.velocity.y < 0) {
+      controls.start('0');
+      return;
+    }
+    // 1 -> 2
+    if (info.velocity.y > 0 && info.point.y >= variant1Position) {
+      controls.start('2');
+      setTimeout(() => {
+        setIsOpen(false);
+      }, 300);
+      return;
+    }
+    // 2 -> 1
+    if (info.velocity.y > 0 && info.point.y < variant1Position) {
+      controls.start('1');
+      return;
     }
   };
+
+  const handleOnClickBackdrop = () => {
+    controls.start('2');
+    setTimeout(() => {
+      setIsOpen(false);
+    }, 300);
+  };
+
+  if (initial !== undefined && !snapPoints.includes(initialSnap)) {
+    throw new Error('Initial value must be included in snapPoints');
+  }
 
   if (!open) {
     return <></>;
@@ -46,6 +82,12 @@ const BottomSheet = ({ open, setIsOpen, children }: BottomSheetProps) => {
 
   return (
     <ReactPortal>
+      <Backdrop
+        onClick={handleOnClickBackdrop}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+      />
       <Wrapper
         drag="y"
         dragConstraints={{
@@ -55,8 +97,8 @@ const BottomSheet = ({ open, setIsOpen, children }: BottomSheetProps) => {
           right: 0,
         }}
         dragElastic={0}
-        dragTransition={{ bounceStiffness: 400, bounceDamping: 40 }}
-        initial={'hidden'}
+        dragTransition={{ bounceStiffness: 600, bounceDamping: 10 }}
+        initial={'2'}
         animate={controls}
         onDragEnd={handleDragEnd}
         variants={variants}
@@ -68,7 +110,18 @@ const BottomSheet = ({ open, setIsOpen, children }: BottomSheetProps) => {
   );
 };
 
-export const Wrapper = styled(motion.div)`
+const Backdrop = styled(motion.div)`
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+
+  /* background: rgb(0 0 0 / 50%); */
+`;
+
+const Wrapper = styled(motion.div)`
   position: fixed;
   right: 0;
   left: 0;
@@ -78,7 +131,7 @@ export const Wrapper = styled(motion.div)`
   margin: 0 auto;
 `;
 
-export const Container = styled(motion.div)`
+const Container = styled(motion.div)`
   height: 100%;
 `;
 

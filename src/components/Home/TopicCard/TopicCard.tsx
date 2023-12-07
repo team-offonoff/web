@@ -120,9 +120,11 @@ const TopicCard = () => {
           onClick={handleOnClickCommentBox}
         />
       </TopicCardContainer>
-      <BottomSheet open={isCommentOpen} setIsOpen={setIsCommentOpen}>
-        <div style={{ height: 400, backgroundColor: 'white' }}>hi</div>
-      </BottomSheet>
+      {isCommentOpen && (
+        <BottomSheet open={isCommentOpen} setIsOpen={setIsCommentOpen}>
+          <div style={{ height: '100%', backgroundColor: 'white' }}>hi</div>
+        </BottomSheet>
+      )}
     </React.Fragment>
   );
 };
