@@ -16,9 +16,11 @@ import {
   HighlightText,
   Blur,
   CommentButton,
+  CommnetBodyContainer,
 } from './CommentBox.styles';
 
 interface CommentBoxProps {
+  onClick: () => void;
   hasVoted: boolean;
   side: 'A' | 'B';
   keyword: string;
@@ -28,6 +30,7 @@ interface CommentBoxProps {
 }
 
 const CommentBox = ({
+  onClick,
   side,
   keyword,
   commentCount,
@@ -51,23 +54,25 @@ const CommentBox = ({
         </KeywordContainer>
         <MeatballIcon />
       </CommentHeader>
-      <CommentInfoContainer>
-        <Text size={14} weight={600} color={colors.white_60}>
-          <HighlightText>{commentCount}천개</HighlightText>의 댓글
-        </Text>
-        <Text size={14} weight={600} color={colors.white_60}>
-          <HighlightText>{voteCount}명</HighlightText>이 선택했어요
-        </Text>
-      </CommentInfoContainer>
-      <Comment>
-        <Blur isVote={hasVoted}>
-          <UserProfileImage />
-          <Text size={15} weight={'regular'} color={colors.white}>
-            {topComment}
+      <CommnetBodyContainer onClick={onClick}>
+        <CommentInfoContainer>
+          <Text size={14} weight={600} color={colors.white_60}>
+            <HighlightText>{commentCount}천개</HighlightText>의 댓글
           </Text>
-        </Blur>
-        {!hasVoted && <CommentButton>선택하고 댓글 보기</CommentButton>}
-      </Comment>
+          <Text size={14} weight={600} color={colors.white_60}>
+            <HighlightText>{voteCount}명</HighlightText>이 선택했어요
+          </Text>
+        </CommentInfoContainer>
+        <Comment>
+          <Blur isVote={hasVoted}>
+            <UserProfileImage />
+            <Text size={15} weight={'regular'} color={colors.white}>
+              {topComment}
+            </Text>
+          </Blur>
+          {!hasVoted && <CommentButton>선택하고 댓글 보기</CommentButton>}
+        </Comment>
+      </CommnetBodyContainer>
     </CommentContainer>
   );
 };
