@@ -34,7 +34,7 @@ export const ChildrenContainer = styled.div`
 export const NavigationContainer = styled.div`
   position: fixed;
   bottom: 0;
-  z-index: 1200;
+  z-index: ${(props) => props.theme.zIndex.navigation};
   width: 100%;
   max-width: 512px;
   margin: 0 auto;
