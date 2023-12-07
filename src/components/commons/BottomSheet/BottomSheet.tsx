@@ -2,7 +2,7 @@ import { motion, PanInfo, useAnimation, useMotionValue, useTransform } from 'fra
 import React from 'react';
 import { styled } from 'styled-components';
 
-import ReactPortal from '@components/Portal/Portal';
+import ReactPortal from '@components/commons/Portal/Portal';
 
 interface BottomSheetProps {
   open: boolean;

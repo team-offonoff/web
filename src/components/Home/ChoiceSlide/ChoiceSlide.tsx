@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Text from '@components/Text/Text';
+import Text from '@components/commons/Text/Text';
 import { ChoiceContent } from '@interfaces/api/topic';
 
 import { colors } from '@styles/theme';

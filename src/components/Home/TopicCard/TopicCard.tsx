@@ -2,11 +2,11 @@ import { PanInfo, motion, useAnimation } from 'framer-motion';
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router';
 
-import ChoiceSlide from '@components/ChoiceSlide/ChoiceSlide';
-import ChoiceSlider from '@components/ChoiceSlider/ChoiceSlider';
-import CommentBox from '@components/CommentBox/CommentBox';
-import Text from '@components/Text/Text';
-import Timer from '@components/Timer/Timer';
+import Text from '@components/commons/Text/Text';
+import ChoiceSlide from '@components/Home/ChoiceSlide/ChoiceSlide';
+import ChoiceSlider from '@components/Home/ChoiceSlider/ChoiceSlider';
+import CommentBox from '@components/Home/CommentBox/CommentBox';
+import Timer from '@components/Home/Timer/Timer';
 import { TopicResponse } from '@interfaces/api/topic';
 
 import { colors } from '@styles/theme';

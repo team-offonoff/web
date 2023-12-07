@@ -2,7 +2,7 @@ import { useAnimation, PanInfo, motion } from 'framer-motion';
 import React from 'react';
 import styled from 'styled-components';
 
-import ChoiceSlide from '@components/ChoiceSlide/ChoiceSlide';
+import ChoiceSlide from '@components/Home/ChoiceSlide/ChoiceSlide';
 import { Choice } from '@interfaces/api/topic';
 
 interface ChoiceSliderProps {
