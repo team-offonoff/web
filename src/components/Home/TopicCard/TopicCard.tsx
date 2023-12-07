@@ -1,9 +1,6 @@
-import { PanInfo, motion, useAnimation } from 'framer-motion';
-import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
-import { useNavigate } from 'react-router';
+import React, { useState } from 'react';
 
 import Text from '@components/commons/Text/Text';
-import ChoiceSlide from '@components/Home/ChoiceSlide/ChoiceSlide';
 import ChoiceSlider from '@components/Home/ChoiceSlider/ChoiceSlider';
 import CommentBox from '@components/Home/CommentBox/CommentBox';
 import Timer from '@components/Home/Timer/Timer';
