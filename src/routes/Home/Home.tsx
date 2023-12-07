@@ -4,10 +4,10 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 
-import NotificationButton from '@components/Header/NotificationButton/NotificationButton';
-import Layout from '@components/Layout/Layout';
-import TopicCard from '@components/TopicCard/TopicCard';
-import TopicSwiper from '@components/TopicSwiper/TopicSwiper';
+import NotificationButton from '@components/commons/Header/NotificationButton/NotificationButton';
+import Layout from '@components/commons/Layout/Layout';
+import TopicCard from '@components/Home/TopicCard/TopicCard';
+import TopicSwiper from '@components/Home/TopicSwiper/TopicSwiper';
 
 import { Container } from './Home.styles';
 

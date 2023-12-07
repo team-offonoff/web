@@ -1,7 +1,7 @@
 import React from 'react';
 import { RouteObject, RouterProvider, createBrowserRouter } from 'react-router-dom';
 
-import Layout from '@components/Layout/Layout';
+import Layout from '@components/commons/Layout/Layout';
 
 import GoogleLogin from './Auth/google/GoogleLogin';
 import KakaoLogin from './Auth/kakao/KakaoLogin';

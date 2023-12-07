@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-import Text from '@components/Text/Text';
+import Text from '@components/commons/Text/Text';
 
 import { ABIcon, WriteBoxIcon, ProfileIcon, SelectedHomeIcon } from '@icons/index';
 

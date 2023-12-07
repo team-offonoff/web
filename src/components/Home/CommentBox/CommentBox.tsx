@@ -1,7 +1,7 @@
 import React from 'react';
 
-import Text from '@components/Text/Text';
-import { UserProfileImage } from '@components/TopicCard/TopicCard.styles';
+import Text from '@components/commons/Text/Text';
+import { UserProfileImage } from '@components/Home/TopicCard/TopicCard.styles';
 
 import { colors } from '@styles/theme';
 
