@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 
+import BottomSheet from '@components/commons/BottomSheet/BottomSheet';
 import Text from '@components/commons/Text/Text';
 import ChoiceSlider from '@components/Home/ChoiceSlider/ChoiceSlider';
 import CommentBox from '@components/Home/CommentBox/CommentBox';
@@ -22,6 +23,7 @@ import {
 
 const TopicCard = () => {
   const [hasVoted, setHasVoted] = useState(false);
+  const [isCommentOpen, setIsCommentOpen] = useState(false);
 
   const data: TopicResponse = {
     topicId: 1,
@@ -68,48 +70,60 @@ const TopicCard = () => {
   const endTime = new Date();
   endTime.setHours(endTime.getHours() + 4);
 
+  const handleOnClickCommentBox = () => {
+    if (hasVoted) {
+      setIsCommentOpen(true);
+    }
+  };
+
   const handleOnVote = (choiceId: number) => {
     setHasVoted(true);
   };
 
   return (
-    <TopicCardContainer>
-      <BestTopicCotainer>
-        <Text size={18} color={colors.purple}>
-          실시간 인기 토픽
-        </Text>
-      </BestTopicCotainer>
-      <TopicContainer>
-        <Topic>{data.topicTitle}</Topic>
-      </TopicContainer>
-      <UserInfoContainer>
-        <UserProfileImage></UserProfileImage>
-        <Text size={14} weight={'regular'} color={colors.white_60}>
-          {data.author}
-        </Text>
-      </UserInfoContainer>
-      {hasVoted ? (
-        <div>선택 완료</div> // TODO: 선택 완료 컴포넌트
-      ) : (
-        <ChoiceSlider onVote={handleOnVote} choices={data.choices} />
-      )}
-      <Timer endTime={endTime.getTime()} />
-      <SelectTextContainer>
-        <LeftDoubleArrowIcon />
-        <Text size={14} weight={'regular'} color={colors.white_40}>
-          밀어서 선택하기
-        </Text>
-        <RightDoubleArrowIcon />
-      </SelectTextContainer>
-      <CommentBox
-        hasVoted={hasVoted}
-        side={'A'}
-        keyword={'키워드'}
-        commentCount={0}
-        voteCount={0}
-        topComment={'top comment here!'}
-      />
-    </TopicCardContainer>
+    <React.Fragment>
+      <TopicCardContainer>
+        <BestTopicCotainer>
+          <Text size={18} color={colors.purple}>
+            실시간 인기 토픽
+          </Text>
+        </BestTopicCotainer>
+        <TopicContainer>
+          <Topic>{data.topicTitle}</Topic>
+        </TopicContainer>
+        <UserInfoContainer>
+          <UserProfileImage></UserProfileImage>
+          <Text size={14} weight={'regular'} color={colors.white_60}>
+            {data.author}
+          </Text>
+        </UserInfoContainer>
+        {hasVoted ? (
+          <div>선택 완료</div> // TODO: 선택 완료 컴포넌트
+        ) : (
+          <ChoiceSlider onVote={handleOnVote} choices={data.choices} />
+        )}
+        <Timer endTime={endTime.getTime()} />
+        <SelectTextContainer>
+          <LeftDoubleArrowIcon />
+          <Text size={14} weight={'regular'} color={colors.white_40}>
+            밀어서 선택하기
+          </Text>
+          <RightDoubleArrowIcon />
+        </SelectTextContainer>
+        <CommentBox
+          side={'A'}
+          hasVoted={hasVoted}
+          commentCount={0}
+          voteCount={0}
+          keyword={'키워드'}
+          topComment={'top comment here!'}
+          onClick={handleOnClickCommentBox}
+        />
+      </TopicCardContainer>
+      <BottomSheet open={isCommentOpen} setIsOpen={setIsCommentOpen}>
+        <div style={{ height: 400, backgroundColor: 'white' }}>hi</div>
+      </BottomSheet>
+    </React.Fragment>
   );
 };
 
