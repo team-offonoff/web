@@ -18,7 +18,7 @@ const Text = React.memo((props: TextProps) => {
     tagName = 'div',
     color = '#ffffff',
     align = 'start',
-    lineHeight = 'normal',
+    lineHeight = '140%',
     weight,
     size,
     children,
@@ -39,7 +39,6 @@ const Text = React.memo((props: TextProps) => {
 });
 
 const Tag = styled.div<TextProps>`
-  line-height: 140%;
   ${({ lineHeight }) =>
     lineHeight &&
     css`
