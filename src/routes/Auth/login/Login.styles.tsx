@@ -5,7 +5,14 @@ export const Container = styled.div`
   background-color: ${(props) => props.theme.colors.navy};
 `;
 
-export const LoginButtonContainer = styled.button`
+export const LogoContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  padding-top: 118px;
+  padding-bottom: 35px;
+`;
+
+export const LoginButtonContainer = styled.div`
   position: absolute;
   bottom: 150px;
   display: flex;
