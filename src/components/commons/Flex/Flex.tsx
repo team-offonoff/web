@@ -7,6 +7,7 @@ interface FlexProps {
   gap?: React.CSSProperties['gap'];
   padding?: React.CSSProperties['padding'];
   margin?: React.CSSProperties['margin'];
+  borderRadius?: React.CSSProperties['borderRadius'];
   children: React.ReactNode;
 }
 
@@ -58,5 +59,10 @@ const Flex = styled.div<StyledFlexProps>`
     margin &&
     css`
       margin: ${margin};
+    `}
+    ${({ borderRadius }) =>
+    borderRadius &&
+    css`
+      border-radius: ${borderRadius};
     `}
 `;
