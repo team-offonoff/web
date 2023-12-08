@@ -20,17 +20,18 @@ export const Divider = styled.div`
 
 export const LoginButtonContainer = styled.div`
   position: absolute;
-  bottom: 150px;
+  bottom: 104px;
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 17px;
   justify-content: flex-end;
   width: 100%;
+  padding: 0 20px;
   cursor: pointer;
 `;
 
 export const LoginButton = styled.button`
   width: 100%;
-  height: 57px;
   cursor: pointer;
+  border-radius: 10px;
 `;
