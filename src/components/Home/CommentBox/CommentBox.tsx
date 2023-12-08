@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { ActionModal } from '@components/commons/Modal/Modal';
 import Text from '@components/commons/Text/Text';
 import { UserProfileImage } from '@components/Home/TopicCard/TopicCard.styles';
+import useModal from '@hooks/useModal/useModal';
 
 import { colors } from '@styles/theme';
 
@@ -39,10 +39,11 @@ const CommentBox = ({
   topComment,
   hasVoted,
 }: CommentBoxProps) => {
-  const [isModalOpen, setIsModalOpen] = React.useState(false);
+  const { Modal, toggleModal } = useModal('default');
 
   const handleOnClickCommentMenu = () => {
-    setIsModalOpen(true);
+    // setIsModalOpen(true);
+    toggleModal();
   };
 
   return (
@@ -82,9 +83,9 @@ const CommentBox = ({
           {!hasVoted && <CommentButton>선택하고 댓글 보기</CommentButton>}
         </Comment>
       </CommnetBodyContainer>
-      <ActionModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+      <Modal>
         <div style={{ height: 190 }}>모달</div>
-      </ActionModal>
+      </Modal>
     </CommentContainer>
   );
 };
