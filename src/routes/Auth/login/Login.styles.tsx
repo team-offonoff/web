@@ -12,6 +12,12 @@ export const LogoContainer = styled.div`
   padding-bottom: 35px;
 `;
 
+export const Divider = styled.div`
+  width: 100%;
+  height: 1px;
+  background-color: ${(props) => props.theme.colors.white_60};
+`;
+
 export const LoginButtonContainer = styled.div`
   position: absolute;
   bottom: 150px;
