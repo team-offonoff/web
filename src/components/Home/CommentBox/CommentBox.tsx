@@ -2,6 +2,7 @@ import React from 'react';
 
 import Text from '@components/commons/Text/Text';
 import { UserProfileImage } from '@components/Home/TopicCard/TopicCard.styles';
+import useModal from '@hooks/useModal/useModal';
 
 import { colors } from '@styles/theme';
 
@@ -38,6 +39,13 @@ const CommentBox = ({
   topComment,
   hasVoted,
 }: CommentBoxProps) => {
+  const { Modal, toggleModal } = useModal('default');
+
+  const handleOnClickCommentMenu = () => {
+    // setIsModalOpen(true);
+    toggleModal();
+  };
+
   return (
     <CommentContainer>
       <CommentHeader>
@@ -52,7 +60,9 @@ const CommentBox = ({
             {keyword}
           </Text>
         </KeywordContainer>
-        <MeatballIcon />
+        <button onClick={handleOnClickCommentMenu}>
+          <MeatballIcon />
+        </button>
       </CommentHeader>
       <CommnetBodyContainer onClick={onClick}>
         <CommentInfoContainer>
@@ -73,6 +83,9 @@ const CommentBox = ({
           {!hasVoted && <CommentButton>선택하고 댓글 보기</CommentButton>}
         </Comment>
       </CommnetBodyContainer>
+      <Modal>
+        <div style={{ height: 190 }}>모달</div>
+      </Modal>
     </CommentContainer>
   );
 };
