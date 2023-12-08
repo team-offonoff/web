@@ -1,24 +1,21 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 
-import { default as DefaultModal, ActionModal } from '@components/commons/Modal/Modal';
+import DefaultModal, { ActionModal } from '@components/commons/Modal/Modal';
 
 const useModal = (type: 'default' | 'action' = 'default') => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const toggleModal = () => {
+  const toggleModal = useCallback(() => {
     setIsOpen((prev) => !prev);
-  };
+  }, []);
 
-  const Modal = ({ children }: { children: React.ReactNode }) =>
-    type === 'default' ? (
-      <DefaultModal isOpen={isOpen} onClose={toggleModal}>
-        {children}
-      </DefaultModal>
-    ) : (
-      <ActionModal isOpen={isOpen} onClose={toggleModal}>
-        {children}
-      </ActionModal>
-    );
+  const ModalComponent = type === 'default' ? DefaultModal : ActionModal;
+
+  const Modal = ({ children }: { children: React.ReactNode }) => (
+    <ModalComponent isOpen={isOpen} onClose={toggleModal}>
+      {children}
+    </ModalComponent>
+  );
 
   return { Modal: isOpen ? Modal : () => null, toggleModal };
 };
