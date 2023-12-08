@@ -2,10 +2,10 @@ import ABLogoIcon from './ab-logo.svg?react';
 import ABIcon from './ab.svg?react';
 import AlarmIcon from './alarm-default.svg?react';
 import NewAlarmIcon from './alarm-new.svg?react';
-import AppleLoginIcon from './apple-login.svg?react';
-import GoogleLoginIcon from './google-login.svg?react';
+import AppleIcon from './apple.svg?react';
+import GoogleIcon from './google.svg?react';
 import SelectedHomeIcon from './home-selected.svg?react';
-import KakaoLoginIcon from './kakao-login.svg?react';
+import KakaoIcon from './kakao.svg?react';
 import LeftDoubleArrowIcon from './left-double-arrow.svg?react';
 import MeatballIcon from './meatball.svg?react';
 import PlusBoxIcon from './plus-box.svg?react';
@@ -18,9 +18,9 @@ export {
   ABIcon,
   ABLogoIcon,
   AlarmIcon,
-  AppleLoginIcon,
-  GoogleLoginIcon,
-  KakaoLoginIcon,
+  AppleIcon,
+  GoogleIcon,
+  KakaoIcon,
   LeftDoubleArrowIcon,
   MeatballIcon,
   NewAlarmIcon,
