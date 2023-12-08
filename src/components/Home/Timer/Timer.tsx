@@ -1,9 +1,9 @@
 import React from 'react';
 import { styled } from 'styled-components';
 
-import { colors } from '@styles/theme';
+import useTimer from '@hooks/useTimer/useTimer';
 
-import useTimer from '@hooks/useTimer';
+import { colors } from '@styles/theme';
 
 interface TimerProps {
   endTime: number;
