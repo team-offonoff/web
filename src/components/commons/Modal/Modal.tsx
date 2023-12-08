@@ -12,19 +12,19 @@ interface ModalProps {
 const modalStyle: Styles = {
   content: {
     display: 'flex',
+    transform: 'translateY(-50%)', //
+    top: '50%',
+    right: '20px',
+    left: '20px',
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-    boxShadow: 'rgba(100, 100, 111, 0.3) 0px 7px 29px 0px',
     backgroundColor: 'white',
-    border: '2px solid rgb(240, 240, 240)',
     borderRadius: '12px',
-    position: 'absolute',
+    position: 'fixed',
     height: 'fit-content',
-    width: '300px',
-    top: '120px',
-    left: 'calc(50% - 150px)',
-    zIndex: zIndex.modal,
+    width: 'calc(100% - 40px)',
+    padding: 'none',
   },
   overlay: {
     zIndex: zIndex.modal,
