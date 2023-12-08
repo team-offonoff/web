@@ -42,7 +42,6 @@ interface StyledFlexProps extends Omit<FlexProps, 'children'> {
 const Flex = styled.div<StyledFlexProps>`
   display: flex;
   flex-direction: ${(props) => props.flexDirection};
-  gap: ${(props) => props.gap};
   align-items: ${(props) => props.alignItems};
   justify-content: ${(props) => props.justifyContent};
   ${({ gap }) =>
