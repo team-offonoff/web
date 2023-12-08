@@ -8,7 +8,6 @@ export const Main = styled.main`
   height: 100vh;
   margin: 0 auto;
   overflow-y: scroll;
-  background-color: #fff;
 
   &::-webkit-scrollbar {
     display: none;

@@ -2,13 +2,14 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 
 export interface TextProps {
+  size: number;
+  children: React.ReactNode;
   tagName?: keyof JSX.IntrinsicElements;
-  color?: React.CSSProperties['color'];
   weight?: React.CSSProperties['fontWeight'];
-  size?: number;
+  color?: React.CSSProperties['color'];
   align?: React.CSSProperties['textAlign'];
   lineHeight?: React.CSSProperties['lineHeight'];
-  children: React.ReactNode;
+  noWrap?: boolean;
 }
 
 const getFontSize = (sizeInPx: number) => `${sizeInPx / 10}rem`;
@@ -18,8 +19,9 @@ const Text = React.memo((props: TextProps) => {
     tagName = 'div',
     color = '#ffffff',
     align = 'start',
-    lineHeight = 'normal',
-    weight,
+    lineHeight = '140%',
+    noWrap = false,
+    weight = 400,
     size,
     children,
   } = props;
@@ -32,6 +34,7 @@ const Text = React.memo((props: TextProps) => {
       size={size}
       align={align}
       lineHeight={lineHeight}
+      noWrap={noWrap}
     >
       {children}
     </Tag>
@@ -39,7 +42,6 @@ const Text = React.memo((props: TextProps) => {
 });
 
 const Tag = styled.div<TextProps>`
-  line-height: 140%;
   ${({ lineHeight }) =>
     lineHeight &&
     css`
@@ -64,6 +66,11 @@ const Tag = styled.div<TextProps>`
     size &&
     css`
       font-size: ${getFontSize(size)};
+    `}
+    ${({ noWrap }) =>
+    noWrap &&
+    css`
+      white-space: nowrap;
     `}
 `;
 
