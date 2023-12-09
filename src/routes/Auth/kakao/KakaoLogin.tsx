@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router';
 
 import { kakaoLogin } from '@apis/oauth/kakao';
 
+import { ResponseError } from '@apis/fetch';
+
 import { Container } from './KakaoLogin.styles';
 
 const KakaoLogin = () => {
@@ -12,11 +14,17 @@ const KakaoLogin = () => {
 
   const handleKakaoLogin = async () => {
     if (kakaoCode) {
-      const response = await kakaoLogin(kakaoCode);
-
-      if (response.accessToken) {
-        /** TBD */
-        response.newMember ? navigate('/onboard') : navigate('/');
+      try {
+        const response = await kakaoLogin(kakaoCode);
+        if (response && response.accessToken) {
+          response.newMember ? navigate('/onboard') : navigate('/');
+        }
+      } catch (err) {
+        if (err instanceof ResponseError) {
+          if (err.errorData.abCode === 'ILLEGAL_JOIN_STATUS') {
+            navigate(`/signup`, { state: { memberId: err.errorData.errorContent.payload } });
+          }
+        }
       }
     } else {
       throw new Error('code is invalid');

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 
 import useFunnel from '@hooks/useFunnel/useFunnel';
 
@@ -7,6 +8,8 @@ import 약관동의 from './약관동의';
 import 정보입력 from './정보입력';
 
 const Signup = () => {
+  const { state } = useLocation();
+
   const [registerData, setRegisterData] = useState();
   const steps = ['정보입력', '약관동의', '가입성공'];
   const [Funnel, setStep] = useFunnel(steps);

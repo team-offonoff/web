@@ -20,7 +20,6 @@ const useFunnel = <Steps extends string[]>(
 
   const FunnelComponent = Object.assign(
     (props: Omit<FunnelProps<Steps>, 'steps' | 'step'>) => {
-      console.log('🚀 ~ file: useFunnel.tsx:21 ~ step:', step);
       return <Funnel<Steps> steps={steps} step={step} {...props} />;
     },
     { Step }
