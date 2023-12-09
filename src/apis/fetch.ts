@@ -1,3 +1,14 @@
+import { ErrorResponse } from '@interfaces/api';
+
+export class ResponseError extends Error {
+  errorData: ErrorResponse;
+
+  constructor(errorData: ErrorResponse) {
+    super();
+    this.errorData = errorData;
+  }
+}
+
 class Fetch {
   private baseURL: string;
   private accessToken: string | undefined;
@@ -18,7 +29,15 @@ class Fetch {
     return data;
   }
 
-  async post<T>({ path, headers, body }: { path: string; headers?: HeadersInit; body: object }) {
+  async post<TData>({
+    path,
+    headers,
+    body,
+  }: {
+    path: string;
+    headers?: HeadersInit;
+    body: object;
+  }) {
     const response = await fetch(`${this.baseURL}${path}`, {
       method: 'POST',
       headers: {
@@ -28,8 +47,14 @@ class Fetch {
       },
       body: JSON.stringify(body),
     });
-    const data: T = await response.json();
-    return data;
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new ResponseError(data);
+    }
+
+    return data as TData;
   }
 
   setAccessToken(token: string) {
