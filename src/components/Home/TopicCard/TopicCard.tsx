@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 
-import BottomSheet from '@components/commons/BottomSheet/BottomSheet';
 import Text from '@components/commons/Text/Text';
 import ChoiceSlider from '@components/Home/ChoiceSlider/ChoiceSlider';
 import CommentBox from '@components/Home/CommentBox/CommentBox';
 import Timer from '@components/Home/Timer/Timer';
+import useBottomSheet from '@hooks/useBottomSheet/useBottomSheet';
 import { TopicResponse } from '@interfaces/api/topic';
 
 import { colors } from '@styles/theme';
@@ -23,7 +23,7 @@ import {
 
 const TopicCard = () => {
   const [hasVoted, setHasVoted] = useState(false);
-  const [isCommentOpen, setIsCommentOpen] = useState(false);
+  const { BottomSheet: CommentSheet, toggleSheet } = useBottomSheet({});
 
   const data: TopicResponse = {
     topicId: 1,
@@ -72,7 +72,7 @@ const TopicCard = () => {
 
   const handleOnClickCommentBox = () => {
     if (hasVoted) {
-      setIsCommentOpen(true);
+      toggleSheet();
     }
   };
 
@@ -120,11 +120,9 @@ const TopicCard = () => {
           onClick={handleOnClickCommentBox}
         />
       </TopicCardContainer>
-      {isCommentOpen && (
-        <BottomSheet open={isCommentOpen} setIsOpen={setIsCommentOpen}>
-          <div style={{ height: '100%', backgroundColor: 'white' }}>hi</div>
-        </BottomSheet>
-      )}
+      <CommentSheet>
+        <div style={{ height: '100%', backgroundColor: 'white' }}>hi</div>
+      </CommentSheet>
     </React.Fragment>
   );
 };
