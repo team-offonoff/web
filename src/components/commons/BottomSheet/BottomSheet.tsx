@@ -114,7 +114,7 @@ const Backdrop = styled(motion.div)`
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 1;
+  z-index: ${(props) => props.theme.zIndex.sheet};
   width: 100%;
   height: 100%;
 
