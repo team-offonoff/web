@@ -19,7 +19,7 @@ const ChoiceSlide = ({ side, topicContent }: ChoiceSlideProps) => {
         <div
           style={{
             position: 'absolute',
-            top: -25,
+            top: -45,
             right: 95,
           }}
         >
@@ -41,7 +41,7 @@ const ChoiceSlide = ({ side, topicContent }: ChoiceSlideProps) => {
       <div
         style={{
           position: 'absolute',
-          top: -25,
+          top: -45,
           left: 107,
         }}
       >
