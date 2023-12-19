@@ -1,4 +1,4 @@
-import { ErrorResponse } from '@interfaces/api';
+import { ErrorResponse } from '@interfaces/api/error';
 
 export class ResponseError extends Error {
   errorData: ErrorResponse;
@@ -15,6 +15,10 @@ class Fetch {
 
   constructor() {
     this.baseURL = import.meta.env.VITE_API_BASE_URL;
+
+    if (import.meta.env.DEV) {
+      this.accessToken = import.meta.env.VITE_API_ACCESS_TOKEN;
+    }
   }
 
   async get<T>(path: string): Promise<T> {
