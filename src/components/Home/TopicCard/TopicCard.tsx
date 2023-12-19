@@ -4,6 +4,7 @@ import Text from '@components/commons/Text/Text';
 import ChoiceSlider from '@components/Home/ChoiceSlider/ChoiceSlider';
 import CommentBox from '@components/Home/CommentBox/CommentBox';
 import Timer from '@components/Home/Timer/Timer';
+import VoteCompletion from '@components/Home/VoteCompletion/VoteCompletion';
 import useBottomSheet from '@hooks/useBottomSheet/useBottomSheet';
 import { TopicResponse } from '@interfaces/api/topic';
 
@@ -98,7 +99,7 @@ const TopicCard = () => {
           </Text>
         </UserInfoContainer>
         {hasVoted ? (
-          <div>선택 완료</div> // TODO: 선택 완료 컴포넌트
+          <VoteCompletion side={'A'} topicContent={'10년 전 과거로가기'}></VoteCompletion> // TODO: 선택 완료 컴포넌트
         ) : (
           <ChoiceSlider onVote={handleOnVote} choices={data.choices} />
         )}
