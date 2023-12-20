@@ -46,7 +46,11 @@ const Router = () => {
     },
   ];
 
-  const routes = isAuthorized ? authorizedRoutes : publicRoutes;
+  const routes = import.meta.env.DEV
+    ? [...authorizedRoutes, ...publicRoutes]
+    : isAuthorized
+    ? authorizedRoutes
+    : publicRoutes;
 
   const router = createBrowserRouter(routes);
 

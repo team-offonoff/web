@@ -79,7 +79,7 @@ export const UserInfoContainer = styled.div`
   margin-top: 4px;
 `;
 
-export const UserProfileImage = styled.div`
+export const UserProfileImage = styled.img`
   width: 20px;
   height: 20px;
   background-color: #555;
