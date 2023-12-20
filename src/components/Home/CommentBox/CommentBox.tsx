@@ -61,7 +61,7 @@ const CommentBox = ({
           </Text>
         </KeywordContainer>
         <button onClick={handleOnClickCommentMenu}>
-          <MeatballIcon />
+          <MeatballIcon fill={colors.white_60} />
         </button>
       </CommentHeader>
       <CommnetBodyContainer onClick={onClick}>
