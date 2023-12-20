@@ -46,7 +46,7 @@ const Login = () => {
           </Text>
         </div>
         <LoginButtonContainer>
-          <Row padding={'0 20px'} gap={'17px'}>
+          <Row padding={'0 20px'} gap={17}>
             <Divider />
             <Text size={15} noWrap>
               간편 가입하기
