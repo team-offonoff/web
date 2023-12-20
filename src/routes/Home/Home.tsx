@@ -26,7 +26,7 @@ const Home = () => {
         <TopicSwiper>
           {
             topics.data?.data.map((topic) => {
-              return <TopicCard />;
+              return <TopicCard topic={topic} key={topic.topicId} />;
             }) as React.ReactNode[]
           }
         </TopicSwiper>

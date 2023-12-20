@@ -21,54 +21,13 @@ import {
   SelectTextContainer,
 } from './TopicCard.styles';
 
-const TopicCard = () => {
+interface TopicCardProps {
+  topic: TopicResponse;
+}
+
+const TopicCard = ({ topic }: TopicCardProps) => {
   const [hasVoted, setHasVoted] = useState(false);
   const { BottomSheet: CommentSheet, toggleSheet } = useBottomSheet({});
-
-  const data: TopicResponse = {
-    topicId: 1,
-    topicSide: 'left',
-    topicTitle: 'Example Topic',
-    deadline: null,
-    voteCount: 10,
-    topicContent: 'topicContent',
-    keywords: [
-      {
-        keywordId: 1,
-        keywordName: 'keyword1',
-        topicSide: 'left',
-      },
-      {
-        keywordId: 2,
-        keywordName: 'keyword2',
-        topicSide: 'right',
-      },
-    ],
-    choices: [
-      {
-        choiceId: 1,
-        content: {
-          text: 'Choice 1',
-          imageUrl: 'https://example.com/image1.jpg',
-          type: 'image',
-        },
-        choiceOption: 'A',
-      },
-      {
-        choiceId: 2,
-        content: {
-          text: 'Choice 2',
-          imageUrl: undefined,
-          type: 'text',
-        },
-        choiceOption: 'B',
-      },
-    ],
-    author: 'jinhoda',
-  };
-
-  const endTime = new Date();
-  endTime.setHours(endTime.getHours() + 4);
 
   const handleOnClickCommentBox = () => {
     if (hasVoted) {
@@ -89,20 +48,20 @@ const TopicCard = () => {
           </Text>
         </BestTopicCotainer>
         <TopicContainer>
-          <Topic>{data.topicTitle}</Topic>
+          <Topic>{topic.topicTitle}</Topic>
         </TopicContainer>
         <UserInfoContainer>
-          <UserProfileImage></UserProfileImage>
+          <UserProfileImage src={topic.author.profileImageUrl} />
           <Text size={14} weight={'regular'} color={colors.white_60}>
-            {data.author}
+            {topic.author.nickname}
           </Text>
         </UserInfoContainer>
         {hasVoted ? (
           <div>선택 완료</div> // TODO: 선택 완료 컴포넌트
         ) : (
-          <ChoiceSlider onVote={handleOnVote} choices={data.choices} />
+          <ChoiceSlider onVote={handleOnVote} choices={topic.choices} />
         )}
-        <Timer endTime={endTime.getTime()} />
+        <Timer endTime={topic.deadline} />
         <SelectTextContainer>
           <LeftDoubleArrowIcon />
           <Text size={14} weight={'regular'} color={colors.white_40}>
@@ -111,7 +70,7 @@ const TopicCard = () => {
           <RightDoubleArrowIcon />
         </SelectTextContainer>
         <CommentBox
-          side={'A'}
+          side={topic.keyword.topicSide === 'TOPIC_A' ? 'A' : 'B'}
           hasVoted={hasVoted}
           commentCount={0}
           voteCount={0}

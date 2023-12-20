@@ -10,7 +10,7 @@ interface TopicResponse {
   deadline: number; // 1702914494
   voteCount: number;
   topicContent: string; // TBD
-  keywords: Keyword[];
+  keyword: Keyword;
   choices: Choice[];
   author: Author;
   selectedOption: typeof CHOICE_OPTIONS.CHOICE_A | typeof CHOICE_OPTIONS.CHOICE_B;
