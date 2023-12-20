@@ -19,11 +19,11 @@ const ChoiceSlide = ({ side, topicContent }: ChoiceSlideProps) => {
         <div
           style={{
             position: 'absolute',
-            top: -25,
+            top: -45,
             right: 95,
           }}
         >
-          <Text color={'rgba(255, 255, 255, 0.4)'} size={200} weight={900}>
+          <Text color={colors.white_40} size={200} weight={900}>
             A
           </Text>
         </div>
@@ -41,11 +41,11 @@ const ChoiceSlide = ({ side, topicContent }: ChoiceSlideProps) => {
       <div
         style={{
           position: 'absolute',
-          top: -25,
+          top: -45,
           left: 107,
         }}
       >
-        <Text color={'rgba(255, 255, 255, 0.4)'} size={200} weight={900}>
+        <Text color={colors.white_40} size={200} weight={900}>
           B
         </Text>
       </div>
