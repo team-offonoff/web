@@ -12,6 +12,7 @@ import PlusBoxIcon from './plus-box.svg?react';
 import ProfileIcon from './profile.svg?react';
 import RightChevronIcon from './right-chevron.svg?react';
 import RightDoubleArrowIcon from './right-double-arrow.svg?react';
+import ThumbsIcon from './thumbs.svg?react';
 import WriteBoxIcon from './write-box.svg?react';
 
 export {
@@ -29,5 +30,6 @@ export {
   RightChevronIcon,
   RightDoubleArrowIcon,
   SelectedHomeIcon,
+  ThumbsIcon,
   WriteBoxIcon,
 };

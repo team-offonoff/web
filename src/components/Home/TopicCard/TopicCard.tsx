@@ -12,6 +12,8 @@ import { colors } from '@styles/theme';
 
 import { LeftDoubleArrowIcon, RightDoubleArrowIcon } from '@icons/index';
 
+import Comment from '../Comment/Comment';
+
 import {
   BestTopicCotainer,
   TopicContainer,
@@ -80,9 +82,16 @@ const TopicCard = ({ topic }: TopicCardProps) => {
           onClick={handleOnClickCommentBox}
         />
       </TopicCardContainer>
-      <CommentSheet>
-        <div style={{ height: '100%', backgroundColor: 'white' }}>hi</div>
-      </CommentSheet>
+      {isCommentOpen && (
+        <BottomSheet open={isCommentOpen} setIsOpen={setIsCommentOpen}>
+          <Comment />
+          <Comment />
+          <Comment />
+          <Comment />
+          <Comment />
+          <Comment />
+        </BottomSheet>
+      )}
     </React.Fragment>
   );
 };

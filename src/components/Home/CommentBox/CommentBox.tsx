@@ -61,7 +61,7 @@ const CommentBox = ({
           </Text>
         </KeywordContainer>
         <button onClick={handleOnClickCommentMenu}>
-          <MeatballIcon />
+          <MeatballIcon fill={colors.white_60} />
         </button>
       </CommentHeader>
       <CommnetBodyContainer onClick={onClick}>
@@ -74,7 +74,7 @@ const CommentBox = ({
           </Text>
         </CommentInfoContainer>
         <Comment>
-          <Blur isVote={hasVoted}>
+          <Blur $isVote={hasVoted}>
             <UserProfileImage />
             <Text size={15} weight={'regular'} color={colors.white}>
               {topComment}
