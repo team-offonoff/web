@@ -25,6 +25,7 @@ const modalStyle: Styles = {
     height: 'fit-content',
     width: 'calc(100% - 40px)',
     padding: 'none',
+    border: 'none',
   },
   overlay: {
     zIndex: zIndex.modal,

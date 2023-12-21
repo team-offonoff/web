@@ -3,6 +3,7 @@ import ABIcon from './ab.svg?react';
 import AlarmIcon from './alarm-default.svg?react';
 import NewAlarmIcon from './alarm-new.svg?react';
 import AppleIcon from './apple.svg?react';
+import CloseIcon from './close.svg?react';
 import GoogleIcon from './google.svg?react';
 import SelectedHomeIcon from './home-selected.svg?react';
 import KakaoIcon from './kakao.svg?react';
@@ -12,6 +13,7 @@ import PlusBoxIcon from './plus-box.svg?react';
 import ProfileIcon from './profile.svg?react';
 import RightChevronIcon from './right-chevron.svg?react';
 import RightDoubleArrowIcon from './right-double-arrow.svg?react';
+import SizeUpIcon from './size-up.svg?react';
 import WriteBoxIcon from './write-box.svg?react';
 
 export {
@@ -30,4 +32,6 @@ export {
   RightDoubleArrowIcon,
   SelectedHomeIcon,
   WriteBoxIcon,
+  SizeUpIcon,
+  CloseIcon,
 };

@@ -59,7 +59,7 @@ const TopicCard = () => {
         choiceId: 2,
         content: {
           text: 'Choice 2',
-          imageUrl: undefined,
+          imageUrl: 'undefined',
           type: 'text',
         },
         choiceOption: 'B',
