@@ -21,9 +21,9 @@ export const colors = {
 
 export const zIndex = {
   navigation: 100,
-  modal: 200,
-  toast: 300,
-  sheet: 400,
+  toast: 200,
+  sheet: 300,
+  modal: 400,
 };
 
 export type ColorsTypes = typeof colors;

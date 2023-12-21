@@ -55,8 +55,8 @@ const ChoiceSlider = ({ onVote, choices }: ChoiceSliderProps) => {
       dragTransition={{ bounceStiffness: 200, bounceDamping: 20 }}
       transition={{ ease: 'easeOut' }}
     >
-      {/* <ChoiceSlide side={'A'} topicContent={A.content} /> */}
-      {/* <ChoiceSlide side={'B'} topicContent={B.content} /> */}
+      <ChoiceSlide side={'A'} topicContent={A.content} />
+      <ChoiceSlide side={'B'} topicContent={B.content} />
     </SelectContainer>
   );
 };

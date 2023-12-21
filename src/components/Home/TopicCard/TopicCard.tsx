@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 
+import useComments from '@apis/comment/useComment';
 import Text from '@components/commons/Text/Text';
 import ChoiceSlider from '@components/Home/ChoiceSlider/ChoiceSlider';
 import CommentBox from '@components/Home/CommentBox/CommentBox';
 import Timer from '@components/Home/Timer/Timer';
 import VoteCompletion from '@components/Home/VoteCompletion/VoteCompletion';
 import useBottomSheet from '@hooks/useBottomSheet/useBottomSheet';
-import { TopicResponse } from '@interfaces/api/topic';
+import { Choice, TopicResponse } from '@interfaces/api/topic';
 
 import { colors } from '@styles/theme';
 
@@ -29,7 +30,32 @@ interface TopicCardProps {
 }
 
 const TopicCard = ({ topic }: TopicCardProps) => {
+  const choices: Choice[] = [
+    {
+      choiceId: 0,
+      content: {
+        text: 'choiceA',
+        imageUrl: 'imageUrl',
+        type: 'IMAGE_TEXT',
+      },
+      choiceOption: 'CHOICE_A',
+    },
+    {
+      choiceId: 1,
+      content: {
+        text: 'choiceB',
+        imageUrl: 'imageUrl',
+        type: 'IMAGE_TEXT',
+      },
+      choiceOption: 'CHOICE_B',
+    },
+  ];
+
   const [hasVoted, setHasVoted] = useState(false);
+  const { data: commentData, fetchNextPage } = useComments(
+    topic.topicId,
+    topic.selectedOption !== null
+  );
   const { BottomSheet: CommentSheet, toggleSheet } = useBottomSheet({});
 
   const handleOnClickCommentBox = () => {
@@ -62,7 +88,7 @@ const TopicCard = ({ topic }: TopicCardProps) => {
         {hasVoted ? (
           <VoteCompletion side={'A'} topicContent={'10년 전 과거로가기'}></VoteCompletion> // TODO: 선택 완료 컴포넌트
         ) : (
-          <ChoiceSlider onVote={handleOnVote} choices={topic.choices} />
+          <ChoiceSlider onVote={handleOnVote} choices={choices} />
         )}
         <Timer endTime={topic.deadline} />
         <SelectTextContainer>
@@ -83,12 +109,13 @@ const TopicCard = ({ topic }: TopicCardProps) => {
         />
       </TopicCardContainer>
       <CommentSheet>
-        <Comment />
-        <Comment />
-        <Comment />
-        <Comment />
-        <Comment />
-        <Comment />
+        {commentData?.pages.map((group, i) => (
+          <React.Fragment key={i}>
+            {group.data.map((comment) => (
+              <Comment key={comment.commentId} comment={comment} />
+            ))}
+          </React.Fragment>
+        ))}
       </CommentSheet>
     </React.Fragment>
   );
