@@ -1,4 +1,4 @@
-import { getDateDistance, getDateDistanceText } from '@toss/date';
+import { TimeUnits, getDateDistance, getDateDistanceText } from '@toss/date';
 import React from 'react';
 
 import { Col, Row } from '@components/commons/Flex/Flex';
@@ -21,8 +21,12 @@ const Comment = ({ comment }: CommentProps) => {
   const { Modal, toggleModal } = useModal('action');
 
   const startDate = new Date(comment.createdAt);
-
   const distance = getDateDistance(startDate, new Date());
+  const distanceText = getDateDistanceText(distance, {
+    hours: (t: TimeUnits) => t.days < 1,
+    minutes: (t: TimeUnits) => t.hours < 1,
+    seconds: (t: TimeUnits) => t.minutes < 1,
+  });
 
   const handleCommentMenu = () => {
     toggleModal();
@@ -45,7 +49,7 @@ const Comment = ({ comment }: CommentProps) => {
                   {comment.writer.nickname}
                 </Text>
                 <Text size={14} color={colors.black_40}>
-                  · {getDateDistanceText(distance)}전
+                  · {distanceText}전
                 </Text>
               </Row>
               <Text size={14} color={colors.sub_A} weight={600}>
