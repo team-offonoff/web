@@ -189,7 +189,7 @@ const Container = styled(motion.div)`
 `;
 
 const Content = styled(motion.div)`
-  height: 100%;
+  height: calc(100% - 20px);
 `;
 
 export default BottomSheet;
