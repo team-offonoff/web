@@ -52,7 +52,10 @@ const TopicCard = ({ topic }: TopicCardProps) => {
   ];
 
   const [hasVoted, setHasVoted] = useState(false);
-  const { data, fetchNextPage } = useComments(topic.topicId);
+  const { data: commentData, fetchNextPage } = useComments(
+    topic.topicId,
+    topic.selectedOption !== null
+  );
   const { BottomSheet: CommentSheet, toggleSheet } = useBottomSheet({});
 
   const handleOnClickCommentBox = () => {
@@ -64,10 +67,6 @@ const TopicCard = ({ topic }: TopicCardProps) => {
   const handleOnVote = (choiceId: number) => {
     setHasVoted(true);
   };
-
-  if (!data) {
-    return <></>;
-  }
 
   return (
     <React.Fragment>
@@ -110,7 +109,7 @@ const TopicCard = ({ topic }: TopicCardProps) => {
         />
       </TopicCardContainer>
       <CommentSheet>
-        {data.pages.map((group, i) => (
+        {commentData?.pages.map((group, i) => (
           <React.Fragment key={i}>
             {group.data.map((comment) => (
               <Comment key={comment.commentId} comment={comment} />

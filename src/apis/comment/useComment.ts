@@ -14,13 +14,14 @@ const getComments = ({ topicId, page, size }: { topicId: number; page: number; s
   );
 };
 
-const useComments = (topicId: number) => {
+const useComments = (topicId: number, enabled: boolean) => {
   return useInfiniteQuery({
     queryKey: [COMMENT_KEY, topicId],
     queryFn: (params) => getComments({ topicId: topicId, page: params.pageParam, size: 10 }),
     initialPageParam: 0,
     getNextPageParam: (lastPage) =>
       lastPage.pageInfo.last ? undefined : lastPage.pageInfo.page + 1,
+    enabled: enabled,
   });
 };
 
