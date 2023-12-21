@@ -26,7 +26,7 @@ class Fetch {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        ...(this.accessToken && { Authorization: this.accessToken }),
+        ...(this.accessToken && { Authorization: `Bearer ${this.accessToken}` }),
       },
     });
     const data: T = await response.json();
@@ -46,7 +46,7 @@ class Fetch {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json;charset=UTF-8',
-        ...(this.accessToken && { Authorization: this.accessToken }),
+        ...(this.accessToken && { Authorization: `Bearer ${this.accessToken}` }),
         ...headers,
       },
       body: JSON.stringify(body),
