@@ -26,7 +26,7 @@ class Fetch {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        ...(this.accessToken && { AccessToken: this.accessToken }),
+        ...(this.accessToken && { Authorization: this.accessToken }),
       },
     });
     const data: T = await response.json();
