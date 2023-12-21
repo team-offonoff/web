@@ -46,7 +46,7 @@ class Fetch {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json;charset=UTF-8',
-        ...(this.accessToken && { AccessToken: this.accessToken }),
+        ...(this.accessToken && { Authorization: this.accessToken }),
         ...headers,
       },
       body: JSON.stringify(body),
