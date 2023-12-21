@@ -38,14 +38,14 @@ const TopicCard = ({ topic }: TopicCardProps) => {
         imageUrl: 'imageUrl',
         type: 'IMAGE_TEXT',
       },
-      choiceOption: 'CHOICE_A',
-    },
-    {
-      choiceId: 1,
-      content: {
-        text: 'choiceB',
-        imageUrl: 'imageUrl',
-        type: 'IMAGE_TEXT',
+      {
+        choiceId: 2,
+        content: {
+          text: 'Choice 2',
+          imageUrl: 'undefined',
+          type: 'text',
+        },
+        choiceOption: 'B',
       },
       choiceOption: 'CHOICE_B',
     },

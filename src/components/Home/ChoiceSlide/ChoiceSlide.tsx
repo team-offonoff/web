@@ -1,11 +1,27 @@
+import { color } from 'framer-motion';
 import React from 'react';
 
 import Text from '@components/commons/Text/Text';
+import useModal from '@hooks/useModal/useModal';
 import { ChoiceContent } from '@interfaces/api/topic';
 
 import { colors } from '@styles/theme';
 
-import { AlphaSideContainer, BetaSideContainer } from './ChoiceSlide.styles';
+import { CloseIcon, SizeUpIcon } from '@icons/index';
+
+import {
+  AlphaSideContainer,
+  SideImage,
+  BetaSideContainer,
+  TextContainer,
+  AlphaSizeUpButton,
+  BetaSizeUpButton,
+  ModalContainer,
+  ModalContent,
+  ModalImage,
+  ModalContentText,
+  CloseButton,
+} from './ChoiceSlide.styles';
 
 interface ChoiceSlideProps {
   side: 'A' | 'B';
@@ -13,43 +29,66 @@ interface ChoiceSlideProps {
 }
 
 const ChoiceSlide = ({ side, topicContent }: ChoiceSlideProps) => {
-  if (side === 'A') {
-    return (
-      <AlphaSideContainer>
+  const { Modal, toggleModal } = useModal('default');
+
+  const handleOnClickSizeUpButton = () => {
+    toggleModal();
+  };
+
+  const SlideContainer = side === 'A' ? AlphaSideContainer : BetaSideContainer;
+  const SizeUpButton = side === 'A' ? AlphaSizeUpButton : BetaSizeUpButton;
+
+  return (
+    <React.Fragment>
+      <SlideContainer>
         <div
           style={{
             position: 'absolute',
             top: -45,
-            right: 95,
+            right: side === 'A' ? 95 : 107,
           }}
         >
           <Text color={colors.white_40} size={200} weight={900}>
-            A
+            {side}
           </Text>
         </div>
-        <Text color={colors.white} size={20} weight={600}>
-          {topicContent.text}
-        </Text>
-      </AlphaSideContainer>
-    );
-  }
-  return (
-    <BetaSideContainer>
-      <Text color={colors.white} size={20} weight={600} align={'center'}>
-        {topicContent.text}
-      </Text>
-      <div
-        style={{
-          position: 'absolute',
-          top: -45,
-          left: 107,
-        }}
-      >
-        <Text color={colors.white_40} size={200} weight={900}>
-          B
-        </Text>
-      </div>
-    </BetaSideContainer>
+        {topicContent.imageUrl ? (
+          <div
+            style={{
+              width: '100%',
+              height: '100%',
+              display: 'flex',
+              justifyContent: side === 'A' ? 'flex-end' : 'flex-start',
+            }}
+          >
+            <SideImage />
+            <SizeUpButton onClick={handleOnClickSizeUpButton}>
+              <SizeUpIcon />
+            </SizeUpButton>
+          </div>
+        ) : (
+          <TextContainer>
+            <Text color={colors.white} size={20} weight={600}>
+              {topicContent.text}
+            </Text>
+          </TextContainer>
+        )}
+      </SlideContainer>
+      <Modal>
+        <ModalContainer side={side}>
+          <ModalImage src={topicContent.imageUrl} />
+          <ModalContent>
+            <Text color={side === 'A' ? '#e15ba1' : '#1bbdc9'} size={240} weight={900}>
+              {side}
+            </Text>
+            <ModalContentText>{topicContent.text}</ModalContentText>
+          </ModalContent>
+          <CloseButton onClick={toggleModal}>
+            <CloseIcon />
+          </CloseButton>
+        </ModalContainer>
+      </Modal>
+    </React.Fragment>
   );
 };
 
