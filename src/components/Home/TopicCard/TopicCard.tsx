@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 
+import useComments from '@apis/comment/useComment';
 import Text from '@components/commons/Text/Text';
 import ChoiceSlider from '@components/Home/ChoiceSlider/ChoiceSlider';
 import CommentBox from '@components/Home/CommentBox/CommentBox';
@@ -29,7 +30,6 @@ interface TopicCardProps {
 }
 
 const TopicCard = ({ topic }: TopicCardProps) => {
-  console.log('🚀 ~ file: TopicCard.tsx:32 ~ TopicCard ~ topic:', topic);
   const choices: Choice[] = [
     {
       choiceId: 0,
@@ -52,6 +52,7 @@ const TopicCard = ({ topic }: TopicCardProps) => {
   ];
 
   const [hasVoted, setHasVoted] = useState(false);
+  const { data, fetchNextPage } = useComments(topic.topicId);
   const { BottomSheet: CommentSheet, toggleSheet } = useBottomSheet({});
 
   const handleOnClickCommentBox = () => {
@@ -63,6 +64,10 @@ const TopicCard = ({ topic }: TopicCardProps) => {
   const handleOnVote = (choiceId: number) => {
     setHasVoted(true);
   };
+
+  if (!data) {
+    return <></>;
+  }
 
   return (
     <React.Fragment>
@@ -105,12 +110,13 @@ const TopicCard = ({ topic }: TopicCardProps) => {
         />
       </TopicCardContainer>
       <CommentSheet>
-        <Comment />
-        <Comment />
-        <Comment />
-        <Comment />
-        <Comment />
-        <Comment />
+        {data.pages.map((group, i) => (
+          <React.Fragment key={i}>
+            {group.data.map((comment) => (
+              <Comment key={comment.commentId} comment={comment} />
+            ))}
+          </React.Fragment>
+        ))}
       </CommentSheet>
     </React.Fragment>
   );
