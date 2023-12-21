@@ -7,7 +7,7 @@ import CommentBox from '@components/Home/CommentBox/CommentBox';
 import Timer from '@components/Home/Timer/Timer';
 import VoteCompletion from '@components/Home/VoteCompletion/VoteCompletion';
 import useBottomSheet from '@hooks/useBottomSheet/useBottomSheet';
-import { Choice, TopicResponse } from '@interfaces/api/topic';
+import { Choice, CHOICE_OPTIONS, TopicResponse } from '@interfaces/api/topic';
 
 import { colors } from '@styles/theme';
 
@@ -38,16 +38,16 @@ const TopicCard = ({ topic }: TopicCardProps) => {
         imageUrl: 'imageUrl',
         type: 'IMAGE_TEXT',
       },
-      {
-        choiceId: 2,
-        content: {
-          text: 'Choice 2',
-          imageUrl: 'undefined',
-          type: 'text',
-        },
-        choiceOption: 'B',
+      choiceOption: CHOICE_OPTIONS.CHOICE_A,
+    },
+    {
+      choiceId: 2,
+      content: {
+        text: 'Choice 2',
+        imageUrl: 'undefined',
+        type: 'text',
       },
-      choiceOption: 'CHOICE_B',
+      choiceOption: CHOICE_OPTIONS.CHOICE_B,
     },
   ];
 
