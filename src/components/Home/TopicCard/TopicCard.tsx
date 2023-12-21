@@ -1,16 +1,19 @@
 import React, { useState } from 'react';
 
+import useComments from '@apis/comment/useComment';
 import Text from '@components/commons/Text/Text';
 import ChoiceSlider from '@components/Home/ChoiceSlider/ChoiceSlider';
 import CommentBox from '@components/Home/CommentBox/CommentBox';
 import Timer from '@components/Home/Timer/Timer';
 import VoteCompletion from '@components/Home/VoteCompletion/VoteCompletion';
 import useBottomSheet from '@hooks/useBottomSheet/useBottomSheet';
-import { TopicResponse } from '@interfaces/api/topic';
+import { Choice, TopicResponse } from '@interfaces/api/topic';
 
 import { colors } from '@styles/theme';
 
 import { LeftDoubleArrowIcon, RightDoubleArrowIcon } from '@icons/index';
+
+import Comment from '../Comment/Comment';
 
 import {
   BestTopicCotainer,
@@ -22,38 +25,18 @@ import {
   SelectTextContainer,
 } from './TopicCard.styles';
 
-const TopicCard = () => {
-  const [hasVoted, setHasVoted] = useState(false);
-  const { BottomSheet: CommentSheet, toggleSheet } = useBottomSheet({});
+interface TopicCardProps {
+  topic: TopicResponse;
+}
 
-  const data: TopicResponse = {
-    topicId: 1,
-    topicSide: 'left',
-    topicTitle: 'Example Topic',
-    deadline: null,
-    voteCount: 10,
-    topicContent: 'topicContent',
-    keywords: [
-      {
-        keywordId: 1,
-        keywordName: 'keyword1',
-        topicSide: 'left',
-      },
-      {
-        keywordId: 2,
-        keywordName: 'keyword2',
-        topicSide: 'right',
-      },
-    ],
-    choices: [
-      {
-        choiceId: 1,
-        content: {
-          text: 'Choice 1',
-          imageUrl: 'https://example.com/image1.jpg',
-          type: 'image',
-        },
-        choiceOption: 'A',
+const TopicCard = ({ topic }: TopicCardProps) => {
+  const choices: Choice[] = [
+    {
+      choiceId: 0,
+      content: {
+        text: 'choiceA',
+        imageUrl: 'imageUrl',
+        type: 'IMAGE_TEXT',
       },
       {
         choiceId: 2,
@@ -64,12 +47,16 @@ const TopicCard = () => {
         },
         choiceOption: 'B',
       },
-    ],
-    author: 'jinhoda',
-  };
+      choiceOption: 'CHOICE_B',
+    },
+  ];
 
-  const endTime = new Date();
-  endTime.setHours(endTime.getHours() + 4);
+  const [hasVoted, setHasVoted] = useState(false);
+  const { data: commentData, fetchNextPage } = useComments(
+    topic.topicId,
+    topic.selectedOption !== null
+  );
+  const { BottomSheet: CommentSheet, toggleSheet } = useBottomSheet({});
 
   const handleOnClickCommentBox = () => {
     if (hasVoted) {
@@ -90,20 +77,20 @@ const TopicCard = () => {
           </Text>
         </BestTopicCotainer>
         <TopicContainer>
-          <Topic>{data.topicTitle}</Topic>
+          <Topic>{topic.topicTitle}</Topic>
         </TopicContainer>
         <UserInfoContainer>
-          <UserProfileImage></UserProfileImage>
+          <UserProfileImage src={topic.author.profileImageUrl} />
           <Text size={14} weight={'regular'} color={colors.white_60}>
-            {data.author}
+            {topic.author.nickname}
           </Text>
         </UserInfoContainer>
         {hasVoted ? (
           <VoteCompletion side={'A'} topicContent={'10년 전 과거로가기'}></VoteCompletion> // TODO: 선택 완료 컴포넌트
         ) : (
-          <ChoiceSlider onVote={handleOnVote} choices={data.choices} />
+          <ChoiceSlider onVote={handleOnVote} choices={choices} />
         )}
-        <Timer endTime={endTime.getTime()} />
+        <Timer endTime={topic.deadline} />
         <SelectTextContainer>
           <LeftDoubleArrowIcon />
           <Text size={14} weight={'regular'} color={colors.white_40}>
@@ -112,7 +99,7 @@ const TopicCard = () => {
           <RightDoubleArrowIcon />
         </SelectTextContainer>
         <CommentBox
-          side={'A'}
+          side={topic.keyword.topicSide === 'TOPIC_A' ? 'A' : 'B'}
           hasVoted={hasVoted}
           commentCount={0}
           voteCount={0}
@@ -122,7 +109,13 @@ const TopicCard = () => {
         />
       </TopicCardContainer>
       <CommentSheet>
-        <div style={{ height: '100%', backgroundColor: 'white' }}>hi</div>
+        {commentData?.pages.map((group, i) => (
+          <React.Fragment key={i}>
+            {group.data.map((comment) => (
+              <Comment key={comment.commentId} comment={comment} />
+            ))}
+          </React.Fragment>
+        ))}
       </CommentSheet>
     </React.Fragment>
   );

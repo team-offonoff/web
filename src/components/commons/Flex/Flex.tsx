@@ -12,25 +12,20 @@ interface FlexProps {
 }
 
 export const Row = (props: FlexProps) => {
-  const { children, justifyContent = 'space-between', alignItems = 'center', ...rest } = props;
+  const { children, ...others } = props;
 
   return (
-    <Flex flexDirection={'row'} justifyContent={justifyContent} alignItems={alignItems} {...rest}>
+    <Flex {...others} flexDirection={'row'}>
       {children}
     </Flex>
   );
 };
 
 export const Col = (props: FlexProps) => {
-  const { children, justifyContent = 'space-between', alignItems = 'center', ...rest } = props;
+  const { children, ...others } = props;
 
   return (
-    <Flex
-      flexDirection={'column'}
-      justifyContent={justifyContent}
-      alignItems={alignItems}
-      {...rest}
-    >
+    <Flex {...others} flexDirection={'column'}>
       {children}
     </Flex>
   );
@@ -48,14 +43,15 @@ const Flex = styled.div<StyledFlexProps>`
   ${({ gap }) =>
     gap &&
     css`
-      gap: ${gap};
+      gap: ${gap}px;
     `}
+  width: 100%;
   ${({ padding }) =>
     padding &&
     css`
       padding: ${padding};
     `}
-    ${({ margin }) =>
+  ${({ margin }) =>
     margin &&
     css`
       margin: ${margin};

@@ -104,11 +104,27 @@ const BottomSheet = ({
         variants={variants}
         style={{ y: y }}
       >
-        <Container style={{ height: height }}>{children}</Container>
+        <Container style={{ height: height }}>
+          <Content>
+            <HandleBar />
+            {children}
+          </Content>
+        </Container>
       </Wrapper>
     </ReactPortal>
   );
 };
+
+const HandleBar = styled.div`
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  width: 40px;
+  height: 4px;
+  background-color: #e6e6e6;
+  border-radius: 5px;
+  transform: translateX(-50%);
+`;
 
 const Backdrop = styled(motion.div)`
   position: fixed;
@@ -132,7 +148,15 @@ const Wrapper = styled(motion.div)`
 `;
 
 const Container = styled(motion.div)`
+  box-sizing: border-box;
+`;
+
+const Content = styled.div`
   height: 100%;
+  padding-top: 10px;
+  background-color: white;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
 `;
 
 export default BottomSheet;

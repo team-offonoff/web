@@ -1,11 +1,11 @@
-export interface ErrorResponse {
-  abCode: string;
-  errorContent: ErrorContent;
+export interface PagingDataResponse<T> {
+  pageInfo: PageInfo;
+  data: T[];
 }
 
-interface ErrorContent {
-  message: string;
-  hint: string;
-  httpCode: number;
-  payload?: number;
+interface PageInfo {
+  page: number;
+  size: number;
+  empty: boolean;
+  last: boolean;
 }

@@ -1,20 +1,25 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+export const CHOICE_OPTIONS = {
+  CHOICE_A: 'CHOICE_A',
+  CHOICE_B: 'CHOICE_B',
+} as const;
+
 interface TopicResponse {
   topicId: number;
   topicSide: string;
   topicTitle: string;
-  deadline?: any; // TBD
+  deadline: number; // 1702914494
   voteCount: number;
-  topicContent?: any; // TBD
-  keywords: Keyword[];
+  topicContent: string; // TBD
+  keyword: Keyword;
   choices: Choice[];
-  author?: any; // TBD
+  author: Author;
+  selectedOption: typeof CHOICE_OPTIONS.CHOICE_A | typeof CHOICE_OPTIONS.CHOICE_B;
 }
 
 interface Choice {
   choiceId: number;
   content: ChoiceContent;
-  choiceOption: string;
+  choiceOption: typeof CHOICE_OPTIONS.CHOICE_A | typeof CHOICE_OPTIONS.CHOICE_B;
 }
 
 interface ChoiceContent {
@@ -29,4 +34,10 @@ interface Keyword {
   topicSide: string;
 }
 
-export type { TopicResponse, Choice, ChoiceContent, Keyword };
+interface Author {
+  id: number;
+  nickname: string;
+  profileImageUrl: string;
+}
+
+export type { TopicResponse, Choice, ChoiceContent, Keyword, Author };

@@ -1,4 +1,4 @@
-import { ErrorResponse } from '@interfaces/api';
+import { ErrorResponse } from '@interfaces/api/error';
 
 export class ResponseError extends Error {
   errorData: ErrorResponse;
@@ -15,6 +15,10 @@ class Fetch {
 
   constructor() {
     this.baseURL = import.meta.env.VITE_API_BASE_URL;
+
+    if (import.meta.env.DEV) {
+      this.accessToken = import.meta.env.VITE_API_ACCESS_TOKEN;
+    }
   }
 
   async get<T>(path: string): Promise<T> {
@@ -22,7 +26,7 @@ class Fetch {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        ...(this.accessToken && { AccessToken: this.accessToken }),
+        ...(this.accessToken && { Authorization: `Bearer ${this.accessToken}` }),
       },
     });
     const data: T = await response.json();
@@ -42,7 +46,7 @@ class Fetch {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json;charset=UTF-8',
-        ...(this.accessToken && { AccessToken: this.accessToken }),
+        ...(this.accessToken && { Authorization: `Bearer ${this.accessToken}` }),
         ...headers,
       },
       body: JSON.stringify(body),

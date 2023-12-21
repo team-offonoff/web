@@ -15,33 +15,19 @@ export interface TextProps {
 const getFontSize = (sizeInPx: number) => `${sizeInPx / 10}rem`;
 
 const Text = React.memo((props: TextProps) => {
-  const {
-    tagName = 'div',
-    color = '#ffffff',
-    align = 'start',
-    lineHeight = '140%',
-    noWrap = false,
-    weight = 400,
-    size,
-    children,
-  } = props;
+  const { tagName = 'div', children, ...others } = props;
 
   return (
-    <Tag
-      as={tagName}
-      color={color}
-      weight={weight}
-      size={size}
-      align={align}
-      lineHeight={lineHeight}
-      noWrap={noWrap}
-    >
+    <StyledText {...others} as={tagName}>
       {children}
-    </Tag>
+    </StyledText>
   );
 });
 
-const Tag = styled.div<TextProps>`
+const StyledText = styled('div').withConfig({
+  shouldForwardProp: (prop) =>
+    ['children', 'weight', 'align', 'color', 'size', 'lineHeight', 'noWrap'].includes(prop),
+})<TextProps>`
   ${({ lineHeight }) =>
     lineHeight &&
     css`
