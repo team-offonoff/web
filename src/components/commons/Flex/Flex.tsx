@@ -12,34 +12,60 @@ interface FlexProps {
 }
 
 export const Row = (props: FlexProps) => {
-  const { children, ...others } = props;
+  const {
+    justifyContent: justify,
+    alignItems: align,
+    borderRadius: radius,
+    children,
+    ...others
+  } = props;
 
   return (
-    <Flex {...others} flexDirection={'row'}>
+    <Flex {...others} justify={justify} align={align} radius={radius} direction={'row'}>
       {children}
     </Flex>
   );
 };
 
 export const Col = (props: FlexProps) => {
-  const { children, ...others } = props;
+  const {
+    justifyContent: justify,
+    alignItems: align,
+    borderRadius: radius,
+    children,
+    ...others
+  } = props;
 
   return (
-    <Flex {...others} flexDirection={'column'}>
+    <Flex {...others} justify={justify} align={align} radius={radius} direction={'column'}>
       {children}
     </Flex>
   );
 };
 
-interface StyledFlexProps extends Omit<FlexProps, 'children'> {
-  flexDirection: React.CSSProperties['flexDirection'];
+interface StyledFlexProps {
+  direction: React.CSSProperties['flexDirection'];
+  justify?: React.CSSProperties['justifyContent'];
+  align?: React.CSSProperties['alignItems'];
+  radius?: React.CSSProperties['borderRadius'];
+  padding?: React.CSSProperties['padding'];
+  margin?: React.CSSProperties['margin'];
+  gap?: React.CSSProperties['gap'];
 }
 
 const Flex = styled.div<StyledFlexProps>`
   display: flex;
-  flex-direction: ${(props) => props.flexDirection};
-  align-items: ${(props) => props.alignItems};
-  justify-content: ${(props) => props.justifyContent};
+  flex-direction: ${(props) => props.direction};
+  ${({ align }) =>
+    align &&
+    css`
+      align-items: ${align};
+    `}
+  ${({ justify }) =>
+    justify &&
+    css`
+      justify-content: ${justify};
+    `}
   ${({ gap }) =>
     gap &&
     css`
@@ -56,9 +82,9 @@ const Flex = styled.div<StyledFlexProps>`
     css`
       margin: ${margin};
     `}
-    ${({ borderRadius }) =>
-    borderRadius &&
+    ${({ radius }) =>
+    radius &&
     css`
-      border-radius: ${borderRadius};
+      border-radius: ${radius};
     `}
 `;
