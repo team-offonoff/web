@@ -82,16 +82,14 @@ const TopicCard = ({ topic }: TopicCardProps) => {
           onClick={handleOnClickCommentBox}
         />
       </TopicCardContainer>
-      {isCommentOpen && (
-        <BottomSheet open={isCommentOpen} setIsOpen={setIsCommentOpen}>
-          <Comment />
-          <Comment />
-          <Comment />
-          <Comment />
-          <Comment />
-          <Comment />
-        </BottomSheet>
-      )}
+      <CommentSheet>
+        <Comment />
+        <Comment />
+        <Comment />
+        <Comment />
+        <Comment />
+        <Comment />
+      </CommentSheet>
     </React.Fragment>
   );
 };
