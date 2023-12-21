@@ -1,65 +1,94 @@
+import { getDateDistance, getDateDistanceText } from '@toss/date';
 import React from 'react';
 
 import { Col, Row } from '@components/commons/Flex/Flex';
 import Text from '@components/commons/Text/Text';
+import useModal from '@hooks/useModal/useModal';
+import { CommentResponse } from '@interfaces/api/comment';
 
 import { colors } from '@styles/theme';
 
-import { MeatballIcon } from '@icons/index';
+import { MeatballIcon, ReportIcon } from '@icons/index';
 
 import { CommentAuthorProfileImg } from './Comment.styles';
 import Thumbs from './Thumbs';
 
-const Comment = () => {
-  const handleCommentMenuClick = () => {};
+interface CommentProps {
+  comment: CommentResponse;
+}
+
+const Comment = ({ comment }: CommentProps) => {
+  const { Modal, toggleModal } = useModal('action');
+
+  const startDate = new Date(comment.createdAt);
+
+  const distance = getDateDistance(startDate, new Date());
+
+  const handleCommentMenu = () => {
+    toggleModal();
+  };
+
+  const handleCommentReport = () => {
+    // TODO: 신고하기 기능 구현
+    toggleModal();
+  };
+
   return (
-    <Col padding={'14px 20px 24px'}>
-      <Row justifyContent={'space-between'} alignItems={'flex-start'}>
-        <Row gap={8}>
-          <CommentAuthorProfileImg src={'https://picsum.photos/50/50'} alt={'profile'} />
-          <Col gap={2}>
-            <Row>
-              <Text size={14} color={colors.black_60}>
-                닉네임
+    <React.Fragment>
+      <Col padding={'14px 20px 24px'}>
+        <Row justifyContent={'space-between'} alignItems={'flex-start'}>
+          <Row gap={8}>
+            <CommentAuthorProfileImg src={'https://picsum.photos/50/50'} alt={'profile'} />
+            <Col gap={2}>
+              <Row>
+                <Text size={14} color={colors.black_60}>
+                  {comment.writer.nickname}
+                </Text>
+                <Text size={14} color={colors.black_40}>
+                  · {getDateDistanceText(distance)}전
+                </Text>
+              </Row>
+              <Text size={14} color={colors.sub_A} weight={600}>
+                {comment.writersVotedOption}
               </Text>
-              <Text size={14} color={colors.black_40}>
-                · 2일전
-              </Text>
-            </Row>
-            <Text size={14} color={colors.sub_A} weight={600}>
-              A. 10년 전 과거로 가기
-            </Text>
-          </Col>
+            </Col>
+          </Row>
+          <button onClick={handleCommentMenu}>
+            <MeatballIcon fill={colors.black_40} />
+          </button>
         </Row>
-        <button onClick={handleCommentMenuClick}>
-          <MeatballIcon fill={colors.black_40} />
-        </button>
-      </Row>
-      <Col padding={'8px 10px 0px 30px'} gap={14}>
-        <Text size={15}>
-          왜들 그리 다운돼있어? 뭐가 문제야 say something 분위기가 겁나 싸해 요새는 이런 게 유행인가
-          왜들 그리 재미없어? 아 그건 나도 마찬가지
-        </Text>
-        <Row gap={12}>
-          <Thumbs
-            type={'up'}
-            count={1}
-            hasClicked={false}
-            onClick={function (): void {
-              throw new Error('Function not implemented.');
-            }}
-          />
-          <Thumbs
-            type={'down'}
-            count={4}
-            hasClicked={false}
-            onClick={function (): void {
-              throw new Error('Function not implemented.');
-            }}
-          />
-        </Row>
+        <Col padding={'8px 10px 0px 30px'} gap={14}>
+          <Text size={15}>{comment.content}</Text>
+          <Row gap={12}>
+            <Thumbs
+              type={'up'}
+              count={comment.likeCount}
+              hasClicked={comment.liked}
+              onClick={function (): void {
+                throw new Error('Function not implemented.');
+              }}
+            />
+            <Thumbs
+              type={'down'}
+              hasClicked={comment.hated}
+              onClick={function (): void {
+                throw new Error('Function not implemented.');
+              }}
+            />
+          </Row>
+        </Col>
       </Col>
-    </Col>
+      <Modal>
+        <button onClick={handleCommentReport}>
+          <Row alignItems={'center'} gap={14}>
+            <ReportIcon />
+            <Text size={16} weight={500}>
+              신고하기
+            </Text>
+          </Row>
+        </button>
+      </Modal>
+    </React.Fragment>
   );
 };
 
