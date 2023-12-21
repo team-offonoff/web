@@ -3,6 +3,8 @@ import { default as ReactModal, Styles } from 'react-modal';
 
 import { zIndex } from '@styles/theme';
 
+import { Col } from '../Flex/Flex';
+
 interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -70,7 +72,9 @@ const Modal = ({ isOpen, onClose, children }: ModalProps) => {
 const ActionModal = ({ isOpen, onClose, children }: ModalProps) => {
   return (
     <ReactModal isOpen={isOpen} onRequestClose={onClose} style={actionModalStyle} ariaHideApp>
-      {children}
+      <Col padding={'36px 24px'} gap={20}>
+        {children}
+      </Col>
     </ReactModal>
   );
 };
