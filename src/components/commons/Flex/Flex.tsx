@@ -2,6 +2,7 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 
 interface FlexProps {
+  className?: string;
   justifyContent?: React.CSSProperties['justifyContent'];
   alignItems?: React.CSSProperties['alignItems'];
   gap?: React.CSSProperties['gap'];
