@@ -9,7 +9,7 @@ import { ThumbsIcon } from '@icons/index';
 
 interface ThumbsProps {
   type: 'up' | 'down';
-  count: number;
+  count?: number;
   hasClicked: boolean;
   onClick: () => void;
 }
