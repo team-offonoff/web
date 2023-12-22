@@ -1,6 +1,7 @@
 import { TimeUnits, getDateDistance, getDateDistanceText } from '@toss/date';
 import React from 'react';
 
+import { useReactComment } from '@apis/comment/useComment';
 import { Col, Row } from '@components/commons/Flex/Flex';
 import Text from '@components/commons/Text/Text';
 import useModal from '@hooks/useModal/useModal';
@@ -17,8 +18,13 @@ interface CommentProps {
   comment: CommentResponse;
 }
 
-const Comment = ({ comment }: CommentProps) => {
+const Comment = React.memo(({ comment }: CommentProps) => {
   const { Modal, toggleModal } = useModal('action');
+  const reactMutation = useReactComment(comment.topicId, comment.commentId);
+  const likeCount = Math.max(
+    comment.commentReaction.likeCount - comment.commentReaction.hateCount,
+    0
+  );
 
   const startDate = new Date(comment.createdAt);
   const distance = getDateDistance(startDate, new Date());
@@ -37,6 +43,14 @@ const Comment = ({ comment }: CommentProps) => {
     toggleModal();
   };
 
+  const handleCommentLike = () => {
+    reactMutation.mutate({ reaction: 'like', enable: !comment.commentReaction.liked });
+  };
+
+  const handleCommentHate = () => {
+    reactMutation.mutate({ reaction: 'hate', enable: !comment.commentReaction.hated });
+  };
+
   return (
     <React.Fragment>
       <Col padding={'14px 20px 24px'}>
@@ -46,10 +60,10 @@ const Comment = ({ comment }: CommentProps) => {
             <Col gap={2}>
               <Row>
                 <Text size={14} color={colors.black_60}>
-                  {comment.writer.nickname}
+                  {comment.writer.nickname}&nbsp;
                 </Text>
                 <Text size={14} color={colors.black_40}>
-                  · {distanceText}전
+                  {'·'} {distanceText}전
                 </Text>
               </Row>
               <Text size={14} color={colors.sub_A} weight={600}>
@@ -66,18 +80,14 @@ const Comment = ({ comment }: CommentProps) => {
           <Row gap={12}>
             <Thumbs
               type={'up'}
-              count={comment.likeCount}
-              hasClicked={comment.liked}
-              onClick={function (): void {
-                throw new Error('Function not implemented.');
-              }}
+              count={likeCount}
+              hasClicked={comment.commentReaction.liked}
+              onClick={handleCommentLike}
             />
             <Thumbs
               type={'down'}
-              hasClicked={comment.hated}
-              onClick={function (): void {
-                throw new Error('Function not implemented.');
-              }}
+              hasClicked={comment.commentReaction.hated}
+              onClick={handleCommentHate}
             />
           </Row>
         </Col>
@@ -94,6 +104,6 @@ const Comment = ({ comment }: CommentProps) => {
       </Modal>
     </React.Fragment>
   );
-};
+});
 
 export default Comment;

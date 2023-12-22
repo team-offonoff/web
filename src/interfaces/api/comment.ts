@@ -4,11 +4,15 @@ export interface CommentResponse {
   writer: Writer;
   writersVotedOption?: 'CHOICE_A' | 'CHOICE_B';
   content: string;
+  commentReaction: CommentReaction;
+  createdAt: string;
+}
+
+export interface CommentReaction {
   likeCount: number;
   hateCount: number;
   liked: boolean;
   hated: boolean;
-  createdAt: string;
 }
 
 interface Writer {

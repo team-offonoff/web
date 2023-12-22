@@ -1,6 +1,6 @@
-import { useInfiniteQuery } from '@tanstack/react-query';
+import { InfiniteData, useInfiniteQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
-import { CommentResponse } from '@interfaces/api/comment';
+import { CommentReaction, CommentResponse } from '@interfaces/api/comment';
 
 import { PagingDataResponse } from '@interfaces/api';
 
@@ -14,10 +14,27 @@ const getComments = ({ topicId, page, size }: { topicId: number; page: number; s
   );
 };
 
+const createComments = ({ topicId, content }: { topicId: number; content: string }) => {
+  return client.post<CommentResponse>({
+    path: `/comments`,
+    body: {
+      topicId: topicId,
+      content: content,
+    },
+  });
+};
+
+const reactComment = (commentId: number, reaction: 'like' | 'hate', enable: boolean) => {
+  return client.post<CommentReaction>({
+    path: `/comments/${commentId}/${reaction}?enable=${enable}`,
+    body: {},
+  });
+};
+
 const useComments = (topicId: number, enabled: boolean) => {
   return useInfiniteQuery({
     queryKey: [COMMENT_KEY, topicId],
-    queryFn: (params) => getComments({ topicId: topicId, page: params.pageParam, size: 10 }),
+    queryFn: (params) => getComments({ topicId: topicId, page: params.pageParam, size: 20 }),
     initialPageParam: 0,
     getNextPageParam: (lastPage) =>
       lastPage.pageInfo.last ? undefined : lastPage.pageInfo.page + 1,
@@ -25,4 +42,43 @@ const useComments = (topicId: number, enabled: boolean) => {
   });
 };
 
-export default useComments;
+const useCreateComment = (topicId: number) => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: ({ content }: { content: string }) => createComments({ topicId, content }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [COMMENT_KEY, topicId] });
+    },
+  });
+};
+
+const useReactComment = (topicId: number, commentId: number) => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: ({ reaction, enable }: { reaction: 'like' | 'hate'; enable: boolean }) =>
+      reactComment(commentId, reaction, enable),
+    onSuccess: (data: CommentReaction) => {
+      queryClient.setQueryData(
+        [COMMENT_KEY, topicId],
+        (oldData: InfiniteData<PagingDataResponse<CommentResponse>, unknown> | undefined) => {
+          if (!oldData) return oldData;
+          return {
+            ...oldData,
+            pages: oldData.pages.map((page) => {
+              return {
+                ...page,
+                data: page.data.map((comment) =>
+                  comment.commentId === commentId ? { ...comment, commentReaction: data } : comment
+                ),
+              };
+            }),
+          };
+        }
+      );
+    },
+  });
+};
+
+export { COMMENT_KEY, useComments, useCreateComment, useReactComment };

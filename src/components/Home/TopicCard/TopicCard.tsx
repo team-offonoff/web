@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 
-import useComments from '@apis/comment/useComment';
 import Text from '@components/commons/Text/Text';
 import ChoiceSlider from '@components/Home/ChoiceSlider/ChoiceSlider';
 import CommentBox from '@components/Home/CommentBox/CommentBox';
@@ -52,10 +51,6 @@ const TopicCard = ({ topic }: TopicCardProps) => {
   ];
 
   const [hasVoted, setHasVoted] = useState(false);
-  const { data: commentData, fetchNextPage } = useComments(
-    topic.topicId,
-    topic.selectedOption !== null
-  );
   const { BottomSheet: CommentSheet, toggleSheet } = useBottomSheet({});
 
   const handleOnClickCommentBox = () => {
@@ -109,7 +104,7 @@ const TopicCard = ({ topic }: TopicCardProps) => {
         />
       </TopicCardContainer>
       <CommentSheet>
-        <TopicComments topicId={topic.topicId} comments={commentData} />
+        <TopicComments topic={topic} />
       </CommentSheet>
     </React.Fragment>
   );
