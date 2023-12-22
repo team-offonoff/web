@@ -1,6 +1,7 @@
 import { TimeUnits, getDateDistance, getDateDistanceText } from '@toss/date';
-import React from 'react';
+import React, { useState } from 'react';
 
+import { useReactComment } from '@apis/comment/useComment';
 import { Col, Row } from '@components/commons/Flex/Flex';
 import Text from '@components/commons/Text/Text';
 import useModal from '@hooks/useModal/useModal';
@@ -19,6 +20,8 @@ interface CommentProps {
 
 const Comment = ({ comment }: CommentProps) => {
   const { Modal, toggleModal } = useModal('action');
+  const likeMutation = useReactComment(comment.topicId, comment.commentId, 'like');
+  const hateMutation = useReactComment(comment.topicId, comment.commentId, 'hate');
 
   const startDate = new Date(comment.createdAt);
   const distance = getDateDistance(startDate, new Date());
@@ -35,6 +38,14 @@ const Comment = ({ comment }: CommentProps) => {
   const handleCommentReport = () => {
     // TODO: 신고하기 기능 구현
     toggleModal();
+  };
+
+  const handleCommentLike = () => {
+    likeMutation.mutate();
+  };
+
+  const handleCommentHate = () => {
+    hateMutation.mutate();
   };
 
   return (
@@ -66,19 +77,11 @@ const Comment = ({ comment }: CommentProps) => {
           <Row gap={12}>
             <Thumbs
               type={'up'}
-              count={comment.likeCount}
+              count={comment.likeCount - comment.hateCount}
               hasClicked={comment.liked}
-              onClick={function (): void {
-                throw new Error('Function not implemented.');
-              }}
+              onClick={handleCommentLike}
             />
-            <Thumbs
-              type={'down'}
-              hasClicked={comment.hated}
-              onClick={function (): void {
-                throw new Error('Function not implemented.');
-              }}
-            />
+            <Thumbs type={'down'} hasClicked={comment.hated} onClick={handleCommentHate} />
           </Row>
         </Col>
       </Col>

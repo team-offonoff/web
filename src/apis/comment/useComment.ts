@@ -24,10 +24,17 @@ const createComments = ({ topicId, content }: { topicId: number; content: string
   });
 };
 
+const reactComment = (commentId: number, reaction: 'like' | 'hate') => {
+  return client.post<CommentResponse>({
+    path: `/comments/${commentId}/${reaction}?enable=true`,
+    body: {},
+  });
+};
+
 const useComments = (topicId: number, enabled: boolean) => {
   return useInfiniteQuery({
     queryKey: [COMMENT_KEY, topicId],
-    queryFn: (params) => getComments({ topicId: topicId, page: params.pageParam, size: 10 }),
+    queryFn: (params) => getComments({ topicId: topicId, page: params.pageParam, size: 20 }),
     initialPageParam: 0,
     getNextPageParam: (lastPage) =>
       lastPage.pageInfo.last ? undefined : lastPage.pageInfo.page + 1,
@@ -46,4 +53,15 @@ const useCreateComment = (topicId: number) => {
   });
 };
 
-export { COMMENT_KEY, getComments, useComments, useCreateComment };
+const useReactComment = (topicId: number, commentId: number, reaction: 'like' | 'hate') => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: () => reactComment(commentId, reaction),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [COMMENT_KEY, topicId] });
+    },
+  });
+};
+
+export { COMMENT_KEY, useComments, useCreateComment, useReactComment };
