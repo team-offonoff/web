@@ -1,4 +1,4 @@
-import { useInfiniteQuery } from '@tanstack/react-query';
+import { useInfiniteQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { CommentResponse } from '@interfaces/api/comment';
 
@@ -14,6 +14,16 @@ const getComments = ({ topicId, page, size }: { topicId: number; page: number; s
   );
 };
 
+const createComments = ({ topicId, content }: { topicId: number; content: string }) => {
+  return client.post<CommentResponse>({
+    path: `/comments`,
+    body: {
+      topicId: topicId,
+      content: content,
+    },
+  });
+};
+
 const useComments = (topicId: number, enabled: boolean) => {
   return useInfiniteQuery({
     queryKey: [COMMENT_KEY, topicId],
@@ -25,4 +35,15 @@ const useComments = (topicId: number, enabled: boolean) => {
   });
 };
 
-export default useComments;
+const useCreateComment = (topicId: number) => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: ({ content }: { content: string }) => createComments({ topicId, content }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [COMMENT_KEY, topicId] });
+    },
+  });
+};
+
+export { COMMENT_KEY, getComments, useComments, useCreateComment };
