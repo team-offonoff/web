@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { useComments, useCreateComment } from '@apis/comment/useComment';
 import { Row } from '@components/commons/Flex/Flex';
@@ -27,14 +27,18 @@ const TopicComments = ({ topic }: TopicCommentsProps) => {
     topic.selectedOption !== null
   );
   const commentMutation = useCreateComment(topic.topicId);
-  const [newComment, setNewComment] = React.useState('');
+  const [newComment, setNewComment] = useState('');
+
+  const commentCount = comments?.pages.reduce((acc, page) => {
+    return acc + page.data.length;
+  }, 0);
 
   return (
     <TopicCommentsContainer>
       <TopicCommentsHeader className="draggable">
         <Row className="draggable">
           <Text className="draggable" size={18} weight={500} color={colors.black}>
-            1천개
+            {commentCount}개
           </Text>
           <Text className="draggable" size={18} weight={500} color={colors.black_40}>
             의 댓글
