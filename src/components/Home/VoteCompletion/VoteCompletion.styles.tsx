@@ -11,7 +11,7 @@ export const VoteCompletionContainer = styled.div`
   justify-content: flex-start;
   width: 100%;
   height: 246px;
-  padding: 36px 20px 0;
+  padding: 55px 20px 0;
 `;
 
 export const VoteCompletionLabel = styled.div`
