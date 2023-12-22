@@ -20,8 +20,8 @@ interface CommentProps {
 
 const Comment = ({ comment }: CommentProps) => {
   const { Modal, toggleModal } = useModal('action');
-  const likeMutation = useReactComment(comment.topicId, comment.commentId, 'like');
-  const hateMutation = useReactComment(comment.topicId, comment.commentId, 'hate');
+  const likeMutation = useReactComment(comment.commentId, 'like');
+  const hateMutation = useReactComment(comment.commentId, 'hate');
 
   const startDate = new Date(comment.createdAt);
   const distance = getDateDistance(startDate, new Date());

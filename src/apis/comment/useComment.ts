@@ -53,14 +53,9 @@ const useCreateComment = (topicId: number) => {
   });
 };
 
-const useReactComment = (topicId: number, commentId: number, reaction: 'like' | 'hate') => {
-  const queryClient = useQueryClient();
-
+const useReactComment = (commentId: number, reaction: 'like' | 'hate') => {
   return useMutation({
     mutationFn: () => reactComment(commentId, reaction),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [COMMENT_KEY, topicId] });
-    },
   });
 };
 
