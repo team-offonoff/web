@@ -1,4 +1,11 @@
-import { motion, PanInfo, useAnimation, useMotionValue, useTransform } from 'framer-motion';
+import {
+  motion,
+  PanInfo,
+  useAnimation,
+  useDragControls,
+  useMotionValue,
+  useTransform,
+} from 'framer-motion';
 import React, { useEffect } from 'react';
 import { styled } from 'styled-components';
 
@@ -37,10 +44,29 @@ const BottomSheet = ({
     return -latest;
   });
   const controls = useAnimation();
+  const dragControls = useDragControls();
 
   useEffect(() => {
     controls.start('1');
   }, []);
+
+  useEffect(() => {
+    if (open) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [open]);
+
+  const handleOnDragStart = (event: React.PointerEvent<HTMLDivElement>) => {
+    if ((event.target as Element).classList.contains('draggable')) {
+      dragControls.start(event);
+    }
+  };
 
   const handleDragEnd = (_: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
     const variant1Position = screenHeight + variants['1'].y;
@@ -90,6 +116,8 @@ const BottomSheet = ({
       />
       <Wrapper
         drag="y"
+        dragListener={false}
+        dragControls={dragControls}
         dragConstraints={{
           top: -window.innerHeight,
           bottom: 0,
@@ -101,29 +129,33 @@ const BottomSheet = ({
         initial={'2'}
         animate={controls}
         onDragEnd={handleDragEnd}
+        onPointerDown={handleOnDragStart}
         variants={variants}
         style={{ y: y }}
       >
         <Container style={{ height: height }}>
-          <Content>
+          <HandleBarContainer className="draggable">
             <HandleBar />
-            {children}
-          </Content>
+          </HandleBarContainer>
+          <Content>{children}</Content>
         </Container>
       </Wrapper>
     </ReactPortal>
   );
 };
 
+const HandleBarContainer = styled(motion.div)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 0;
+`;
+
 const HandleBar = styled.div`
-  position: absolute;
-  top: 10px;
-  left: 50%;
   width: 40px;
   height: 4px;
   background-color: #e6e6e6;
   border-radius: 5px;
-  transform: translateX(-50%);
 `;
 
 const Backdrop = styled(motion.div)`
@@ -149,14 +181,15 @@ const Wrapper = styled(motion.div)`
 
 const Container = styled(motion.div)`
   box-sizing: border-box;
-`;
-
-const Content = styled.div`
-  height: 100%;
-  padding-top: 10px;
+  display: flex;
+  flex-direction: column;
   background-color: white;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
+`;
+
+const Content = styled(motion.div)`
+  height: calc(100% - 20px);
 `;
 
 export default BottomSheet;

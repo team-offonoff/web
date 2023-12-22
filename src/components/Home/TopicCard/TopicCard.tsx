@@ -7,13 +7,13 @@ import CommentBox from '@components/Home/CommentBox/CommentBox';
 import Timer from '@components/Home/Timer/Timer';
 import VoteCompletion from '@components/Home/VoteCompletion/VoteCompletion';
 import useBottomSheet from '@hooks/useBottomSheet/useBottomSheet';
-import { Choice, TopicResponse } from '@interfaces/api/topic';
+import { Choice, CHOICE_OPTIONS, TopicResponse } from '@interfaces/api/topic';
 
 import { colors } from '@styles/theme';
 
 import { LeftDoubleArrowIcon, RightDoubleArrowIcon } from '@icons/index';
 
-import Comment from '../Comment/Comment';
+import TopicComments from '../TopicComments/TopicComments';
 
 import {
   BestTopicCotainer,
@@ -38,16 +38,16 @@ const TopicCard = ({ topic }: TopicCardProps) => {
         imageUrl: 'imageUrl',
         type: 'IMAGE_TEXT',
       },
-      {
-        choiceId: 2,
-        content: {
-          text: 'Choice 2',
-          imageUrl: 'undefined',
-          type: 'text',
-        },
-        choiceOption: 'B',
+      choiceOption: CHOICE_OPTIONS.CHOICE_A,
+    },
+    {
+      choiceId: 2,
+      content: {
+        text: 'Choice 2',
+        imageUrl: 'undefined',
+        type: 'text',
       },
-      choiceOption: 'CHOICE_B',
+      choiceOption: CHOICE_OPTIONS.CHOICE_B,
     },
   ];
 
@@ -109,13 +109,7 @@ const TopicCard = ({ topic }: TopicCardProps) => {
         />
       </TopicCardContainer>
       <CommentSheet>
-        {commentData?.pages.map((group, i) => (
-          <React.Fragment key={i}>
-            {group.data.map((comment) => (
-              <Comment key={comment.commentId} comment={comment} />
-            ))}
-          </React.Fragment>
-        ))}
+        <TopicComments topicId={topic.topicId} comments={commentData} />
       </CommentSheet>
     </React.Fragment>
   );
