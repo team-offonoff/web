@@ -1,13 +1,9 @@
-import { InfiniteData } from '@tanstack/query-core';
 import React from 'react';
 
 import { useComments, useCreateComment } from '@apis/comment/useComment';
 import { Row } from '@components/commons/Flex/Flex';
 import Text from '@components/commons/Text/Text';
-import { CommentResponse } from '@interfaces/api/comment';
 import { TopicResponse } from '@interfaces/api/topic';
-
-import { PagingDataResponse } from '@interfaces/api';
 
 import { colors } from '@styles/theme';
 

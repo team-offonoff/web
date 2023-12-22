@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 
-import { useComments } from '@apis/comment/useComment';
 import Text from '@components/commons/Text/Text';
 import ChoiceSlider from '@components/Home/ChoiceSlider/ChoiceSlider';
 import CommentBox from '@components/Home/CommentBox/CommentBox';
