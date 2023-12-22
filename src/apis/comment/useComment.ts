@@ -1,6 +1,6 @@
-import { useInfiniteQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { InfiniteData, useInfiniteQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
-import { CommentResponse } from '@interfaces/api/comment';
+import { CommentReaction, CommentResponse } from '@interfaces/api/comment';
 
 import { PagingDataResponse } from '@interfaces/api';
 
@@ -24,9 +24,9 @@ const createComments = ({ topicId, content }: { topicId: number; content: string
   });
 };
 
-const reactComment = (commentId: number, reaction: 'like' | 'hate') => {
-  return client.post<CommentResponse>({
-    path: `/comments/${commentId}/${reaction}?enable=true`,
+const reactComment = (commentId: number, reaction: 'like' | 'hate', enable: boolean) => {
+  return client.post<CommentReaction>({
+    path: `/comments/${commentId}/${reaction}?enable=${enable}`,
     body: {},
   });
 };
@@ -53,9 +53,31 @@ const useCreateComment = (topicId: number) => {
   });
 };
 
-const useReactComment = (commentId: number, reaction: 'like' | 'hate') => {
+const useReactComment = (topicId: number, commentId: number) => {
+  const queryClient = useQueryClient();
+
   return useMutation({
-    mutationFn: () => reactComment(commentId, reaction),
+    mutationFn: ({ reaction, enable }: { reaction: 'like' | 'hate'; enable: boolean }) =>
+      reactComment(commentId, reaction, enable),
+    onSuccess: (data: CommentReaction) => {
+      queryClient.setQueryData(
+        [COMMENT_KEY, topicId],
+        (oldData: InfiniteData<PagingDataResponse<CommentResponse>, unknown> | undefined) => {
+          if (!oldData) return oldData;
+          return {
+            ...oldData,
+            pages: oldData.pages.map((page) => {
+              return {
+                ...page,
+                data: page.data.map((comment) =>
+                  comment.commentId === commentId ? { ...comment, commentReaction: data } : comment
+                ),
+              };
+            }),
+          };
+        }
+      );
+    },
   });
 };
 
