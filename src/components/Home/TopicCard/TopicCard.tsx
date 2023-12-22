@@ -91,7 +91,7 @@ const TopicCard = ({ topic }: TopicCardProps) => {
           <ChoiceSlider onVote={handleOnVote} choices={choices} />
         )}
         <Timer endTime={topic.deadline} />
-        <SelectTextContainer>
+        <SelectTextContainer hasVoted={hasVoted}>
           <LeftDoubleArrowIcon />
           <Text size={14} weight={'regular'} color={colors.white_40}>
             밀어서 선택하기
