@@ -22,6 +22,7 @@ const Comment = ({ comment }: CommentProps) => {
   const { Modal, toggleModal } = useModal('action');
   const likeMutation = useReactComment(comment.commentId, 'like');
   const hateMutation = useReactComment(comment.commentId, 'hate');
+  const likeCount = comment.commentReaction.likeCount - comment.commentReaction.hateCount;
 
   const startDate = new Date(comment.createdAt);
   const distance = getDateDistance(startDate, new Date());
@@ -77,11 +78,15 @@ const Comment = ({ comment }: CommentProps) => {
           <Row gap={12}>
             <Thumbs
               type={'up'}
-              count={comment.likeCount - comment.hateCount}
-              hasClicked={comment.liked}
+              count={likeCount}
+              hasClicked={comment.commentReaction.liked}
               onClick={handleCommentLike}
             />
-            <Thumbs type={'down'} hasClicked={comment.hated} onClick={handleCommentHate} />
+            <Thumbs
+              type={'down'}
+              hasClicked={comment.commentReaction.hated}
+              onClick={handleCommentHate}
+            />
           </Row>
         </Col>
       </Col>
