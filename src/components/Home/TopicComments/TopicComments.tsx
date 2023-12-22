@@ -1,9 +1,11 @@
 import { InfiniteData } from '@tanstack/query-core';
 import React from 'react';
 
+import { useComments, useCreateComment } from '@apis/comment/useComment';
 import { Row } from '@components/commons/Flex/Flex';
 import Text from '@components/commons/Text/Text';
 import { CommentResponse } from '@interfaces/api/comment';
+import { TopicResponse } from '@interfaces/api/topic';
 
 import { PagingDataResponse } from '@interfaces/api';
 
@@ -20,11 +22,17 @@ import {
 } from './TopicComments.styles';
 
 interface TopicCommentsProps {
-  topicId: number;
-  comments: InfiniteData<PagingDataResponse<CommentResponse>> | undefined;
+  topic: TopicResponse;
 }
 
-const TopicComments = ({ topicId, comments }: TopicCommentsProps) => {
+const TopicComments = ({ topic }: TopicCommentsProps) => {
+  const { data: comments, fetchNextPage } = useComments(
+    topic.topicId,
+    topic.selectedOption !== null
+  );
+  const commentMutation = useCreateComment(topic.topicId);
+  const [newComment, setNewComment] = React.useState('');
+
   return (
     <TopicCommentsContainer>
       <TopicCommentsHeader className="draggable">
@@ -47,7 +55,18 @@ const TopicComments = ({ topicId, comments }: TopicCommentsProps) => {
         ))}
       </CommentsContainer>
       <CommentInputContainer>
-        <CommentInput type="text" placeholder="댓글 쓰기" />
+        <CommentInput
+          type="text"
+          placeholder="댓글 쓰기"
+          value={newComment}
+          onChange={(e) => setNewComment(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+              commentMutation.mutate({ content: newComment });
+              setNewComment('');
+            }
+          }}
+        />
       </CommentInputContainer>
     </TopicCommentsContainer>
   );
