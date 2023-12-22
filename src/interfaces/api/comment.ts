@@ -8,7 +8,7 @@ export interface CommentResponse {
   createdAt: string;
 }
 
-interface CommentReaction {
+export interface CommentReaction {
   likeCount: number;
   hateCount: number;
   liked: boolean;
