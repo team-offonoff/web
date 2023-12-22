@@ -2,6 +2,7 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 
 export interface TextProps {
+  className?: string;
   size: number;
   children: React.ReactNode;
   tagName?: keyof JSX.IntrinsicElements;

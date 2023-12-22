@@ -13,7 +13,7 @@ import { colors } from '@styles/theme';
 
 import { LeftDoubleArrowIcon, RightDoubleArrowIcon } from '@icons/index';
 
-import Comment from '../Comment/Comment';
+import TopicComments from '../TopicComments/TopicComments';
 
 import {
   BestTopicCotainer,
@@ -109,13 +109,7 @@ const TopicCard = ({ topic }: TopicCardProps) => {
         />
       </TopicCardContainer>
       <CommentSheet>
-        {commentData?.pages.map((group, i) => (
-          <React.Fragment key={i}>
-            {group.data.map((comment) => (
-              <Comment key={comment.commentId} comment={comment} />
-            ))}
-          </React.Fragment>
-        ))}
+        <TopicComments topicId={topic.topicId} comments={commentData} />
       </CommentSheet>
     </React.Fragment>
   );
