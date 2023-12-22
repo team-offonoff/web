@@ -1,5 +1,5 @@
 import { TimeUnits, getDateDistance, getDateDistanceText } from '@toss/date';
-import React, { useState } from 'react';
+import React from 'react';
 
 import { useReactComment } from '@apis/comment/useComment';
 import { Col, Row } from '@components/commons/Flex/Flex';
@@ -18,11 +18,13 @@ interface CommentProps {
   comment: CommentResponse;
 }
 
-const Comment = ({ comment }: CommentProps) => {
+const Comment = React.memo(({ comment }: CommentProps) => {
   const { Modal, toggleModal } = useModal('action');
-  const likeMutation = useReactComment(comment.commentId, 'like');
-  const hateMutation = useReactComment(comment.commentId, 'hate');
-  const likeCount = comment.commentReaction.likeCount - comment.commentReaction.hateCount;
+  const reactMutation = useReactComment(comment.topicId, comment.commentId);
+  const likeCount = Math.max(
+    comment.commentReaction.likeCount - comment.commentReaction.hateCount,
+    0
+  );
 
   const startDate = new Date(comment.createdAt);
   const distance = getDateDistance(startDate, new Date());
@@ -42,11 +44,11 @@ const Comment = ({ comment }: CommentProps) => {
   };
 
   const handleCommentLike = () => {
-    likeMutation.mutate();
+    reactMutation.mutate({ reaction: 'like', enable: !comment.commentReaction.liked });
   };
 
   const handleCommentHate = () => {
-    hateMutation.mutate();
+    reactMutation.mutate({ reaction: 'hate', enable: !comment.commentReaction.hated });
   };
 
   return (
@@ -58,10 +60,10 @@ const Comment = ({ comment }: CommentProps) => {
             <Col gap={2}>
               <Row>
                 <Text size={14} color={colors.black_60}>
-                  {comment.writer.nickname}
+                  {comment.writer.nickname}&nbsp;
                 </Text>
                 <Text size={14} color={colors.black_40}>
-                  · {distanceText}전
+                  {'·'} {distanceText}전
                 </Text>
               </Row>
               <Text size={14} color={colors.sub_A} weight={600}>
@@ -102,6 +104,6 @@ const Comment = ({ comment }: CommentProps) => {
       </Modal>
     </React.Fragment>
   );
-};
+});
 
 export default Comment;
