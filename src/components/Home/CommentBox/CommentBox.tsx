@@ -45,17 +45,17 @@ const CommentBox = ({
   hasVoted,
 }: CommentBoxProps) => {
   const { Modal, toggleModal } = useModal('action');
-  const mutation = useReportTopic(topicId);
+  const reportMutation = useReportTopic(topicId);
 
   const handleOnClickCommentMenu = () => {
-    // setIsModalOpen(true);
     toggleModal();
   };
 
   const handleHideTopic = () => {};
 
   const handleReportTopic = () => {
-    mutation.mutate();
+    reportMutation.mutate();
+    toggleModal();
   };
 
   const handleRevoteTopic = () => {};
