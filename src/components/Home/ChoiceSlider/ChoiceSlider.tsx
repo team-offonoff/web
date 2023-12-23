@@ -1,5 +1,6 @@
 import { useAnimation, PanInfo, motion } from 'framer-motion';
 import React from 'react';
+import { getScreenWidth } from 'src/utils/screenWidth';
 import styled from 'styled-components';
 
 import ChoiceSlide from '@components/Home/ChoiceSlide/ChoiceSlide';
@@ -10,10 +11,6 @@ interface ChoiceSliderProps {
   choices: Choice[];
 }
 
-const getScreenWidth = () => {
-  return window.innerWidth > 512 ? 512 : window.innerWidth;
-};
-
 const ChoiceSlider = ({ onVote, choices }: ChoiceSliderProps) => {
   const screenWidth = getScreenWidth();
 
@@ -23,11 +20,11 @@ const ChoiceSlider = ({ onVote, choices }: ChoiceSliderProps) => {
 
   const variants = {
     A: {
-      translateX: screenWidth / 2 + 7.5 + 413,
+      translateX: screenWidth / 2 + 7.5 + screenWidth,
       opacity: 0,
     },
     B: {
-      translateX: -(screenWidth / 2 + 7.5 + 413),
+      translateX: -(screenWidth / 2 + 7.5 + screenWidth),
       opacity: 0,
     },
   };

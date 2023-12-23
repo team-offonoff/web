@@ -45,7 +45,8 @@ const ChoiceSlide = ({ side, topicContent }: ChoiceSlideProps) => {
           style={{
             position: 'absolute',
             top: -20,
-            right: side === 'A' ? 95 : 107,
+            right: side === 'A' ? 95 : 'unset',
+            left: side === 'B' ? 107 : 'unset',
           }}
         >
           <Text color={colors.white_40} size={200} weight={900}>
