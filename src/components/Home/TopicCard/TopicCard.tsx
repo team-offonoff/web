@@ -96,6 +96,7 @@ const TopicCard = ({ topic }: TopicCardProps) => {
         <CommentBox
           side={topic.keyword.topicSide === 'TOPIC_A' ? 'A' : 'B'}
           hasVoted={hasVoted}
+          topicId={topic.topicId}
           commentCount={0}
           voteCount={0}
           keyword={'키워드'}

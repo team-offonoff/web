@@ -1,5 +1,6 @@
 import React from 'react';
 
+import useReportTopic from '@apis/topic/useReportTopic';
 import { Row } from '@components/commons/Flex/Flex';
 import ActionModalButton from '@components/commons/Modal/ActionModalButton';
 import Text from '@components/commons/Text/Text';
@@ -24,6 +25,7 @@ import {
 
 interface CommentBoxProps {
   onClick: () => void;
+  topicId: number;
   hasVoted: boolean;
   side: 'A' | 'B';
   keyword: string;
@@ -34,6 +36,7 @@ interface CommentBoxProps {
 
 const CommentBox = ({
   onClick,
+  topicId,
   side,
   keyword,
   commentCount,
@@ -42,6 +45,7 @@ const CommentBox = ({
   hasVoted,
 }: CommentBoxProps) => {
   const { Modal, toggleModal } = useModal('action');
+  const mutation = useReportTopic(topicId);
 
   const handleOnClickCommentMenu = () => {
     // setIsModalOpen(true);
@@ -50,7 +54,9 @@ const CommentBox = ({
 
   const handleHideTopic = () => {};
 
-  const handleReportTopic = () => {};
+  const handleReportTopic = () => {
+    mutation.mutate();
+  };
 
   const handleRevoteTopic = () => {};
 
