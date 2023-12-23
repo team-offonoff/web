@@ -76,7 +76,7 @@ const ChoiceSlide = ({ side, topicContent }: ChoiceSlideProps) => {
       </SlideContainer>
       <Modal>
         <ModalContainer side={side}>
-          <ModalImage src={topicContent.imageUrl} />
+          <ModalImage src={topicContent.imageUrl || ''} />
           <ModalContent>
             <Text color={side === 'A' ? '#e15ba1' : '#1bbdc9'} size={240} weight={900}>
               {side}
