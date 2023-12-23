@@ -34,7 +34,7 @@ const TopicCard = ({ topic }: TopicCardProps) => {
       choiceId: 0,
       content: {
         text: 'choiceA',
-        imageUrl: 'imageUrl',
+        imageUrl: null,
         type: 'IMAGE_TEXT',
       },
       choiceOption: CHOICE_OPTIONS.CHOICE_A,
@@ -43,8 +43,8 @@ const TopicCard = ({ topic }: TopicCardProps) => {
       choiceId: 2,
       content: {
         text: 'Choice 2',
-        imageUrl: 'undefined',
-        type: 'text',
+        imageUrl: null,
+        type: 'IMAGE_TEXT',
       },
       choiceOption: CHOICE_OPTIONS.CHOICE_B,
     },

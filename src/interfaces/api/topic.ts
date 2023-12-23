@@ -24,7 +24,7 @@ interface Choice {
 
 interface ChoiceContent {
   text: string;
-  imageUrl?: string;
+  imageUrl: null | string;
   type: string;
 }
 
