@@ -44,7 +44,7 @@ const ChoiceSlide = ({ side, topicContent }: ChoiceSlideProps) => {
         <div
           style={{
             position: 'absolute',
-            top: -45,
+            top: -20,
             right: side === 'A' ? 95 : 107,
           }}
         >
