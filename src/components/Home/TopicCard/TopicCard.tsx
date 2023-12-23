@@ -34,7 +34,7 @@ const TopicCard = ({ topic }: TopicCardProps) => {
       choiceId: 0,
       content: {
         text: 'choiceA',
-        imageUrl: 'imageUrl',
+        imageUrl: null,
         type: 'IMAGE_TEXT',
       },
       choiceOption: CHOICE_OPTIONS.CHOICE_A,
@@ -43,24 +43,23 @@ const TopicCard = ({ topic }: TopicCardProps) => {
       choiceId: 2,
       content: {
         text: 'Choice 2',
-        imageUrl: 'undefined',
-        type: 'text',
+        imageUrl: null,
+        type: 'IMAGE_TEXT',
       },
       choiceOption: CHOICE_OPTIONS.CHOICE_B,
     },
   ];
 
-  const [hasVoted, setHasVoted] = useState(false);
   const { BottomSheet: CommentSheet, toggleSheet } = useBottomSheet({});
 
   const handleOnClickCommentBox = () => {
-    if (hasVoted) {
+    if (topic.selectedOption !== null) {
       toggleSheet();
     }
   };
 
   const handleOnVote = (choiceId: number) => {
-    setHasVoted(true);
+    // 투표 API 연결
   };
 
   return (
@@ -80,13 +79,20 @@ const TopicCard = ({ topic }: TopicCardProps) => {
             {topic.author.nickname}
           </Text>
         </UserInfoContainer>
-        {hasVoted ? (
-          <VoteCompletion side={'A'} topicContent={'10년 전 과거로가기'}></VoteCompletion> // TODO: 선택 완료 컴포넌트
+        {topic.selectedOption !== null ? (
+          <VoteCompletion
+            side={topic.selectedOption === 'CHOICE_A' ? 'A' : 'B'}
+            topicContent={
+              topic.selectedOption === 'CHOICE_A'
+                ? topic.choices[0]?.content?.text || 'A'
+                : topic.choices[1]?.content?.text || 'B'
+            }
+          ></VoteCompletion> // TODO: 선택 완료 컴포넌트
         ) : (
           <ChoiceSlider onVote={handleOnVote} choices={choices} />
         )}
         <Timer endTime={topic.deadline} />
-        <SelectTextContainer hasVoted={hasVoted}>
+        <SelectTextContainer hasVoted={topic.selectedOption !== null}>
           <LeftDoubleArrowIcon />
           <Text size={14} weight={'regular'} color={colors.white_40}>
             밀어서 선택하기
@@ -95,7 +101,7 @@ const TopicCard = ({ topic }: TopicCardProps) => {
         </SelectTextContainer>
         <CommentBox
           side={topic.keyword.topicSide === 'TOPIC_A' ? 'A' : 'B'}
-          hasVoted={hasVoted}
+          hasVoted={topic.selectedOption !== null}
           topicId={topic.topicId}
           commentCount={0}
           voteCount={0}

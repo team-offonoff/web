@@ -2,11 +2,13 @@ import styled from 'styled-components';
 
 import { colors } from '@styles/theme';
 
+import { getScreenWidth } from '../../../utils/screenWidth';
+
 const SlideContainer = styled.div`
   position: relative;
   display: flex;
   align-items: center;
-  width: 325px;
+  width: ${getScreenWidth()}px;
   height: 148px;
   overflow: hidden;
 `;

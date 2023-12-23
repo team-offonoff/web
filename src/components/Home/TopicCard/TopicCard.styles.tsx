@@ -42,7 +42,6 @@ export const TopicContainer = styled.div`
 `;
 
 export const Topic = styled.div`
-  width: 170px;
   font-size: 2.4rem;
   font-weight: 600;
   line-height: 140%;

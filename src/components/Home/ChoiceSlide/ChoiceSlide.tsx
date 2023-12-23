@@ -44,8 +44,9 @@ const ChoiceSlide = ({ side, topicContent }: ChoiceSlideProps) => {
         <div
           style={{
             position: 'absolute',
-            top: -45,
-            right: side === 'A' ? 95 : 107,
+            top: -20,
+            right: side === 'A' ? 95 : 'unset',
+            left: side === 'B' ? 107 : 'unset',
           }}
         >
           <Text color={colors.white_40} size={200} weight={900}>
@@ -76,7 +77,7 @@ const ChoiceSlide = ({ side, topicContent }: ChoiceSlideProps) => {
       </SlideContainer>
       <Modal>
         <ModalContainer side={side}>
-          <ModalImage src={topicContent.imageUrl} />
+          <ModalImage src={topicContent.imageUrl || ''} />
           <ModalContent>
             <Text color={side === 'A' ? '#e15ba1' : '#1bbdc9'} size={240} weight={900}>
               {side}
