@@ -13,7 +13,7 @@ interface TopicResponse {
   keyword: Keyword;
   choices: Choice[];
   author: Author;
-  selectedOption: typeof CHOICE_OPTIONS.CHOICE_A | typeof CHOICE_OPTIONS.CHOICE_B;
+  selectedOption: typeof CHOICE_OPTIONS.CHOICE_A | typeof CHOICE_OPTIONS.CHOICE_B | null;
 }
 
 interface Choice {
