@@ -1,12 +1,14 @@
 import React from 'react';
 
+import { Row } from '@components/commons/Flex/Flex';
+import ActionModalButton from '@components/commons/Modal/ActionModalButton';
 import Text from '@components/commons/Text/Text';
 import { UserProfileImage } from '@components/Home/TopicCard/TopicCard.styles';
 import useModal from '@hooks/useModal/useModal';
 
 import { colors } from '@styles/theme';
 
-import { MeatballIcon } from '@icons/index';
+import { HideIcon, MeatballIcon, RefreshIcon, ReportIcon } from '@icons/index';
 
 import {
   CommentContainer,
@@ -39,12 +41,18 @@ const CommentBox = ({
   topComment,
   hasVoted,
 }: CommentBoxProps) => {
-  const { Modal, toggleModal } = useModal('default');
+  const { Modal, toggleModal } = useModal('action');
 
   const handleOnClickCommentMenu = () => {
     // setIsModalOpen(true);
     toggleModal();
   };
+
+  const handleHideTopic = () => {};
+
+  const handleReportTopic = () => {};
+
+  const handleRevoteTopic = () => {};
 
   return (
     <CommentContainer>
@@ -84,7 +92,21 @@ const CommentBox = ({
         </Comment>
       </CommnetBodyContainer>
       <Modal>
-        <div style={{ height: 190 }}>모달</div>
+        <ActionModalButton
+          handleClick={handleHideTopic}
+          Icon={() => <HideIcon />}
+          label={'이런 토픽은 안볼래요'}
+        />
+        <ActionModalButton
+          handleClick={handleReportTopic}
+          Icon={() => <ReportIcon />}
+          label={'신고하기'}
+        />
+        <ActionModalButton
+          handleClick={handleRevoteTopic}
+          Icon={() => <RefreshIcon />}
+          label={'투표 다시 하기'}
+        />
       </Modal>
     </CommentContainer>
   );
