@@ -20,3 +20,15 @@ interface Writer {
   nickname: string;
   profileImageUrl: string;
 }
+
+interface LatestComment {
+  commentId: number;
+  topicId: number;
+  writer: Writer;
+  writersVotedOption: string;
+  content: string;
+  commentReaction: CommentReaction;
+  createdAt: number;
+}
+
+export type { Writer, LatestComment };
