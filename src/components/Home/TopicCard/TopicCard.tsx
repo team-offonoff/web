@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 
+import useVoteTopic from '@apis/topic/useVoteTopic';
 import Text from '@components/commons/Text/Text';
 import ChoiceSlider from '@components/Home/ChoiceSlider/ChoiceSlider';
 import CommentBox from '@components/Home/CommentBox/CommentBox';
 import Timer from '@components/Home/Timer/Timer';
 import VoteCompletion from '@components/Home/VoteCompletion/VoteCompletion';
 import useBottomSheet from '@hooks/useBottomSheet/useBottomSheet';
+import { LatestComment } from '@interfaces/api/comment';
 import { Choice, CHOICE_OPTIONS, TopicResponse } from '@interfaces/api/topic';
 
 import { colors } from '@styles/theme';
@@ -48,9 +50,11 @@ const TopicCard = ({ topic }: TopicCardProps) => {
       },
       choiceOption: CHOICE_OPTIONS.CHOICE_B,
     },
-  ];
+  ]; // TBD: 투표 선택지가 비어있는 더미 데이터가 존재해서 만들어둠
 
   const { BottomSheet: CommentSheet, toggleSheet } = useBottomSheet({});
+  const voteMutation = useVoteTopic();
+  const [latestComment, setLatestComment] = useState<LatestComment | undefined>();
 
   const handleOnClickCommentBox = () => {
     if (topic.selectedOption !== null) {
@@ -58,8 +62,13 @@ const TopicCard = ({ topic }: TopicCardProps) => {
     }
   };
 
-  const handleOnVote = (choiceId: number) => {
-    // 투표 API 연결
+  const handleOnVote = async (choiceOption: Choice['choiceOption']) => {
+    const data = await voteMutation.mutateAsync({
+      topicId: topic.topicId,
+      choiceOption: choiceOption,
+      votedAt: new Date().getTime(),
+    });
+    setLatestComment(data);
   };
 
   return (
@@ -87,7 +96,7 @@ const TopicCard = ({ topic }: TopicCardProps) => {
                 ? topic.choices[0]?.content?.text || 'A'
                 : topic.choices[1]?.content?.text || 'B'
             }
-          ></VoteCompletion> // TODO: 선택 완료 컴포넌트
+          /> // TODO: 선택 완료 컴포넌트
         ) : (
           <ChoiceSlider onVote={handleOnVote} choices={choices} />
         )}
@@ -106,7 +115,7 @@ const TopicCard = ({ topic }: TopicCardProps) => {
           commentCount={0}
           voteCount={0}
           keyword={'키워드'}
-          topComment={'top comment here!'}
+          latestComment={latestComment}
           onClick={handleOnClickCommentBox}
         />
       </TopicCardContainer>

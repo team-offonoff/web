@@ -7,7 +7,7 @@ import ChoiceSlide from '@components/Home/ChoiceSlide/ChoiceSlide';
 import { Choice } from '@interfaces/api/topic';
 
 interface ChoiceSliderProps {
-  onVote: (choiceId: number) => void;
+  onVote: (choiceOption: Choice['choiceOption']) => void;
   choices: Choice[];
 }
 
@@ -33,11 +33,11 @@ const ChoiceSlider = ({ onVote, choices }: ChoiceSliderProps) => {
     if (info.velocity.x > 0 && info.offset.x > screenWidth / 2 + 7.5) {
       // A 슬라이드
       controls.start('A');
-      onVote(0);
+      onVote(choices[0].choiceOption);
     } else if (info.velocity.x < 0 && info.offset.x < -(screenWidth / 2 + 7.5)) {
       // B 슬라이드
       controls.start('B');
-      onVote(1);
+      onVote(choices[1].choiceOption);
     }
   };
 
