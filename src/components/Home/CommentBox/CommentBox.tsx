@@ -1,7 +1,6 @@
 import React from 'react';
 
 import useReportTopic from '@apis/topic/useReportTopic';
-import { Row } from '@components/commons/Flex/Flex';
 import ActionModalButton from '@components/commons/Modal/ActionModalButton';
 import Text from '@components/commons/Text/Text';
 import { UserProfileImage } from '@components/Home/TopicCard/TopicCard.styles';
