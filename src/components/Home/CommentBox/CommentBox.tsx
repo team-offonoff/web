@@ -6,6 +6,7 @@ import ActionModalButton from '@components/commons/Modal/ActionModalButton';
 import Text from '@components/commons/Text/Text';
 import { UserProfileImage } from '@components/Home/TopicCard/TopicCard.styles';
 import useModal from '@hooks/useModal/useModal';
+import { LatestComment } from '@interfaces/api/comment';
 
 import { colors } from '@styles/theme';
 
@@ -31,7 +32,7 @@ interface CommentBoxProps {
   keyword: string;
   commentCount: number;
   voteCount: number;
-  topComment: string;
+  latestComment: LatestComment | undefined;
 }
 
 const CommentBox = ({
@@ -41,7 +42,7 @@ const CommentBox = ({
   keyword,
   commentCount,
   voteCount,
-  topComment,
+  latestComment,
   hasVoted,
 }: CommentBoxProps) => {
   const { Modal, toggleModal } = useModal('action');
@@ -89,9 +90,9 @@ const CommentBox = ({
         </CommentInfoContainer>
         <Comment>
           <Blur isVote={hasVoted}>
-            <UserProfileImage />
+            <UserProfileImage src={latestComment?.writer.profileImageUrl || ''} />
             <Text size={15} weight={'regular'} color={colors.white}>
-              {topComment}
+              {latestComment?.content || ''}
             </Text>
           </Blur>
           {!hasVoted && <CommentButton>선택하고 댓글 보기</CommentButton>}
