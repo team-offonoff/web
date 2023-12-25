@@ -66,7 +66,7 @@ const TopicCard = ({ topic }: TopicCardProps) => {
     const data = await voteMutation.mutateAsync({
       topicId: topic.topicId,
       choiceOption: choiceOption,
-      votedAt: new Date().getTime(),
+      votedAt: new Date().getTime() / 1000,
     });
     setLatestComment(data);
   };
@@ -83,7 +83,7 @@ const TopicCard = ({ topic }: TopicCardProps) => {
           <Topic>{topic.topicTitle}</Topic>
         </TopicContainer>
         <UserInfoContainer>
-          <UserProfileImage src={topic.author.profileImageUrl} />
+          <UserProfileImage src={topic.author.profileImageUrl || ''} />
           <Text size={14} weight={'regular'} color={colors.white_60}>
             {topic.author.nickname}
           </Text>

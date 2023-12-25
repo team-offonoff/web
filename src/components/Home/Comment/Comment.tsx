@@ -26,11 +26,11 @@ const Comment = React.memo(({ comment }: CommentProps) => {
     0
   );
 
-  const startDate = new Date(comment.createdAt);
+  const startDate = new Date(comment.createdAt * 1000);
   const distance = getDateDistance(startDate, new Date());
   const distanceText = getDateDistanceText(distance, {
-    hours: (t: TimeUnits) => t.days < 1,
-    minutes: (t: TimeUnits) => t.hours < 1,
+    hours: (t: TimeUnits) => t.hours > 0 && t.days < 1,
+    minutes: (t: TimeUnits) => t.minutes > 0 && t.hours < 1,
     seconds: (t: TimeUnits) => t.minutes < 1,
   });
 
