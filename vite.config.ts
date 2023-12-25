@@ -16,6 +16,10 @@ export default defineConfig({
         enabled: true,
       },
       manifest: {
+        name: 'AB - 세상의 모든 질문, AB로 답하다',
+        short_name: 'AB',
+        description: 'My Awesome App description',
+        theme_color: '#242036',
         icons: [
           {
             src: '/pwa-64x64.png',
