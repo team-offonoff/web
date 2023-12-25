@@ -1,9 +1,13 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { LatestComment } from '@interfaces/api/comment';
-import { Choice } from '@interfaces/api/topic';
+import { Choice, TopicResponse } from '@interfaces/api/topic';
+
+import { PagingDataResponse } from '@interfaces/api';
 
 import client from '@apis/fetch';
+
+import { TOPIC_KEY } from './useTopics';
 
 interface VoteTopicRequest {
   topicId: number;
@@ -22,8 +26,22 @@ const voteTopic = ({ topicId, choiceOption, votedAt }: VoteTopicRequest) => {
 };
 
 const useVoteTopic = () => {
+  const queryClient = useQueryClient();
+
   return useMutation({
     mutationFn: (params: VoteTopicRequest) => voteTopic(params),
+    onSuccess: (data, variables: VoteTopicRequest) => {
+      queryClient.setQueryData([TOPIC_KEY], (prev: PagingDataResponse<TopicResponse>) => {
+        return {
+          data: prev.data.map((topic) => {
+            return topic.topicId === variables.topicId
+              ? { ...topic, selectedOption: variables.choiceOption }
+              : { ...topic };
+          }),
+          pageInfo: prev.pageInfo,
+        };
+      });
+    },
   });
 };
 
