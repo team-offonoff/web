@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
+import { useLatestComment } from '@apis/comment/useComment';
 import useVoteTopic from '@apis/topic/useVoteTopic';
 import Text from '@components/commons/Text/Text';
 import ChoiceSlider from '@components/Home/ChoiceSlider/ChoiceSlider';
@@ -54,7 +55,14 @@ const TopicCard = ({ topic }: TopicCardProps) => {
 
   const { BottomSheet: CommentSheet, toggleSheet } = useBottomSheet({});
   const voteMutation = useVoteTopic();
+  const { data: latestCommentData, isSuccess } = useLatestComment(topic.topicId);
   const [latestComment, setLatestComment] = useState<LatestComment | undefined>();
+
+  useEffect(() => {
+    if (isSuccess) {
+      setLatestComment(latestCommentData.data[0] as LatestComment);
+    }
+  }, [isSuccess]);
 
   const handleOnClickCommentBox = () => {
     if (topic.selectedOption !== null) {

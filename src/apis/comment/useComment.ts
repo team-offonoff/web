@@ -1,4 +1,10 @@
-import { InfiniteData, useInfiniteQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import {
+  InfiniteData,
+  useInfiniteQuery,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from '@tanstack/react-query';
 
 import { CommentReaction, CommentResponse } from '@interfaces/api/comment';
 
@@ -42,6 +48,13 @@ const useComments = (topicId: number, enabled: boolean) => {
   });
 };
 
+const useLatestComment = (topicId: number) => {
+  return useQuery({
+    queryKey: [COMMENT_KEY, 'latest', topicId],
+    queryFn: () => getComments({ topicId: topicId, page: 0, size: 1 }),
+  });
+};
+
 const useCreateComment = (topicId: number) => {
   const queryClient = useQueryClient();
 
@@ -81,4 +94,4 @@ const useReactComment = (topicId: number, commentId: number) => {
   });
 };
 
-export { COMMENT_KEY, useComments, useCreateComment, useReactComment };
+export { COMMENT_KEY, useComments, useCreateComment, useReactComment, useLatestComment };
