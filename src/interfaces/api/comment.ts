@@ -5,7 +5,7 @@ export interface CommentResponse {
   writersVotedOption?: 'CHOICE_A' | 'CHOICE_B';
   content: string;
   commentReaction: CommentReaction;
-  createdAt: string;
+  createdAt: number;
 }
 
 export interface CommentReaction {
@@ -18,7 +18,7 @@ export interface CommentReaction {
 interface Writer {
   id: number;
   nickname: string;
-  profileImageUrl: string;
+  profileImageUrl: string | null;
 }
 
 interface LatestComment {

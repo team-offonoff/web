@@ -9,7 +9,8 @@
       "@icons/*": ["src/assets/icons/*"],
       "@fonts/*": ["src/assets/fonts/*"],
       "@hooks/*": ["src/hooks/*"],
-      "@apis/*": ["src/apis/*"]
+      "@apis/*": ["src/apis/*"],
+      "@utils/*": ["src/utils/*"]
     }
   }
 }

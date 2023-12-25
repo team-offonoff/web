@@ -37,7 +37,7 @@ interface Keyword {
 interface Author {
   id: number;
   nickname: string;
-  profileImageUrl: string;
+  profileImageUrl: string | null;
 }
 
 export type { TopicResponse, Choice, ChoiceContent, Keyword, Author };

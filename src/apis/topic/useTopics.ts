@@ -6,7 +6,7 @@ import { PagingDataResponse } from '@interfaces/api';
 
 import client from '@apis/fetch';
 
-const TOPIC_KEY = 'topics';
+export const TOPIC_KEY = 'topics';
 
 const getTopics = () => {
   return client.get<PagingDataResponse<TopicResponse>>('/topics/info/voting');
