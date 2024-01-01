@@ -1,5 +1,7 @@
 import React from 'react';
 
+import TextInput from '@components/commons/TextInput/TextInput';
+
 import {
   BirthInput,
   Container,
@@ -18,13 +20,13 @@ const 정보입력 = () => {
   return (
     <Container>
       <InputContainer>
-        <NicknameInput />
-        <BirthInput />
-        <GenderInput type="radio" name="gender" value="male" id="male" />
-        <label htmlFor="male">남성</label>
-        <GenderInput type="radio" name="gender" value="female" id="female" />
-        <label htmlFor="female">여성</label>
-        <JobInput />
+        <TextInput
+          placeholder={''}
+          value={''}
+          onChange={function (event: React.ChangeEvent<HTMLInputElement>): void {
+            throw new Error('Function not implemented.');
+          }}
+        />
       </InputContainer>
       <NextButton onClick={handleNextButton}>다음</NextButton>
     </Container>
