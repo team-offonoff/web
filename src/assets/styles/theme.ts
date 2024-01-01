@@ -3,6 +3,7 @@ import { DefaultTheme } from 'styled-components/dist/types';
 export const colors = {
   purple: '#A46FF3',
   sub_purple: '#624392',
+  sub_purple2: '#BE28F3',
   navy: '#242036',
   navy2: '#4D3B7C',
   A: '#D04376',
