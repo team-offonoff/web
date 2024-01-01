@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react';
 import { RegisterOptions, useFormContext } from 'react-hook-form';
 import { ConfigKeys } from 'src/constants/form';
@@ -57,7 +56,7 @@ const TextInput = (props: TextInputProps) => {
           type="text"
           style={
             watch(id)?.length > 0
-              ? errors.root
+              ? errors[id]
                 ? inputTheme.error
                 : inputTheme.success
               : inputTheme.default
