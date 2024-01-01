@@ -12,7 +12,7 @@ interface TextInputProps {
   type?: 'default' | 'error' | 'success';
 }
 
-const TextInput = (props: TextInputProps) => {
+const TextInput = React.memo((props: TextInputProps) => {
   const { placeholder, value, guideMessage, right, onChange, type = 'default' } = props;
 
   let inputTheme;
@@ -24,15 +24,16 @@ const TextInput = (props: TextInputProps) => {
         backgroundColor: 'transparent',
       };
       break;
-    case 'error':
+    case 'success':
       inputTheme = {
         border: 'none',
         backgroundColor: `${colors.navy2}`,
       };
       break;
-    case 'success':
+    case 'error':
       inputTheme = {
         border: `1px solid #BE28F3`,
+        backgroundColor: 'transparent',
       };
       break;
   }
@@ -52,12 +53,13 @@ const TextInput = (props: TextInputProps) => {
       {guideMessage && <div>{guideMessage}</div>}
     </div>
   );
-};
+});
 
 const StyledInput = styled.input`
   padding: 14px 16px;
   font-size: 1.4rem;
   font-weight: 700;
+  color: ${({ theme }) => theme.colors.purple};
   border-radius: 10px;
 
   &:focus {
