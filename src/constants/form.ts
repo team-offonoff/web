@@ -4,7 +4,12 @@ interface ConfigField {
   options: RegisterOptions;
 }
 
-export type ConfigKeys = 'NICKNAME' | 'BIRTHDAY';
+export const INPUT_TYPE = {
+  NICKNAME: 'NICKNAME',
+  BIRTHDAY: 'BIRTHDAY',
+} as const;
+
+export type ConfigKeys = keyof typeof INPUT_TYPE;
 
 export const CONFIG: Record<ConfigKeys, ConfigField> = {
   NICKNAME: {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
-import { CONFIG } from 'src/constants/form';
+import { CONFIG, INPUT_TYPE } from 'src/constants/form';
 
 import TextInput from '@components/commons/TextInput/TextInput';
 
@@ -22,7 +22,7 @@ const 정보입력 = () => {
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(handleSubmitForm)}>
           <TextInput
-            id={'NICKNAME'}
+            id={INPUT_TYPE.NICKNAME}
             options={CONFIG.NICKNAME.options}
             placeholder={'한글, 영문, 숫자 최대 8자'}
           />
