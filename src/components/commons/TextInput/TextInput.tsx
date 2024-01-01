@@ -1,9 +1,18 @@
 import React from 'react';
 import { RegisterOptions, useFormContext } from 'react-hook-form';
 import { ConfigKeys } from 'src/constants/form';
-import { styled } from 'styled-components';
 
 import { colors } from '@styles/theme';
+
+import Text from '../Text/Text';
+
+import {
+  ErrorMessage,
+  InputContainer,
+  InputPrefix,
+  InputSuffix,
+  StyledInput,
+} from './TextInput.styles';
 
 interface TextInputProps {
   id: ConfigKeys;
@@ -12,18 +21,6 @@ interface TextInputProps {
   left?: () => React.ReactNode;
   right?: () => React.ReactNode;
 }
-
-const StyledInput = styled.input`
-  padding: 14px 16px;
-  font-size: 1.4rem;
-  font-weight: 700;
-  color: ${({ theme }) => theme.colors.purple};
-  border-radius: 10px;
-
-  &:focus {
-    outline: none;
-  }
-`;
 
 const TextInput = (props: TextInputProps) => {
   const { id, options, placeholder, left, right } = props;
@@ -43,30 +40,37 @@ const TextInput = (props: TextInputProps) => {
       backgroundColor: `${colors.navy2}`,
     },
     error: {
-      border: `1px solid #BE28F3`,
+      border: `1px solid ${colors.sub_purple2}`,
       backgroundColor: 'transparent',
     },
   };
 
   return (
-    <div>
-      <div>
-        {left && <div>{left()}</div>}
+    <div style={{ position: 'relative' }}>
+      <InputContainer>
+        {left && <InputPrefix>{left()}</InputPrefix>}
         <StyledInput
           type="text"
-          style={
-            watch(id)?.length > 0
+          style={{
+            ...(left && { paddingLeft: 35 }),
+            ...(watch(id)?.length > 0
               ? errors[id]
                 ? inputTheme.error
                 : inputTheme.success
-              : inputTheme.default
-          }
+              : inputTheme.default),
+          }}
           placeholder={placeholder}
           {...register(id, options)}
         />
-        {right && <div>{right()}</div>}
-      </div>
-      {errors[id] && <div>{errors[id]?.message?.toString()}</div>}
+        {right && <InputSuffix>{right()}</InputSuffix>}
+      </InputContainer>
+      <ErrorMessage>
+        {errors[id] && (
+          <Text size={13} weight={700} color={colors.sub_purple2}>
+            * {errors[id]?.message?.toString()}
+          </Text>
+        )}
+      </ErrorMessage>
     </div>
   );
 };
