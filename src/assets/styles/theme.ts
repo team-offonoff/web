@@ -6,6 +6,7 @@ export const colors = {
   sub_purple2: '#BE28F3',
   navy: '#242036',
   navy2: '#4D3B7C',
+  sub_navy2: '#4D3B7C',
   A: '#D04376',
   sub_A: '#DF8AA9',
   B: '#1498AA',
