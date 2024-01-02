@@ -1,6 +1,6 @@
 import React from 'react';
 import { RegisterOptions, useFormContext } from 'react-hook-form';
-import { ConfigKeys } from 'src/constants/form';
+import { ConfigKeys, InputType } from 'src/constants/form';
 import { styled } from 'styled-components';
 
 import { colors } from '@styles/theme';
@@ -15,7 +15,7 @@ interface RadioOption {
 }
 
 interface RadioInputProps {
-  id: ConfigKeys;
+  id: InputType;
   options: RegisterOptions;
   radioOptions: RadioOption[];
 }

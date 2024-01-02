@@ -1,6 +1,6 @@
 import React from 'react';
 import { RegisterOptions, useFormContext } from 'react-hook-form';
-import { ConfigKeys } from 'src/constants/form';
+import { ConfigKeys, InputType } from 'src/constants/form';
 import { styled } from 'styled-components';
 
 import { colors } from '@styles/theme';
@@ -16,7 +16,7 @@ interface SelectOption {
 }
 
 interface SelectInputProps {
-  id: ConfigKeys;
+  id: InputType;
   options: RegisterOptions;
   selectOptions: SelectOption[];
   placeholder: string;

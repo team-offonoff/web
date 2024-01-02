@@ -5,13 +5,14 @@ interface ConfigField {
 }
 
 export const INPUT_TYPE = {
-  NICKNAME: 'NICKNAME',
-  BIRTHDAY: 'BIRTHDAY',
-  GENDER: 'GENDER',
-  JOB: 'JOB',
+  NICKNAME: 'nickname',
+  BIRTHDAY: 'birth',
+  GENDER: 'gender',
+  JOB: 'job',
 } as const;
 
 export type ConfigKeys = keyof typeof INPUT_TYPE;
+export type InputType = (typeof INPUT_TYPE)[keyof typeof INPUT_TYPE];
 
 export const CONFIG: Record<ConfigKeys, ConfigField> = {
   NICKNAME: {
