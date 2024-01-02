@@ -30,7 +30,7 @@ const StyledSelect = styled.select<{ selected: boolean }>`
   color: ${({ theme }) => theme.colors.purple};
   appearance: none;
   background-color: ${({ selected, theme }) => (selected ? theme.colors.sub_navy2 : 'transparent')};
-  border: 1px solid ${({ theme }) => theme.colors.sub_purple};
+  border: 1px solid ${({ selected, theme }) => (selected ? 'transparent' : theme.colors.sub_purple)};
   border-radius: 10px;
 
   &:focus {
@@ -53,14 +53,12 @@ const SelectInput = (props: SelectInputProps) => {
     formState: { errors },
   } = useFormContext();
 
-  console.log(watch(id));
-
   return (
     <div style={{ position: 'relative' }}>
       <SelectLabel htmlFor={id}>
         <DownChevronIcon />
       </SelectLabel>
-      <StyledSelect {...register(id, options)} selected={false} id={id}>
+      <StyledSelect {...register(id, options)} selected={watch(id) !== undefined} id={id}>
         <option value="" disabled selected style={{ display: 'none' }}>
           {placeholder}
         </option>
