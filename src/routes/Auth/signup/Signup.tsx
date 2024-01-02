@@ -17,7 +17,6 @@ const Signup = () => {
     <Funnel>
       <Funnel.Step name="정보입력">
         <정보입력 />
-        <button onClick={() => setStep('약관동의')}>다음</button>
       </Funnel.Step>
       <Funnel.Step name="가입성공">
         <가입성공 />

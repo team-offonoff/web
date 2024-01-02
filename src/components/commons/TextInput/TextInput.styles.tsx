@@ -11,6 +11,10 @@ const StyledInput = styled.input`
   &:focus {
     outline: none;
   }
+
+  &::placeholder {
+    color: ${({ theme }) => theme.colors.sub_purple};
+  }
 `;
 
 const InputContainer = styled.div`

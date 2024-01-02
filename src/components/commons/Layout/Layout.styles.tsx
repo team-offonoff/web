@@ -16,6 +16,7 @@ export const Main = styled.main`
 
 export const Header = styled.header`
   display: flex;
+  flex-shrink: 0;
   align-items: center;
   justify-content: space-between;
   width: 100%;
