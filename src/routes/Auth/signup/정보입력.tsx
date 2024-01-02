@@ -5,6 +5,7 @@ import { CONFIG, INPUT_TYPE } from 'src/constants/form';
 import { Col } from '@components/commons/Flex/Flex';
 import InputField from '@components/commons/InputField/InputField';
 import Layout from '@components/commons/Layout/Layout';
+import RadioInput from '@components/commons/RadioInput/RadioInput';
 import Text from '@components/commons/Text/Text';
 import TextInput from '@components/commons/TextInput/TextInput';
 
@@ -15,6 +16,7 @@ import { FormContainer, NextButton } from './정보입력.styles';
 export interface SignUpForm {
   NICKNAME: string;
   BIRTHDAY: string;
+  GENDER: 'male' | 'female';
 }
 
 const 정보입력 = () => {
@@ -62,7 +64,7 @@ const 정보입력 = () => {
                 options={CONFIG.NICKNAME.options}
                 placeholder={'한글, 영문, 숫자 최대 8자'}
                 right={() => (
-                  <Text size={14} weight={700} color={colors.sub_purple}>
+                  <Text size={14} weight={700} color={colors.purple}>
                     {nicknameProgress}
                   </Text>
                 )}
@@ -75,6 +77,22 @@ const 정보입력 = () => {
                 options={CONFIG.BIRTHDAY.options}
                 placeholder={'YYYY/MM/DD'}
                 onKeyDown={handleBirthdayInputKeyDown}
+              />
+            </InputField>
+            <InputField label="성별을 선택해주세요.">
+              <RadioInput
+                id={INPUT_TYPE.GENDER}
+                options={CONFIG.GENDER.options}
+                radioOptions={[
+                  {
+                    label: '남성',
+                    value: 'male',
+                  },
+                  {
+                    label: '여성',
+                    value: 'female',
+                  },
+                ]}
               />
             </InputField>
           </Col>
