@@ -1,11 +1,13 @@
 import React, { useEffect } from 'react';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { CONFIG, INPUT_TYPE } from 'src/constants/form';
+import { GENDERS, JOBS } from 'src/constants/signup';
 
 import { Col } from '@components/commons/Flex/Flex';
 import InputField from '@components/commons/InputField/InputField';
 import Layout from '@components/commons/Layout/Layout';
 import RadioInput from '@components/commons/RadioInput/RadioInput';
+import SelectInput from '@components/commons/SelectInput/SelectInput';
 import Text from '@components/commons/Text/Text';
 import TextInput from '@components/commons/TextInput/TextInput';
 
@@ -17,6 +19,7 @@ export interface SignUpForm {
   NICKNAME: string;
   BIRTHDAY: string;
   GENDER: 'male' | 'female';
+  JOB: string;
 }
 
 const 정보입력 = () => {
@@ -83,16 +86,15 @@ const 정보입력 = () => {
               <RadioInput
                 id={INPUT_TYPE.GENDER}
                 options={CONFIG.GENDER.options}
-                radioOptions={[
-                  {
-                    label: '남성',
-                    value: 'male',
-                  },
-                  {
-                    label: '여성',
-                    value: 'female',
-                  },
-                ]}
+                radioOptions={GENDERS}
+              />
+            </InputField>
+            <InputField label="직업을 선택해주세요.">
+              <SelectInput
+                id={INPUT_TYPE.JOB}
+                options={CONFIG.JOB.options}
+                placeholder="직업 선택하기"
+                selectOptions={JOBS}
               />
             </InputField>
           </Col>

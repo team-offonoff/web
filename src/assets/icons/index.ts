@@ -4,6 +4,7 @@ import AlarmIcon from './alarm-default.svg?react';
 import NewAlarmIcon from './alarm-new.svg?react';
 import AppleIcon from './apple.svg?react';
 import CloseIcon from './close.svg?react';
+import DownChevronIcon from './down-chevron.svg?react';
 import GoogleIcon from './google.svg?react';
 import HideIcon from './hide.svg?react';
 import SelectedHomeIcon from './home-selected.svg?react';
@@ -42,4 +43,5 @@ export {
   WriteBoxIcon,
   SizeUpIcon,
   CloseIcon,
+  DownChevronIcon,
 };

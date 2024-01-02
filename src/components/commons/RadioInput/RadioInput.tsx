@@ -3,7 +3,11 @@ import { RegisterOptions, useFormContext } from 'react-hook-form';
 import { ConfigKeys } from 'src/constants/form';
 import { styled } from 'styled-components';
 
+import { colors } from '@styles/theme';
+
 import { Row } from '../Flex/Flex';
+import Text from '../Text/Text';
+import { ErrorMessage } from '../TextInput/TextInput.styles';
 
 interface RadioOption {
   label: string;
@@ -30,23 +34,36 @@ const RadioLabel = styled.label<{ checked: boolean }>`
 
 const RadioInput = (props: RadioInputProps) => {
   const { id, options, radioOptions } = props;
-  const { register, watch } = useFormContext();
+  const {
+    register,
+    watch,
+    formState: { errors },
+  } = useFormContext();
 
   return (
-    <Row gap={10}>
-      {radioOptions.map((option, index) => (
-        <RadioLabel key={index} checked={watch(id) === option.value}>
-          <input
-            type="radio"
-            {...register(id, options)}
-            value={option.value}
-            checked={watch(id) === option.value}
-            style={{ display: 'none' }}
-          />
-          {option.label}
-        </RadioLabel>
-      ))}
-    </Row>
+    <div style={{ position: 'relative' }}>
+      <Row gap={10}>
+        {radioOptions.map((option, index) => (
+          <RadioLabel key={index} checked={watch(id) === option.value}>
+            <input
+              type="radio"
+              {...register(id, options)}
+              value={option.value}
+              checked={watch(id) === option.value}
+              style={{ display: 'none' }}
+            />
+            {option.label}
+          </RadioLabel>
+        ))}
+      </Row>
+      <ErrorMessage>
+        {errors[id] && (
+          <Text size={13} weight={700} color={colors.sub_purple2}>
+            * {errors[id]?.message?.toString()}
+          </Text>
+        )}
+      </ErrorMessage>
+    </div>
   );
 };
 

@@ -8,6 +8,7 @@ export const INPUT_TYPE = {
   NICKNAME: 'NICKNAME',
   BIRTHDAY: 'BIRTHDAY',
   GENDER: 'GENDER',
+  JOB: 'JOB',
 } as const;
 
 export type ConfigKeys = keyof typeof INPUT_TYPE;
@@ -46,6 +47,14 @@ export const CONFIG: Record<ConfigKeys, ConfigField> = {
       required: {
         value: true,
         message: '성별을 선택해주세요.',
+      },
+    },
+  },
+  JOB: {
+    options: {
+      required: {
+        value: true,
+        message: '직업을 선택해주세요.',
       },
     },
   },
