@@ -18,12 +18,14 @@ interface TextInputProps {
   id: ConfigKeys;
   options: RegisterOptions;
   placeholder: string;
+  type?: React.HTMLInputTypeAttribute;
   left?: () => React.ReactNode;
   right?: () => React.ReactNode;
+  onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
 }
 
 const TextInput = (props: TextInputProps) => {
-  const { id, options, placeholder, left, right } = props;
+  const { id, type = 'text', options, placeholder, left, right, onKeyDown } = props;
   const {
     register,
     watch,
@@ -50,7 +52,7 @@ const TextInput = (props: TextInputProps) => {
       <InputContainer>
         {left && <InputPrefix>{left()}</InputPrefix>}
         <StyledInput
-          type="text"
+          type={type}
           style={{
             ...(left && { paddingLeft: 35 }),
             ...(watch(id)?.length > 0
@@ -61,6 +63,7 @@ const TextInput = (props: TextInputProps) => {
           }}
           placeholder={placeholder}
           {...register(id, options)}
+          onKeyDown={onKeyDown}
         />
         {right && <InputSuffix>{right()}</InputSuffix>}
       </InputContainer>
