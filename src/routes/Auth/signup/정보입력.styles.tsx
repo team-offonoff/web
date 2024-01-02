@@ -1,11 +1,11 @@
 import { styled } from 'styled-components';
 
-export const Container = styled.div`
-  position: relative;
+export const FormContainer = styled.form`
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  height: 100vh;
+  justify-content: space-between;
+  height: 100%;
+  padding: 50px 20px 48px;
   background-color: ${(props) => props.theme.colors.navy};
 `;
 
