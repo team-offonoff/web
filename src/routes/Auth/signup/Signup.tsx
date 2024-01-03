@@ -16,7 +16,7 @@ const Signup = () => {
   return (
     <Funnel>
       <Funnel.Step name="정보입력">
-        <정보입력 />
+        <정보입력 memberId={state.memberId} />
       </Funnel.Step>
       <Funnel.Step name="가입성공">
         <가입성공 />

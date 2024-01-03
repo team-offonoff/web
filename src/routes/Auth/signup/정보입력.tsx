@@ -3,6 +3,7 @@ import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { CONFIG, INPUT_TYPE } from 'src/constants/form';
 import { GENDERS, JOBS } from 'src/constants/signup';
 
+import { SingnUpRequestDTO, useSignup } from '@apis/oauth/signup';
 import { Col } from '@components/commons/Flex/Flex';
 import InputField from '@components/commons/InputField/InputField';
 import Layout from '@components/commons/Layout/Layout';
@@ -15,15 +16,11 @@ import { colors } from '@styles/theme';
 
 import { FormContainer, NextButton } from './정보입력.styles';
 
-export interface SignUpForm {
-  NICKNAME: string;
-  BIRTHDAY: string;
-  GENDER: 'male' | 'female';
-  JOB: string;
-}
+type SignupForm = Omit<SingnUpRequestDTO, 'memberId'>;
 
-const 정보입력 = () => {
-  const methods = useForm<SignUpForm>({ mode: 'onChange' });
+const 정보입력 = ({ memberId }: { memberId: number }) => {
+  const methods = useForm<Omit<SingnUpRequestDTO, 'memberId'>>({ mode: 'onChange' });
+  const signupMutation = useSignup();
 
   const birthdayInput = methods.watch(INPUT_TYPE.BIRTHDAY);
   const nicknameProgress = methods.watch(INPUT_TYPE.NICKNAME)
@@ -39,8 +36,8 @@ const 정보입력 = () => {
     }
   };
 
-  const handleSubmitForm: SubmitHandler<SignUpForm> = (data) => {
-    console.log(data);
+  const handleSubmitForm: SubmitHandler<SignupForm> = (data) => {
+    signupMutation.mutate({ ...data, memberId });
   };
 
   useEffect(() => {

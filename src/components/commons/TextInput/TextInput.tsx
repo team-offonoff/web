@@ -1,6 +1,6 @@
 import React from 'react';
 import { RegisterOptions, useFormContext } from 'react-hook-form';
-import { ConfigKeys } from 'src/constants/form';
+import { ConfigKeys, InputType } from 'src/constants/form';
 
 import { colors } from '@styles/theme';
 
@@ -15,7 +15,7 @@ import {
 } from './TextInput.styles';
 
 interface TextInputProps {
-  id: ConfigKeys;
+  id: InputType;
   options: RegisterOptions;
   placeholder: string;
   type?: React.HTMLInputTypeAttribute;
