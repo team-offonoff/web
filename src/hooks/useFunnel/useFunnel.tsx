@@ -1,5 +1,5 @@
 import { useCallback, useEffect } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useLocation, useSearchParams } from 'react-router-dom';
 
 import Funnel, { FunnelProps } from './Funnel';
 import Step, { StepProps } from './Step';
@@ -15,6 +15,7 @@ const useFunnel = <Steps extends string[]>(
   (step: Steps[number]) => void,
 ] => {
   const [searchParams, setSearchParams] = useSearchParams();
+  const location = useLocation();
 
   const step = searchParams.get(PARAMS_KEY) ?? steps[0];
 
@@ -27,14 +28,22 @@ const useFunnel = <Steps extends string[]>(
 
   const setStep = useCallback(
     (step: Steps[number]) => {
-      setSearchParams({ 'funnel-step': step });
+      setSearchParams(
+        (searchParams) => {
+          searchParams.set('funnel-step', step);
+          return searchParams;
+        },
+        {
+          state: { ...location.state },
+        }
+      );
     },
     [setSearchParams]
   );
 
   useEffect(() => {
     setStep(step);
-  }, [setStep, step]);
+  }, [step]);
 
   return [FunnelComponent, setStep];
 };

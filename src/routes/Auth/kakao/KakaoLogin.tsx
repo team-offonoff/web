@@ -22,7 +22,10 @@ const KakaoLogin = () => {
       } catch (err) {
         if (err instanceof ResponseError) {
           if (err.errorData.abCode === 'ILLEGAL_JOIN_STATUS') {
-            navigate(`/signup`, { state: { memberId: err.errorData.errorContent.payload } });
+            navigate(`/signup`, {
+              state: { memberId: err.errorData.errorContent.payload },
+            });
+            return;
           }
         }
       }
