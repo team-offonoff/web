@@ -55,7 +55,10 @@ const TopicCard = ({ topic }: TopicCardProps) => {
 
   const { BottomSheet: CommentSheet, toggleSheet } = useBottomSheet({});
   const voteMutation = useVoteTopic();
-  const { data: latestCommentData, isSuccess } = useLatestComment(topic.topicId);
+  const { data: latestCommentData, isSuccess } = useLatestComment(
+    topic.topicId,
+    topic.selectedOption !== null
+  );
   const [latestComment, setLatestComment] = useState<LatestComment | undefined>();
 
   useEffect(() => {
