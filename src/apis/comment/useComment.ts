@@ -48,10 +48,11 @@ const useComments = (topicId: number, enabled: boolean) => {
   });
 };
 
-const useLatestComment = (topicId: number) => {
+const useLatestComment = (topicId: number, enabled: boolean) => {
   return useQuery({
     queryKey: [COMMENT_KEY, 'latest', topicId],
     queryFn: () => getComments({ topicId: topicId, page: 0, size: 1 }),
+    enabled: enabled,
   });
 };
 
