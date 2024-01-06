@@ -173,10 +173,6 @@ github actions
 - use pascal case for types/interface
     - ex) `interface ButtonProps { … }`
 
-### classname
-
-- use BEM method `TBD`
-
 ### functions
 
 - use `handle*` prefix
