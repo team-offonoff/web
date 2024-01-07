@@ -6,6 +6,7 @@ import KakaoLogin from './Auth/kakao/KakaoLogin';
 import Login from './Auth/login/Login';
 import Signup from './Auth/signup/Signup';
 import Home from './Home/Home';
+import TopicCreate from './Topic/TopicCreate';
 
 const Router = () => {
   const [isAuthorized, setIsAuthorized] = React.useState(true);
@@ -17,6 +18,10 @@ const Router = () => {
         {
           index: true,
           element: <Home />,
+        },
+        {
+          path: 'topics/create',
+          element: <TopicCreate />,
         },
       ],
     },

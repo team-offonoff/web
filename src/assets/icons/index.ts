@@ -1,8 +1,10 @@
+import ALogoIcon from './a-logo.svg?react';
 import ABLogoIcon from './ab-logo.svg?react';
 import ABIcon from './ab.svg?react';
 import AlarmIcon from './alarm-default.svg?react';
 import NewAlarmIcon from './alarm-new.svg?react';
 import AppleIcon from './apple.svg?react';
+import BLogoIcon from './b-logo.svg?react';
 import CloseIcon from './close.svg?react';
 import DownChevronIcon from './down-chevron.svg?react';
 import GoogleIcon from './google.svg?react';
@@ -19,6 +21,7 @@ import RightChevronIcon from './right-chevron.svg?react';
 import RightDoubleArrowIcon from './right-double-arrow.svg?react';
 import SizeUpIcon from './size-up.svg?react';
 import ThumbsIcon from './thumbs.svg?react';
+import TopicCreatBackgrounIcon from './topic-create-background.svg?react';
 import WriteBoxIcon from './write-box.svg?react';
 
 export {
@@ -44,4 +47,7 @@ export {
   SizeUpIcon,
   CloseIcon,
   DownChevronIcon,
+  TopicCreatBackgrounIcon,
+  ALogoIcon,
+  BLogoIcon,
 };
