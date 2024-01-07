@@ -35,7 +35,7 @@ const BottomNavigation = () => {
           <Text size={12}>MY</Text>
         </StyledNavLink>
       </RadiusContainer>
-      <StyledNavLink to={'/plus'}>
+      <StyledNavLink to={'/topics/create'}>
         <PlusContainer>
           <WriteBoxIcon width={26} height={26} />
         </PlusContainer>
