@@ -53,6 +53,7 @@ export const AButton = styled.button<{ selected: 'A' | 'B' | null }>`
   background-color: transparent;
   filter: ${(props) => (props.selected === 'B' ? 'blur(1px)' : 'blur(0px)')};
   opacity: ${(props) => (props.selected === 'B' ? 0.3 : 1)};
+  transition: 0.3s;
 
   &::after {
     position: absolute;
@@ -75,6 +76,7 @@ export const BButton = styled.button<{ selected: 'A' | 'B' | null }>`
   background-color: transparent;
   filter: ${(props) => (props.selected === 'A' ? 'blur(1px)' : 'blur(0px)')};
   opacity: ${(props) => (props.selected === 'A' ? 0.3 : 1)};
+  transition: 0.3s;
 
   &::after {
     position: absolute;
