@@ -12,15 +12,16 @@ import Router from './routes';
 
 const App = () => {
   const queryClient = new QueryClient();
-  const isDev = import.meta.env.DEV;
 
-  // useEffect(() => {
-  //   if (isDev) {
-  //     [...Array.from({ length: 20 }, (_, i) => i + 1)].map((topicId) => {
-  //       client.delete(`topics/${topicId}/vote`);
-  //     });
-  //   }
-  // }, []);
+  useEffect(() => {
+    if (import.meta.env.DEV) {
+      [1, 27, 19, 2, 7, 25, 17, 14, 11, 23].map((topicId) => {
+        client.delete(`topics/${topicId}/vote`, {
+          canceledAt: Math.floor(new Date().getTime() / 1000),
+        });
+      });
+    }
+  }, []);
 
   return (
     <StyleSheetManager shouldForwardProp={(propName) => isValidProp(propName)}>
