@@ -25,10 +25,7 @@ const Text = React.memo((props: TextProps) => {
   );
 });
 
-const StyledText = styled('div').withConfig({
-  shouldForwardProp: (prop) =>
-    ['children', 'weight', 'align', 'color', 'size', 'lineHeight', 'noWrap'].includes(prop),
-})<TextProps>`
+const StyledText = styled('div')<TextProps>`
   ${({ lineHeight }) =>
     lineHeight &&
     css`

@@ -61,13 +61,14 @@ class Fetch {
     return data as TData;
   }
 
-  async delete<T>(path: string): Promise<T> {
+  async delete<T>(path: string, body?: object): Promise<T> {
     const response = await fetch(`${this.baseURL}${path}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
         ...(this.accessToken && { Authorization: `Bearer ${this.accessToken}` }),
       },
+      body: JSON.stringify(body),
     });
     const data: T = await response.json();
     return data;

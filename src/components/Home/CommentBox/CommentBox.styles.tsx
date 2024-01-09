@@ -62,7 +62,7 @@ export const Comment = styled.div`
   border-radius: 0 0 10px 10px;
 `;
 
-export const Blur = styled.div<{ isVote: boolean }>`
+export const Blur = styled('div')<{ isVote: boolean }>`
   box-sizing: border-box;
   display: flex;
   gap: 10px;
