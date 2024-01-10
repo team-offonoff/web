@@ -106,6 +106,7 @@ export const ADescription = styled.div<{ selected: 'A' | 'B' | null }>`
   text-align: start;
   text-shadow: 0 0 30px #242036;
   letter-spacing: 0.2px;
+  pointer-events: none;
   visibility: ${(props) => (props.selected === 'A' ? 'visible' : 'hidden')};
 `;
 
@@ -123,6 +124,7 @@ export const BDescription = styled.div<{ selected: 'A' | 'B' | null }>`
   text-align: end;
   text-shadow: 0 0 30px #242036;
   letter-spacing: 0.2px;
+  pointer-events: none;
   visibility: ${(props) => (props.selected === 'B' ? 'visible' : 'hidden')};
 `;
 
@@ -223,4 +225,5 @@ export const TopicCreateButton = styled.button<{ selected: 'A' | 'B' | null }>`
   visibility: ${(props) => (props.selected === null ? 'hidden' : 'visible')};
   background-color: ${(props) => (props.selected === 'A' ? colors.A : colors.B)};
   border-radius: 50px;
+  transition: 0.3s;
 `;
