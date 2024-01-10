@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
+import { useSwiperSlide } from 'swiper/react';
 
 import { useLatestComment } from '@apis/comment/useComment';
 import useVoteTopic from '@apis/topic/useVoteTopic';
@@ -53,6 +55,8 @@ const TopicCard = ({ topic }: TopicCardProps) => {
     },
   ]; // TBD: 투표 선택지가 비어있는 더미 데이터가 존재해서 만들어둠
 
+  const [, setSearchParams] = useSearchParams();
+  const swiperSlide = useSwiperSlide();
   const { BottomSheet: CommentSheet, toggleSheet } = useBottomSheet({});
   const voteMutation = useVoteTopic();
   const { data: latestCommentData, isSuccess } = useLatestComment(
@@ -60,6 +64,15 @@ const TopicCard = ({ topic }: TopicCardProps) => {
     topic.selectedOption !== null
   );
   const [latestComment, setLatestComment] = useState<LatestComment | undefined>();
+
+  useEffect(() => {
+    if (swiperSlide.isActive) {
+      setSearchParams((searchParams) => {
+        searchParams.set('topicId', topic.topicId.toString());
+        return searchParams;
+      });
+    }
+  }, [swiperSlide]);
 
   useEffect(() => {
     if (isSuccess) {
