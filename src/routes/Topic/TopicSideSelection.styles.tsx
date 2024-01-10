@@ -70,6 +70,7 @@ export const AButton = styled.button<{ selected: 'A' | 'B' | null }>`
 `;
 
 export const BButton = styled.button<{ selected: 'A' | 'B' | null }>`
+  position: relative;
   z-index: ${(props) => (props.selected === 'A' ? 0 : 1)};
   width: 129.31px;
   height: 153px;
