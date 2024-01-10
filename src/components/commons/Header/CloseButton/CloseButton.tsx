@@ -1,11 +1,22 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 
 import { CloseIcon } from '@icons/index';
 
-const CloseButton = () => {
+interface CloseButtonProps {
+  onClick?: () => void;
+}
+
+const CloseButton = ({ onClick }: CloseButtonProps) => {
+  const navigate = useNavigate();
+
+  function handleCloseButtonClick() {
+    navigate(-1);
+  }
+
   return (
-    <Button>
+    <Button onClick={onClick ? onClick : handleCloseButtonClick}>
       <CloseIcon />
     </Button>
   );

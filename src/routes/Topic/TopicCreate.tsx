@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import CloseButton from '@components/commons/Header/CloseButton/CloseButton';
 import Layout from '@components/commons/Layout/Layout';
@@ -29,6 +30,7 @@ import {
 
 const TopicCreate = () => {
   const [selected, setSelected] = useState<'A' | 'B' | null>(null);
+  const navigate = useNavigate();
 
   function handleAButtonClick() {
     setSelected('A');
@@ -38,10 +40,14 @@ const TopicCreate = () => {
     setSelected('B');
   }
 
+  function handleCloseButtonClick() {
+    navigate(-1);
+  }
+
   return (
     <Layout
       hasBottomNavigation={false}
-      HeaderLeft={() => <CloseButton />}
+      HeaderLeft={() => <CloseButton onClick={handleCloseButtonClick} />}
       HeaderCenter={() => (
         <Text size={20} weight={600} color={colors.white}>
           토픽 생성
