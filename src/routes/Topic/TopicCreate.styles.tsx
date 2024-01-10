@@ -53,6 +53,7 @@ export const AButton = styled.button<{ selected: 'A' | 'B' | null }>`
   background-color: transparent;
   filter: ${(props) => (props.selected === 'B' ? 'blur(1px)' : 'blur(0px)')};
   opacity: ${(props) => (props.selected === 'B' ? 0.3 : 1)};
+  transition: 0.3s;
 
   &::after {
     position: absolute;
@@ -75,6 +76,7 @@ export const BButton = styled.button<{ selected: 'A' | 'B' | null }>`
   background-color: transparent;
   filter: ${(props) => (props.selected === 'A' ? 'blur(1px)' : 'blur(0px)')};
   opacity: ${(props) => (props.selected === 'A' ? 0.3 : 1)};
+  transition: 0.3s;
 
   &::after {
     position: absolute;
@@ -90,37 +92,32 @@ export const BButton = styled.button<{ selected: 'A' | 'B' | null }>`
   }
 `;
 
-export const ADescription = styled.div<{ selected: 'A' | 'B' | null }>`
+const DescriptionBase = styled.div`
   position: absolute;
-  top: 0;
-  right: -111.78px;
   z-index: 2;
   width: 97px;
   height: 62px;
   font-size: 22px;
   font-weight: 700;
   line-height: 140%;
-  color: ${colors.A};
-  text-align: start;
   text-shadow: 0 0 30px #242036;
   letter-spacing: 0.2px;
+  pointer-events: none;
+`;
+
+export const ADescription = styled(DescriptionBase)<{ selected: 'A' | 'B' | null }>`
+  top: 0;
+  right: -111.78px;
+  color: ${colors.A};
+  text-align: start;
   visibility: ${(props) => (props.selected === 'A' ? 'visible' : 'hidden')};
 `;
 
-export const BDescription = styled.div<{ selected: 'A' | 'B' | null }>`
-  position: absolute;
+export const BDescription = styled(DescriptionBase)<{ selected: 'A' | 'B' | null }>`
   bottom: 0;
   left: -111.78px;
-  z-index: 2;
-  width: 97px;
-  height: 62px;
-  font-size: 22px;
-  font-weight: 700;
-  line-height: 140%;
   color: ${colors.B};
   text-align: end;
-  text-shadow: 0 0 30px #242036;
-  letter-spacing: 0.2px;
   visibility: ${(props) => (props.selected === 'B' ? 'visible' : 'hidden')};
 `;
 
@@ -221,4 +218,5 @@ export const TopicCreateButton = styled.button<{ selected: 'A' | 'B' | null }>`
   visibility: ${(props) => (props.selected === null ? 'hidden' : 'visible')};
   background-color: ${(props) => (props.selected === 'A' ? colors.A : colors.B)};
   border-radius: 50px;
+  transition: 0.3s;
 `;
