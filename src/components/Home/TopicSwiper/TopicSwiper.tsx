@@ -4,6 +4,8 @@ import SwiperCore from 'swiper';
 import { Navigation } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
+import { colors } from '@styles/theme';
+
 import { RightChevronIcon } from '@icons/index';
 
 SwiperCore.use([Navigation]);
@@ -27,7 +29,7 @@ const TopicSwiper = ({ children }: TopicSwiperProps) => {
           setNextDisabled(false);
         }}
       >
-        <RightChevronIcon style={{ transform: 'rotate(180deg)' }} />
+        <RightChevronIcon style={{ transform: 'rotate(180deg)' }} stroke={colors.white_40} />
       </PrevButton>
       <Swiper
         allowTouchMove={false}
@@ -51,7 +53,7 @@ const TopicSwiper = ({ children }: TopicSwiperProps) => {
           setPrevDisabled(false);
         }}
       >
-        <RightChevronIcon />
+        <RightChevronIcon stroke={colors.white_40} />
       </NextButton>
     </React.Fragment>
   );
@@ -59,8 +61,9 @@ const TopicSwiper = ({ children }: TopicSwiperProps) => {
 
 const SlideButton = styled.button<{ disabled: boolean }>`
   z-index: 100;
-  width: 40px;
-  height: 40px;
+  width: 32px;
+  height: 32px;
+  padding: 4.8px 10.4px;
   cursor: pointer;
   background-color: transparent;
 
