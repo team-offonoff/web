@@ -11,7 +11,7 @@ interface CloseButtonProps {
 const CloseButton = ({ onClick }: CloseButtonProps) => {
   const navigate = useNavigate();
 
-  function handleCloseButtonClick() {
+  const handleCloseButtonClick = () => {
     navigate(-1);
   }
 
