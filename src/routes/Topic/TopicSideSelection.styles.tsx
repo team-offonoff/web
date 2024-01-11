@@ -10,6 +10,7 @@ export const Container = styled.div`
   justify-content: flex-start;
   height: 100%;
   padding-top: 19px;
+  overflow: hidden;
   background-color: ${(props) => props.theme.colors.navy};
 `;
 
@@ -19,6 +20,9 @@ export const EmptyDiv = styled.div`
 `;
 
 export const DownShevron = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 24px;
   height: 24px;
   margin-top: 2px;
@@ -57,11 +61,11 @@ export const AButton = styled.button<{ selected: 'A' | 'B' | null }>`
 
   &::after {
     position: absolute;
-    top: 20px;
+    top: 28px;
     right: 0;
     z-index: -1;
     width: 30px;
-    height: 123px;
+    height: 119px;
     content: '';
     background-color: transparent;
     box-shadow: ${(props) =>

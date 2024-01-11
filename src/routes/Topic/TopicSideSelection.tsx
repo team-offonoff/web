@@ -7,7 +7,13 @@ import Text from '@components/commons/Text/Text';
 
 import { colors } from '@styles/theme';
 
-import { ALogoIcon, BLogoIcon, DownChevronIcon, TopicCreatBackgrounIcon } from '@icons/index';
+import {
+  ALogoIcon,
+  BLogoIcon,
+  BigDownChevronIcon,
+  RightChevronIcon,
+  TopicCreatBackgrounIcon,
+} from '@icons/index';
 
 import {
   SelectDescription,
@@ -65,7 +71,7 @@ const TopicSideSelection = () => {
             눌러서 선택하기
           </Text>
           <DownShevron>
-            <DownChevronIcon />
+            <BigDownChevronIcon stroke={colors.purple} />
           </DownShevron>
         </SelectDescription>
         <ButtonContainer>
