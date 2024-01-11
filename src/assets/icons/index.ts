@@ -5,6 +5,7 @@ import AlarmIcon from './alarm-default.svg?react';
 import NewAlarmIcon from './alarm-new.svg?react';
 import AppleIcon from './apple.svg?react';
 import BLogoIcon from './b-logo.svg?react';
+import BigDownChevronIcon from './big-down-chevron.svg?react';
 import CloseIcon from './close.svg?react';
 import DownChevronIcon from './down-chevron.svg?react';
 import GoogleIcon from './google.svg?react';
@@ -47,6 +48,7 @@ export {
   SizeUpIcon,
   CloseIcon,
   DownChevronIcon,
+  BigDownChevronIcon,
   TopicCreatBackgrounIcon,
   ALogoIcon,
   BLogoIcon,
