@@ -14,8 +14,9 @@ import {
   HeaderCenterContainer,
   SideButton,
   SideChangeButton,
+  Container,
+  EmptyDiv,
 } from './TopicCreate.sytles';
-import { Container, EmptyDiv } from './TopicSideSelection.styles';
 
 const TopicCreate = () => {
   const navigate = useNavigate();
@@ -38,7 +39,7 @@ const TopicCreate = () => {
     <Layout
       hasBottomNavigation={false}
       HeaderLeft={() => (
-        <BackButton onClick={() => navigate(-1)}>
+        <BackButton onClick={() => navigate(`/topics/create`)}>
           <RightChevronIcon style={{ transform: 'rotate(180deg)' }} stroke={colors.white} />
         </BackButton>
       )}
@@ -71,7 +72,11 @@ const TopicCreate = () => {
       )}
       HeaderRight={() => <EmptyDiv />}
     >
-      <Container></Container>
+      <Container>
+        <Text size={18} weight={400} color={colors.white_60} align="start">
+          어떤 주제로 물어볼까요?
+        </Text>
+      </Container>
     </Layout>
   );
 };

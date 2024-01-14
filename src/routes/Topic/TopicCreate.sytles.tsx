@@ -6,10 +6,10 @@ export const Container = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   justify-content: flex-start;
   height: 100%;
-  padding-top: 19px;
+  padding: 51px 20px 0;
   background-color: ${(props) => props.theme.colors.navy};
 `;
 
