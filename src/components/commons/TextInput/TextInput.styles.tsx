@@ -1,19 +1,27 @@
-import { styled } from 'styled-components';
+import { css, styled } from 'styled-components';
 
-const StyledInput = styled.input`
+const StyledInput = styled.input<{ hasLeft: boolean }>`
   width: 100%;
   padding: 14px 16px;
   font-size: 1.4rem;
   font-weight: 700;
-  color: ${({ theme }) => theme.colors.purple};
+  line-height: 1.4;
+  color: ${({ theme }) => theme.colors.white};
   border-radius: 10px;
+
+  ${({ hasLeft }) =>
+    hasLeft &&
+    css`
+      padding-left: 35px;
+    `}
 
   &:focus {
     outline: none;
   }
 
   &::placeholder {
-    color: ${({ theme }) => theme.colors.sub_purple};
+    color: ${({ theme }) => theme.colors.purple};
+    opacity: 0.6;
   }
 `;
 

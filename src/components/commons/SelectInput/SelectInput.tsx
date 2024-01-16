@@ -26,12 +26,14 @@ const StyledSelect = styled.select<{ selected: boolean }>`
   width: 100%;
   padding: 14px 16px;
   font-size: 1.4rem;
-  font-weight: 700;
+  font-weight: 600;
+  line-height: 1.4;
   color: ${({ theme }) => theme.colors.purple};
   appearance: none;
-  background-color: ${({ selected, theme }) => (selected ? theme.colors.sub_navy2 : 'transparent')};
-  border: 1px solid ${({ selected, theme }) => (selected ? 'transparent' : theme.colors.sub_purple)};
+  background-color: #342b52;
+  border: none;
   border-radius: 10px;
+  opacity: 0.6;
 
   &:focus {
     outline: none;
