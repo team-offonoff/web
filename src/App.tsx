@@ -13,15 +13,15 @@ import Router from './routes';
 const App = () => {
   const queryClient = new QueryClient();
 
-  useEffect(() => {
-    if (import.meta.env.DEV) {
-      [1, 27, 19, 2, 7, 25, 17, 14, 11, 23].map((topicId) => {
-        client.delete(`topics/${topicId}/vote`, {
-          canceledAt: Math.floor(new Date().getTime() / 1000),
-        });
-      });
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (import.meta.env.DEV) {
+  //     [1, 27, 19, 2, 7, 25, 17, 14, 11, 23].map((topicId) => {
+  //       client.delete(`topics/${topicId}/vote`, {
+  //         canceledAt: Math.floor(new Date().getTime() / 1000),
+  //       });
+  //     });
+  //   }
+  // }, []);
 
   return (
     <StyleSheetManager shouldForwardProp={(propName) => isValidProp(propName)}>

@@ -35,3 +35,42 @@ export const theme: DefaultTheme = {
   colors,
   zIndex,
 };
+
+export const input = {
+  t1: {
+    default: {
+      border: `none`,
+      backgroundColor: '#342b52',
+    },
+    error: {
+      border: `1px solid ${colors.sub_purple2}`,
+      backgroundColor: '#342b52',
+    },
+  },
+  t2: {
+    default: {
+      fontSize: '2rem',
+      fontWeight: 400,
+      lineHeight: '140%',
+      padding: '0 0 10px 0',
+      border: 'none',
+      borderBottom: `1px solid ${colors.sub_navy2}`,
+      backgroundColor: 'transparent',
+      borderRadius: 0,
+      outline: 'none',
+    },
+    error: {
+      fontSize: '2rem',
+      fontWeight: 400,
+      lineHeight: '140%',
+      padding: '0 0 10px 0',
+      border: 'none',
+      borderBottom: `1px solid ${colors.sub_purple2}`,
+      borderRadius: 0,
+      backgroundColor: 'transparent',
+      outline: 'none',
+    },
+  },
+};
+
+export type InputTypes = keyof typeof input;
