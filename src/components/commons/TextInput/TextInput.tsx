@@ -2,7 +2,7 @@ import React from 'react';
 import { RegisterOptions, useFormContext } from 'react-hook-form';
 import { ConfigKeys, InputType } from 'src/constants/form';
 
-import { colors } from '@styles/theme';
+import { InputTypes, colors, input } from '@styles/theme';
 
 import Text from '../Text/Text';
 
@@ -21,25 +21,17 @@ interface TextInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   left?: () => React.ReactNode;
   right?: () => React.ReactNode;
   onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
+  theme?: InputTypes;
 }
 
 const TextInput = (props: TextInputProps) => {
-  const { id, type = 'text', options, placeholder, left, right, onKeyDown } = props;
+  const { id, type = 'text', options, placeholder, left, right, onKeyDown, theme = 't1' } = props;
   const {
     register,
     formState: { errors },
   } = useFormContext();
 
-  const inputTheme = {
-    default: {
-      border: `none`,
-      backgroundColor: '#342b52',
-    },
-    error: {
-      border: `1px solid ${colors.sub_purple2}`,
-      backgroundColor: '#342b52',
-    },
-  };
+  const inputTheme = input[theme];
 
   return (
     <div style={{ position: 'relative' }}>
@@ -48,9 +40,7 @@ const TextInput = (props: TextInputProps) => {
         <StyledInput
           hasLeft={left !== undefined}
           type={type}
-          style={{
-            ...(errors[id] ? inputTheme.error : inputTheme.default),
-          }}
+          style={{ ...(errors[id] ? inputTheme.error : inputTheme.default) }}
           placeholder={placeholder}
           {...register(id, options)}
           onKeyDown={onKeyDown}
