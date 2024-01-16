@@ -14,11 +14,10 @@ import {
   StyledInput,
 } from './TextInput.styles';
 
-interface TextInputProps {
+interface TextInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   id: InputType;
   options: RegisterOptions;
   placeholder: string;
-  type?: React.HTMLInputTypeAttribute;
   left?: () => React.ReactNode;
   right?: () => React.ReactNode;
   onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
@@ -28,22 +27,17 @@ const TextInput = (props: TextInputProps) => {
   const { id, type = 'text', options, placeholder, left, right, onKeyDown } = props;
   const {
     register,
-    watch,
     formState: { errors },
   } = useFormContext();
 
   const inputTheme = {
     default: {
-      border: `1px solid ${colors.sub_purple}`,
-      backgroundColor: 'transparent',
-    },
-    success: {
-      border: 'none',
-      backgroundColor: `${colors.navy2}`,
+      border: `none`,
+      backgroundColor: '#342b52',
     },
     error: {
       border: `1px solid ${colors.sub_purple2}`,
-      backgroundColor: 'transparent',
+      backgroundColor: '#342b52',
     },
   };
 
@@ -52,14 +46,10 @@ const TextInput = (props: TextInputProps) => {
       <InputContainer>
         {left && <InputPrefix>{left()}</InputPrefix>}
         <StyledInput
+          hasLeft={left !== undefined}
           type={type}
           style={{
-            ...(left && { paddingLeft: 35 }),
-            ...(watch(id)?.length > 0
-              ? errors[id]
-                ? inputTheme.error
-                : inputTheme.success
-              : inputTheme.default),
+            ...(errors[id] ? inputTheme.error : inputTheme.default),
           }}
           placeholder={placeholder}
           {...register(id, options)}
