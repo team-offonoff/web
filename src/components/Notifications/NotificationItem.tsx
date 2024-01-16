@@ -52,7 +52,7 @@ const NotificationItem = ({ onClick, notification }: NotificationItem) => {
     >
       <Row gap={16}>
         <IconWrapper>{renderIcon()}</IconWrapper>
-        <Col>
+        <Col gap={8}>
           <Text size={15} weight={500} color={colors.white}>
             투표가 마감 되었어요, 지금 바로 결과를 확인해 보세요!
           </Text>
