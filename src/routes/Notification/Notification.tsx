@@ -51,6 +51,20 @@ const Notification = () => {
       date: 1803204000,
       checked: true,
     },
+    {
+      // 내가 만든 토픽에 누군가가 댓글을 남겼어요 바로 확인해 볼까요?
+      type: 'comment',
+      title: '강아지상? 고양이상?',
+      date: 1803244000,
+      checked: false,
+    },
+    {
+      // 투표가 마감 되었어요, 지금 바로 결과를 확인해 보세요!
+      type: 'close',
+      title: '성수 치킨 버거의 종결지는? 성수 치킨 버거의 종결지는?',
+      date: 1800260000,
+      checked: true,
+    },
   ];
 
   return (
@@ -64,7 +78,7 @@ const Notification = () => {
     >
       <Container>
         <TabHeader currentTab={currentTab} setCurrentTab={setCurrentTab} />
-        <Col>
+        <Col style={{ overflowY: 'auto' }}>
           {notifications.map((notification, index) => {
             return (
               <NotificationItem
