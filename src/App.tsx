@@ -24,7 +24,7 @@ const App = () => {
   // }, []);
 
   return (
-    <StyleSheetManager shouldForwardProp={(propName) => isValidProp(propName)}>
+    <StyleSheetManager shouldForwardProp={() => true}>
       <QueryClientProvider client={queryClient}>
         <ThemeProvider theme={theme}>
           <GlobalStyle />
