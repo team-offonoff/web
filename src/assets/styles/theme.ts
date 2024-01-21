@@ -36,6 +36,9 @@ export const colors = {
   white_80: 'rgba(255, 255, 255, 0.80)',
   black_80: 'rgba(0, 0, 0, 0.80)',
   navywhite_20: '#504D5E',
+  navywhite_40: '#7C7986',
+  navywhite_60: '#A7A6AF',
+  navywhite_80: '#D3D2D7',
 };
 
 export const zIndex = {
