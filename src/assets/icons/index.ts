@@ -20,6 +20,7 @@ import RefreshIcon from './refresh.svg?react';
 import ReportIcon from './report.svg?react';
 import RightChevronIcon from './right-chevron.svg?react';
 import RightDoubleArrowIcon from './right-double-arrow.svg?react';
+import RotateIcon from './rotate.svg?react';
 import SizeUpIcon from './size-up.svg?react';
 import ThumbsIcon from './thumbs.svg?react';
 import TopicCreatBackgrounIcon from './topic-create-background.svg?react';
@@ -52,4 +53,5 @@ export {
   TopicCreatBackgrounIcon,
   ALogoIcon,
   BLogoIcon,
+  RotateIcon,
 };
