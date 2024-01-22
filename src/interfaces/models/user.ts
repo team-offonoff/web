@@ -1,6 +1,6 @@
 export interface User {
   memberId: number;
-  nickname: string;
+  nickname?: string;
   accessToken?: string;
   refrehToken?: string;
 }
