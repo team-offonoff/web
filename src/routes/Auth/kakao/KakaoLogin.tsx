@@ -17,7 +17,11 @@ const KakaoLogin = () => {
       try {
         const response = await kakaoLogin(kakaoCode);
         if (response && response.accessToken) {
-          response.newMember ? navigate('/onboard') : navigate('/');
+          response.newMember
+            ? navigate(`/signup`, {
+                state: { memberId: response.memberId },
+              })
+            : navigate('/');
         }
       } catch (err) {
         if (err instanceof ResponseError) {
