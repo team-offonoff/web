@@ -1,13 +1,17 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router';
+import { useAuthStore } from 'src/store/auth';
 
 import { kakaoLogin } from '@apis/oauth/kakao';
 
 import { ResponseError } from '@apis/fetch';
 
+import Login from '../login/Login';
+
 import { Container } from './KakaoLogin.styles';
 
 const KakaoLogin = () => {
+  const setUser = useAuthStore((state) => state.setUser);
   const kakaoCode = new URL(window.location.href).searchParams.get('code');
 
   const navigate = useNavigate();
@@ -17,11 +21,14 @@ const KakaoLogin = () => {
       try {
         const response = await kakaoLogin(kakaoCode);
         if (response && response.accessToken) {
-          response.newMember
-            ? navigate(`/signup`, {
-                state: { memberId: response.memberId },
-              })
-            : navigate('/');
+          if (response.newMember) {
+            navigate(`/signup`, {
+              state: { memberId: response.memberId },
+            });
+          } else {
+            setUser({ memberId: response.memberId, accessToken: response.accessToken });
+            navigate('/');
+          }
         }
       } catch (err) {
         if (err instanceof ResponseError) {
@@ -42,6 +49,10 @@ const KakaoLogin = () => {
     handleKakaoLogin();
   }, []);
 
-  return <Container>카카오로딩화면</Container>;
+  return (
+    <Container>
+      <Login />
+    </Container>
+  );
 };
 export default KakaoLogin;
