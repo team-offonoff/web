@@ -6,6 +6,7 @@ import KakaoLogin from './Auth/kakao/KakaoLogin';
 import Login from './Auth/login/Login';
 import Signup from './Auth/signup/Signup';
 import Home from './Home/Home';
+import Notification from './Notification/Notification';
 import TopicCreate from './Topic/TopicCreate';
 
 const Router = () => {
@@ -22,6 +23,10 @@ const Router = () => {
         {
           path: 'topics/create',
           element: <TopicCreate />,
+        },
+        {
+          path: 'notifications',
+          element: <Notification />,
         },
       ],
     },

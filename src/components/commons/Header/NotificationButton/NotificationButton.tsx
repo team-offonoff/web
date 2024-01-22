@@ -1,11 +1,14 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 
 import { AlarmIcon } from '@icons/index';
 
 const NotificationButton = () => {
+  const navigate = useNavigate();
+
   return (
-    <AlarmButton>
+    <AlarmButton onClick={() => navigate('/notifications')}>
       <AlarmIcon />
     </AlarmButton>
   );

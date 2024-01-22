@@ -1,8 +1,7 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 
-export interface TextProps {
-  className?: string;
+export interface TextProps extends React.HTMLAttributes<HTMLDivElement> {
   size: number;
   children: React.ReactNode;
   tagName?: keyof JSX.IntrinsicElements;
