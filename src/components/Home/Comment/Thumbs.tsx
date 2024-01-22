@@ -22,6 +22,8 @@ const Thumbs = ({ type, count, hasClicked, onClick }: ThumbsProps) => {
     <button onClick={onClick}>
       <Row gap={3} justifyContent={'space-between'} alignItems={'center'}>
         <ThumbsIcon
+          width={22}
+          height={22}
           fill={fill}
           stroke={stroke}
           style={{ transform: type === 'down' ? 'rotate(180deg)' : 'rotate(0deg)' }}
