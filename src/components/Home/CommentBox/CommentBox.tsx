@@ -88,7 +88,7 @@ const CommentBox = ({
           </Text>
         </CommentInfoContainer>
         <Comment>
-          <Blur isVote={hasVoted}>
+          <Blur $voted={hasVoted}>
             <UserProfileImage src={latestComment?.writer?.profileImageUrl || ''} />
             <Text size={15} weight={'regular'} color={colors.white}>
               {latestComment?.content || ''}
