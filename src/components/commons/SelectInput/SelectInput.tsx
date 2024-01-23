@@ -72,7 +72,7 @@ const SelectInput = (props: SelectInputProps) => {
       </StyledSelect>
       <ErrorMessage>
         {errors[id] && (
-          <Text size={13} weight={700} color={colors.sub_purple2}>
+          <Text size={13} weight={700} color={colors.purple2}>
             * {errors[id]?.message?.toString()}
           </Text>
         )}
