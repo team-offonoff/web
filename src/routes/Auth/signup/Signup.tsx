@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
+import { useLocation } from 'react-router-dom';
 import { CONFIG, INPUT_TYPE } from 'src/constants/form';
 import { GENDERS, JOBS } from 'src/constants/signup';
 
@@ -11,18 +12,30 @@ import RadioInput from '@components/commons/RadioInput/RadioInput';
 import SelectInput from '@components/commons/SelectInput/SelectInput';
 import Text from '@components/commons/Text/Text';
 import TextInput from '@components/commons/TextInput/TextInput';
+import useBottomSheet from '@hooks/useBottomSheet/useBottomSheet';
 
 import { colors } from '@styles/theme';
 
-import { FormContainer, NextButton } from './Signup.styles';
+import { ResponseError } from '@apis/fetch';
+
+import { FormContainer, NextButton } from './Signup.styles';
+import Terms from './Terms';
 
 type SignupForm = Omit<SingnUpRequestDTO, 'memberId'>;
 
 const MAX_NICKNAME_LENGTH = 8;
 
-const Signup = ({ memberId }: { memberId: number }) => {
+const Signup = () => {
+  const location = useLocation();
   const methods = useForm<Omit<SingnUpRequestDTO, 'memberId'>>({ mode: 'onChange' });
   const signupMutation = useSignup();
+  const { BottomSheet: TermsSheet, toggleSheet } = useBottomSheet({
+    snapPoints: [0.5, 0.5, 0],
+    initialSnap: 0.5,
+    transparent: false,
+  });
+
+  const memberId = location.state.memberId;
 
   const birthdayInput = methods.watch(INPUT_TYPE.BIRTHDAY);
   const nicknameProgress = methods.watch(INPUT_TYPE.NICKNAME)
@@ -38,8 +51,24 @@ const Signup = ({ memberId }: { memberId: number }) => {
     }
   };
 
-  const handleSubmitForm: SubmitHandler<SignupForm> = (data) => {
-    signupMutation.mutate({ ...data, memberId });
+  const handleSubmitForm: SubmitHandler<SignupForm> = async (data) => {
+    try {
+      await signupMutation.mutateAsync({
+        ...data,
+        birth: data.birth.replace(/\//g, '-'),
+        memberId,
+      });
+
+      toggleSheet();
+    } catch (error) {
+      if (error instanceof ResponseError) {
+        if (error.errorData.errorContent.hint.includes('PERSONAL_REGISTERED')) {
+          toggleSheet();
+        } else {
+          alert(error.errorData.errorContent.message);
+        }
+      }
+    }
   };
 
   useEffect(() => {
@@ -47,6 +76,10 @@ const Signup = ({ memberId }: { memberId: number }) => {
       methods.setValue(INPUT_TYPE.BIRTHDAY, birthdayInput + '/');
     }
   }, [birthdayInput, methods]);
+
+  if (!memberId) {
+    return <div>잘못된 접근입니다.</div>;
+  }
 
   return (
     <Layout
@@ -97,9 +130,14 @@ const Signup = ({ memberId }: { memberId: number }) => {
               />
             </InputField>
           </Col>
-          <NextButton type={'submit'}>다음</NextButton>
+          <NextButton type={'submit'} disabled={!methods.formState.isValid}>
+            다음
+          </NextButton>
         </FormContainer>
       </FormProvider>
+      <TermsSheet>
+        <Terms />
+      </TermsSheet>
     </Layout>
   );
 };
