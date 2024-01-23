@@ -1,7 +1,7 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 
-interface FlexProps {
+interface FlexProps extends React.HTMLAttributes<HTMLDivElement> {
   className?: string;
   justifyContent?: React.CSSProperties['justifyContent'];
   alignItems?: React.CSSProperties['alignItems'];

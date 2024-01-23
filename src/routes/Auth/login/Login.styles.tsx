@@ -1,7 +1,7 @@
 import { styled } from 'styled-components';
 
 export const Container = styled.div`
-  height: 100vh;
+  height: 100%;
   background-color: ${(props) => props.theme.colors.navy};
 `;
 
@@ -19,8 +19,6 @@ export const Divider = styled.div`
 `;
 
 export const LoginButtonContainer = styled.div`
-  position: absolute;
-  bottom: 104px;
   display: flex;
   flex-direction: column;
   gap: 17px;
