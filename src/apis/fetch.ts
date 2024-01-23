@@ -1,3 +1,5 @@
+import { ACCESS_TOKEN } from 'src/constants/localStorage';
+
 import { ErrorResponse } from '@interfaces/api/error';
 
 export class ResponseError extends Error {
@@ -76,6 +78,7 @@ class Fetch {
 
   setAccessToken(token: string) {
     this.accessToken = token;
+    localStorage.setItem(ACCESS_TOKEN, token);
   }
 }
 
