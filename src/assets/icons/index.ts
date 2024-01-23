@@ -5,6 +5,7 @@ import AlarmIcon from './alarm-default.svg?react';
 import NewAlarmIcon from './alarm-new.svg?react';
 import AppleIcon from './apple.svg?react';
 import BLogoIcon from './b-logo.svg?react';
+import CheckIcon from './check.svg?react';
 import ClockIcon from './clock.svg?react';
 import CloseIcon from './close.svg?react';
 import CommentIcon from './comment.svg?react';
@@ -34,6 +35,7 @@ export {
   ALogoIcon,
   AppleIcon,
   BLogoIcon,
+  CheckIcon,
   ClockIcon,
   CloseIcon,
   CommentIcon,
