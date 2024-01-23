@@ -1,20 +1,15 @@
 import React from 'react';
 
-import { Row } from '@components/commons/Flex/Flex';
+import { Col, Row } from '@components/commons/Flex/Flex';
 import Layout from '@components/commons/Layout/Layout';
 import Text from '@components/commons/Text/Text';
+import LoginButton from '@components/Login/LoginButton';
 
-import { colors } from '@styles/theme';
+import { colors, theme } from '@styles/theme';
 
 import { ABLogoIcon, AppleIcon, GoogleIcon, KakaoIcon } from '@icons/index';
 
-import {
-  Container,
-  Divider,
-  LoginButton,
-  LoginButtonContainer,
-  LogoContainer,
-} from './Login.styles';
+import { Container, Divider, LoginButtonContainer, LogoContainer } from './Login.styles';
 
 const Login = () => {
   const KakaoRestApiKey = import.meta.env.VITE_KAKAO_OAUTH_KEY;
@@ -36,51 +31,43 @@ const Login = () => {
   return (
     <Layout hasBottomNavigation={false}>
       <Container>
-        <div>
-          <LogoContainer>
+        <Col justifyContent="center" gap={80} style={{ height: '100%' }}>
+          <Col gap={35} alignItems="center">
             <ABLogoIcon />
-          </LogoContainer>
-          <Text size={24} weight={600} align={'center'}>
-            세상의 모든 질문,
-            <br /> AB로 답하다
-          </Text>
-        </div>
-        <LoginButtonContainer>
-          <Row padding={'0 20px'} gap={17}>
-            <Divider />
-            <Text size={15} noWrap={true}>
-              간편 가입하기
+            <Text size={24} weight={600} align={'center'} color={theme.colors.white}>
+              세상의 모든 질문,
+              <br /> AB로 답하다
             </Text>
-            <Divider />
-          </Row>
-          <LoginButton onClick={handleKaKaoLogin} style={{ backgroundColor: '#FEE500' }}>
-            <Row padding={'15px 20px'}>
-              <KakaoIcon />
-              <Text size={16} color={colors.black} weight={'bold'}>
-                카카오로 계속하기
+          </Col>
+          <LoginButtonContainer>
+            <Row gap={17} alignItems={'center'} justifyContent={'space-between'}>
+              <Divider />
+              <Text size={15} noWrap={true} weight={400} color={theme.colors.white}>
+                간편 가입하기
               </Text>
-              <div style={{ width: 18, height: 18 }} />
+              <Divider />
             </Row>
-          </LoginButton>
-          <LoginButton onClick={handleGoogleLogin} style={{ backgroundColor: colors.white }}>
-            <Row padding={'15px 20px'}>
-              <GoogleIcon />
-              <Text size={16} color={colors.black} weight={'bold'}>
-                구글로 계속하기
-              </Text>
-              <div style={{ width: 18, height: 18 }} />
-            </Row>
-          </LoginButton>
-          <LoginButton onClick={handleGoogleLogin} style={{ backgroundColor: colors.black }}>
-            <Row padding={'15px 20px'}>
-              <AppleIcon />
-              <Text size={16} color={colors.white} weight={'bold'}>
-                애플로 계속하기
-              </Text>
-              <div style={{ width: 18, height: 18 }} />
-            </Row>
-          </LoginButton>
-        </LoginButtonContainer>
+            <LoginButton
+              onClick={handleKaKaoLogin}
+              backgroundColor="#FEE500"
+              Icon={() => <KakaoIcon />}
+              buttonText="카카오로 계속하기"
+            />
+            <LoginButton
+              onClick={handleGoogleLogin}
+              backgroundColor={colors.white}
+              Icon={() => <GoogleIcon />}
+              buttonText="구글로 계속하기"
+            />
+            <LoginButton
+              onClick={handleGoogleLogin}
+              backgroundColor={colors.black}
+              color={colors.white}
+              Icon={() => <AppleIcon />}
+              buttonText="애플로 계속하기"
+            />
+          </LoginButtonContainer>
+        </Col>
       </Container>
     </Layout>
   );

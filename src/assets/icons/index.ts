@@ -5,6 +5,7 @@ import AlarmIcon from './alarm-default.svg?react';
 import NewAlarmIcon from './alarm-new.svg?react';
 import AppleIcon from './apple.svg?react';
 import BLogoIcon from './b-logo.svg?react';
+import BigDownChevronIcon from './big-down-chevron.svg?react';
 import CheckIcon from './check.svg?react';
 import ClockIcon from './clock.svg?react';
 import CloseIcon from './close.svg?react';
@@ -23,6 +24,7 @@ import RefreshIcon from './refresh.svg?react';
 import ReportIcon from './report.svg?react';
 import RightChevronIcon from './right-chevron.svg?react';
 import RightDoubleArrowIcon from './right-double-arrow.svg?react';
+import RotateIcon from './rotate.svg?react';
 import SizeUpIcon from './size-up.svg?react';
 import ThumbsIcon from './thumbs.svg?react';
 import TopicCreatBackgrounIcon from './topic-create-background.svg?react';
@@ -34,6 +36,7 @@ export {
   AlarmIcon,
   ALogoIcon,
   AppleIcon,
+  BigDownChevronIcon,
   BLogoIcon,
   CheckIcon,
   ClockIcon,
@@ -53,6 +56,7 @@ export {
   ReportIcon,
   RightChevronIcon,
   RightDoubleArrowIcon,
+  RotateIcon,
   SelectedHomeIcon,
   SizeUpIcon,
   ThumbsIcon,

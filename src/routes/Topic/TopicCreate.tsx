@@ -1,104 +1,81 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
-import CloseButton from '@components/commons/Header/CloseButton/CloseButton';
 import Layout from '@components/commons/Layout/Layout';
 import Text from '@components/commons/Text/Text';
 
 import { colors } from '@styles/theme';
 
-import { ALogoIcon, BLogoIcon, DownChevronIcon, TopicCreatBackgrounIcon } from '@icons/index';
+import { DownChevronIcon, RightChevronIcon } from '@icons/index';
 
+import ATopicCreate from './ATopicCreate';
+import BTopicCreate from './BTopicCreate';
 import {
-  SelectDescription,
-  DescriptionContainer,
-  DescriptionBlur,
-  AButton,
-  BButton,
-  Background,
-  ButtonContainer,
-  Container,
-  Description,
+  BackButton,
   DownShevron,
+  HeaderCenterContainer,
+  SideButton,
+  SideChangeButton,
   EmptyDiv,
-  ADescription,
-  BDescription,
-  BackgroundBlur,
-  SubDescription,
-  TopicCreateButton,
-} from './TopicCreate.styles';
+} from './TopicCreate.sytles';
 
 const TopicCreate = () => {
-  const [selected, setSelected] = useState<'A' | 'B' | null>(null);
   const navigate = useNavigate();
+  const { topicSide } = useParams();
+  const [isHidden, setIsHidden] = useState<boolean>(true);
 
-  function handleAButtonClick() {
-    setSelected('A');
-  }
+  const handleSideButtonClick = () => {
+    if (isHidden) {
+      setIsHidden(false);
+    } else {
+      setIsHidden(true);
+    }
+  };
 
-  function handleBButtonClick() {
-    setSelected('B');
-  }
+  const handleSideChangeButtonClick = (newtopicSideValue: string) => {
+    navigate(`/topics/create/${newtopicSideValue}`, { replace: true });
+  };
 
-  function handleCloseButtonClick() {
-    navigate(-1);
-  }
+  const Container = topicSide === 'A' ? <ATopicCreate /> : <BTopicCreate />;
 
   return (
     <Layout
       hasBottomNavigation={false}
-      HeaderLeft={() => <CloseButton onClick={handleCloseButtonClick} />}
+      HeaderLeft={() => (
+        <BackButton onClick={() => navigate(-1)}>
+          <RightChevronIcon style={{ transform: 'rotate(180deg)' }} stroke={colors.white} />
+        </BackButton>
+      )}
       HeaderCenter={() => (
-        <Text size={20} weight={600} color={colors.white}>
-          토픽 생성
-        </Text>
+        <HeaderCenterContainer>
+          <Text size={20} weight={600} color={colors.white}>
+            토픽 만들기
+          </Text>
+          <SideButton side={topicSide} onClick={handleSideButtonClick}>
+            <Text size={15} weight={500} color={topicSide === 'A' ? colors.A : colors.B}>
+              {topicSide} 사이드
+            </Text>
+            <DownShevron>
+              <DownChevronIcon stroke={topicSide === 'A' ? colors.A : colors.B} />
+            </DownShevron>
+            <SideChangeButton
+              side={topicSide}
+              isHidden={isHidden}
+              onClick={() => handleSideChangeButtonClick(topicSide === 'A' ? 'B' : 'A')}
+            >
+              <Text size={14} weight={500} color={topicSide === 'A' ? colors.B : colors.A}>
+                {topicSide === 'A' ? 'B' : 'A'} 사이드
+              </Text>
+              <Text size={14} weight={500} color={colors.white}>
+                로 변경하기
+              </Text>
+            </SideChangeButton>
+          </SideButton>
+        </HeaderCenterContainer>
       )}
       HeaderRight={() => <EmptyDiv />}
     >
-      <Container>
-        <SelectDescription selected={selected}>
-          <Text size={14} weight={600} color={colors.purple} align="center" lineHeight={'140%'}>
-            A/B사이드
-            <br />
-            눌러서 선택하기
-          </Text>
-          <DownShevron>
-            <DownChevronIcon />
-          </DownShevron>
-        </SelectDescription>
-        <ButtonContainer>
-          <AButton selected={selected} onClick={handleAButtonClick}>
-            <ALogoIcon />
-            <ADescription selected={selected}>
-              Anything <br /> Side
-            </ADescription>
-          </AButton>
-          <BButton selected={selected} onClick={handleBButtonClick}>
-            <BLogoIcon />
-            <BDescription selected={selected}>
-              Business <br /> Side
-            </BDescription>
-          </BButton>
-          <DescriptionContainer selected={selected}>
-            <DescriptionBlur />
-            <Description>
-              어떤 토픽을 <br /> 만들어 볼까요?
-            </Description>
-          </DescriptionContainer>
-        </ButtonContainer>
-        <SubDescription selected={selected}>
-          <pre>
-            {selected === 'A'
-              ? '가벼운 주제부터 무거운 고민까지 \n 세상의 모든 토픽을 담아요'
-              : '카피라이팅, A/B Test등 다양한 \n 직무의 고민과 토픽을 담아요'}
-          </pre>
-        </SubDescription>
-        <TopicCreateButton selected={selected}>토픽 만들기</TopicCreateButton>
-        <Background>
-          <TopicCreatBackgrounIcon />
-        </Background>
-        <BackgroundBlur />
-      </Container>
+      {Container}
     </Layout>
   );
 };

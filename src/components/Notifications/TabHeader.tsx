@@ -29,7 +29,7 @@ const TabHeader = ({ currentTab, setCurrentTab }: TabHeaderProps) => {
             <Text
               size={18}
               weight={600}
-              color={tabName === currentTab ? colors.sub_purple2 : colors.white}
+              color={tabName === currentTab ? colors.purple2 : colors.white}
               style={{ position: 'relative', zIndex: 1 }}
             >
               {tabName}

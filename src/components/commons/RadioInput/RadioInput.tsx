@@ -27,8 +27,8 @@ const RadioLabel = styled.label<{ checked: boolean }>`
   font-weight: 700;
   color: ${({ theme }) => theme.colors.purple};
   text-align: center;
-  background-color: ${({ checked, theme }) => (checked ? theme.colors.sub_navy2 : 'transparent')};
-  border: 1px solid ${({ theme }) => theme.colors.sub_purple};
+  background-color: ${({ checked, theme }) => (checked ? theme.colors.navy2 : 'transparent')};
+  border: 1px solid ${({ theme }) => theme.colors.purple};
   border-radius: 10px;
 `;
 
@@ -58,7 +58,7 @@ const RadioInput = (props: RadioInputProps) => {
       </Row>
       <ErrorMessage>
         {errors[id] && (
-          <Text size={13} weight={700} color={colors.sub_purple2}>
+          <Text size={13} weight={700} color={colors.purple2}>
             * {errors[id]?.message?.toString()}
           </Text>
         )}
