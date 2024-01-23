@@ -16,6 +16,7 @@ interface BottomSheetProps {
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   snapPoints?: number[];
   initialSnap?: number;
+  transparent?: boolean;
   children: React.ReactNode;
 }
 
@@ -24,6 +25,7 @@ const BottomSheet = ({
   setIsOpen,
   snapPoints = [0.9, 0.7, 0],
   initialSnap = 0.7,
+  transparent = true,
   children,
 }: BottomSheetProps) => {
   const screenHeight = window.innerHeight;
@@ -110,6 +112,7 @@ const BottomSheet = ({
     <ReactPortal>
       <Backdrop
         onClick={handleOnClickBackdrop}
+        transparent={transparent}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
@@ -158,7 +161,7 @@ const HandleBar = styled.div`
   border-radius: 5px;
 `;
 
-const Backdrop = styled(motion.div)`
+const Backdrop = styled(motion.div)<{ transparent: boolean }>`
   position: fixed;
   top: 0;
   left: 0;
@@ -166,7 +169,8 @@ const Backdrop = styled(motion.div)`
   width: 100%;
   height: 100%;
 
-  /* background: rgb(0 0 0 / 50%); */
+  ${({ transparent }) =>
+    transparent ? 'background: transparent;' : 'background: rgb(0 0 0 / 50%);'}
 `;
 
 const Wrapper = styled(motion.div)`

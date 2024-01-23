@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
+    "serve": "vite preview",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "lint:css": "stylelint './src/**/*.tsx'",
     "preview": "vite preview",
@@ -24,7 +25,8 @@
     "react-router-dom": "^6.16.0",
     "styled-components": "^6.0.8",
     "styled-normalize": "^8.0.7",
-    "swiper": "^11.0.4"
+    "swiper": "^11.0.4",
+    "zustand": "^4.5.0"
   },
   "devDependencies": {
     "@storybook/addon-essentials": "^7.4.0",
