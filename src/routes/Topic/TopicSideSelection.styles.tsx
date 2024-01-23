@@ -11,7 +11,7 @@ export const Container = styled.div`
   height: 100%;
   padding-top: 19px;
   overflow: hidden;
-  background-color: ${(props) => props.theme.colors.navy};
+  background-color: ${colors.navy};
 `;
 
 export const EmptyDiv = styled.div`
