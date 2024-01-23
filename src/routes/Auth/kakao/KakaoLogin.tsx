@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router';
+import { useAuthStore } from 'src/store/auth';
 
 import { kakaoLogin } from '@apis/oauth/kakao';
 import { Row } from '@components/commons/Flex/Flex';
@@ -8,7 +9,7 @@ import { colors, zIndex } from '@styles/theme';
 
 import { ALogoIcon, BLogoIcon } from '@icons/index';
 
-import { ResponseError } from '@apis/fetch';
+import client, { ResponseError } from '@apis/fetch';
 
 import Login from '../login/Login';
 
@@ -18,18 +19,20 @@ const KakaoLogin = () => {
   const kakaoCode = new URL(window.location.href).searchParams.get('code');
 
   const navigate = useNavigate();
+  const login = useAuthStore((state) => state.login);
 
   const handleKakaoLogin = async () => {
     if (kakaoCode) {
       try {
         const response = await kakaoLogin(kakaoCode);
-        console.log('🚀 ~ handleKakaoLogin ~ response:', response);
         if (response && response.accessToken) {
           if (response.newMember) {
             navigate(`/signup`, {
               state: { memberId: response.memberId },
             });
           } else {
+            client.setAccessToken(response.accessToken);
+            login();
             navigate('/');
           }
         }
