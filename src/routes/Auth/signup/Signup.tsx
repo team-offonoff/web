@@ -35,7 +35,7 @@ const Signup = () => {
     transparent: false,
   });
 
-  const memberId = location.state.memberId;
+  const memberId = location.state.memberId as number;
 
   const birthdayInput = methods.watch(INPUT_TYPE.BIRTHDAY);
   const nicknameProgress = methods.watch(INPUT_TYPE.NICKNAME)
@@ -136,7 +136,7 @@ const Signup = () => {
         </FormContainer>
       </FormProvider>
       <TermsSheet>
-        <Terms />
+        <Terms memberId={memberId} />
       </TermsSheet>
     </Layout>
   );

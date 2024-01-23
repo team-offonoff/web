@@ -1,5 +1,7 @@
 import React, { ChangeEvent, useState } from 'react';
+import { useAuthStore } from 'src/store/auth';
 
+import { useTerms } from '@apis/oauth/signup';
 import Checkbox from '@components/commons/CheckBox/CheckBox';
 import { Col, Row } from '@components/commons/Flex/Flex';
 import Text from '@components/commons/Text/Text';
@@ -8,7 +10,13 @@ import { colors } from '@styles/theme';
 
 import { NextButton } from './Signup.styles';
 
-const Terms = () => {
+interface TermsProps {
+  memberId: number;
+}
+
+const Terms = ({ memberId }: TermsProps) => {
+  const consentToTermMutation = useTerms();
+  const setUser = useAuthStore((state) => state.setUser);
   const [all, setAll] = useState(false);
   const [consentToTerm, setConsentToTerm] = useState(false);
   const [consentToCollectAndUseInfo, setConsentToCollectAndUseInfo] = useState(false);
@@ -30,9 +38,17 @@ const Terms = () => {
     }
   };
 
-  const handleSubmitConsetToTerm = () => {
+  const handleSubmitConsetToTerm = async () => {
     if (disabled) return;
-    console.log('submit');
+
+    const response = await consentToTermMutation.mutateAsync({
+      memberId,
+      listen_marketing: consetToMarketing,
+    });
+    setUser({
+      memberId: response.memberId,
+      accessToken: response.accessToken,
+    });
   };
 
   return (
