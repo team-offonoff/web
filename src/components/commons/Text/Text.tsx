@@ -25,17 +25,13 @@ const Text = React.memo((props: TextProps) => {
 });
 
 const StyledText = styled('div')<TextProps>`
-  ${({ lineHeight }) =>
-    lineHeight &&
-    css`
-      line-height: ${lineHeight};
-    `}
+  line-height: ${({ lineHeight }) => lineHeight || '1.4'};
   ${({ align }) =>
     align &&
     css`
       text-align: ${align};
     `}
-    ${({ color }) =>
+  ${({ color }) =>
     color &&
     css`
       color: ${color};
