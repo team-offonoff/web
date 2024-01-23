@@ -56,7 +56,7 @@ const NotificationItem = ({ onClick, notification }: NotificationItem) => {
           <Text size={15} weight={500} color={colors.white}>
             투표가 마감 되었어요, 지금 바로 결과를 확인해 보세요!
           </Text>
-          <Text size={14} weight={400} color={colors.sub_purple2}>
+          <Text size={14} weight={400} color={colors.purple2}>
             성수 치킨 버거의 종결지는? 성수 치킨 버거의 종결지는?
           </Text>
         </Col>

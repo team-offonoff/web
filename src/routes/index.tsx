@@ -8,6 +8,7 @@ import Signup from './Auth/signup/Signup';
 import Home from './Home/Home';
 import Notification from './Notification/Notification';
 import TopicCreate from './Topic/TopicCreate';
+import TopicSideSelection from './Topic/TopicSideSelection';
 
 const Router = () => {
   const [isAuthorized, setIsAuthorized] = React.useState(true);
@@ -22,6 +23,10 @@ const Router = () => {
         },
         {
           path: 'topics/create',
+          element: <TopicSideSelection />,
+        },
+        {
+          path: 'topics/create/:topicSide',
           element: <TopicCreate />,
         },
         {

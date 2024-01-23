@@ -37,14 +37,15 @@ const InputPrefix = styled.div`
 
 const InputSuffix = styled.div`
   position: absolute;
-  top: 14px;
   right: 16px;
+  bottom: calc(50% - 10px);
+  transform: translateY(-50%);
 `;
 
 const ErrorMessage = styled.div`
   position: absolute;
   bottom: -28px;
-  left: 16px;
+  left: 0;
 `;
 
 export { StyledInput, InputContainer, InputPrefix, InputSuffix, ErrorMessage };

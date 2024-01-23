@@ -13,7 +13,7 @@ const CloseButton = ({ onClick }: CloseButtonProps) => {
 
   const handleCloseButtonClick = () => {
     navigate(-1);
-  }
+  };
 
   return (
     <Button onClick={onClick ? onClick : handleCloseButtonClick}>
@@ -27,6 +27,7 @@ const Button = styled.button`
   align-items: center;
   width: 24px;
   height: 24px;
+  padding: 5px;
   cursor: pointer;
 `;
 
