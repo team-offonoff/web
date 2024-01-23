@@ -8,10 +8,10 @@ export const JOBS = [
 export const GENDERS = [
   {
     label: '남성',
-    value: 'male',
+    value: 'MALE',
   },
   {
     label: '여성',
-    value: 'female',
+    value: 'FEMALE',
   },
 ];

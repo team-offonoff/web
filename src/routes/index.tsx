@@ -1,5 +1,6 @@
 import React from 'react';
 import { RouteObject, RouterProvider, createBrowserRouter } from 'react-router-dom';
+import { useAuthStore } from 'src/store/auth';
 
 import GoogleLogin from './Auth/google/GoogleLogin';
 import KakaoLogin from './Auth/kakao/KakaoLogin';
@@ -11,7 +12,8 @@ import TopicCreate from './Topic/TopicCreate';
 import TopicSideSelection from './Topic/TopicSideSelection';
 
 const Router = () => {
-  const [isAuthorized, setIsAuthorized] = React.useState(true);
+  const user = useAuthStore((state) => state.user);
+  const isAuthorized = user !== null;
 
   const authorizedRoutes: RouteObject[] = [
     {
