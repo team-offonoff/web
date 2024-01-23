@@ -85,12 +85,12 @@ export const UserProfileImage = styled.img`
   border-radius: 50%;
 `;
 
-export const SelectTextContainer = styled.div<{ hasVoted: boolean }>`
+export const SelectTextContainer = styled.div<{ $voted: boolean }>`
   display: flex;
   gap: 6px;
   align-items: center;
   justify-content: space-between;
   height: 25px;
   margin: 4px 0 0;
-  visibility: ${(props) => (props.hasVoted ? 'hidden' : 'visible')};
+  visibility: ${(props) => (props.$voted ? 'hidden' : 'visible')};
 `;

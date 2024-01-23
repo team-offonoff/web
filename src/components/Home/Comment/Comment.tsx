@@ -66,7 +66,7 @@ const Comment = React.memo(({ comment }: CommentProps) => {
                   {'·'} {distanceText}전
                 </Text>
               </Row>
-              <Text size={14} color={colors.sub_A} weight={600}>
+              <Text size={14} color={colors.A} weight={600}>
                 {comment.writersVotedOption}
               </Text>
             </Col>

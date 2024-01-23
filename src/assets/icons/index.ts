@@ -6,10 +6,13 @@ import NewAlarmIcon from './alarm-new.svg?react';
 import AppleIcon from './apple.svg?react';
 import BLogoIcon from './b-logo.svg?react';
 import BigDownChevronIcon from './big-down-chevron.svg?react';
+import ClockIcon from './clock.svg?react';
 import CloseIcon from './close.svg?react';
+import CommentIcon from './comment.svg?react';
 import DownChevronIcon from './down-chevron.svg?react';
 import GoogleIcon from './google.svg?react';
 import HideIcon from './hide.svg?react';
+import HitIcon from './hit.svg?react';
 import SelectedHomeIcon from './home-selected.svg?react';
 import KakaoIcon from './kakao.svg?react';
 import LeftDoubleArrowIcon from './left-double-arrow.svg?react';
@@ -30,9 +33,17 @@ export {
   ABIcon,
   ABLogoIcon,
   AlarmIcon,
+  ALogoIcon,
   AppleIcon,
+  BigDownChevronIcon,
+  BLogoIcon,
+  ClockIcon,
+  CloseIcon,
+  CommentIcon,
+  DownChevronIcon,
   GoogleIcon,
   HideIcon,
+  HitIcon,
   KakaoIcon,
   LeftDoubleArrowIcon,
   MeatballIcon,
@@ -43,15 +54,10 @@ export {
   ReportIcon,
   RightChevronIcon,
   RightDoubleArrowIcon,
-  SelectedHomeIcon,
-  ThumbsIcon,
-  WriteBoxIcon,
-  SizeUpIcon,
-  CloseIcon,
-  DownChevronIcon,
-  BigDownChevronIcon,
-  TopicCreatBackgrounIcon,
-  ALogoIcon,
-  BLogoIcon,
   RotateIcon,
+  SelectedHomeIcon,
+  SizeUpIcon,
+  ThumbsIcon,
+  TopicCreatBackgrounIcon,
+  WriteBoxIcon,
 };
