@@ -22,7 +22,7 @@ const ProtectedRoute = () => {
   const isLoggedIn = useAuthStore((store) => store.isLoggedIn);
 
   if (!isLoggedIn) {
-    return <Navigate to={'/auth/login'} replace />;
+    return <Navigate to={'/login'} replace />;
   }
 
   return <Outlet />;
