@@ -9,7 +9,7 @@ import { colors, theme } from '@styles/theme';
 
 import { ABLogoIcon, AppleIcon, GoogleIcon, KakaoIcon } from '@icons/index';
 
-import { Container, Divider, LoginButtonContainer, LogoContainer } from './Login.styles';
+import { Container, Divider, LoginButtonContainer } from './Login.styles';
 
 const Login = () => {
   const KakaoRestApiKey = import.meta.env.VITE_KAKAO_OAUTH_KEY;
