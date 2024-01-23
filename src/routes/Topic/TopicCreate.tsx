@@ -8,13 +8,14 @@ import { colors } from '@styles/theme';
 
 import { DownChevronIcon, RightChevronIcon } from '@icons/index';
 
+import ATopicCreate from './ATopicCreate';
+import BTopicCreate from './BTopicCreate';
 import {
   BackButton,
   DownShevron,
   HeaderCenterContainer,
   SideButton,
   SideChangeButton,
-  Container,
   EmptyDiv,
 } from './TopicCreate.sytles';
 
@@ -32,14 +33,16 @@ const TopicCreate = () => {
   };
 
   const handleSideChangeButtonClick = (newtopicSideValue: string) => {
-    navigate(`/topics/create/${newtopicSideValue}`);
+    navigate(`/topics/create/${newtopicSideValue}`, { replace: true });
   };
+
+  const Container = topicSide === 'A' ? <ATopicCreate /> : <BTopicCreate />;
 
   return (
     <Layout
       hasBottomNavigation={false}
       HeaderLeft={() => (
-        <BackButton onClick={() => navigate(`/topics/create`)}>
+        <BackButton onClick={() => navigate(-1)}>
           <RightChevronIcon style={{ transform: 'rotate(180deg)' }} stroke={colors.white} />
         </BackButton>
       )}
@@ -72,11 +75,7 @@ const TopicCreate = () => {
       )}
       HeaderRight={() => <EmptyDiv />}
     >
-      <Container>
-        <Text size={18} weight={400} color={colors.white_60} align="start">
-          어떤 주제로 물어볼까요?
-        </Text>
-      </Container>
+      {Container}
     </Layout>
   );
 };

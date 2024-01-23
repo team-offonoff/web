@@ -8,9 +8,17 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
+  width: 100%;
   height: 100%;
   padding: 51px 20px 0;
   background-color: ${(props) => props.theme.colors.navy};
+`;
+
+export const TitleInputContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
 `;
 
 export const BackButton = styled.button`
