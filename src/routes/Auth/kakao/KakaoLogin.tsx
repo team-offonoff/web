@@ -3,18 +3,23 @@ import { useNavigate } from 'react-router';
 import { useAuthStore } from 'src/store/auth';
 
 import { kakaoLogin } from '@apis/oauth/kakao';
+import { Row } from '@components/commons/Flex/Flex';
 
-import { ResponseError } from '@apis/fetch';
+import { colors, zIndex } from '@styles/theme';
+
+import { ALogoIcon, BLogoIcon } from '@icons/index';
+
+import client, { ResponseError } from '@apis/fetch';
 
 import Login from '../login/Login';
 
 import { Container } from './KakaoLogin.styles';
 
 const KakaoLogin = () => {
-  const setUser = useAuthStore((state) => state.setUser);
   const kakaoCode = new URL(window.location.href).searchParams.get('code');
 
   const navigate = useNavigate();
+  const login = useAuthStore((state) => state.login);
 
   const handleKakaoLogin = async () => {
     if (kakaoCode) {
@@ -26,7 +31,8 @@ const KakaoLogin = () => {
               state: { memberId: response.memberId },
             });
           } else {
-            setUser({ memberId: response.memberId, accessToken: response.accessToken });
+            client.setAccessToken(response.accessToken);
+            login();
             navigate('/');
           }
         }
@@ -51,6 +57,27 @@ const KakaoLogin = () => {
 
   return (
     <Container>
+      <div
+        className="loading"
+        style={{
+          position: 'fixed',
+          overflow: 'hidden',
+          height: '100vh',
+          width: '100vw',
+          zIndex: zIndex.modal,
+          backgroundColor: colors.navy_60,
+        }}
+      >
+        <Row
+          justifyContent={'center'}
+          alignItems={'center'}
+          gap={7.5}
+          style={{ width: '100%', height: '100%' }}
+        >
+          <ALogoIcon width={65} />
+          <BLogoIcon width={66} />
+        </Row>
+      </div>
       <Login />
     </Container>
   );
