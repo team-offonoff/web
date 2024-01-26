@@ -1,18 +1,36 @@
+import { ACCESS_TOKEN } from 'src/constants/localStorage';
 import { create } from 'zustand';
-
-import { User } from '@interfaces/models/user';
+import { persist } from 'zustand/middleware';
 
 interface AuthState {
-  user: User | null;
+  isLoggedIn: boolean;
 }
 
 interface AuthAction {
-  setUser: (user: User) => void;
+  login: () => boolean;
+  logout: () => void;
 }
 
-export const useAuthStore = create<AuthState & AuthAction>((set) => ({
-  user: null,
-  setUser: (user: User) => {
-    set({ user: user });
-  },
-}));
+export const useAuthStore = create(
+  persist<AuthState & AuthAction>(
+    (set) => ({
+      isLoggedIn: false,
+      login: () => {
+        const userLocalStorage = localStorage.getItem(ACCESS_TOKEN);
+        if (userLocalStorage) {
+          set({ isLoggedIn: true });
+          return true;
+        } else {
+          return false;
+        }
+      },
+      logout: () => {
+        set({ isLoggedIn: false });
+        localStorage.clear();
+      },
+    }),
+    {
+      name: 'userLoginStatus',
+    }
+  )
+);

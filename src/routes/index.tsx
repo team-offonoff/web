@@ -1,5 +1,12 @@
 import React from 'react';
-import { RouteObject, RouterProvider, createBrowserRouter } from 'react-router-dom';
+import {
+  Navigate,
+  Outlet,
+  Route,
+  RouterProvider,
+  createBrowserRouter,
+  createRoutesFromElements,
+} from 'react-router-dom';
 import { useAuthStore } from 'src/store/auth';
 
 import GoogleLogin from './Auth/google/GoogleLogin';
@@ -11,65 +18,36 @@ import Notification from './Notification/Notification';
 import TopicCreate from './Topic/Create/TopicCreate';
 import TopicSideSelection from './Topic/TopicSideSelection';
 
+const ProtectedRoute = () => {
+  const isLoggedIn = useAuthStore((store) => store.isLoggedIn);
+
+  if (!isLoggedIn) {
+    return <Navigate to={'/login'} replace />;
+  }
+
+  return <Outlet />;
+};
+
 const Router = () => {
-  const user = useAuthStore((state) => state.user);
-  const isAuthorized = user !== null;
+  const router = createBrowserRouter(
+    createRoutesFromElements(
+      <Route path="/" errorElement={<div>Error...</div>}>
+        <Route path="*" element={<ProtectedRoute />}>
+          <Route index element={<Home />} />
+          <Route path="topics">
+            <Route path="create" element={<TopicSideSelection />} />
+            <Route path="create/:topicSide" element={<TopicCreate />} />
+          </Route>
+          <Route path="notifications" element={<Notification />} />
+        </Route>
 
-  const authorizedRoutes: RouteObject[] = [
-    {
-      path: '/',
-      children: [
-        {
-          index: true,
-          element: <Home />,
-        },
-        {
-          path: 'topics/create',
-          element: <TopicSideSelection />,
-        },
-        {
-          path: 'topics/create/:topicSide',
-          element: <TopicCreate />,
-        },
-        {
-          path: 'notifications',
-          element: <Notification />,
-        },
-      ],
-    },
-  ];
-
-  const publicRoutes: RouteObject[] = [
-    {
-      path: '/',
-      children: [
-        {
-          path: 'signup',
-          element: <Signup />,
-        },
-        {
-          path: 'login',
-          element: <Login />,
-        },
-        {
-          path: 'login/kakao',
-          element: <KakaoLogin />,
-        },
-        {
-          path: 'login/google',
-          element: <GoogleLogin />,
-        },
-      ],
-    },
-  ];
-
-  const routes = import.meta.env.DEV
-    ? [...authorizedRoutes, ...publicRoutes]
-    : isAuthorized
-    ? authorizedRoutes
-    : publicRoutes;
-
-  const router = createBrowserRouter(routes);
+        <Route path="login" element={<Login />} />
+        <Route path="login/kakao" element={<KakaoLogin />} />
+        <Route path="login/google" element={<GoogleLogin />} />
+        <Route path="signup" element={<Signup />} />
+      </Route>
+    )
+  );
 
   return <RouterProvider router={router} />;
 };

@@ -1,5 +1,4 @@
 import React, { ChangeEvent, useState } from 'react';
-import { useAuthStore } from 'src/store/auth';
 
 import { useTerms } from '@apis/oauth/signup';
 import Checkbox from '@components/commons/CheckBox/CheckBox';
@@ -16,7 +15,6 @@ interface TermsProps {
 
 const Terms = ({ memberId }: TermsProps) => {
   const consentToTermMutation = useTerms();
-  const setUser = useAuthStore((state) => state.setUser);
   const [all, setAll] = useState(false);
   const [consentToTerm, setConsentToTerm] = useState(false);
   const [consentToCollectAndUseInfo, setConsentToCollectAndUseInfo] = useState(false);
@@ -44,10 +42,6 @@ const Terms = ({ memberId }: TermsProps) => {
     const response = await consentToTermMutation.mutateAsync({
       memberId,
       listen_marketing: consetToMarketing,
-    });
-    setUser({
-      memberId: response.memberId,
-      accessToken: response.accessToken,
     });
   };
 
