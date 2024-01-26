@@ -15,6 +15,8 @@ import GoogleIcon from './google.svg?react';
 import HideIcon from './hide.svg?react';
 import HitIcon from './hit.svg?react';
 import SelectedHomeIcon from './home-selected.svg?react';
+import SelectedImageIcon from './image-icon-selected.svg?react';
+import ImageIcon from './image-icon.svg?react';
 import KakaoIcon from './kakao.svg?react';
 import LeftDoubleArrowIcon from './left-double-arrow.svg?react';
 import MeatballIcon from './meatball.svg?react';
@@ -26,6 +28,8 @@ import RightChevronIcon from './right-chevron.svg?react';
 import RightDoubleArrowIcon from './right-double-arrow.svg?react';
 import RotateIcon from './rotate.svg?react';
 import SizeUpIcon from './size-up.svg?react';
+import SelectedTextIcon from './text-icon-selected.svg?react';
+import TextIcon from './text-icon.svg?react';
 import ThumbsIcon from './thumbs.svg?react';
 import TopicCreatBackgrounIcon from './topic-create-background.svg?react';
 import WriteBoxIcon from './write-box.svg?react';
@@ -62,4 +66,8 @@ export {
   ThumbsIcon,
   TopicCreatBackgrounIcon,
   WriteBoxIcon,
+  TextIcon,
+  SelectedTextIcon,
+  ImageIcon,
+  SelectedImageIcon,
 };
