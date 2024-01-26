@@ -10,7 +10,7 @@ export const Container = styled.div`
   justify-content: flex-start;
   width: 100%;
   height: 100%;
-  padding: 51px 20px 0;
+  padding: 54px 20px 0;
   background-color: ${colors.navy};
 `;
 
