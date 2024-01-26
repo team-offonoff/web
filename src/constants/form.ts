@@ -12,6 +12,7 @@ export const INPUT_TYPE = {
   TOPICTITLE: 'topicTitle',
   ATOPIC: 'aTopic',
   BTOPIC: 'bTopic',
+  TOPICCATEGORY: 'topicCategory',
 } as const;
 
 export type ConfigKeys = keyof typeof INPUT_TYPE;
@@ -86,6 +87,22 @@ export const CONFIG: Record<ConfigKeys, ConfigField> = {
   BTOPIC: {
     options: {
       required: true,
+    },
+  },
+  TOPICCATEGORY: {
+    options: {
+      required: {
+        value: true,
+        message: '카테고리를 입력해주세요.',
+      },
+      pattern: {
+        value: /^[가-힣a-zA-Z0-9]+$/,
+        message: '한글, 영문, 숫자만 가능해요.',
+      },
+      maxLength: {
+        value: 20,
+        message: '카테고리는 6자리 이내로 입력해주세요.',
+      },
     },
   },
 } as const;
