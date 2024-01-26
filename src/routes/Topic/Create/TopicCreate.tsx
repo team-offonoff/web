@@ -8,8 +8,8 @@ import { colors } from '@styles/theme';
 
 import { DownChevronIcon, RightChevronIcon } from '@icons/index';
 
-import ATopicCreate from './ATopicCreate';
-import BTopicCreate from './BTopicCreate';
+import ATopicCreate from './ASide/ATopicCreate';
+import BTopicCreate from './BSide/BTopicCreate';
 import {
   BackButton,
   DownShevron,
@@ -33,7 +33,7 @@ const TopicCreate = () => {
   };
 
   const handleSideChangeButtonClick = (newtopicSideValue: string) => {
-    navigate(`/topics/create/${newtopicSideValue}`, { replace: true });
+    navigate(`/topics/create/${newtopicSideValue}?step=1`, { replace: true });
   };
 
   const Container = topicSide === 'A' ? <ATopicCreate /> : <BTopicCreate />;

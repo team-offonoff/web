@@ -48,7 +48,7 @@ const TopicSideSelection = () => {
 
   const handleTopicCreateButtonClick = () => {
     if (selected !== null) {
-      navigate(`/topics/create/${selected}`);
+      navigate(`/topics/create/${selected}?step=1`);
     }
   };
 
