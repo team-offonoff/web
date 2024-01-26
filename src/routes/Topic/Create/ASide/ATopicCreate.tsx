@@ -6,7 +6,7 @@ import DefaultButton from '@components/commons/Button/DefaultButton';
 import { Col, Row } from '@components/commons/Flex/Flex';
 import Text from '@components/commons/Text/Text';
 import TextInput from '@components/commons/TextInput/TextInput';
-import { theme2 } from '@components/commons/TextInput/theme';
+import { theme3 } from '@components/commons/TextInput/theme';
 import TopicCreateTextInput from '@components/TopicCreate/TopicCreateTextInput';
 
 import { colors } from '@styles/theme';
@@ -42,7 +42,7 @@ const ATopicCreate = () => {
               id={INPUT_TYPE.TOPICTITLE}
               options={CONFIG.TOPICTITLE.options}
               placeholder={'제목을 입력해주세요.'}
-              theme={theme2}
+              theme={theme3}
               right={() => (
                 <Text style={{ opacity: 0.6 }} size={15} weight={400} color={colors.purple}>
                   {titleProgress}
@@ -50,7 +50,7 @@ const ATopicCreate = () => {
               )}
             />
           </Col>
-          <TopicCreateTextInput topic="A" topicContent="A 토픽" />
+          <TopicCreateTextInput />
         </Col>
         <SubmitButton>
           <DefaultButton
