@@ -20,12 +20,10 @@ import {
 } from './TopicCreateTextInput.styles';
 
 interface TopicCreareProps {
-  topic: 'A' | 'B';
-  topicContent: string;
   onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
 }
 
-const TopicCreateTextInput = ({ topic, topicContent }: TopicCreareProps) => {
+const TopicCreateTextInput = ({ onKeyDown }: TopicCreareProps) => {
   const { register, watch } = useFormContext();
   const ATopicProgress = watch(INPUT_TYPE.ATOPIC)
     ? `${watch(INPUT_TYPE.ATOPIC)?.length}/25`
