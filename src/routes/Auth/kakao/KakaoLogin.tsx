@@ -25,16 +25,14 @@ const KakaoLogin = () => {
     if (kakaoCode) {
       try {
         const response = await kakaoLogin(kakaoCode);
-        if (response && response.accessToken) {
-          if (response.newMember) {
-            navigate(`/signup`, {
-              state: { memberId: response.memberId },
-            });
-          } else {
-            client.setAccessToken(response.accessToken);
-            login();
-            navigate('/');
-          }
+        if (response.newMember) {
+          navigate(`/signup`, {
+            state: { memberId: response.memberId },
+          });
+        } else {
+          client.setAccessToken(response.accessToken);
+          login();
+          navigate('/');
         }
       } catch (err) {
         if (err instanceof ResponseError) {
