@@ -5,7 +5,7 @@ export const Main = styled.main`
   display: flex;
   flex-direction: column;
   max-width: 512px;
-  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
   margin: 0 auto;
   overflow-y: scroll;
 
