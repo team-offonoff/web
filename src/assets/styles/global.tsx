@@ -17,9 +17,17 @@ const GlobalStyle = styled.createGlobalStyle`
   }
 
   body {
-    min-height: 100vh;
     font-size: 1.6rem;
     background-color: #f6f6f6;
+  }
+
+  html,
+  body {
+    width: 100vw;
+    height: calc(var(--vh, 1vh) * 100);
+    height: 100% !important;
+    overflow: auto !important;
+    -webkit-overflow-scrolling: touch !important;
   }
 
   button {
