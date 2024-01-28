@@ -78,7 +78,7 @@ const Notification = () => {
     >
       <Container>
         <TabHeader currentTab={currentTab} setCurrentTab={setCurrentTab} />
-        <Col style={{ overflowY: 'auto' }}>
+        <Col style={{ overflowY: 'auto', height: 'fill-available' }}>
           {notifications.map((notification, index) => {
             return (
               <NotificationItem

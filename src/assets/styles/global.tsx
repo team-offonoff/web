@@ -22,11 +22,14 @@ const GlobalStyle = styled.createGlobalStyle`
   }
 
   html,
-  body {
+  body,
+  #root {
     width: 100vw;
     height: calc(var(--vh, 1vh) * 100);
-    height: 100% !important;
-    overflow: auto !important;
+
+    /* height: 100% !important; */
+
+    /* overflow: auto !important; */
     -webkit-overflow-scrolling: touch !important;
   }
 

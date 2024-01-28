@@ -21,7 +21,7 @@ const BottomNavigation = () => {
           <SelectedHomeIcon width={26} height={26} />
           <Text size={12}>홈</Text>
         </StyledNavLink>
-        <StyledNavLink to={'/a'}>
+        <StyledNavLink to={'/topics/a'}>
           <ALogoIcon width={19} height={20} />
           <Text size={12}>A사이드</Text>
         </StyledNavLink>

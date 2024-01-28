@@ -17,7 +17,7 @@ const TabHeader = ({ currentTab, setCurrentTab }: TabHeaderProps) => {
     setCurrentTab(tabName);
   };
   return (
-    <Row justifyContent={'center'} gap={45} padding={'30px 0 24px 0'}>
+    <Row justifyContent={'center'} gap={45} padding={'30px 0 24px 0'} style={{ height: 76 }}>
       {NOTIFICATIONS_TABS.map((tabName) => {
         return (
           <div

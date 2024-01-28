@@ -2,12 +2,13 @@ import { styled } from 'styled-components';
 
 export const Main = styled.main`
   position: relative;
-  display: flex;
-  flex-direction: column;
+
+  /* display: flex; */
+
+  /* flex-direction: column; */
   max-width: 512px;
   height: calc(var(--vh, 1vh) * 100);
   margin: 0 auto;
-  overflow-y: scroll;
 
   &::-webkit-scrollbar {
     display: none;
@@ -28,7 +29,9 @@ export const Header = styled.header`
 export const HeaderSection = styled.div``;
 
 export const ChildrenContainer = styled.div`
-  flex: 1;
+  height: calc(100% - 48px);
+
+  /* height: 100%; */
 `;
 
 export const NavigationContainer = styled.div`
