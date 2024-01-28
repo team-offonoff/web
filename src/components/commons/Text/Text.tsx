@@ -25,7 +25,7 @@ const Text = React.memo((props: TextProps) => {
 });
 
 const StyledText = styled('div')<TextProps>`
-  ${({ lineHeight }) =>
+  ${({ lineHeight = 1.4 }) =>
     lineHeight &&
     css`
       line-height: ${lineHeight};
