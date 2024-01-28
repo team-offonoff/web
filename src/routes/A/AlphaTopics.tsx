@@ -9,6 +9,8 @@ import { colors } from '@styles/theme';
 
 import { ALogoIcon } from '@icons/index';
 
+import { Container } from './AlphaTopics.styles';
+
 const AlphaTopics = () => {
   return (
     <Layout
@@ -16,13 +18,35 @@ const AlphaTopics = () => {
       HeaderLeft={() => <ALogoIcon width={30} height={30} fill={colors.white} />}
       HeaderCenter={() => <Text>진행중</Text>}
     >
-      <Row justifyContent={'flex-end'} gap={12} padding="15px 20px">
-        <button>내 토픽만</button>
-        <button>최신순</button>
-      </Row>
-      <Col>
-        <AlphaTopicCard />
-      </Col>
+      <Container>
+        <Row justifyContent={'flex-end'} gap={12} padding="15px 20px">
+          <button>내 토픽만</button>
+          <button>최신순</button>
+        </Row>
+        <Col>
+          <AlphaTopicCard
+            chip="popular"
+            topicId={241}
+            topicSide={'A'}
+            topicTitle={'topicTitle'}
+            deadline={0}
+            voteCount={42}
+            topicContent={''}
+            keyword={{
+              keywordId: 12,
+              keywordName: 'keywordName',
+              topicSide: 'topicSide',
+            }}
+            choices={[]}
+            author={{
+              id: 123,
+              nickname: 'nickname',
+              profileImageUrl: null,
+            }}
+            selectedOption={null}
+          />
+        </Col>
+      </Container>
     </Layout>
   );
 };
