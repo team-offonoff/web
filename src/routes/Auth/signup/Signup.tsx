@@ -1,8 +1,6 @@
 import React, { useEffect } from 'react';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { useLocation } from 'react-router-dom';
-import { CONFIG, INPUT_TYPE } from 'src/constants/form';
-import { GENDERS, JOBS } from 'src/constants/signup';
 
 import { SingnUpRequestDTO, useSignup } from '@apis/oauth/signup';
 import { Col } from '@components/commons/Flex/Flex';
@@ -13,6 +11,9 @@ import SelectInput from '@components/commons/SelectInput/SelectInput';
 import Text from '@components/commons/Text/Text';
 import TextInput from '@components/commons/TextInput/TextInput';
 import useBottomSheet from '@hooks/useBottomSheet/useBottomSheet';
+
+import { INPUT_TYPE, CONFIG } from '@constants/form';
+import { GENDERS, JOBS } from '@constants/signup';
 
 import { colors } from '@styles/theme';
 
@@ -84,11 +85,11 @@ const Signup = () => {
   return (
     <Layout
       hasBottomNavigation={false}
-      HeaderCenter={() => (
+      HeaderCenter={
         <Text size={20} weight={700} color={colors.white}>
           회원정보 입력
         </Text>
-      )}
+      }
     >
       <FormProvider {...methods}>
         <FormContainer onSubmit={methods.handleSubmit(handleSubmitForm)}>

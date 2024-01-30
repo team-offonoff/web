@@ -1,9 +1,9 @@
-import React from 'react';
+import { ChangeEvent, useState } from 'react';
 
 import AlphaTopicCard from '@components/AlphaTopic/AlphaTopicCard';
 import { Col, Row } from '@components/commons/Flex/Flex';
 import Layout from '@components/commons/Layout/Layout';
-import Text from '@components/commons/Text/Text';
+import ToggleSwitch from '@components/commons/ToggleSwitch/ToggleSwitch';
 
 import { colors } from '@styles/theme';
 
@@ -12,11 +12,17 @@ import { ALogoIcon } from '@icons/index';
 import { Container } from './AlphaTopics.styles';
 
 const AlphaTopics = () => {
+  const [value, setValue] = useState('진행중');
+
+  const handleTopicStatusChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setValue(e.target.value);
+  };
+
   return (
     <Layout
       hasBottomNavigation
-      HeaderLeft={() => <ALogoIcon width={30} height={30} fill={colors.white} />}
-      HeaderCenter={() => <Text>진행중</Text>}
+      HeaderLeft={<ALogoIcon width={30} height={30} fill={colors.white} />}
+      HeaderCenter={TopicToggleSwitch({ value, onChange: handleTopicStatusChange })}
     >
       <Container>
         <Row justifyContent={'flex-end'} gap={12} padding="15px 20px">
@@ -48,6 +54,21 @@ const AlphaTopics = () => {
         </Col>
       </Container>
     </Layout>
+  );
+};
+
+const TopicToggleSwitch = ({
+  value,
+  onChange,
+}: {
+  value: string;
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+}) => {
+  return (
+    <ToggleSwitch value={value} onChange={onChange}>
+      <ToggleSwitch.Option value={'진행중'}>진행중</ToggleSwitch.Option>
+      <ToggleSwitch.Option value={'종료된'}>종료된</ToggleSwitch.Option>
+    </ToggleSwitch>
   );
 };
 
