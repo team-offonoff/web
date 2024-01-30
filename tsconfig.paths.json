@@ -5,6 +5,7 @@
       "@routes/*": ["src/routes/*"],
       "@components/*": ["src/components/*"],
       "@interfaces/*": ["src/interfaces/*"],
+      "@constants/*": ["src/constants/*"],
       "@styles/*": ["src/assets/styles/*"],
       "@icons/*": ["src/assets/icons/*"],
       "@fonts/*": ["src/assets/fonts/*"],
