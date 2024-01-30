@@ -26,7 +26,9 @@ export const Header = styled.header`
   background-color: ${(props) => props.theme.colors.navy};
 `;
 
-export const HeaderSection = styled.div``;
+export const HeaderSection = styled.div`
+  flex: 1;
+`;
 
 export const ChildrenContainer = styled.div`
   height: calc(100% - 48px);

@@ -1,6 +1,7 @@
 import React from 'react';
 
 import BottomNavigation from '../BottomNavigation/BottomNavigation';
+import { Row } from '../Flex/Flex';
 
 import {
   ChildrenContainer,
@@ -25,7 +26,11 @@ const Layout = (props: LayoutProps) => {
     <Main>
       <Header>
         <HeaderSection>{HeaderLeft && <HeaderLeft />}</HeaderSection>
-        <HeaderSection>{HeaderCenter && <HeaderCenter />}</HeaderSection>
+        <HeaderSection>
+          <Row justifyContent="center" alignItems="center">
+            {HeaderCenter && <HeaderCenter />}
+          </Row>
+        </HeaderSection>
         <HeaderSection>{HeaderRight && <HeaderRight />}</HeaderSection>
       </Header>
       <ChildrenContainer>{children}</ChildrenContainer>
