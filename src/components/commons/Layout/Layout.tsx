@@ -26,17 +26,17 @@ const Layout = (props: LayoutProps) => {
     <Main>
       <Header>
         <HeaderSection>
-          <Row justifyContent="flex-start" alignItems="center">
+          <Row justifyContent="flex-start" alignItems="center" style={{ width: 'max-content' }}>
             {HeaderLeft}
           </Row>
         </HeaderSection>
         <HeaderSection>
-          <Row justifyContent="center" alignItems="center">
+          <Row justifyContent="center" alignItems="center" style={{ width: 'max-content' }}>
             {HeaderCenter}
           </Row>
         </HeaderSection>
         <HeaderSection>
-          <Row justifyContent="flex-end" alignItems="center">
+          <Row justifyContent="flex-end" alignItems="center" style={{ width: 'max-content' }}>
             {HeaderRight}
           </Row>
         </HeaderSection>
