@@ -25,7 +25,7 @@ function SwitchItem(
         ref={forwardedRef}
         {...rest}
       />
-      <OptionLabel className="radio-option__label" htmlFor={id}>
+      <OptionLabel className="radio-option__label" htmlFor={id} checked={checked || false}>
         <span>{children}</span>
       </OptionLabel>
     </OptionContainer>

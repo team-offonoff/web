@@ -50,15 +50,16 @@ const OptionInput = styled.input`
   border: 0;
 `;
 
-const OptionLabel = styled.label`
+const OptionLabel = styled.label<{ checked: boolean }>`
   width: 100%;
   padding: 4px 14px;
   margin: 0;
-  color: #6b7684;
+  color: ${({ checked, theme }) => (checked ? theme.colors.purple : theme.colors.white_40)};
   text-align: center;
   appearance: none;
   cursor: pointer;
   -webkit-tap-highlight-color: rgb(0 0 0 / 0%);
+  transition: 0.5s;
 `;
 
 export { Container, Indicator, OptionContainer, OptionInput, OptionLabel };
