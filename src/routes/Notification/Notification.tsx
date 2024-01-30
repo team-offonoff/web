@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { Col, Row } from '@components/commons/Flex/Flex';
+import { Col } from '@components/commons/Flex/Flex';
 import Layout from '@components/commons/Layout/Layout';
 import Text from '@components/commons/Text/Text';
 import NotificationItem from '@components/Notifications/NotificationItem';
@@ -17,12 +17,12 @@ const Notification = () => {
     NOTIFICATIONS_TABS[0]
   );
 
-  const notifications: {
+  const notifications: Array<{
     type: 'hit' | 'comment' | 'like' | 'close';
     title: string;
     date: number;
     checked: boolean;
-  }[] = [
+  }> = [
     {
       // 투표가 마감 되었어요, 지금 바로 결과를 확인해 보세요!
       type: 'close',
@@ -70,15 +70,15 @@ const Notification = () => {
   return (
     <Layout
       hasBottomNavigation={false}
-      HeaderCenter={() => (
+      HeaderCenter={
         <Text size={20} weight={600} color={colors.white}>
           알림
         </Text>
-      )}
+      }
     >
       <Container>
         <TabHeader currentTab={currentTab} setCurrentTab={setCurrentTab} />
-        <Col style={{ overflowY: 'auto' }}>
+        <Col style={{ overflowY: 'auto', height: 'fill-available' }}>
           {notifications.map((notification, index) => {
             return (
               <NotificationItem

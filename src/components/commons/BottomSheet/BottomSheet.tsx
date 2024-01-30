@@ -179,7 +179,7 @@ const Wrapper = styled(motion.div)`
   left: 0;
   z-index: ${(props) => props.theme.zIndex.sheet};
   max-width: 512px;
-  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
   margin: 0 auto;
 `;
 

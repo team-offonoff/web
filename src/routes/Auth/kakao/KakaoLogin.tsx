@@ -60,7 +60,7 @@ const KakaoLogin = () => {
         style={{
           position: 'fixed',
           overflow: 'hidden',
-          height: '100vh',
+          height: 'calc(var(--vh, 1vh) * 100)',
           width: '100vw',
           zIndex: zIndex.modal,
           backgroundColor: colors.navy_60,

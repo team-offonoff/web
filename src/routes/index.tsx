@@ -9,6 +9,7 @@ import {
 } from 'react-router-dom';
 import { useAuthStore } from 'src/store/auth';
 
+import AlphaTopics from './A/AlphaTopics';
 import GoogleLogin from './Auth/google/GoogleLogin';
 import KakaoLogin from './Auth/kakao/KakaoLogin';
 import Login from './Auth/login/Login';
@@ -35,6 +36,7 @@ const Router = () => {
         <Route path="*" element={<ProtectedRoute />}>
           <Route index element={<Home />} />
           <Route path="topics">
+            <Route path="a" element={<AlphaTopics />} />
             <Route path="create" element={<TopicSideSelection />} />
             <Route path="create/:topicSide" element={<TopicCreate />} />
           </Route>
