@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useSearchParams } from 'react-router-dom';
 
 import { SingnUpRequestDTO, useSignup } from '@apis/oauth/signup';
 import { Col } from '@components/commons/Flex/Flex';
@@ -28,6 +28,7 @@ const MAX_NICKNAME_LENGTH = 8;
 
 const Signup = () => {
   const location = useLocation();
+  const [searchParams] = useSearchParams();
   const methods = useForm<Omit<SingnUpRequestDTO, 'memberId'>>({ mode: 'onChange' });
   const signupMutation = useSignup();
   const { BottomSheet: TermsSheet, toggleSheet } = useBottomSheet({
@@ -36,7 +37,8 @@ const Signup = () => {
     transparent: false,
   });
 
-  const memberId = location.state.memberId as number;
+  const memberId =
+    (location.state?.memberId as number) || (searchParams.get('memberId') as unknown as number);
 
   const birthdayInput = methods.watch(INPUT_TYPE.BIRTHDAY);
   const nicknameProgress = methods.watch(INPUT_TYPE.NICKNAME)
