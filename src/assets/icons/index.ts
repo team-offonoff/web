@@ -1,3 +1,4 @@
+/* eslint-disable import/no-unresolved */
 import ALogoIcon from './a-logo.svg?react';
 import ABLogoIcon from './ab-logo.svg?react';
 import ABIcon from './ab.svg?react';
@@ -28,6 +29,7 @@ import RotateIcon from './rotate.svg?react';
 import SizeUpIcon from './size-up.svg?react';
 import ThumbsIcon from './thumbs.svg?react';
 import TopicCreatBackgrounIcon from './topic-create-background.svg?react';
+import UpDownChevronIcon from './up-down.svg?react';
 import WriteBoxIcon from './write-box.svg?react';
 
 export {
@@ -61,5 +63,6 @@ export {
   SizeUpIcon,
   ThumbsIcon,
   TopicCreatBackgrounIcon,
+  UpDownChevronIcon,
   WriteBoxIcon,
 };
