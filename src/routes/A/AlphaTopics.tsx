@@ -8,15 +8,17 @@ import ToggleSwitch from '@components/commons/ToggleSwitch/ToggleSwitch';
 
 import { colors } from '@styles/theme';
 
-import { ALogoIcon } from '@icons/index';
+import { ALogoIcon, UpDownChevronIcon } from '@icons/index';
 
 import { Container } from './AlphaTopics.styles';
 
 const AlphaTopics = () => {
-  const [value, setValue] = useState('진행중');
+  const [topicFilter, setTopicFilter] = useState('진행중');
+  const [isMineOnly, setIsMineOnly] = useState(false);
+  const [isLatest, setIsLatest] = useState(true);
 
   const handleTopicStatusChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setValue(e.target.value);
+    setTopicFilter(e.target.value);
   };
 
   return (
@@ -24,7 +26,7 @@ const AlphaTopics = () => {
       hasBottomNavigation
       HeaderLeft={<ALogoIcon width={30} height={30} fill={colors.white} />}
       HeaderCenter={
-        <ToggleSwitch value={value} onChange={handleTopicStatusChange}>
+        <ToggleSwitch value={topicFilter} onChange={handleTopicStatusChange}>
           <ToggleSwitch.Option value={'진행중'}>
             <Text size={15} weight={500} color={'inherit'}>
               진행중
@@ -40,8 +42,30 @@ const AlphaTopics = () => {
     >
       <Container>
         <Row justifyContent={'flex-end'} gap={12} padding="15px 20px">
-          <button>내 토픽만</button>
-          <button>최신순</button>
+          <button onClick={() => setIsMineOnly((prev) => !prev)}>
+            <Row alignItems="center" gap={6}>
+              <div
+                style={{
+                  width: '14px',
+                  height: '14px',
+                  borderRadius: '50%',
+                  border: '1px solid',
+                  borderColor: isMineOnly ? colors.white : colors.white_40,
+                }}
+              />
+              <Text size={13} color={isMineOnly ? colors.white : colors.white_40}>
+                내 토픽만
+              </Text>
+            </Row>
+          </button>
+          <button onClick={() => setIsLatest((prev) => !prev)}>
+            <Row alignItems="center" gap={6}>
+              <UpDownChevronIcon stroke={isLatest ? colors.white : colors.white_40} />
+              <Text size={13} color={isLatest ? colors.white : colors.white_40}>
+                최신순
+              </Text>
+            </Row>
+          </button>
         </Row>
         <Col>
           <AlphaTopicCard
