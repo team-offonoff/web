@@ -1,6 +1,3 @@
-import React from 'react';
-import { styled } from 'styled-components';
-
 import Chip from '@components/commons/Chip/Chip';
 import CommentChip from '@components/commons/Chip/CommentChip';
 import { Col, Row } from '@components/commons/Flex/Flex';
@@ -9,8 +6,6 @@ import Text from '@components/commons/Text/Text';
 import { TopicResponse } from '@interfaces/api/topic';
 
 import { colors } from '@styles/theme';
-
-import { ALogoIcon, CommentIcon } from '@icons/index';
 
 interface AlphaTopicCardProps extends TopicResponse {
   chip?: 'popular' | 'close';
