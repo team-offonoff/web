@@ -34,7 +34,7 @@ const TextInput = (props: TextInputProps) => {
 
   return (
     <div style={{ position: 'relative', width: '100%' }}>
-      <InputContainer inputTheme={theme} hasError={!!errors[id]}>
+      <InputContainer inputTheme={theme} hasError={Boolean(errors[id])}>
         {left && <InputPrefix>{left()}</InputPrefix>}
         <StyledInput
           inputTheme={theme}

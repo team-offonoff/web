@@ -37,7 +37,7 @@ const Terms = ({ memberId }: TermsProps) => {
   };
 
   const handleSubmitConsetToTerm = async () => {
-    if (disabled) return;
+    if (disabled) {return;}
 
     const response = await consentToTermMutation.mutateAsync({
       memberId,
