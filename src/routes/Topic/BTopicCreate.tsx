@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
-import { CONFIG, INPUT_TYPE } from 'src/constants/form';
 
 import { Col } from '@components/commons/Flex/Flex';
 import Text from '@components/commons/Text/Text';
 import TextInput from '@components/commons/TextInput/TextInput';
 import { theme2 } from '@components/commons/TextInput/theme';
+
+import { INPUT_TYPE, CONFIG } from '@constants/form';
 
 import { colors } from '@styles/theme';
 

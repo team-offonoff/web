@@ -9,6 +9,7 @@ export interface TextInputTheme {
   fontWeight: CSSProperties['fontWeight'];
   backgroundColor: CSSProperties['backgroundColor'];
   placeholderColor: CSSProperties['color'];
+  placeholderSize?: CSSProperties['fontSize'];
 }
 
 export const theme1: TextInputTheme = {
@@ -26,7 +27,7 @@ export const theme2: TextInputTheme = {
   fontSize: '1.6rem',
   fontWeight: 500,
   backgroundColor: colors.navy2_40,
-  placeholderColor: colors.purple2,
+  placeholderColor: colors.purple,
 };
 
 export const theme3: TextInputTheme = {
@@ -35,5 +36,6 @@ export const theme3: TextInputTheme = {
   fontSize: '2rem',
   fontWeight: 400,
   backgroundColor: 'transparent',
-  placeholderColor: colors.purple2,
+  placeholderColor: colors.purple,
+  placeholderSize: '2rem',
 };
