@@ -1,6 +1,7 @@
-import { ACCESS_TOKEN } from 'src/constants/localStorage';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
+
+import { ACCESS_TOKEN } from '@constants/localStorage';
 
 interface AuthState {
   isLoggedIn: boolean;
