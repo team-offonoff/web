@@ -1,10 +1,10 @@
-import { Register } from '@tanstack/react-query';
 import React from 'react';
-import { RegisterOptions, useFormContext } from 'react-hook-form';
-import { CONFIG, INPUT_TYPE, InputType } from 'src/constants/form';
+import { useFormContext } from 'react-hook-form';
 
 import { Col, Row } from '@components/commons/Flex/Flex';
 import Text from '@components/commons/Text/Text';
+
+import { INPUT_TYPE, CONFIG } from '@constants/form';
 
 import { colors } from '@styles/theme';
 

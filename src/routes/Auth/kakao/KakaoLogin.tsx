@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router';
-import { useAuthStore } from 'src/store/auth';
 
 import { kakaoLogin } from '@apis/oauth/kakao';
 import { Row } from '@components/commons/Flex/Flex';
+
+import { useAuthStore } from '@store/auth';
 
 import { colors, zIndex } from '@styles/theme';
 

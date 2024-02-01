@@ -6,6 +6,7 @@
       "@components/*": ["src/components/*"],
       "@interfaces/*": ["src/interfaces/*"],
       "@constants/*": ["src/constants/*"],
+      "@store/*": ["src/store/*"],
       "@styles/*": ["src/assets/styles/*"],
       "@icons/*": ["src/assets/icons/*"],
       "@fonts/*": ["src/assets/fonts/*"],

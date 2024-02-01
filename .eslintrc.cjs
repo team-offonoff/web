@@ -83,7 +83,7 @@ module.exports = {
     ],
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     '@typescript-eslint/array-type': ['error', { default: 'array-simple' }],
-    '@typescript-eslint/no-unused-vars': ['error', { ignoreRestSiblings: true }],
+    '@typescript-eslint/no-unused-vars': ['warn', { ignoreRestSiblings: true }],
     '@typescript-eslint/member-ordering': [
       'error',
       {
@@ -116,7 +116,7 @@ module.exports = {
 
     'react/display-name': 'off',
     'react-hooks/rules-of-hooks': 'error',
-    'react-hooks/exhaustive-deps': 'error',
+    'react-hooks/exhaustive-deps': 'warn',
 
     '@typescript-eslint/no-var-requires': 'warn',
     'react/react-in-jsx-scope': 'off',

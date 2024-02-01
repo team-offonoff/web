@@ -1,7 +1,8 @@
 import React from 'react';
 import { RegisterOptions, useFormContext } from 'react-hook-form';
-import { ConfigKeys, InputType } from 'src/constants/form';
 import { styled } from 'styled-components';
+
+import { InputType } from '@constants/form';
 
 import { colors } from '@styles/theme';
 

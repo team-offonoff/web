@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import Chip from '@components/commons/Chip/Chip';
 import CommentChip from '@components/commons/Chip/CommentChip';
 import { Col, Row } from '@components/commons/Flex/Flex';
@@ -11,8 +13,12 @@ interface AlphaTopicCardProps extends TopicResponse {
   chip?: 'popular' | 'close';
 }
 
-const AlphaTopicCard = (props: AlphaTopicCardProps) => {
-  const { chip, topicTitle } = props;
+const AlphaTopicCard = ({ chip, topicTitle }: AlphaTopicCardProps) => {
+  const [selectedSide, setSelectedSide] = useState<undefined | 'A' | 'B'>();
+
+  const handleSelectSide = (side: 'A' | 'B') => {
+    setSelectedSide(side);
+  };
 
   return (
     <Col padding={'20px'}>
@@ -29,29 +35,25 @@ const AlphaTopicCard = (props: AlphaTopicCardProps) => {
       </Row>
       <Col gap={5} style={{ marginBottom: 14 }}>
         <ProgressBar
-          revealed={true}
-          highlighted={true}
+          revealed={selectedSide !== undefined}
+          highlighted={selectedSide === 'A'}
           title={'A'}
           percentage={75}
-          onClick={function (): void {
-            throw new Error('Function not implemented.');
-          }}
+          onClick={() => handleSelectSide('A')}
           left={() => (
-            <Text color={1 === 1 ? colors.A_80 : colors.A_40} size={24} weight={900}>
+            <Text color={selectedSide === 'A' ? colors.A_80 : colors.A_40} size={24} weight={900}>
               A
             </Text>
           )}
         />
         <ProgressBar
-          revealed={true}
-          highlighted={false}
+          revealed={selectedSide !== undefined}
+          highlighted={selectedSide === 'B'}
           title={'B'}
           percentage={25}
-          onClick={function (): void {
-            throw new Error('Function not implemented.');
-          }}
+          onClick={() => handleSelectSide('B')}
           left={() => (
-            <Text color={1 === 1 ? colors.B_80 : colors.B_40} size={24} weight={900}>
+            <Text color={selectedSide === 'B' ? colors.B_80 : colors.B_40} size={24} weight={900}>
               B
             </Text>
           )}

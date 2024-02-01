@@ -1,6 +1,6 @@
-import { ACCESS_TOKEN } from 'src/constants/localStorage';
-
 import { ErrorResponse } from '@interfaces/api/error';
+
+import { ACCESS_TOKEN } from '@constants/localStorage';
 
 export class ResponseError extends Error {
   errorData: ErrorResponse;

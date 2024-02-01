@@ -7,7 +7,8 @@ import {
   createBrowserRouter,
   createRoutesFromElements,
 } from 'react-router-dom';
-import { useAuthStore } from 'src/store/auth';
+
+import { useAuthStore } from '@store/auth';
 
 import AlphaTopics from './A/AlphaTopics';
 import GoogleLogin from './Auth/google/GoogleLogin';

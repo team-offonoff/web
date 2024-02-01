@@ -1,6 +1,7 @@
 import React from 'react';
 import { RegisterOptions, useFormContext } from 'react-hook-form';
-import { InputType } from 'src/constants/form';
+
+import { InputType } from '@constants/form';
 
 import { colors } from '@styles/theme';
 
@@ -34,7 +35,7 @@ const TextInput = (props: TextInputProps) => {
 
   return (
     <div style={{ position: 'relative', width: '100%' }}>
-      <InputContainer inputTheme={theme} hasError={!!errors[id]}>
+      <InputContainer inputTheme={theme} hasError={Boolean(errors[id])}>
         {left && <InputPrefix>{left()}</InputPrefix>}
         <StyledInput
           inputTheme={theme}
