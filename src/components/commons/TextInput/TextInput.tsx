@@ -26,7 +26,17 @@ interface TextInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
 }
 
 const TextInput = (props: TextInputProps) => {
-  const { id, type = 'text', options, placeholder, left, right, onKeyDown, theme = theme1 } = props;
+  const {
+    id,
+    type = 'text',
+    options,
+    placeholder,
+    maxLength,
+    left,
+    right,
+    onKeyDown,
+    theme = theme1,
+  } = props;
   const {
     register,
     formState: { errors },
@@ -40,6 +50,7 @@ const TextInput = (props: TextInputProps) => {
           inputTheme={theme}
           type={type}
           placeholder={placeholder}
+          maxLength={maxLength}
           {...register(id, options)}
           onKeyDown={onKeyDown}
         />
