@@ -75,7 +75,7 @@ const BottomNavigation = () => {
               <ProfileIcon
                 width={26}
                 height={26}
-                fill={isActive ? colors.white : 'tranpsarent'}
+                fill={isActive ? colors.white : 'rgba(255, 255, 255, 0.0)'}
                 stroke={isActive ? 'transparent' : colors.white_60}
               />
               <Text size={12} color={isActive ? colors.white : inactiveColor}>
