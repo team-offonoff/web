@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { CONFIG, INPUT_TYPE } from 'src/constants/form';
 
 import {
   Container,
@@ -17,6 +16,8 @@ interface TopicCreateDTO {
   ATopic: string;
   BTopic: string;
   topicCategory: string;
+  aTopicImageURL: string;
+  bTopicImageURL: string;
 }
 
 const BTopicCreate = () => {
