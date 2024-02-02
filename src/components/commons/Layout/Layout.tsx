@@ -25,21 +25,9 @@ const Layout = (props: LayoutProps) => {
   return (
     <Main>
       <Header>
-        <HeaderSection>
-          <Row justifyContent="flex-start" alignItems="center" style={{ width: 'max-content' }}>
-            {HeaderLeft}
-          </Row>
-        </HeaderSection>
-        <HeaderSection>
-          <Row justifyContent="center" alignItems="center" style={{ width: 'max-content' }}>
-            {HeaderCenter}
-          </Row>
-        </HeaderSection>
-        <HeaderSection>
-          <Row justifyContent="flex-end" alignItems="center" style={{ width: 'max-content' }}>
-            {HeaderRight}
-          </Row>
-        </HeaderSection>
+        <HeaderSection style={{ justifySelf: 'start' }}>{HeaderLeft}</HeaderSection>
+        <HeaderSection style={{ justifySelf: 'center' }}>{HeaderCenter}</HeaderSection>
+        <HeaderSection style={{ justifySelf: 'end' }}>{HeaderRight}</HeaderSection>
       </Header>
       <ChildrenContainer>{children}</ChildrenContainer>
       {hasBottomNavigation && (
