@@ -22,8 +22,8 @@ interface TopicCreateDTO {
 const ATopicCreate = () => {
   const methods = useForm<TopicCreateDTO>({ mode: 'onChange' });
 
-  const titleProgress = methods.watch(INPUT_TYPE.TOPICTITLE)
-    ? `${methods.watch(INPUT_TYPE.TOPICTITLE)?.length}/20`
+  const titleProgress = methods.watch(INPUT_TYPE.TOPIC_TITLE)
+    ? `${methods.watch(INPUT_TYPE.TOPIC_TITLE)?.length}/20`
     : '0/20';
 
   const handleSummitButtonClick = () => {
@@ -39,12 +39,13 @@ const ATopicCreate = () => {
               어떤 주제로 물어볼까요?
             </Text>
             <TextInput
-              id={INPUT_TYPE.TOPICTITLE}
-              options={CONFIG.TOPICTITLE.options}
+              id={INPUT_TYPE.TOPIC_TITLE}
+              maxLength={20}
+              options={CONFIG.TOPIC_TITLE.options}
               placeholder={'제목을 입력해주세요.'}
               theme={theme3}
               right={() => (
-                <Text style={{ opacity: 0.6 }} size={15} weight={400} color={colors.purple}>
+                <Text size={15} weight={400} color={colors.purple_60}>
                   {titleProgress}
                 </Text>
               )}
