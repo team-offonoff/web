@@ -20,7 +20,7 @@ const KakaoLogin = () => {
   const kakaoCode = new URL(window.location.href).searchParams.get('code');
 
   const navigate = useNavigate();
-  const login = useAuthStore((state) => state.login);
+  const login = useAuthStore((store) => store.login);
 
   const handleKakaoLogin = async () => {
     if (kakaoCode) {
@@ -32,7 +32,7 @@ const KakaoLogin = () => {
           });
         } else {
           client.setAccessToken(response.accessToken);
-          login();
+          login(response.memberId);
           navigate('/');
         }
       } catch (err) {
