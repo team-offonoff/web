@@ -1,11 +1,14 @@
 /* eslint-disable import/no-unresolved */
 import ALogoIcon from './a-logo.svg?react';
+import AStrokeLogoIcon from './a-stroke-logo.svg?react';
 import ABLogoIcon from './ab-logo.svg?react';
 import ABIcon from './ab.svg?react';
 import AlarmIcon from './alarm-default.svg?react';
 import NewAlarmIcon from './alarm-new.svg?react';
 import AppleIcon from './apple.svg?react';
+import BFillLogoIcon from './b-fill-logo.svg?react';
 import BLogoIcon from './b-logo.svg?react';
+import BStrokeLogoIcon from './b-stroke-logo.svg?react';
 import BigDownChevronIcon from './big-down-chevron.svg?react';
 import CheckIcon from './check.svg?react';
 import ClockIcon from './clock.svg?react';
@@ -15,7 +18,8 @@ import DownChevronIcon from './down-chevron.svg?react';
 import GoogleIcon from './google.svg?react';
 import HideIcon from './hide.svg?react';
 import HitIcon from './hit.svg?react';
-import SelectedHomeIcon from './home-selected.svg?react';
+import HomeStrokeIcon from './home-stroke.svg?react';
+import HomeIcon from './home.svg?react';
 import KakaoIcon from './kakao.svg?react';
 import LeftDoubleArrowIcon from './left-double-arrow.svg?react';
 import MeatballIcon from './meatball.svg?react';
@@ -38,8 +42,11 @@ export {
   AlarmIcon,
   ALogoIcon,
   AppleIcon,
+  AStrokeLogoIcon,
+  BFillLogoIcon,
   BigDownChevronIcon,
   BLogoIcon,
+  BStrokeLogoIcon,
   CheckIcon,
   ClockIcon,
   CloseIcon,
@@ -48,6 +55,8 @@ export {
   GoogleIcon,
   HideIcon,
   HitIcon,
+  HomeIcon,
+  HomeStrokeIcon,
   KakaoIcon,
   LeftDoubleArrowIcon,
   MeatballIcon,
@@ -59,7 +68,6 @@ export {
   RightChevronIcon,
   RightDoubleArrowIcon,
   RotateIcon,
-  SelectedHomeIcon,
   SizeUpIcon,
   ThumbsIcon,
   TopicCreatBackgrounIcon,

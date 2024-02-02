@@ -73,7 +73,7 @@ const KakaoLogin = () => {
           gap={7.5}
           style={{ width: '100%', height: '100%' }}
         >
-          <ALogoIcon width={65} />
+          <ALogoIcon width={65} fill={colors.A} />
           <BLogoIcon width={66} />
         </Row>
       </div>
