@@ -68,7 +68,7 @@ const TopicSideSelection = () => {
         </SelectDescription>
         <ButtonContainer>
           <AButton selected={selected} onClick={handleAButtonClick}>
-            <ALogoIcon />
+            <ALogoIcon fill={colors.A} />
             <ADescription selected={selected}>
               Anything <br /> Side
             </ADescription>
