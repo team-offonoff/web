@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { memo, useState } from 'react';
 
 import { useComments, useCreateComment } from '@apis/comment/useComment';
 import { Row } from '@components/commons/Flex/Flex';
@@ -21,7 +21,7 @@ interface TopicCommentsProps {
   topic: TopicResponse;
 }
 
-const TopicComments = ({ topic }: TopicCommentsProps) => {
+const TopicComments = memo(({ topic }: TopicCommentsProps) => {
   const { data: comments, fetchNextPage } = useComments(
     topic.topicId,
     topic.selectedOption !== null
@@ -71,6 +71,6 @@ const TopicComments = ({ topic }: TopicCommentsProps) => {
       </CommentInputContainer>
     </TopicCommentsContainer>
   );
-};
+});
 
 export default TopicComments;
