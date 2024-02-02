@@ -31,3 +31,32 @@ export const SelectIconContainer = styled.button<{ selected: boolean }>`
   border-radius: 50%;
   transition: all 0.2s ease-in-out;
 `;
+
+export const DeadlineInputContainer = styled.div`
+  position: relative;
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+export const DeadlineInputButton = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 14px;
+  height: 14px;
+`;
+
+export const DeadlineInput = styled.select`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  height: 24px;
+  opacity: 0;
+  transform: translate(-50%, -50%);
+`;

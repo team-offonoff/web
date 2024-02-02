@@ -1,7 +1,6 @@
-import { Register } from '@tanstack/react-query';
 import React from 'react';
-import { RegisterOptions, useFormContext } from 'react-hook-form';
-import { CONFIG, INPUT_TYPE, InputType } from 'src/constants/form';
+import { useFormContext } from 'react-hook-form';
+import { CONFIG, INPUT_TYPE } from 'src/constants/form';
 
 import { Col, Row } from '@components/commons/Flex/Flex';
 import Text from '@components/commons/Text/Text';
@@ -25,15 +24,15 @@ interface TopicCreareProps {
 
 const TopicCreateTextInput = ({ onKeyDown }: TopicCreareProps) => {
   const { register, watch } = useFormContext();
-  const ATopicProgress = watch(INPUT_TYPE.ATOPIC)
-    ? `${watch(INPUT_TYPE.ATOPIC)?.length}/25`
+  const ATopicProgress = watch(INPUT_TYPE.A_TOPIC)
+    ? `${watch(INPUT_TYPE.A_TOPIC)?.length}/25`
     : '0/25';
-  const BTopicProgress = watch(INPUT_TYPE.BTOPIC)
-    ? `${watch(INPUT_TYPE.BTOPIC)?.length}/25`
+  const BTopicProgress = watch(INPUT_TYPE.B_TOPIC)
+    ? `${watch(INPUT_TYPE.B_TOPIC)?.length}/25`
     : '0/25';
   return (
     <Col gap={16}>
-      <Row gap={83} justifyContent="space-between">
+      <Row justifyContent="space-between">
         <Text size={16} weight={400} color={colors.white_60} align="start">
           어떤 선택지가 있나요?
         </Text>
@@ -41,7 +40,7 @@ const TopicCreateTextInput = ({ onKeyDown }: TopicCreareProps) => {
           <ReplaceIcon>
             <RotateIcon opacity="0.3" />
           </ReplaceIcon>
-          <Text style={{ opacity: 0.3 }} size={13} weight={400} color={colors.purple} align="start">
+          <Text size={13} weight={400} color={colors.purple_30} align="start">
             AB 선택지 바꾸기
           </Text>
         </ReplaceButton>
@@ -49,13 +48,14 @@ const TopicCreateTextInput = ({ onKeyDown }: TopicCreareProps) => {
       <Col gap={8}>
         <TextInputContainer>
           <TextInputTextContainer>
-            <Text style={{ opacity: 0.2 }} size={128} weight={900} color={colors.A}>
+            <Text size={128} weight={900} color={colors.A_20}>
               A
             </Text>
           </TextInputTextContainer>
           <Input
+            maxLength={25}
             type="text"
-            {...register(INPUT_TYPE.ATOPIC, CONFIG.ATOPIC.options)}
+            {...register(INPUT_TYPE.A_TOPIC, CONFIG.A_TOPIC.options)}
             placeholder="A 선택지를 입력해주세요."
           />
           <InputSuffix>
@@ -66,13 +66,14 @@ const TopicCreateTextInput = ({ onKeyDown }: TopicCreareProps) => {
         </TextInputContainer>
         <TextInputContainer>
           <TextInputTextContainer>
-            <Text style={{ opacity: 0.2 }} size={128} weight={900} color={colors.B}>
+            <Text size={128} weight={900} color={colors.B_20}>
               B
             </Text>
           </TextInputTextContainer>
           <Input
+            maxLength={25}
             type="text"
-            {...register(INPUT_TYPE.BTOPIC, CONFIG.BTOPIC.options)}
+            {...register(INPUT_TYPE.B_TOPIC, CONFIG.B_TOPIC.options)}
             placeholder="B 선택지를 입력해주세요."
           />
           <InputSuffix>
