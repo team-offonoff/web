@@ -2,13 +2,10 @@ import { styled } from 'styled-components';
 
 export const Main = styled.main`
   position: relative;
-
-  /* display: flex; */
-
-  /* flex-direction: column; */
   max-width: 512px;
   height: calc(var(--vh, 1vh) * 100);
   margin: 0 auto;
+  background-color: ${(props) => props.theme.colors.navy};
 
   &::-webkit-scrollbar {
     display: none;
@@ -16,19 +13,15 @@ export const Main = styled.main`
 `;
 
 export const Header = styled.header`
-  display: flex;
-  flex-shrink: 0;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  justify-content: space-between;
   width: 100%;
   height: 48px;
   padding: 0 20px;
-  background-color: ${(props) => props.theme.colors.navy};
 `;
 
-export const HeaderSection = styled.div`
-  flex: 1;
-`;
+export const HeaderSection = styled.div``;
 
 export const ChildrenContainer = styled.div`
   height: calc(100% - 48px);
