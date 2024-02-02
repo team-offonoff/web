@@ -84,7 +84,7 @@ const ChoiceSlide = ({ side, topicContent }: ChoiceSlideProps) => {
             </Text>
             <ModalContentText>{topicContent.text}</ModalContentText>
           </ModalContent>
-          <CloseButton onClick={toggleModal}>
+          <CloseButton onClick={() => toggleModal}>
             <CloseIcon />
           </CloseButton>
         </ModalContainer>
