@@ -9,10 +9,13 @@ export const INPUT_TYPE = {
   BIRTHDAY: 'birth',
   GENDER: 'gender',
   JOB: 'job',
-  TOPICTITLE: 'topicTitle',
-  ATOPIC: 'aTopic',
-  BTOPIC: 'bTopic',
-  TOPICCATEGORY: 'topicCategory',
+  TOPIC_TITLE: 'topicTitle',
+  A_TOPIC: 'aTopic',
+  B_TOPIC: 'bTopic',
+  A_TOPIC_IMAGEURL: 'aTopicImageURL',
+  B_TOPIC_IMAGEURL: 'bTopicImageURL',
+  TOPIC_CATEGORY: 'topicCategory',
+  TOPIC_DEADLINE: 'topicDeadline',
 } as const;
 
 export type ConfigKeys = keyof typeof INPUT_TYPE;
@@ -63,7 +66,7 @@ export const CONFIG: Record<ConfigKeys, ConfigField> = {
       },
     },
   },
-  TOPICTITLE: {
+  TOPIC_TITLE: {
     options: {
       required: {
         value: true,
@@ -79,17 +82,31 @@ export const CONFIG: Record<ConfigKeys, ConfigField> = {
       },
     },
   },
-  ATOPIC: {
+  A_TOPIC: {
+    options: {
+      required: true,
+      maxLength: {
+        value: 25,
+        message: '',
+      },
+    },
+  },
+  B_TOPIC: {
     options: {
       required: true,
     },
   },
-  BTOPIC: {
+  A_TOPIC_IMAGEURL: {
     options: {
       required: true,
     },
   },
-  TOPICCATEGORY: {
+  B_TOPIC_IMAGEURL: {
+    options: {
+      required: true,
+    },
+  },
+  TOPIC_CATEGORY: {
     options: {
       required: {
         value: true,
@@ -103,6 +120,11 @@ export const CONFIG: Record<ConfigKeys, ConfigField> = {
         value: 20,
         message: '카테고리는 6자리 이내로 입력해주세요.',
       },
+    },
+  },
+  TOPIC_DEADLINE: {
+    options: {
+      required: true,
     },
   },
 } as const;
