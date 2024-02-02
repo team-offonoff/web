@@ -17,19 +17,19 @@ interface BTopicCreareProps {
 
 const BTopicCreateStep1 = () => {
   const methods = useFormContext();
-  const titleProgress = methods.watch(INPUT_TYPE.TOPICTITLE)
-    ? `${methods.watch(INPUT_TYPE.TOPICTITLE)?.length}/20`
+  const titleProgress = methods.watch(INPUT_TYPE.TOPIC_TITLE)
+    ? `${methods.watch(INPUT_TYPE.TOPIC_TITLE)?.length}/20`
     : '0/20';
 
-  const categoryProgress = methods.watch(INPUT_TYPE.TOPICCATEGORY)
-    ? `${methods.watch(INPUT_TYPE.TOPICCATEGORY)?.length}/6`
+  const categoryProgress = methods.watch(INPUT_TYPE.TOPIC_CATEGORY)
+    ? `${methods.watch(INPUT_TYPE.TOPIC_CATEGORY)?.length}/6`
     : '0/6';
 
   const categoryChipList = ['스포츠', '연예방송', '일상다반사', '게임', '일상'];
 
   const handleCategoryChipClick = (categoryChip: string) => {
-    methods.setValue(INPUT_TYPE.TOPICCATEGORY, categoryChip);
-    methods.clearErrors(INPUT_TYPE.TOPICCATEGORY);
+    methods.setValue(INPUT_TYPE.TOPIC_CATEGORY, categoryChip);
+    methods.clearErrors(INPUT_TYPE.TOPIC_CATEGORY);
   };
 
   return (
@@ -40,12 +40,13 @@ const BTopicCreateStep1 = () => {
             어떤 주제로 물어볼까요?
           </Text>
           <TextInput
-            id={INPUT_TYPE.TOPICTITLE}
-            options={CONFIG.TOPICTITLE.options}
+            maxLength={20}
+            id={INPUT_TYPE.TOPIC_TITLE}
+            options={CONFIG.TOPIC_TITLE.options}
             placeholder={'제목을 입력해주세요.'}
             theme={theme3}
             right={() => (
-              <Text style={{ opacity: 0.6 }} size={15} weight={400} color={colors.purple}>
+              <Text size={15} weight={400} color={colors.purple_60}>
                 {titleProgress}
               </Text>
             )}
@@ -57,9 +58,10 @@ const BTopicCreateStep1 = () => {
               토픽의 카테고리를 알려주세요
             </Text>
             <TextInput
-              id={INPUT_TYPE.TOPICCATEGORY}
-              options={CONFIG.TOPICCATEGORY.options}
+              id={INPUT_TYPE.TOPIC_CATEGORY}
+              options={CONFIG.TOPIC_CATEGORY.options}
               placeholder={'한글, 영문, 숫자만 가능.'}
+              maxLength={6}
               theme={theme2}
               right={() => (
                 <Text style={{ opacity: 0.6 }} size={14} weight={600} color={colors.purple_60}>
