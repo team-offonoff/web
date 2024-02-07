@@ -2,7 +2,7 @@ import { styled } from 'styled-components';
 
 import { colors } from '@styles/theme';
 
-export const ReplaceButton = styled.div`
+export const ReplaceButton = styled.button`
   display: flex;
   flex-direction: row;
   gap: 6px;

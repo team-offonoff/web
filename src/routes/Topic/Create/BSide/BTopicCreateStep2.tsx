@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 import { CONFIG, INPUT_TYPE } from 'src/constants/form';
 import { TOPIC_DEADLINES } from 'src/constants/topic';
 
@@ -27,14 +28,12 @@ import {
   UnderLine,
 } from './BTopicCreateStep2.styles';
 
-interface BTopicCreateStep2Props {
-  topicTitle: string;
-  topicCategory: string;
-  onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
-}
+const BTopicCreateStep2 = () => {
+  const navigate = useNavigate();
+  const { register, setValue, getValues } = useFormContext();
 
-const BTopicCreateStep2 = ({ topicTitle, topicCategory }: BTopicCreateStep2Props) => {
-  const { register, setValue } = useFormContext();
+  const topicTitle = getValues(INPUT_TYPE.TOPIC_TITLE);
+  const topicCategory = getValues(INPUT_TYPE.TOPIC_CATEGORY);
 
   const [selected, setSelected] = useState<string>('text');
 
@@ -42,36 +41,38 @@ const BTopicCreateStep2 = ({ topicTitle, topicCategory }: BTopicCreateStep2Props
 
   const Selection = selected === 'text' ? <TopicCreateTextInput /> : <TopicCreateImageInput />;
 
-  const {
-    ref: deadlineInputRef,
-    onChange: deadlinInputOnChange,
-    ...rest
-  } = register(INPUT_TYPE.TOPIC_DEADLINE, CONFIG.TOPIC_DEADLINE.options);
+  const { onChange: deadlinInputOnChange, ...rest } = register(
+    INPUT_TYPE.TOPIC_DEADLINE,
+    CONFIG.TOPIC_DEADLINE.options
+  );
+
+  setValue(INPUT_TYPE.TOPIC_CONTENT_TYPE, 'text');
 
   const handleTextSelect = () => {
+    setValue(INPUT_TYPE.TOPIC_CONTENT_TYPE, 'text');
     setSelected('text');
   };
 
   const handleImageSelect = () => {
+    setValue(INPUT_TYPE.TOPIC_CONTENT_TYPE, 'image');
     setSelected('image');
-  };
-
-  const handleDeadlineInputClick = () => {
-    const inputElement = document.getElementById(INPUT_TYPE.TOPIC_DEADLINE);
-    if (inputElement) {
-      inputElement.click();
-      console.log('click');
-    }
   };
 
   const handleDeadlineChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     deadlinInputOnChange(e);
     setValue(INPUT_TYPE.TOPIC_DEADLINE, e.target.value);
-    setSelectedDeadline(
-      `${TOPIC_DEADLINES.find((option) => option.value.toString() === e.target.value)?.label} 뒤`
-    );
-    console.log(selectedDeadline);
+    setSelectedDeadline(`${e.target.value}시간 뒤`);
   };
+
+  useEffect(() => {
+    if (!topicTitle || !topicCategory) {
+      navigate(-1);
+    }
+  }, [topicTitle, topicCategory]);
+
+  useEffect(() => {
+    register(INPUT_TYPE.TOPIC_CONTENT_TYPE, CONFIG.TOPIC_CONTENT_TYPE.options);
+  }, [register]);
 
   return (
     <Container>
@@ -99,7 +100,7 @@ const BTopicCreateStep2 = ({ topicTitle, topicCategory }: BTopicCreateStep2Props
           {Selection}
         </Col>
         <Row gap={4} justifyContent="flex-start" alignItems="center">
-          <DeadlineInputContainer onClick={handleDeadlineInputClick}>
+          <DeadlineInputContainer>
             <DeadlineInputButton>
               <BigDownChevronIcon stroke={colors.purple} />
             </DeadlineInputButton>
@@ -108,7 +109,6 @@ const BTopicCreateStep2 = ({ topicTitle, topicCategory }: BTopicCreateStep2Props
             </Text>
             <DeadlineInput
               id={INPUT_TYPE.TOPIC_DEADLINE}
-              ref={deadlineInputRef}
               onChange={(e) => handleDeadlineChange(e)}
               {...rest}
             >

@@ -45,8 +45,6 @@ export const SideButton = styled.button<{ side: string | undefined }>`
   gap: 3px;
   align-items: center;
   justify-content: center;
-  width: 90px;
-  height: 25px;
   padding: 2px 10px;
   background-color: ${(props) =>
     props.side === 'A' ? 'rgb(208 67 118 / 20%)' : 'rgb(20 152 170 / 20%)'};
@@ -71,8 +69,8 @@ export const SideChangeButton = styled.button<{ side: string | undefined; isHidd
   border-radius: 50px;
 `;
 
-export const DownShevron = styled.div`
-  display: flex;
+export const DownShevron = styled.div<{ isStep2: boolean }>`
+  display: ${(props) => (props.isStep2 ? 'none' : 'flex')};
   align-items: center;
   justify-content: flex-start;
   width: 14px;

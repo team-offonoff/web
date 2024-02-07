@@ -40,9 +40,7 @@ const ImageInputComponent = ({ label }: ImageInputComponetProps) => {
   ) => {
     registerOnChange(event);
 
-    console.log(event.target);
     const fileObj = event.target.files && event.target.files[0];
-    console.log(fileObj);
     if (!fileObj) {
       return;
     }
@@ -50,6 +48,7 @@ const ImageInputComponent = ({ label }: ImageInputComponetProps) => {
     const reader = new FileReader();
     reader.onloadend = () => {
       setImageUrl(reader.result as string);
+      setValue(id, reader.result as string);
     };
     reader.readAsDataURL(fileObj);
   };

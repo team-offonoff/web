@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { RegisterOptions, useFormContext } from 'react-hook-form';
 import { InputType } from 'src/constants/form';
 
@@ -40,7 +40,16 @@ const TextInput = (props: TextInputProps) => {
   const {
     register,
     formState: { errors },
+    watch,
+    setValue,
   } = useFormContext();
+  const value = watch(id);
+
+  useEffect(() => {
+    if (maxLength && value?.length > maxLength) {
+      setValue(id, value.slice(0, maxLength));
+    }
+  }, [value]);
 
   return (
     <div style={{ position: 'relative', width: '100%' }}>
@@ -51,6 +60,7 @@ const TextInput = (props: TextInputProps) => {
           type={type}
           placeholder={placeholder}
           maxLength={maxLength}
+          autoComplete="off"
           {...register(id, options)}
           onKeyDown={onKeyDown}
         />

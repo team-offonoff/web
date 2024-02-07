@@ -10,10 +10,11 @@ export const INPUT_TYPE = {
   GENDER: 'gender',
   JOB: 'job',
   TOPIC_TITLE: 'topicTitle',
-  A_TOPIC: 'aTopic',
-  B_TOPIC: 'bTopic',
-  A_TOPIC_IMAGEURL: 'aTopicImageURL',
-  B_TOPIC_IMAGEURL: 'bTopicImageURL',
+  A_TOPIC: 'ATopic',
+  B_TOPIC: 'BTopic',
+  A_TOPIC_IMAGEURL: 'ATopicImageURL',
+  B_TOPIC_IMAGEURL: 'BTopicImageURL',
+  TOPIC_CONTENT_TYPE: 'topicType',
   TOPIC_CATEGORY: 'topicCategory',
   TOPIC_DEADLINE: 'topicDeadline',
 } as const;
@@ -72,10 +73,6 @@ export const CONFIG: Record<ConfigKeys, ConfigField> = {
         value: true,
         message: '제목을 입력해주세요.',
       },
-      pattern: {
-        value: /^[가-힣a-zA-Z0-9!@#$%^()]+$/,
-        message: '특수문자는 !@#$%^()만 사용하실 수 있습니다.',
-      },
       maxLength: {
         value: 20,
         message: '제목은 20자리 이내로 입력해주세요.',
@@ -84,16 +81,18 @@ export const CONFIG: Record<ConfigKeys, ConfigField> = {
   },
   A_TOPIC: {
     options: {
-      required: true,
-      maxLength: {
-        value: 25,
+      required: {
+        value: true,
         message: '',
       },
     },
   },
   B_TOPIC: {
     options: {
-      required: true,
+      required: {
+        value: true,
+        message: '',
+      },
     },
   },
   A_TOPIC_IMAGEURL: {
@@ -117,9 +116,14 @@ export const CONFIG: Record<ConfigKeys, ConfigField> = {
         message: '한글, 영문, 숫자만 가능해요.',
       },
       maxLength: {
-        value: 20,
+        value: 6,
         message: '카테고리는 6자리 이내로 입력해주세요.',
       },
+    },
+  },
+  TOPIC_CONTENT_TYPE: {
+    options: {
+      required: true,
     },
   },
   TOPIC_DEADLINE: {

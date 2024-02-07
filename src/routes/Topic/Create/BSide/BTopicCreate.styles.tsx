@@ -46,3 +46,13 @@ export const PageControllerLine = styled.div`
   background-color: ${colors.navy};
   border: 1px solid ${colors.navy2};
 `;
+
+export const SubmitButton = styled.div`
+  position: absolute;
+  bottom: 48px;
+  left: 50%;
+  justify-content: center;
+  width: 100%;
+  padding: 0 20px;
+  transform: translateX(-50%);
+`;

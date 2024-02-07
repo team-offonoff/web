@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { CONFIG, INPUT_TYPE } from 'src/constants/form';
 
@@ -18,29 +18,45 @@ import {
   InputSuffix,
 } from './TopicCreateTextInput.styles';
 
-interface TopicCreareProps {
+interface TopicCreateProps {
   onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
 }
 
-const TopicCreateTextInput = ({ onKeyDown }: TopicCreareProps) => {
-  const { register, watch } = useFormContext();
+const TopicCreateTextInput = ({ onKeyDown }: TopicCreateProps) => {
+  const { register, watch, getValues } = useFormContext();
   const ATopicProgress = watch(INPUT_TYPE.A_TOPIC)
     ? `${watch(INPUT_TYPE.A_TOPIC)?.length}/25`
     : '0/25';
   const BTopicProgress = watch(INPUT_TYPE.B_TOPIC)
     ? `${watch(INPUT_TYPE.B_TOPIC)?.length}/25`
     : '0/25';
+
+  const [isTopicFilled, setIsTopicFilled] = useState(false);
+
+  useEffect(() => {
+    if (getValues(INPUT_TYPE.A_TOPIC) && getValues(INPUT_TYPE.B_TOPIC)) {
+      setIsTopicFilled(true);
+    } else {
+      setIsTopicFilled(false);
+    }
+  }, [getValues([INPUT_TYPE.A_TOPIC, INPUT_TYPE.B_TOPIC])]);
+
   return (
     <Col gap={16}>
       <Row justifyContent="space-between">
         <Text size={16} weight={400} color={colors.white_60} align="start">
           어떤 선택지가 있나요?
         </Text>
-        <ReplaceButton>
+        <ReplaceButton disabled={!isTopicFilled}>
           <ReplaceIcon>
-            <RotateIcon opacity="0.3" />
+            <RotateIcon opacity={isTopicFilled ? '1' : '0.3'} />
           </ReplaceIcon>
-          <Text size={13} weight={400} color={colors.purple_30} align="start">
+          <Text
+            size={13}
+            weight={400}
+            color={isTopicFilled ? colors.purple : colors.purple_30}
+            align="start"
+          >
             AB 선택지 바꾸기
           </Text>
         </ReplaceButton>

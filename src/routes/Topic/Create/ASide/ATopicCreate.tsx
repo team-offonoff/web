@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { CONFIG, INPUT_TYPE } from 'src/constants/form';
 
@@ -25,10 +25,22 @@ const ATopicCreate = () => {
   const titleProgress = methods.watch(INPUT_TYPE.TOPIC_TITLE)
     ? `${methods.watch(INPUT_TYPE.TOPIC_TITLE)?.length}/20`
     : '0/20';
-
-  const handleSummitButtonClick = () => {
-    console.log('summit');
+  const [isFormFilled, setIsFormFilled] = useState(false);
+  const handleSubmitButtonClick = () => {
+    console.log('submit');
   };
+
+  useEffect(() => {
+    if (
+      methods.getValues(INPUT_TYPE.TOPIC_TITLE) &&
+      methods.getValues(INPUT_TYPE.A_TOPIC) &&
+      methods.getValues(INPUT_TYPE.B_TOPIC)
+    ) {
+      setIsFormFilled(true);
+    } else {
+      setIsFormFilled(false);
+    }
+  }, [methods.getValues([INPUT_TYPE.TOPIC_TITLE, INPUT_TYPE.A_TOPIC, INPUT_TYPE.B_TOPIC])]);
 
   return (
     <FormProvider {...methods}>
@@ -56,8 +68,8 @@ const ATopicCreate = () => {
         <SubmitButton>
           <DefaultButton
             title={'토픽 던지기'}
-            onClick={handleSummitButtonClick}
-            disabled={false}
+            onClick={handleSubmitButtonClick}
+            disabled={!isFormFilled}
           ></DefaultButton>
         </SubmitButton>
       </Container>

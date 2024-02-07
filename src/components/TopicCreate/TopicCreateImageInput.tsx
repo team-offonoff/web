@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useFormContext } from 'react-hook-form';
+import { CONFIG, INPUT_TYPE } from 'src/constants/form';
 
 import { Col, Row } from '@components/commons/Flex/Flex';
 import Text from '@components/commons/Text/Text';
@@ -18,17 +20,36 @@ interface TopicCreareProps {
 }
 
 const TopicCreateImageInput = () => {
+  const { getValues, getFieldState } = useFormContext();
+
+  const [isImageFilled, setIsImageFilled] = useState(false);
+
+  useEffect(() => {
+    if (
+      !getFieldState(INPUT_TYPE.A_TOPIC_IMAGEURL).invalid &&
+      !getFieldState(INPUT_TYPE.B_TOPIC_IMAGEURL).invalid
+    ) {
+      setIsImageFilled(true);
+    } else {
+      setIsImageFilled(false);
+    }
+  }, [getValues([INPUT_TYPE.A_TOPIC_IMAGEURL, INPUT_TYPE.B_TOPIC_IMAGEURL])]);
   return (
     <Col gap={30}>
       <Row justifyContent="space-between">
         <Text size={16} weight={400} color={colors.white_60} align="start">
           어떤 선택지가 있나요?
         </Text>
-        <ReplaceButton>
+        <ReplaceButton disabled={!isImageFilled}>
           <ReplaceIcon>
-            <RotateIcon opacity="0.3" />
+            <RotateIcon opacity={isImageFilled ? '1' : '0.3'} />
           </ReplaceIcon>
-          <Text style={{ opacity: 0.3 }} size={13} weight={400} color={colors.purple} align="start">
+          <Text
+            size={13}
+            weight={400}
+            color={isImageFilled ? colors.purple : colors.purple_30}
+            align="start"
+          >
             AB 선택지 바꾸기
           </Text>
         </ReplaceButton>

@@ -1,5 +1,6 @@
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 import { CONFIG, INPUT_TYPE } from 'src/constants/form';
 
 import { Col } from '@components/commons/Flex/Flex';
@@ -11,25 +12,41 @@ import { colors } from '@styles/theme';
 
 import { CategoryChip, CategoryChipContainer, Container } from './BTopicCreateStep1.styles';
 
-interface BTopicCreareProps {
-  onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
-}
-
 const BTopicCreateStep1 = () => {
+  const navigate = useNavigate();
   const methods = useFormContext();
   const titleProgress = methods.watch(INPUT_TYPE.TOPIC_TITLE)
-    ? `${methods.watch(INPUT_TYPE.TOPIC_TITLE)?.length}/20`
+    ? `${Math.min(methods.watch(INPUT_TYPE.TOPIC_TITLE)?.length, 20)}/20`
     : '0/20';
 
   const categoryProgress = methods.watch(INPUT_TYPE.TOPIC_CATEGORY)
-    ? `${methods.watch(INPUT_TYPE.TOPIC_CATEGORY)?.length}/6`
+    ? `${Math.min(methods.watch(INPUT_TYPE.TOPIC_CATEGORY)?.length, 20)}/6`
     : '0/6';
 
   const categoryChipList = ['스포츠', '연예방송', '일상다반사', '게임', '일상'];
 
+  const navigateToNextStep = () => {
+    navigate('/topics/create/B?step=2');
+  };
+
   const handleCategoryChipClick = (categoryChip: string) => {
     methods.setValue(INPUT_TYPE.TOPIC_CATEGORY, categoryChip);
     methods.clearErrors(INPUT_TYPE.TOPIC_CATEGORY);
+  };
+
+  const handleEnterkey = async (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+
+      // Trigger validation for the fields
+      const result = await methods.trigger([INPUT_TYPE.TOPIC_TITLE, INPUT_TYPE.TOPIC_CATEGORY]);
+
+      if (result) {
+        setTimeout(() => navigateToNextStep(), 1000);
+      } else {
+        console.log('invalid');
+      }
+    }
   };
 
   return (
@@ -45,6 +62,7 @@ const BTopicCreateStep1 = () => {
             options={CONFIG.TOPIC_TITLE.options}
             placeholder={'제목을 입력해주세요.'}
             theme={theme3}
+            onKeyDown={handleEnterkey}
             right={() => (
               <Text size={15} weight={400} color={colors.purple_60}>
                 {titleProgress}
@@ -63,6 +81,7 @@ const BTopicCreateStep1 = () => {
               placeholder={'한글, 영문, 숫자만 가능.'}
               maxLength={6}
               theme={theme2}
+              onKeyDown={handleEnterkey}
               right={() => (
                 <Text style={{ opacity: 0.6 }} size={14} weight={600} color={colors.purple_60}>
                   {categoryProgress}
