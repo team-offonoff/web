@@ -32,6 +32,8 @@ const BTopicCreateStep2 = () => {
   const navigate = useNavigate();
   const { register, setValue, getValues } = useFormContext();
 
+  register(INPUT_TYPE.TOPIC_CONTENT_TYPE, CONFIG.TOPIC_CONTENT_TYPE.options);
+
   const topicTitle = getValues(INPUT_TYPE.TOPIC_TITLE);
   const topicCategory = getValues(INPUT_TYPE.TOPIC_CATEGORY);
 
@@ -45,8 +47,6 @@ const BTopicCreateStep2 = () => {
     INPUT_TYPE.TOPIC_DEADLINE,
     CONFIG.TOPIC_DEADLINE.options
   );
-
-  setValue(INPUT_TYPE.TOPIC_CONTENT_TYPE, 'text');
 
   const handleTextSelect = () => {
     setValue(INPUT_TYPE.TOPIC_CONTENT_TYPE, 'text');
@@ -69,10 +69,6 @@ const BTopicCreateStep2 = () => {
       navigate(-1);
     }
   }, [topicTitle, topicCategory]);
-
-  useEffect(() => {
-    register(INPUT_TYPE.TOPIC_CONTENT_TYPE, CONFIG.TOPIC_CONTENT_TYPE.options);
-  }, [register]);
 
   return (
     <Container>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { FormProvider, useForm } from 'react-hook-form';
+import { FormProvider, useForm, useWatch } from 'react-hook-form';
 import { useSearchParams } from 'react-router-dom';
 import { INPUT_TYPE } from 'src/constants/form';
 
@@ -28,6 +28,10 @@ interface TopicCreateDTO {
 
 const BTopicCreate = () => {
   const methods = useForm<TopicCreateDTO>({ mode: 'onChange' });
+  const contentType = useWatch({
+    control: methods.control,
+    name: INPUT_TYPE.TOPIC_CONTENT_TYPE,
+  });
   const [searchParams] = useSearchParams();
   const step = searchParams.get('step');
 
@@ -40,7 +44,6 @@ const BTopicCreate = () => {
   };
 
   useEffect(() => {
-    const contentType = methods.getValues(INPUT_TYPE.TOPIC_CONTENT_TYPE);
     console.log('ㅋ', contentType);
     const ATopicCondition = methods.getFieldState(INPUT_TYPE.A_TOPIC, methods.formState);
     const BTopicCondition = methods.getFieldState(INPUT_TYPE.B_TOPIC, methods.formState);
@@ -77,7 +80,7 @@ const BTopicCreate = () => {
         }
       }
     }
-  }, [methods.formState, step, methods.getValues([INPUT_TYPE.TOPIC_CONTENT_TYPE])]);
+  }, [contentType, methods, methods.formState, step]);
 
   if (step === null) {
     return;
