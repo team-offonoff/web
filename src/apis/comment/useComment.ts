@@ -77,7 +77,7 @@ const useReactComment = (topicId: number, commentId: number) => {
       queryClient.setQueryData(
         [COMMENT_KEY, topicId],
         (oldData: InfiniteData<PagingDataResponse<CommentResponse>, unknown> | undefined) => {
-          if (!oldData) return oldData;
+          if (!oldData) {return oldData;}
           return {
             ...oldData,
             pages: oldData.pages.map((page) => {

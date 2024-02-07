@@ -2,8 +2,8 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 
 export interface TextProps extends React.HTMLAttributes<HTMLDivElement> {
-  size: number;
   children: React.ReactNode;
+  size?: number;
   tagName?: keyof JSX.IntrinsicElements;
   weight?: React.CSSProperties['fontWeight'];
   color?: React.CSSProperties['color'];
@@ -15,17 +15,21 @@ export interface TextProps extends React.HTMLAttributes<HTMLDivElement> {
 const getFontSize = (sizeInPx: number) => `${sizeInPx / 10}rem`;
 
 const Text = React.memo((props: TextProps) => {
-  const { tagName = 'div', children, ...others } = props;
+  const { tagName = 'div', children, size = 16, ...others } = props;
 
   return (
-    <StyledText {...others} as={tagName}>
+    <StyledText {...others} as={tagName} size={size}>
       {children}
     </StyledText>
   );
 });
 
 const StyledText = styled('div')<TextProps>`
-  line-height: ${({ lineHeight }) => lineHeight || '1.4'};
+  ${({ lineHeight = 1.4 }) =>
+    lineHeight &&
+    css`
+      line-height: ${lineHeight};
+    `}
   ${({ align }) =>
     align &&
     css`

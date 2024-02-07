@@ -1,11 +1,11 @@
-import { css, styled } from 'styled-components';
+import { styled } from 'styled-components';
 
 import { TextInputTheme } from './theme';
 
 const StyledInput = styled.input<{ inputTheme: TextInputTheme }>`
   width: 100%;
-  font-size: 1.4rem;
-  font-weight: 700;
+  font-size: ${({ inputTheme }) => inputTheme.placeholderSize};
+  font-weight: ${({ inputTheme }) => inputTheme.fontWeight};
   line-height: 1.4;
   color: ${({ theme }) => theme.colors.white};
   appearance: none;
@@ -17,8 +17,9 @@ const StyledInput = styled.input<{ inputTheme: TextInputTheme }>`
   }
 
   &::placeholder {
+    font-size: ${({ inputTheme }) => inputTheme.placeholderSize};
+    font-weight: ${({ inputTheme }) => inputTheme.fontWeight};
     color: ${({ inputTheme }) => inputTheme.placeholderColor};
-    opacity: 0.6;
   }
 `;
 

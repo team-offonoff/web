@@ -3,9 +3,12 @@ import React from 'react';
 
 import { useReactComment } from '@apis/comment/useComment';
 import { Col, Row } from '@components/commons/Flex/Flex';
+import ProfileImg from '@components/commons/ProfileImg/ProfileImg';
 import Text from '@components/commons/Text/Text';
 import useModal from '@hooks/useModal/useModal';
 import { CommentResponse } from '@interfaces/api/comment';
+
+import { useAuthStore } from '@store/auth';
 
 import { colors } from '@styles/theme';
 
@@ -21,6 +24,7 @@ interface CommentProps {
 const Comment = React.memo(({ comment }: CommentProps) => {
   const { Modal, toggleModal } = useModal('action');
   const reactMutation = useReactComment(comment.topicId, comment.commentId);
+  const memberId = useAuthStore((store) => store.memberId);
   const likeCount = Math.max(
     comment.commentReaction.likeCount - comment.commentReaction.hateCount,
     0
@@ -35,6 +39,16 @@ const Comment = React.memo(({ comment }: CommentProps) => {
   });
 
   const handleCommentMenu = () => {
+    toggleModal();
+  };
+
+  const handleCommentModify = () => {
+    // TODO: 수정하기 기능 구현
+    toggleModal();
+  };
+
+  const handleCommentDelete = () => {
+    // TODO: 삭제하기 기능 구현
     toggleModal();
   };
 
@@ -56,7 +70,7 @@ const Comment = React.memo(({ comment }: CommentProps) => {
       <Col padding={'14px 20px 24px'}>
         <Row justifyContent={'space-between'} alignItems={'flex-start'}>
           <Row gap={8}>
-            <CommentAuthorProfileImg src={'https://picsum.photos/50/50'} alt={'profile'} />
+            <ProfileImg url={comment.writer.profileImageUrl} size={22} />
             <Col gap={2}>
               <Row>
                 <Text size={14} color={colors.black_60}>
@@ -93,14 +107,35 @@ const Comment = React.memo(({ comment }: CommentProps) => {
         </Col>
       </Col>
       <Modal>
-        <button onClick={handleCommentReport}>
-          <Row alignItems={'center'} gap={14}>
-            <ReportIcon />
-            <Text size={16} weight={500}>
-              신고하기
-            </Text>
-          </Row>
-        </button>
+        {memberId === comment.writer.id ? (
+          <Col gap={14}>
+            <button onClick={handleCommentModify}>
+              <Row alignItems={'center'} gap={14}>
+                <ReportIcon />
+                <Text size={16} weight={500}>
+                  수정
+                </Text>
+              </Row>
+            </button>
+            <button onClick={handleCommentDelete}>
+              <Row alignItems={'center'} gap={14}>
+                <ReportIcon />
+                <Text size={16} weight={500}>
+                  삭제
+                </Text>
+              </Row>
+            </button>
+          </Col>
+        ) : (
+          <button onClick={handleCommentReport}>
+            <Row alignItems={'center'} gap={14}>
+              <ReportIcon />
+              <Text size={16} weight={500}>
+                신고하기
+              </Text>
+            </Row>
+          </button>
+        )}
       </Modal>
     </React.Fragment>
   );

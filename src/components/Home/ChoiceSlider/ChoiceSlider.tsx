@@ -1,10 +1,11 @@
 import { useAnimation, PanInfo, motion } from 'framer-motion';
 import React from 'react';
-import { getScreenWidth } from 'src/utils/screenWidth';
 import styled from 'styled-components';
 
 import ChoiceSlide from '@components/Home/ChoiceSlide/ChoiceSlide';
 import { Choice } from '@interfaces/api/topic';
+
+import { getScreenWidth } from '@utils/screenWidth';
 
 interface ChoiceSliderProps {
   onVote: (choiceOption: Choice['choiceOption']) => void;

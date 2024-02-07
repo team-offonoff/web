@@ -34,4 +34,5 @@ export interface OAuthResponse {
   memberId: number;
   joinStatus: JoinStatus;
   accessToken: string;
+  refreshToken: string;
 }

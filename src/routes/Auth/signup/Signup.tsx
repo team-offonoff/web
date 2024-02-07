@@ -1,8 +1,6 @@
 import React, { useEffect } from 'react';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
-import { useLocation } from 'react-router-dom';
-import { CONFIG, INPUT_TYPE } from 'src/constants/form';
-import { GENDERS, JOBS } from 'src/constants/signup';
+import { useLocation, useSearchParams } from 'react-router-dom';
 
 import { SingnUpRequestDTO, useSignup } from '@apis/oauth/signup';
 import { Col } from '@components/commons/Flex/Flex';
@@ -13,6 +11,9 @@ import SelectInput from '@components/commons/SelectInput/SelectInput';
 import Text from '@components/commons/Text/Text';
 import TextInput from '@components/commons/TextInput/TextInput';
 import useBottomSheet from '@hooks/useBottomSheet/useBottomSheet';
+
+import { INPUT_TYPE, CONFIG } from '@constants/form';
+import { GENDERS, JOBS } from '@constants/signup';
 
 import { colors } from '@styles/theme';
 
@@ -27,6 +28,7 @@ const MAX_NICKNAME_LENGTH = 8;
 
 const Signup = () => {
   const location = useLocation();
+  const [searchParams] = useSearchParams();
   const methods = useForm<Omit<SingnUpRequestDTO, 'memberId'>>({ mode: 'onChange' });
   const signupMutation = useSignup();
   const { BottomSheet: TermsSheet, toggleSheet } = useBottomSheet({
@@ -35,7 +37,8 @@ const Signup = () => {
     transparent: false,
   });
 
-  const memberId = location.state.memberId as number;
+  const memberId =
+    (location.state?.memberId as number) || (searchParams.get('memberId') as unknown as number);
 
   const birthdayInput = methods.watch(INPUT_TYPE.BIRTHDAY);
   const nicknameProgress = methods.watch(INPUT_TYPE.NICKNAME)
@@ -84,11 +87,11 @@ const Signup = () => {
   return (
     <Layout
       hasBottomNavigation={false}
-      HeaderCenter={() => (
+      HeaderCenter={
         <Text size={20} weight={700} color={colors.white}>
           회원정보 입력
         </Text>
-      )}
+      }
     >
       <FormProvider {...methods}>
         <FormContainer onSubmit={methods.handleSubmit(handleSubmitForm)}>

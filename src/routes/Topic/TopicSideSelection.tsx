@@ -7,13 +7,7 @@ import Text from '@components/commons/Text/Text';
 
 import { colors } from '@styles/theme';
 
-import {
-  ALogoIcon,
-  BLogoIcon,
-  BigDownChevronIcon,
-  RightChevronIcon,
-  TopicCreatBackgrounIcon,
-} from '@icons/index';
+import { ALogoIcon, BLogoIcon, BigDownChevronIcon, TopicCreatBackgrounIcon } from '@icons/index';
 
 import {
   SelectDescription,
@@ -26,7 +20,6 @@ import {
   Container,
   Description,
   DownShevron,
-  EmptyDiv,
   ADescription,
   BDescription,
   BackgroundBlur,
@@ -55,13 +48,12 @@ const TopicSideSelection = () => {
   return (
     <Layout
       hasBottomNavigation={false}
-      HeaderLeft={() => <CloseButton />}
-      HeaderCenter={() => (
+      HeaderLeft={<CloseButton />}
+      HeaderCenter={
         <Text size={20} weight={600} color={colors.white}>
           토픽 생성
         </Text>
-      )}
-      HeaderRight={() => <EmptyDiv />}
+      }
     >
       <Container>
         <SelectDescription selected={selected}>
@@ -76,7 +68,7 @@ const TopicSideSelection = () => {
         </SelectDescription>
         <ButtonContainer>
           <AButton selected={selected} onClick={handleAButtonClick}>
-            <ALogoIcon />
+            <ALogoIcon fill={colors.A} />
             <ADescription selected={selected}>
               Anything <br /> Side
             </ADescription>

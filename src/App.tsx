@@ -6,14 +6,16 @@ import { StyleSheetManager, ThemeProvider } from 'styled-components';
 import GlobalStyle from '@styles/global';
 import { theme } from '@styles/theme';
 
-import { enableScrollLock } from '@utils/scrollLock';
+import { initHeight } from '@utils/initHeight';
 
 import Router from './routes';
 
 const App = () => {
   const queryClient = new QueryClient();
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    initHeight();
+  }, []);
 
   return (
     <StyleSheetManager shouldForwardProp={() => true}>

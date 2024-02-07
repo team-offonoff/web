@@ -21,7 +21,7 @@ const Home = () => {
   }
 
   return (
-    <Layout HeaderRight={() => <NotificationButton />}>
+    <Layout HeaderRight={<NotificationButton />}>
       <Container>
         <TopicSwiper>
           {

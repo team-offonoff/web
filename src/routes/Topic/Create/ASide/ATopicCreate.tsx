@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
-import { CONFIG, INPUT_TYPE } from 'src/constants/form';
 
 import DefaultButton from '@components/commons/Button/DefaultButton';
-import { Col, Row } from '@components/commons/Flex/Flex';
+import { Col } from '@components/commons/Flex/Flex';
 import Text from '@components/commons/Text/Text';
 import TextInput from '@components/commons/TextInput/TextInput';
 import { theme3 } from '@components/commons/TextInput/theme';
 import TopicCreateTextInput from '@components/TopicCreate/TopicCreateTextInput';
+
+import { INPUT_TYPE, CONFIG } from '@constants/form';
 
 import { colors } from '@styles/theme';
 
@@ -40,7 +41,7 @@ const ATopicCreate = () => {
     } else {
       setIsFormFilled(false);
     }
-  }, [methods.getValues([INPUT_TYPE.TOPIC_TITLE, INPUT_TYPE.A_TOPIC, INPUT_TYPE.B_TOPIC])]);
+  }, [methods]);
 
   return (
     <FormProvider {...methods}>

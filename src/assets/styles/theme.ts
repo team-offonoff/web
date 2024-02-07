@@ -1,4 +1,4 @@
-import { DefaultTheme } from 'styled-components/dist/types';
+import { DefaultTheme } from 'styled-components';
 
 export const colors = {
   purple: '#A46FF3',

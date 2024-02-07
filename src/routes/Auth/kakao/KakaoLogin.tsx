@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router';
-import { useAuthStore } from 'src/store/auth';
 
 import { kakaoLogin } from '@apis/oauth/kakao';
 import { Row } from '@components/commons/Flex/Flex';
+
+import { useAuthStore } from '@store/auth';
 
 import { colors, zIndex } from '@styles/theme';
 
@@ -19,22 +20,20 @@ const KakaoLogin = () => {
   const kakaoCode = new URL(window.location.href).searchParams.get('code');
 
   const navigate = useNavigate();
-  const login = useAuthStore((state) => state.login);
+  const login = useAuthStore((store) => store.login);
 
   const handleKakaoLogin = async () => {
     if (kakaoCode) {
       try {
         const response = await kakaoLogin(kakaoCode);
-        if (response && response.accessToken) {
-          if (response.newMember) {
-            navigate(`/signup`, {
-              state: { memberId: response.memberId },
-            });
-          } else {
-            client.setAccessToken(response.accessToken);
-            login();
-            navigate('/');
-          }
+        if (response.newMember) {
+          navigate(`/signup`, {
+            state: { memberId: response.memberId },
+          });
+        } else {
+          client.setAccessToken(response.accessToken);
+          login(response.memberId);
+          navigate('/');
         }
       } catch (err) {
         if (err instanceof ResponseError) {
@@ -62,7 +61,7 @@ const KakaoLogin = () => {
         style={{
           position: 'fixed',
           overflow: 'hidden',
-          height: '100vh',
+          height: 'calc(var(--vh, 1vh) * 100)',
           width: '100vw',
           zIndex: zIndex.modal,
           backgroundColor: colors.navy_60,
@@ -74,7 +73,7 @@ const KakaoLogin = () => {
           gap={7.5}
           style={{ width: '100%', height: '100%' }}
         >
-          <ALogoIcon width={65} />
+          <ALogoIcon width={65} fill={colors.A} />
           <BLogoIcon width={66} />
         </Row>
       </div>

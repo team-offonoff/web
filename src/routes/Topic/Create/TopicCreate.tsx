@@ -16,7 +16,6 @@ import {
   HeaderCenterContainer,
   SideButton,
   SideChangeButton,
-  EmptyDiv,
 } from './TopicCreate.sytles';
 
 const TopicCreate = () => {
@@ -52,12 +51,12 @@ const TopicCreate = () => {
   return (
     <Layout
       hasBottomNavigation={false}
-      HeaderLeft={() => (
+      HeaderLeft={
         <BackButton onClick={() => navigate(-1)}>
           <RightChevronIcon style={{ transform: 'rotate(180deg)' }} stroke={colors.white} />
         </BackButton>
-      )}
-      HeaderCenter={() => (
+      }
+      HeaderCenter={
         <HeaderCenterContainer>
           <Text size={20} weight={600} color={colors.white}>
             토픽 만들기
@@ -83,8 +82,7 @@ const TopicCreate = () => {
             </SideChangeButton>
           </SideButton>
         </HeaderCenterContainer>
-      )}
-      HeaderRight={() => <EmptyDiv />}
+      }
     >
       {Container}
     </Layout>
