@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { set, useFormContext } from 'react-hook-form';
-import { INPUT_TYPE } from 'src/constants/form';
+import { useFormContext } from 'react-hook-form';
 
 import Text from '@components/commons/Text/Text';
 import useModal from '@hooks/useModal/useModal';
+
+import { INPUT_TYPE } from '@constants/form';
 
 import { colors } from '@styles/theme';
 

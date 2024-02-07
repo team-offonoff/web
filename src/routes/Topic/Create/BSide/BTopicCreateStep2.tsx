@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { CONFIG, INPUT_TYPE } from 'src/constants/form';
-import { TOPIC_DEADLINES } from 'src/constants/topic';
 
 import { Col, Row } from '@components/commons/Flex/Flex';
 import Text from '@components/commons/Text/Text';
 import TopicCreateImageInput from '@components/TopicCreate/TopicCreateImageInput';
 import TopicCreateTextInput from '@components/TopicCreate/TopicCreateTextInput';
+
+import { INPUT_TYPE, CONFIG } from '@constants/form';
+import { TOPIC_DEADLINES } from '@constants/topic';
 
 import { colors } from '@styles/theme';
 

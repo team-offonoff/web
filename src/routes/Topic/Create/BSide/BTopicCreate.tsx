@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { FormProvider, useForm, useWatch } from 'react-hook-form';
 import { useSearchParams } from 'react-router-dom';
-import { INPUT_TYPE } from 'src/constants/form';
 
 import DefaultButton from '@components/commons/Button/DefaultButton';
+
+import { INPUT_TYPE } from '@constants/form';
 
 import {
   Container,

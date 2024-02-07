@@ -1,12 +1,13 @@
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { CONFIG, INPUT_TYPE } from 'src/constants/form';
 
 import { Col } from '@components/commons/Flex/Flex';
 import Text from '@components/commons/Text/Text';
 import TextInput from '@components/commons/TextInput/TextInput';
 import { theme2, theme3 } from '@components/commons/TextInput/theme';
+
+import { INPUT_TYPE, CONFIG } from '@constants/form';
 
 import { colors } from '@styles/theme';
 
