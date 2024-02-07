@@ -28,7 +28,7 @@ const useBottomSheet = (props: UseBottomSheetProps) => {
     </BottomSheet>
   );
 
-  return { BottomSheet: isOpen ? Sheet : () => null, toggleSheet };
+  return { BottomSheet: Sheet, toggleSheet };
 };
 
 export default useBottomSheet;

@@ -14,6 +14,7 @@ import CheckIcon from './check.svg?react';
 import ClockIcon from './clock.svg?react';
 import CloseIcon from './close.svg?react';
 import CommentIcon from './comment.svg?react';
+import DefaultProfileIcon from './default-profile.svg?react';
 import DownChevronIcon from './down-chevron.svg?react';
 import GoogleIcon from './google.svg?react';
 import HideIcon from './hide.svg?react';
@@ -51,6 +52,7 @@ export {
   ClockIcon,
   CloseIcon,
   CommentIcon,
+  DefaultProfileIcon,
   DownChevronIcon,
   GoogleIcon,
   HideIcon,

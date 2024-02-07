@@ -3,6 +3,7 @@ import React from 'react';
 
 import { useReactComment } from '@apis/comment/useComment';
 import { Col, Row } from '@components/commons/Flex/Flex';
+import ProfileImg from '@components/commons/ProfileImg/ProfileImg';
 import Text from '@components/commons/Text/Text';
 import useModal from '@hooks/useModal/useModal';
 import { CommentResponse } from '@interfaces/api/comment';
@@ -69,7 +70,7 @@ const Comment = React.memo(({ comment }: CommentProps) => {
       <Col padding={'14px 20px 24px'}>
         <Row justifyContent={'space-between'} alignItems={'flex-start'}>
           <Row gap={8}>
-            <CommentAuthorProfileImg src={'https://picsum.photos/50/50'} alt={'profile'} />
+            <ProfileImg url={comment.writer.profileImageUrl} size={22} />
             <Col gap={2}>
               <Row>
                 <Text size={14} color={colors.black_60}>
