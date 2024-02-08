@@ -14,7 +14,6 @@ import { colors } from '@styles/theme';
 
 import { MeatballIcon, ReportIcon } from '@icons/index';
 
-import { CommentAuthorProfileImg } from './Comment.styles';
 import Thumbs from './Thumbs';
 
 interface CommentProps {

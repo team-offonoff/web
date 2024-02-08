@@ -16,19 +16,22 @@ const useBottomSheet = (props: UseBottomSheetProps) => {
     setIsOpen((prev) => !prev);
   }, []);
 
-  const Sheet = ({ children }: { children: React.ReactNode }) => (
-    <BottomSheet
-      open={isOpen}
-      setIsOpen={setIsOpen}
-      snapPoints={snapPoints}
-      initialSnap={initialSnap}
-      transparent={transparent}
-    >
-      {children}
-    </BottomSheet>
+  const Sheet = useCallback(
+    ({ children }: { children: React.ReactNode }) => (
+      <BottomSheet
+        open={isOpen}
+        setIsOpen={setIsOpen}
+        snapPoints={snapPoints}
+        initialSnap={initialSnap}
+        transparent={transparent}
+      >
+        {children}
+      </BottomSheet>
+    ),
+    [isOpen]
   );
 
-  return { BottomSheet: Sheet, toggleSheet };
+  return { BottomSheet: Sheet, toggleSheet, isOpen };
 };
 
 export default useBottomSheet;

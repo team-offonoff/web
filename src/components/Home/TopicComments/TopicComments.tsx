@@ -1,4 +1,4 @@
-import React, { memo, useState } from 'react';
+import React, { memo, useLayoutEffect, useState } from 'react';
 
 import { useComments, useCreateComment } from '@apis/comment/useComment';
 import { Row } from '@components/commons/Flex/Flex';
@@ -22,16 +22,15 @@ interface TopicCommentsProps {
 }
 
 const TopicComments = memo(({ topic }: TopicCommentsProps) => {
-  const { data: comments, fetchNextPage } = useComments(
-    topic.topicId,
-    topic.selectedOption !== null
-  );
+  const { data, fetchNextPage } = useComments(topic.topicId);
   const commentMutation = useCreateComment(topic.topicId);
   const [newComment, setNewComment] = useState('');
 
-  const commentCount = comments?.pages.reduce((acc, page) => {
+  const commentCount = data?.pages.reduce((acc, page) => {
     return acc + page.data.length;
   }, 0);
+
+  const comments = React.useMemo(() => data?.pages.flatMap((page) => page.data), [data]);
 
   return (
     <TopicCommentsContainer>
@@ -46,13 +45,7 @@ const TopicComments = memo(({ topic }: TopicCommentsProps) => {
         </Row>
       </TopicCommentsHeader>
       <CommentsContainer>
-        {comments?.pages.map((group, i) => (
-          <React.Fragment key={i}>
-            {group.data.map((comment) => (
-              <Comment key={comment.commentId} comment={comment} />
-            ))}
-          </React.Fragment>
-        ))}
+        {comments?.map((comment) => <Comment key={comment.commentId} comment={comment} />)}
       </CommentsContainer>
       <CommentInputContainer>
         <CommentInput
