@@ -9,7 +9,7 @@ import client from '@apis/fetch';
 export const TOPIC_KEY = 'topics';
 
 const getTopics = () => {
-  return client.get<PagingDataResponse<TopicResponse>>('/topics/info/voting?size=100');
+  return client.get<PagingDataResponse<TopicResponse>>('/topics/info?size=100');
 };
 
 const useTopics = () => {
