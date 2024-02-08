@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { FormProvider, SubmitHandler, useForm, useWatch } from 'react-hook-form';
-import { useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 import { useCreateTopics } from '@apis/topic/useTopics';
 import DefaultButton from '@components/commons/Button/DefaultButton';
@@ -20,6 +20,7 @@ import BTopicCreateStep1 from './BTopicCreateStep1';
 import BTopicCreateStep2 from './BTopicCreateStep2';
 
 const BTopicCreate = () => {
+  const navigate = useNavigate();
   const methods = useForm<TopicCreateDTO>({ mode: 'onChange' });
   const contentType = useWatch({
     control: methods.control,
@@ -67,7 +68,7 @@ const BTopicCreate = () => {
           },
         ],
       });
-      console.log('success :', res);
+      navigate(`/topics/b`);
     } catch (error) {
       console.error(error);
     }

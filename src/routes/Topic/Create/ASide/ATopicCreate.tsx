@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 
 import { useCreateTopics } from '@apis/topic/useTopics';
 import DefaultButton from '@components/commons/Button/DefaultButton';
@@ -18,6 +19,7 @@ import { colors } from '@styles/theme';
 import { Container, SubmitButton } from './ATopicCreate.styles';
 
 const ATopicCreate = () => {
+  const navigate = useNavigate();
   const methods = useForm<TopicCreateDTO>({ mode: 'onChange' });
 
   const titleProgress = methods.watch(INPUT_TYPE.TOPIC_TITLE)
@@ -54,7 +56,7 @@ const ATopicCreate = () => {
           },
         ],
       });
-      console.log('success :', res);
+      navigate(`/topics/a`);
     } catch (error) {
       console.error(error);
     }
