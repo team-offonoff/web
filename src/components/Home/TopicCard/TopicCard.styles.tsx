@@ -1,7 +1,4 @@
-import { motion } from 'framer-motion';
 import { styled } from 'styled-components';
-
-import { colors } from '@styles/theme';
 
 export const Container = styled.div`
   height: 100%;
