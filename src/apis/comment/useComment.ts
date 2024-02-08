@@ -37,14 +37,13 @@ const reactComment = (commentId: number, reaction: 'like' | 'hate', enable: bool
   });
 };
 
-const useComments = (topicId: number, enabled: boolean) => {
+const useComments = (topicId: number) => {
   return useInfiniteQuery({
     queryKey: [COMMENT_KEY, topicId],
     queryFn: (params) => getComments({ topicId: topicId, page: params.pageParam, size: 20 }),
     initialPageParam: 0,
     getNextPageParam: (lastPage) =>
       lastPage.pageInfo.last ? undefined : lastPage.pageInfo.page + 1,
-    enabled: enabled,
   });
 };
 
@@ -77,7 +76,9 @@ const useReactComment = (topicId: number, commentId: number) => {
       queryClient.setQueryData(
         [COMMENT_KEY, topicId],
         (oldData: InfiniteData<PagingDataResponse<CommentResponse>, unknown> | undefined) => {
-          if (!oldData) {return oldData;}
+          if (!oldData) {
+            return oldData;
+          }
           return {
             ...oldData,
             pages: oldData.pages.map((page) => {
