@@ -74,7 +74,7 @@ const TopicSideSelection = () => {
             </ADescription>
           </AButton>
           <BButton selected={selected} onClick={handleBButtonClick}>
-            <BLogoIcon />
+            <BLogoIcon fill={colors.B} />
             <BDescription selected={selected}>
               Business <br /> Side
             </BDescription>
