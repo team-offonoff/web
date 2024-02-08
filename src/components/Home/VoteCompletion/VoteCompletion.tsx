@@ -26,8 +26,13 @@ const VoteCompletion = ({ side, topicContent }: VoteCompletionProps) => {
   return (
     <VoteCompletionContainer>
       <VoteCompletionBackground side={side}>
-        <div style={{ zIndex: 1 }}>
-          <Text color={colors.white} size={20} weight={600}>
+        <div style={{ zIndex: 1, padding: 20, wordBreak: 'break-word' }}>
+          <Text
+            color={colors.white}
+            size={topicContent.length >= 21 ? 16 : 20}
+            weight={600}
+            align="center"
+          >
             {topicContent}
           </Text>
         </div>
