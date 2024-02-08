@@ -18,10 +18,10 @@ interface TopicResponse {
 
 export interface TopicCreateRequestDTO {
   side: string;
-  keywordName: string;
+  keywordName: string | null;
   title: string;
   choices: ChoiceRequest[];
-  deadline: number;
+  deadline: number | null;
 }
 
 interface ChoiceRequest {

@@ -18,6 +18,17 @@ import {
   SideChangeButton,
 } from './TopicCreate.sytles';
 
+export interface TopicCreateDTO {
+  topicTitle: string;
+  ATopic: string;
+  BTopic: string;
+  topicCategory: string;
+  ATopicImageURL: string;
+  BTopicImageURL: string;
+  topicDeadline: number;
+  topicType: string;
+}
+
 const TopicCreate = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();

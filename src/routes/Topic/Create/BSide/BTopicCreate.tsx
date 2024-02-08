@@ -5,6 +5,7 @@ import { useSearchParams } from 'react-router-dom';
 import { useCreateTopics } from '@apis/topic/useTopics';
 import DefaultButton from '@components/commons/Button/DefaultButton';
 import { CHOICE_OPTIONS, TopicCreateRequestDTO } from '@interfaces/api/topic';
+import { TopicCreateDTO } from '@routes/Topic/Create/TopicCreate';
 
 import { INPUT_TYPE } from '@constants/form';
 
@@ -17,17 +18,6 @@ import {
 } from './BTopicCreate.styles';
 import BTopicCreateStep1 from './BTopicCreateStep1';
 import BTopicCreateStep2 from './BTopicCreateStep2';
-
-interface TopicCreateDTO {
-  topicTitle: string;
-  ATopic: string;
-  BTopic: string;
-  topicCategory: string;
-  ATopicImageURL: string;
-  BTopicImageURL: string;
-  topicDeadline: number;
-  topicType: string;
-}
 
 const BTopicCreate = () => {
   const methods = useForm<TopicCreateDTO>({ mode: 'onChange' });
