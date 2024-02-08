@@ -47,5 +47,5 @@ export const VoteCompletionBackground = styled.div<{ side: 'A' | 'B' }>`
 
 export const VoteCompletionTextContainer = styled.div`
   position: absolute;
-  top: -20px;
+  top: -45px;
 `;
