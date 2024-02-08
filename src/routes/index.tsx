@@ -10,7 +10,7 @@ import {
 
 import { useAuthStore } from '@store/auth';
 
-import AlphaTopics from './A/AlphaTopics';
+import AlphaTopics from './A/ATopics';
 import GoogleLogin from './Auth/google/GoogleLogin';
 import KakaoLogin from './Auth/kakao/KakaoLogin';
 import Login from './Auth/login/Login';

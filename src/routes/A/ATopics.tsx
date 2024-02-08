@@ -1,6 +1,6 @@
 import { ChangeEvent, useState } from 'react';
 
-import AlphaTopicCard from '@components/AlphaTopic/AlphaTopicCard';
+import ATopicCard from '@components/A/ATopicCard';
 import { Col, Row } from '@components/commons/Flex/Flex';
 import Layout from '@components/commons/Layout/Layout';
 import Text from '@components/commons/Text/Text';
@@ -10,7 +10,7 @@ import { colors } from '@styles/theme';
 
 import { ALogoIcon, UpDownChevronIcon } from '@icons/index';
 
-import { Container } from './AlphaTopics.styles';
+import { Container } from './ATopics.styles';
 
 const AlphaTopics = () => {
   const [topicFilter, setTopicFilter] = useState('진행중');
@@ -68,7 +68,7 @@ const AlphaTopics = () => {
           </button>
         </Row>
         <Col>
-          <AlphaTopicCard
+          <ATopicCard
             chip="popular"
             topicId={241}
             topicSide={'TOPIC_A'}
