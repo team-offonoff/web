@@ -8,6 +8,8 @@ import { CHOICE_OPTIONS, TopicCreateRequestDTO } from '@interfaces/api/topic';
 
 import { INPUT_TYPE } from '@constants/form';
 
+import { TopicCreateDTO } from '../TopicCreate';
+
 import {
   Container,
   PageController,
@@ -17,17 +19,6 @@ import {
 } from './BTopicCreate.styles';
 import BTopicCreateStep1 from './BTopicCreateStep1';
 import BTopicCreateStep2 from './BTopicCreateStep2';
-
-interface TopicCreateDTO {
-  topicTitle: string;
-  ATopic: string;
-  BTopic: string;
-  topicCategory: string;
-  ATopicImageURL: string;
-  BTopicImageURL: string;
-  topicDeadline: number;
-  topicType: string;
-}
 
 const BTopicCreate = () => {
   const methods = useForm<TopicCreateDTO>({ mode: 'onChange' });
