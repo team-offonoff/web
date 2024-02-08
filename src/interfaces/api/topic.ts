@@ -7,10 +7,10 @@ interface TopicResponse {
   topicId: number;
   topicSide: string;
   topicTitle: string;
-  deadline: number; // 1702914494
+  deadline: number | null; // 1702914494
   voteCount: number;
-  topicContent: string; // TBD
-  keyword: Keyword;
+  topicContent: string | null;
+  keyword: Keyword | null;
   choices: Choice[];
   author: Author;
   selectedOption: typeof CHOICE_OPTIONS.CHOICE_A | typeof CHOICE_OPTIONS.CHOICE_B | null;
