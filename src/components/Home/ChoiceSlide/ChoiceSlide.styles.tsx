@@ -30,8 +30,11 @@ export const BetaSideContainer = styled(SlideContainer)`
 `;
 
 export const TextContainer = styled.div`
+  z-index: 1;
   justify-content: flex-start;
+  width: 87px;
   padding: 0 44px;
+  word-break: break-all;
 `;
 
 export const SideImage = styled.img`
