@@ -35,7 +35,7 @@ const StyledText = styled('div')<TextProps>`
     css`
       text-align: ${align};
     `}
-    ${({ color }) =>
+  ${({ color }) =>
     color &&
     css`
       color: ${color};

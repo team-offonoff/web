@@ -74,7 +74,7 @@ const KakaoLogin = () => {
           style={{ width: '100%', height: '100%' }}
         >
           <ALogoIcon width={65} fill={colors.A} />
-          <BLogoIcon width={66} />
+          <BLogoIcon width={66} fill={colors.B} />
         </Row>
       </div>
       <Login />

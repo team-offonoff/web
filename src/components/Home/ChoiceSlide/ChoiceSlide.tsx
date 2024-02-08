@@ -44,12 +44,12 @@ const ChoiceSlide = ({ side, topicContent }: ChoiceSlideProps) => {
         <div
           style={{
             position: 'absolute',
-            top: -20,
+            top: -45,
             right: side === 'A' ? 95 : 'unset',
             left: side === 'B' ? 107 : 'unset',
           }}
         >
-          <Text color={colors.white_40} size={200} weight={900}>
+          <Text color={side === 'A' ? '#e15ba1' : '#19b1be'} size={200} weight={900}>
             {side}
           </Text>
         </div>
@@ -84,7 +84,7 @@ const ChoiceSlide = ({ side, topicContent }: ChoiceSlideProps) => {
             </Text>
             <ModalContentText>{topicContent.text}</ModalContentText>
           </ModalContent>
-          <CloseButton onClick={toggleModal}>
+          <CloseButton onClick={() => toggleModal}>
             <CloseIcon />
           </CloseButton>
         </ModalContainer>

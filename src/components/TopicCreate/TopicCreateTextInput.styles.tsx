@@ -2,7 +2,7 @@ import { styled } from 'styled-components';
 
 import { colors } from '@styles/theme';
 
-export const ReplaceButton = styled.div`
+export const ReplaceButton = styled.button`
   display: flex;
   flex-direction: row;
   gap: 6px;
@@ -44,6 +44,7 @@ export const TextInputTextContainer = styled.div`
 `;
 
 export const Input = styled.input`
+  z-index: 1;
   width: 100%;
   height: 100%;
   padding: 16px;

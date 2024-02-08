@@ -17,7 +17,7 @@ import Login from './Auth/login/Login';
 import Signup from './Auth/signup/Signup';
 import Home from './Home/Home';
 import Notification from './Notification/Notification';
-import TopicCreate from './Topic/TopicCreate';
+import TopicCreate from './Topic/Create/TopicCreate';
 import TopicSideSelection from './Topic/TopicSideSelection';
 
 const ProtectedRoute = () => {

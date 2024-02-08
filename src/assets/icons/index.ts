@@ -15,12 +15,15 @@ import ClockIcon from './clock.svg?react';
 import CloseIcon from './close.svg?react';
 import CommentIcon from './comment.svg?react';
 import DefaultProfileIcon from './default-profile.svg?react';
+import DeleteIcon from './delete.svg?react';
 import DownChevronIcon from './down-chevron.svg?react';
 import GoogleIcon from './google.svg?react';
 import HideIcon from './hide.svg?react';
 import HitIcon from './hit.svg?react';
 import HomeStrokeIcon from './home-stroke.svg?react';
 import HomeIcon from './home.svg?react';
+import SelectedImageIcon from './image-icon-selected.svg?react';
+import ImageIcon from './image-icon.svg?react';
 import KakaoIcon from './kakao.svg?react';
 import LeftDoubleArrowIcon from './left-double-arrow.svg?react';
 import MeatballIcon from './meatball.svg?react';
@@ -32,6 +35,8 @@ import RightChevronIcon from './right-chevron.svg?react';
 import RightDoubleArrowIcon from './right-double-arrow.svg?react';
 import RotateIcon from './rotate.svg?react';
 import SizeUpIcon from './size-up.svg?react';
+import SelectedTextIcon from './text-icon-selected.svg?react';
+import TextIcon from './text-icon.svg?react';
 import ThumbsIcon from './thumbs.svg?react';
 import TopicCreatBackgrounIcon from './topic-create-background.svg?react';
 import UpDownChevronIcon from './up-down.svg?react';
@@ -75,4 +80,9 @@ export {
   TopicCreatBackgrounIcon,
   UpDownChevronIcon,
   WriteBoxIcon,
+  TextIcon,
+  SelectedTextIcon,
+  ImageIcon,
+  SelectedImageIcon,
+  DeleteIcon,
 };

@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 
 import Layout from '@components/commons/Layout/Layout';
 import Text from '@components/commons/Text/Text';
@@ -8,8 +8,8 @@ import { colors } from '@styles/theme';
 
 import { DownChevronIcon, RightChevronIcon } from '@icons/index';
 
-import ATopicCreate from './ATopicCreate';
-import BTopicCreate from './BTopicCreate';
+import ATopicCreate from './ASide/ATopicCreate';
+import BTopicCreate from './BSide/BTopicCreate';
 import {
   BackButton,
   DownShevron,
@@ -20,8 +20,13 @@ import {
 
 const TopicCreate = () => {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const step = searchParams.get('step');
   const { topicSide } = useParams();
   const [isHidden, setIsHidden] = useState<boolean>(true);
+  const [isStep2, setIsStep2] = useState<boolean>(step === '2' && topicSide === 'B');
+
+  const Container = topicSide === 'A' ? <ATopicCreate /> : <BTopicCreate />;
 
   const handleSideButtonClick = () => {
     if (isHidden) {
@@ -32,10 +37,16 @@ const TopicCreate = () => {
   };
 
   const handleSideChangeButtonClick = (newtopicSideValue: string) => {
-    navigate(`/topics/create/${newtopicSideValue}`, { replace: true });
+    navigate(`/topics/create/${newtopicSideValue}?step=1`, { replace: true });
   };
 
-  const Container = topicSide === 'A' ? <ATopicCreate /> : <BTopicCreate />;
+  useEffect(() => {
+    if (step === '2' && topicSide === 'B') {
+      setIsStep2(true);
+    } else {
+      setIsStep2(false);
+    }
+  }, [step, topicSide]);
 
   return (
     <Layout
@@ -50,11 +61,11 @@ const TopicCreate = () => {
           <Text size={20} weight={600} color={colors.white}>
             토픽 만들기
           </Text>
-          <SideButton side={topicSide} onClick={handleSideButtonClick}>
+          <SideButton side={topicSide} onClick={handleSideButtonClick} disabled={isStep2}>
             <Text size={15} weight={500} color={topicSide === 'A' ? colors.A : colors.B}>
               {topicSide} 사이드
             </Text>
-            <DownShevron>
+            <DownShevron isStep2={isStep2}>
               <DownChevronIcon stroke={topicSide === 'A' ? colors.A : colors.B} />
             </DownShevron>
             <SideChangeButton

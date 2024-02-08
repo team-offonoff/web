@@ -16,6 +16,19 @@ interface TopicResponse {
   selectedOption: typeof CHOICE_OPTIONS.CHOICE_A | typeof CHOICE_OPTIONS.CHOICE_B | null;
 }
 
+export interface TopicCreateRequestDTO {
+  side: string;
+  keywordName: string;
+  title: string;
+  choices: ChoiceRequest[];
+  deadline: number;
+}
+
+interface ChoiceRequest {
+  choiceContentRequest: ChoiceContent;
+  choiceOption: typeof CHOICE_OPTIONS.CHOICE_A | typeof CHOICE_OPTIONS.CHOICE_B;
+}
+
 interface Choice {
   choiceId: number;
   content: ChoiceContent;
@@ -23,7 +36,7 @@ interface Choice {
 }
 
 interface ChoiceContent {
-  text: string;
+  text: null | string;
   imageUrl: null | string;
   type: string;
 }

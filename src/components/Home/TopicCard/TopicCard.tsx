@@ -120,9 +120,12 @@ const TopicCard = ({ topic }: TopicCardProps) => {
                 ? topic.choices[0]?.content?.text || 'A'
                 : topic.choices[1]?.content?.text || 'B'
             }
-          /> // TODO: 선택 완료 컴포넌트
+          />
         ) : (
-          <ChoiceSlider onVote={handleOnVote} choices={choices} />
+          <ChoiceSlider
+            onVote={handleOnVote}
+            choices={topic.choices.length > 0 ? topic.choices : choices}
+          />
         )}
         <Timer endTime={topic.deadline} />
         <SelectTextContainer $voted={topic.selectedOption !== null}>

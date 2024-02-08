@@ -9,9 +9,14 @@ export const INPUT_TYPE = {
   BIRTHDAY: 'birth',
   GENDER: 'gender',
   JOB: 'job',
-  TOPICTITLE: 'topicTitle',
-  ATOPIC: 'aTopic',
-  BTOPIC: 'bTopic',
+  TOPIC_TITLE: 'topicTitle',
+  A_TOPIC: 'ATopic',
+  B_TOPIC: 'BTopic',
+  A_TOPIC_IMAGEURL: 'ATopicImageURL',
+  B_TOPIC_IMAGEURL: 'BTopicImageURL',
+  TOPIC_CONTENT_TYPE: 'topicType',
+  TOPIC_CATEGORY: 'topicCategory',
+  TOPIC_DEADLINE: 'topicDeadline',
 } as const;
 
 export type ConfigKeys = keyof typeof INPUT_TYPE;
@@ -62,15 +67,11 @@ export const CONFIG: Record<ConfigKeys, ConfigField> = {
       },
     },
   },
-  TOPICTITLE: {
+  TOPIC_TITLE: {
     options: {
       required: {
         value: true,
         message: '제목을 입력해주세요.',
-      },
-      pattern: {
-        value: /^[가-힣a-zA-Z0-9!@#$%^()]+$/,
-        message: '특수문자는 !@#$%^()만 사용하실 수 있습니다.',
       },
       maxLength: {
         value: 20,
@@ -78,12 +79,54 @@ export const CONFIG: Record<ConfigKeys, ConfigField> = {
       },
     },
   },
-  ATOPIC: {
+  A_TOPIC: {
+    options: {
+      required: {
+        value: true,
+        message: '',
+      },
+    },
+  },
+  B_TOPIC: {
+    options: {
+      required: {
+        value: true,
+        message: '',
+      },
+    },
+  },
+  A_TOPIC_IMAGEURL: {
     options: {
       required: true,
     },
   },
-  BTOPIC: {
+  B_TOPIC_IMAGEURL: {
+    options: {
+      required: true,
+    },
+  },
+  TOPIC_CATEGORY: {
+    options: {
+      required: {
+        value: true,
+        message: '카테고리를 입력해주세요.',
+      },
+      pattern: {
+        value: /^[가-힣a-zA-Z0-9]+$/,
+        message: '한글, 영문, 숫자만 가능해요.',
+      },
+      maxLength: {
+        value: 6,
+        message: '카테고리는 6자리 이내로 입력해주세요.',
+      },
+    },
+  },
+  TOPIC_CONTENT_TYPE: {
+    options: {
+      required: true,
+    },
+  },
+  TOPIC_DEADLINE: {
     options: {
       required: true,
     },

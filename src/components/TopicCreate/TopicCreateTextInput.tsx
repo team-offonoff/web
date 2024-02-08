@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useFormContext } from 'react-hook-form';
 
 import { Col, Row } from '@components/commons/Flex/Flex';
@@ -19,31 +19,56 @@ import {
   InputSuffix,
 } from './TopicCreateTextInput.styles';
 
-interface TopicCreareProps {
-  topic: 'A' | 'B';
-  topicContent: string;
-  onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
-}
+const TopicCreateTextInput = () => {
+  const { register, watch, getFieldState, formState, setValue } = useFormContext();
+  const ATopicProgress = watch(INPUT_TYPE.A_TOPIC)
+    ? `${watch(INPUT_TYPE.A_TOPIC)?.length}/25`
+    : '0/25';
+  const BTopicProgress = watch(INPUT_TYPE.B_TOPIC)
+    ? `${watch(INPUT_TYPE.B_TOPIC)?.length}/25`
+    : '0/25';
 
-const TopicCreateTextInput = ({ topic, topicContent }: TopicCreareProps) => {
-  const { register, watch } = useFormContext();
-  const ATopicProgress = watch(INPUT_TYPE.ATOPIC)
-    ? `${watch(INPUT_TYPE.ATOPIC)?.length}/25`
-    : '0/25';
-  const BTopicProgress = watch(INPUT_TYPE.BTOPIC)
-    ? `${watch(INPUT_TYPE.BTOPIC)?.length}/25`
-    : '0/25';
+  const [isTopicFilled, setIsTopicFilled] = useState(false);
+
+  const handleReplaceButtonClick = () => {
+    const aTopic = watch(INPUT_TYPE.A_TOPIC);
+    const bTopic = watch(INPUT_TYPE.B_TOPIC);
+
+    setValue(INPUT_TYPE.A_TOPIC, bTopic);
+    setValue(INPUT_TYPE.B_TOPIC, aTopic);
+  };
+
+  useEffect(() => {
+    const ATopicCondition = getFieldState(INPUT_TYPE.A_TOPIC, formState);
+    const BTopicCondition = getFieldState(INPUT_TYPE.B_TOPIC, formState);
+    if (
+      !ATopicCondition.invalid &&
+      ATopicCondition.isDirty &&
+      !BTopicCondition.invalid &&
+      BTopicCondition.isDirty
+    ) {
+      setIsTopicFilled(true);
+    } else {
+      setIsTopicFilled(false);
+    }
+  }, [formState, getFieldState]);
+
   return (
     <Col gap={16}>
-      <Row gap={83} justifyContent="space-between">
+      <Row justifyContent="space-between">
         <Text size={16} weight={400} color={colors.white_60} align="start">
           어떤 선택지가 있나요?
         </Text>
-        <ReplaceButton>
+        <ReplaceButton disabled={!isTopicFilled} onClick={handleReplaceButtonClick}>
           <ReplaceIcon>
-            <RotateIcon opacity="0.3" />
+            <RotateIcon opacity={isTopicFilled ? '1' : '0.3'} />
           </ReplaceIcon>
-          <Text style={{ opacity: 0.3 }} size={13} weight={400} color={colors.purple} align="start">
+          <Text
+            size={13}
+            weight={400}
+            color={isTopicFilled ? colors.purple : colors.purple_30}
+            align="start"
+          >
             AB 선택지 바꾸기
           </Text>
         </ReplaceButton>
@@ -51,13 +76,15 @@ const TopicCreateTextInput = ({ topic, topicContent }: TopicCreareProps) => {
       <Col gap={8}>
         <TextInputContainer>
           <TextInputTextContainer>
-            <Text style={{ opacity: 0.2 }} size={128} weight={900} color={colors.A}>
+            <Text size={128} weight={900} color={colors.A_20}>
               A
             </Text>
           </TextInputTextContainer>
           <Input
+            maxLength={25}
             type="text"
-            {...register(INPUT_TYPE.ATOPIC, CONFIG.ATOPIC.options)}
+            autoComplete="off"
+            {...register(INPUT_TYPE.A_TOPIC, CONFIG.A_TOPIC.options)}
             placeholder="A 선택지를 입력해주세요."
           />
           <InputSuffix>
@@ -68,13 +95,15 @@ const TopicCreateTextInput = ({ topic, topicContent }: TopicCreareProps) => {
         </TextInputContainer>
         <TextInputContainer>
           <TextInputTextContainer>
-            <Text style={{ opacity: 0.2 }} size={128} weight={900} color={colors.B}>
+            <Text size={128} weight={900} color={colors.B_20}>
               B
             </Text>
           </TextInputTextContainer>
           <Input
+            maxLength={25}
             type="text"
-            {...register(INPUT_TYPE.BTOPIC, CONFIG.BTOPIC.options)}
+            autoComplete="off"
+            {...register(INPUT_TYPE.B_TOPIC, CONFIG.B_TOPIC.options)}
             placeholder="B 선택지를 입력해주세요."
           />
           <InputSuffix>

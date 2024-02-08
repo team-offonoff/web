@@ -30,8 +30,11 @@ export const BetaSideContainer = styled(SlideContainer)`
 `;
 
 export const TextContainer = styled.div`
+  z-index: 1;
   justify-content: flex-start;
+  width: 87px;
   padding: 0 44px;
+  word-break: break-all;
 `;
 
 export const SideImage = styled.img`
@@ -102,8 +105,9 @@ export const CloseButton = styled.button`
   position: absolute;
   top: 10px;
   left: 10px;
-  width: 34px;
-  height: 34px;
+  width: 24px;
+  height: 24px;
+  padding: 5px;
   background: rgb(0 0 0 / 60%);
   border-radius: 50%;
 `;

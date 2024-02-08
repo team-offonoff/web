@@ -41,7 +41,7 @@ const TopicSideSelection = () => {
 
   const handleTopicCreateButtonClick = () => {
     if (selected !== null) {
-      navigate(`/topics/create/${selected}`);
+      navigate(`/topics/create/${selected}?step=1`);
     }
   };
 
@@ -74,7 +74,7 @@ const TopicSideSelection = () => {
             </ADescription>
           </AButton>
           <BButton selected={selected} onClick={handleBButtonClick}>
-            <BLogoIcon />
+            <BLogoIcon fill={colors.B} />
             <BDescription selected={selected}>
               Business <br /> Side
             </BDescription>
