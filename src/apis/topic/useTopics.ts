@@ -1,11 +1,6 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
 
-import {
-  CHOICE_OPTIONS,
-  ChoiceContent,
-  TopicCreateRequestDTO,
-  TopicResponse,
-} from '@interfaces/api/topic';
+import { TopicCreateRequestDTO, TopicResponse } from '@interfaces/api/topic';
 
 import { PagingDataResponse } from '@interfaces/api';
 
@@ -14,7 +9,7 @@ import client from '@apis/fetch';
 export const TOPIC_KEY = 'topics';
 
 const getTopics = () => {
-  return client.get<PagingDataResponse<TopicResponse>>('/topics/info/voting?size=100');
+  return client.get<PagingDataResponse<TopicResponse>>('/topics/info?size=100');
 };
 
 const useTopics = () => {

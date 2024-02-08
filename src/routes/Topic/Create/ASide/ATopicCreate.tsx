@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 
+import { useCreateTopics } from '@apis/topic/useTopics';
 import DefaultButton from '@components/commons/Button/DefaultButton';
 import { Col } from '@components/commons/Flex/Flex';
 import Text from '@components/commons/Text/Text';
 import TextInput from '@components/commons/TextInput/TextInput';
 import { theme3 } from '@components/commons/TextInput/theme';
 import TopicCreateTextInput from '@components/TopicCreate/TopicCreateTextInput';
+import { CHOICE_OPTIONS } from '@interfaces/api/topic';
+import { TopicCreateDTO } from '@routes/Topic/Create/TopicCreate';
 
 import { INPUT_TYPE, CONFIG } from '@constants/form';
 
@@ -14,34 +18,64 @@ import { colors } from '@styles/theme';
 
 import { Container, SubmitButton } from './ATopicCreate.styles';
 
-interface TopicCreateDTO {
-  topicTitle: string;
-  ATopic: string;
-  BTopic: string;
-}
-
 const ATopicCreate = () => {
+  const navigate = useNavigate();
   const methods = useForm<TopicCreateDTO>({ mode: 'onChange' });
 
   const titleProgress = methods.watch(INPUT_TYPE.TOPIC_TITLE)
     ? `${methods.watch(INPUT_TYPE.TOPIC_TITLE)?.length}/20`
     : '0/20';
   const [isFormFilled, setIsFormFilled] = useState(false);
-  const handleSubmitButtonClick = () => {
-    console.log('submit');
+
+  const createTopicMutation = useCreateTopics();
+
+  const handleSubmitForm = async () => {
+    const data = methods.getValues();
+    try {
+      const res = await createTopicMutation.mutateAsync({
+        side: 'TOPIC_A',
+        title: data.topicTitle,
+        keywordName: null,
+        deadline: null,
+        choices: [
+          {
+            choiceContentRequest: {
+              text: data.ATopic,
+              type: 'IMAGE_TEXT',
+              imageUrl: null,
+            },
+            choiceOption: CHOICE_OPTIONS.CHOICE_A,
+          },
+          {
+            choiceContentRequest: {
+              text: data.BTopic,
+              type: 'IMAGE_TEXT',
+              imageUrl: null,
+            },
+            choiceOption: CHOICE_OPTIONS.CHOICE_B,
+          },
+        ],
+      });
+      navigate(`/topics/a`);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   useEffect(() => {
+    const ATopicCondition = methods.getFieldState(INPUT_TYPE.A_TOPIC, methods.formState);
+    const BTopicCondition = methods.getFieldState(INPUT_TYPE.B_TOPIC, methods.formState);
     if (
-      methods.getValues(INPUT_TYPE.TOPIC_TITLE) &&
-      methods.getValues(INPUT_TYPE.A_TOPIC) &&
-      methods.getValues(INPUT_TYPE.B_TOPIC)
+      !ATopicCondition.invalid &&
+      !BTopicCondition.invalid &&
+      ATopicCondition.isDirty &&
+      BTopicCondition.isDirty
     ) {
       setIsFormFilled(true);
     } else {
       setIsFormFilled(false);
     }
-  }, [methods]);
+  }, [methods.formState, methods]);
 
   return (
     <FormProvider {...methods}>
@@ -69,7 +103,7 @@ const ATopicCreate = () => {
         <SubmitButton>
           <DefaultButton
             title={'토픽 던지기'}
-            onClick={handleSubmitButtonClick}
+            onClick={handleSubmitForm}
             disabled={!isFormFilled}
           ></DefaultButton>
         </SubmitButton>

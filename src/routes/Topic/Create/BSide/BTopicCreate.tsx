@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { FormProvider, SubmitHandler, useForm, useWatch } from 'react-hook-form';
-import { useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 import { useCreateTopics } from '@apis/topic/useTopics';
 import DefaultButton from '@components/commons/Button/DefaultButton';
 import { CHOICE_OPTIONS, TopicCreateRequestDTO } from '@interfaces/api/topic';
+import { TopicCreateDTO } from '@routes/Topic/Create/TopicCreate';
 
 import { INPUT_TYPE } from '@constants/form';
 
@@ -18,18 +19,8 @@ import {
 import BTopicCreateStep1 from './BTopicCreateStep1';
 import BTopicCreateStep2 from './BTopicCreateStep2';
 
-interface TopicCreateDTO {
-  topicTitle: string;
-  ATopic: string;
-  BTopic: string;
-  topicCategory: string;
-  ATopicImageURL: string;
-  BTopicImageURL: string;
-  topicDeadline: number;
-  topicType: string;
-}
-
 const BTopicCreate = () => {
+  const navigate = useNavigate();
   const methods = useForm<TopicCreateDTO>({ mode: 'onChange' });
   const contentType = useWatch({
     control: methods.control,
@@ -77,7 +68,7 @@ const BTopicCreate = () => {
           },
         ],
       });
-      console.log('success :', res);
+      navigate(`/topics/b`);
     } catch (error) {
       console.error(error);
     }
