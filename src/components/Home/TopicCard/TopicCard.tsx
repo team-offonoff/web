@@ -4,6 +4,7 @@ import { useSwiperSlide } from 'swiper/react';
 
 import { useLatestComment } from '@apis/comment/useComment';
 import useVoteTopic from '@apis/topic/useVoteTopic';
+import ProfileImg from '@components/commons/ProfileImg/ProfileImg';
 import Text from '@components/commons/Text/Text';
 import ChoiceSlider from '@components/Home/ChoiceSlider/ChoiceSlider';
 import CommentBox from '@components/Home/CommentBox/CommentBox';
@@ -24,7 +25,6 @@ import {
   TopicContainer,
   Topic,
   UserInfoContainer,
-  UserProfileImage,
   TopicCardContainer,
   SelectTextContainer,
 } from './TopicCard.styles';
@@ -57,7 +57,7 @@ const TopicCard = ({ topic }: TopicCardProps) => {
 
   const [, setSearchParams] = useSearchParams();
   const swiperSlide = useSwiperSlide();
-  const { BottomSheet: CommentSheet, toggleSheet } = useBottomSheet({});
+  const { BottomSheet: CommentSheet, toggleSheet, isOpen } = useBottomSheet({});
   const voteMutation = useVoteTopic();
   const { data: latestCommentData, isSuccess } = useLatestComment(
     topic.topicId,
@@ -107,7 +107,7 @@ const TopicCard = ({ topic }: TopicCardProps) => {
           <Topic>{topic.topicTitle}</Topic>
         </TopicContainer>
         <UserInfoContainer>
-          <UserProfileImage src={topic.author.profileImageUrl || ''} />
+          <ProfileImg url={topic.author.profileImageUrl} size={20} />
           <Text size={14} weight={'regular'} color={colors.white_60}>
             {topic.author.nickname}
           </Text>
