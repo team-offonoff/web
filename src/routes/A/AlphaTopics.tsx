@@ -71,7 +71,7 @@ const AlphaTopics = () => {
           <AlphaTopicCard
             chip="popular"
             topicId={241}
-            topicSide={'A'}
+            topicSide={'TOPIC_A'}
             topicTitle={'topicTitle'}
             deadline={0}
             voteCount={42}

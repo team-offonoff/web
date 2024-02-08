@@ -127,7 +127,7 @@ const TopicCard = ({ topic }: TopicCardProps) => {
             choices={topic.choices.length > 0 ? topic.choices : choices}
           />
         )}
-        <Timer endTime={topic.deadline} />
+        {topic.deadline && <Timer endTime={topic.deadline} />}
         <SelectTextContainer $voted={topic.selectedOption !== null}>
           <LeftDoubleArrowIcon />
           <Text size={14} weight={'regular'} color={colors.white_40}>
@@ -136,12 +136,12 @@ const TopicCard = ({ topic }: TopicCardProps) => {
           <RightDoubleArrowIcon />
         </SelectTextContainer>
         <CommentBox
-          side={topic.keyword.topicSide === 'TOPIC_A' ? 'A' : 'B'}
+          side={topic.topicSide}
           hasVoted={topic.selectedOption !== null}
           topicId={topic.topicId}
           commentCount={0}
           voteCount={0}
-          keyword={'키워드'}
+          keyword={topic.keyword}
           latestComment={latestComment}
           onClick={handleOnClickCommentBox}
         />
