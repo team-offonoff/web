@@ -5,10 +5,9 @@ import { useSearchParams } from 'react-router-dom';
 import { useCreateTopics } from '@apis/topic/useTopics';
 import DefaultButton from '@components/commons/Button/DefaultButton';
 import { CHOICE_OPTIONS, TopicCreateRequestDTO } from '@interfaces/api/topic';
+import { TopicCreateDTO } from '@routes/Topic/Create/TopicCreate';
 
 import { INPUT_TYPE } from '@constants/form';
-
-import { TopicCreateDTO } from '../TopicCreate';
 
 import {
   Container,

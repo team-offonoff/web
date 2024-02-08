@@ -9,12 +9,11 @@ import TextInput from '@components/commons/TextInput/TextInput';
 import { theme3 } from '@components/commons/TextInput/theme';
 import TopicCreateTextInput from '@components/TopicCreate/TopicCreateTextInput';
 import { CHOICE_OPTIONS } from '@interfaces/api/topic';
+import { TopicCreateDTO } from '@routes/Topic/Create/TopicCreate';
 
 import { INPUT_TYPE, CONFIG } from '@constants/form';
 
 import { colors } from '@styles/theme';
-
-import { TopicCreateDTO } from '../TopicCreate';
 
 import { Container, SubmitButton } from './ATopicCreate.styles';
 
