@@ -19,12 +19,8 @@ import {
   InputSuffix,
 } from './TopicCreateTextInput.styles';
 
-interface TopicCreateProps {
-  onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
-}
-
-const TopicCreateTextInput = ({ onKeyDown }: TopicCreateProps) => {
-  const { register, watch, getValues } = useFormContext();
+const TopicCreateTextInput = () => {
+  const { register, watch, getFieldState, formState, setValue } = useFormContext();
   const ATopicProgress = watch(INPUT_TYPE.A_TOPIC)
     ? `${watch(INPUT_TYPE.A_TOPIC)?.length}/25`
     : '0/25';
@@ -34,13 +30,28 @@ const TopicCreateTextInput = ({ onKeyDown }: TopicCreateProps) => {
 
   const [isTopicFilled, setIsTopicFilled] = useState(false);
 
+  const handleReplaceButtonClick = () => {
+    const aTopic = watch(INPUT_TYPE.A_TOPIC);
+    const bTopic = watch(INPUT_TYPE.B_TOPIC);
+
+    setValue(INPUT_TYPE.A_TOPIC, bTopic);
+    setValue(INPUT_TYPE.B_TOPIC, aTopic);
+  };
+
   useEffect(() => {
-    if (getValues(INPUT_TYPE.A_TOPIC) && getValues(INPUT_TYPE.B_TOPIC)) {
+    const ATopicCondition = getFieldState(INPUT_TYPE.A_TOPIC, formState);
+    const BTopicCondition = getFieldState(INPUT_TYPE.B_TOPIC, formState);
+    if (
+      !ATopicCondition.invalid &&
+      ATopicCondition.isDirty &&
+      !BTopicCondition.invalid &&
+      BTopicCondition.isDirty
+    ) {
       setIsTopicFilled(true);
     } else {
       setIsTopicFilled(false);
     }
-  }, [getValues([INPUT_TYPE.A_TOPIC, INPUT_TYPE.B_TOPIC])]);
+  }, [formState, getFieldState]);
 
   return (
     <Col gap={16}>
@@ -48,7 +59,7 @@ const TopicCreateTextInput = ({ onKeyDown }: TopicCreateProps) => {
         <Text size={16} weight={400} color={colors.white_60} align="start">
           어떤 선택지가 있나요?
         </Text>
-        <ReplaceButton disabled={!isTopicFilled}>
+        <ReplaceButton disabled={!isTopicFilled} onClick={handleReplaceButtonClick}>
           <ReplaceIcon>
             <RotateIcon opacity={isTopicFilled ? '1' : '0.3'} />
           </ReplaceIcon>
@@ -72,6 +83,7 @@ const TopicCreateTextInput = ({ onKeyDown }: TopicCreateProps) => {
           <Input
             maxLength={25}
             type="text"
+            autoComplete="off"
             {...register(INPUT_TYPE.A_TOPIC, CONFIG.A_TOPIC.options)}
             placeholder="A 선택지를 입력해주세요."
           />
@@ -90,6 +102,7 @@ const TopicCreateTextInput = ({ onKeyDown }: TopicCreateProps) => {
           <Input
             maxLength={25}
             type="text"
+            autoComplete="off"
             {...register(INPUT_TYPE.B_TOPIC, CONFIG.B_TOPIC.options)}
             placeholder="B 선택지를 입력해주세요."
           />

@@ -4,7 +4,7 @@ import { useFormContext } from 'react-hook-form';
 import Text from '@components/commons/Text/Text';
 import useModal from '@hooks/useModal/useModal';
 
-import { INPUT_TYPE } from '@constants/form';
+import { CONFIG, INPUT_TYPE } from '@constants/form';
 
 import { colors } from '@styles/theme';
 
@@ -31,9 +31,10 @@ interface ImageInputComponetProps {
 
 const ImageInputComponent = ({ label }: ImageInputComponetProps) => {
   const { Modal, toggleModal } = useModal('default');
-  const { register, setValue } = useFormContext();
+  const { register, setValue, watch } = useFormContext();
   const id = label === 'A' ? INPUT_TYPE.A_TOPIC_IMAGEURL : INPUT_TYPE.B_TOPIC_IMAGEURL;
-  const [imageUrl, setImageUrl] = useState<string | null>(null);
+  const config = label === 'A' ? CONFIG.A_TOPIC_IMAGEURL : CONFIG.B_TOPIC_IMAGEURL;
+  const imageUrl = watch(id);
 
   const handleFileChange = (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -48,7 +49,6 @@ const ImageInputComponent = ({ label }: ImageInputComponetProps) => {
 
     const reader = new FileReader();
     reader.onloadend = () => {
-      setImageUrl(reader.result as string);
       setValue(id, reader.result as string);
     };
     reader.readAsDataURL(fileObj);
@@ -56,8 +56,8 @@ const ImageInputComponent = ({ label }: ImageInputComponetProps) => {
 
   const handleDeleteButtonClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.stopPropagation();
-    setImageUrl(null);
-    setValue(id, null);
+
+    setValue(id, null, { shouldValidate: true, shouldDirty: true });
   };
 
   return (
@@ -101,7 +101,7 @@ const ImageInputComponent = ({ label }: ImageInputComponetProps) => {
       <ImageInput
         id={id}
         type="file"
-        {...register(id)}
+        {...register(id, config.options)}
         accept="image/*"
         onChange={(event) => handleFileChange(event, register(id).onChange)}
       />

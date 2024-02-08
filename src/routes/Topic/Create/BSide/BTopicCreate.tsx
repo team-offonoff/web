@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { FormProvider, useForm, useWatch } from 'react-hook-form';
+import { FormProvider, SubmitHandler, useForm, useWatch } from 'react-hook-form';
 import { useSearchParams } from 'react-router-dom';
 
+import { useCreateTopics } from '@apis/topic/useTopics';
 import DefaultButton from '@components/commons/Button/DefaultButton';
+import { CHOICE_OPTIONS, TopicCreateRequestDTO } from '@interfaces/api/topic';
 
 import { INPUT_TYPE } from '@constants/form';
 
@@ -23,7 +25,7 @@ interface TopicCreateDTO {
   topicCategory: string;
   ATopicImageURL: string;
   BTopicImageURL: string;
-  topicDeadline: string;
+  topicDeadline: number;
   topicType: string;
 }
 
@@ -38,14 +40,50 @@ const BTopicCreate = () => {
 
   const [isFormFilled, setIsFormFilled] = useState(false);
 
+  const createTopicMutation = useCreateTopics();
+
   const Step = step === '1' ? <BTopicCreateStep1 /> : <BTopicCreateStep2 />;
 
-  const handleSubmitButtonClick = () => {
-    console.log('submit');
+  const handleDeadline = (deadline: number) => {
+    const date = new Date();
+    date.setHours(date.getHours() + deadline);
+    return Math.floor(date.getTime() / 1000);
+  };
+
+  const handleSubmitForm = async () => {
+    const data = methods.getValues();
+    try {
+      const res = await createTopicMutation.mutateAsync({
+        side: 'TOPIC_B',
+        title: data.topicTitle,
+        keywordName: data.topicCategory,
+        deadline: handleDeadline(data.topicDeadline),
+        choices: [
+          {
+            choiceContentRequest: {
+              text: contentType === 'text' ? data.ATopic : '',
+              type: 'IMAGE_TEXT',
+              imageUrl: contentType === 'image' ? data.ATopicImageURL : null,
+            },
+            choiceOption: CHOICE_OPTIONS.CHOICE_A,
+          },
+          {
+            choiceContentRequest: {
+              text: contentType === 'text' ? data.BTopic : null,
+              type: 'IMAGE_TEXT',
+              imageUrl: contentType === 'image' ? data.BTopicImageURL : null,
+            },
+            choiceOption: CHOICE_OPTIONS.CHOICE_B,
+          },
+        ],
+      });
+      console.log('success :', res);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   useEffect(() => {
-    console.log('ㅋ', contentType);
     const ATopicCondition = methods.getFieldState(INPUT_TYPE.A_TOPIC, methods.formState);
     const BTopicCondition = methods.getFieldState(INPUT_TYPE.B_TOPIC, methods.formState);
     const ATopiImageURLCondition = methods.getFieldState(
@@ -95,7 +133,7 @@ const BTopicCreate = () => {
           <SubmitButton>
             <DefaultButton
               title={'토픽 던지기'}
-              onClick={handleSubmitButtonClick}
+              onClick={handleSubmitForm}
               disabled={false}
             ></DefaultButton>
           </SubmitButton>

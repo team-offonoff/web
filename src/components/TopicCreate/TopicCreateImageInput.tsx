@@ -14,34 +14,39 @@ import ImageInputComponent from './ImageInputComponent';
 import { ImageInputChip } from './ImageInputComponent.styles';
 import { ImageInputDescription, ReplaceButton, ReplaceIcon } from './TopicCreateImageInput.styles';
 
-interface TopicCreareProps {
-  topic: 'A' | 'B';
-  topicContent: string;
-  onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
-}
-
 const TopicCreateImageInput = () => {
-  const { getValues, getFieldState } = useFormContext();
+  const { getValues, getFieldState, formState, setValue } = useFormContext();
 
   const [isImageFilled, setIsImageFilled] = useState(false);
 
+  const handleReplaceButtonClick = () => {
+    const aImage = getValues(INPUT_TYPE.A_TOPIC_IMAGEURL);
+    const bImage = getValues(INPUT_TYPE.B_TOPIC_IMAGEURL);
+
+    setValue(INPUT_TYPE.A_TOPIC_IMAGEURL, bImage);
+    setValue(INPUT_TYPE.B_TOPIC_IMAGEURL, aImage);
+  };
+
   useEffect(() => {
     if (
-      !getFieldState(INPUT_TYPE.A_TOPIC_IMAGEURL).invalid &&
-      !getFieldState(INPUT_TYPE.B_TOPIC_IMAGEURL).invalid
+      getFieldState(INPUT_TYPE.A_TOPIC_IMAGEURL, formState).isDirty &&
+      !getFieldState(INPUT_TYPE.A_TOPIC_IMAGEURL, formState).invalid &&
+      getFieldState(INPUT_TYPE.B_TOPIC_IMAGEURL, formState).isDirty &&
+      !getFieldState(INPUT_TYPE.B_TOPIC_IMAGEURL, formState).invalid
     ) {
       setIsImageFilled(true);
     } else {
       setIsImageFilled(false);
     }
-  }, [getValues([INPUT_TYPE.A_TOPIC_IMAGEURL, INPUT_TYPE.B_TOPIC_IMAGEURL])]);
+  }, [formState]);
+
   return (
     <Col gap={30}>
       <Row justifyContent="space-between">
         <Text size={16} weight={400} color={colors.white_60} align="start">
           어떤 선택지가 있나요?
         </Text>
-        <ReplaceButton disabled={!isImageFilled}>
+        <ReplaceButton disabled={!isImageFilled} onClick={handleReplaceButtonClick}>
           <ReplaceIcon>
             <RotateIcon opacity={isImageFilled ? '1' : '0.3'} />
           </ReplaceIcon>
@@ -72,13 +77,13 @@ const TopicCreateImageInput = () => {
             ))}
           </Row>
         </Col>
-        <ImageInputDescription>
+        {/* <ImageInputDescription>
           <Text size={13} weight={400} color={colors.white_40} align="start">
             가로 세로 길이가 같은 사진을 올리는 것이 좋아요.
             <br />
             너무 큰 용량의 사진은 화질이 조정될 수 있어요.
           </Text>
-        </ImageInputDescription>
+        </ImageInputDescription> */}
       </Col>
     </Col>
   );

@@ -49,6 +49,8 @@ const BTopicCreateStep2 = () => {
     CONFIG.TOPIC_DEADLINE.options
   );
 
+  setValue(INPUT_TYPE.TOPIC_CONTENT_TYPE, selected);
+
   const handleTextSelect = () => {
     setValue(INPUT_TYPE.TOPIC_CONTENT_TYPE, 'text');
     setSelected('text');
