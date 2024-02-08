@@ -5,7 +5,7 @@ export const CHOICE_OPTIONS = {
 
 interface TopicResponse {
   topicId: number;
-  topicSide: string;
+  topicSide: 'TOPIC_A' | 'TOPIC_B';
   topicTitle: string;
   deadline: number | null; // 1702914494
   voteCount: number;
