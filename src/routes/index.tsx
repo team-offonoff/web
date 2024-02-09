@@ -16,6 +16,7 @@ import KakaoLogin from './Auth/kakao/KakaoLogin';
 import Login from './Auth/login/Login';
 import Signup from './Auth/signup/Signup';
 import Home from './Home/Home';
+import MyPage from './MyPage/MyPage';
 import Notification from './Notification/Notification';
 import TopicCreate from './Topic/Create/TopicCreate';
 import TopicSideSelection from './Topic/TopicSideSelection';
@@ -41,6 +42,7 @@ const Router = () => {
             <Route path="create" element={<TopicSideSelection />} />
             <Route path="create/:topicSide" element={<TopicCreate />} />
           </Route>
+          <Route path="mypage" element={<MyPage />} />
           <Route path="notifications" element={<Notification />} />
         </Route>
 
