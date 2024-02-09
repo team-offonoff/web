@@ -1,5 +1,4 @@
-import { useState } from 'react';
-
+import useVoteTopic from '@apis/topic/useVoteTopic';
 import Chip from '@components/commons/Chip/Chip';
 import CommentChip from '@components/commons/Chip/CommentChip';
 import { Col, Row } from '@components/commons/Flex/Flex';
@@ -19,16 +18,21 @@ interface AlphaTopicCardProps extends TopicResponse {
 
 const AlphaTopicCard = (props: AlphaTopicCardProps) => {
   const { BottomSheet: CommentSheet, toggleSheet } = useBottomSheet({});
-
-  const [selectedSide, setSelectedSide] = useState<undefined | 'A' | 'B'>();
+  const voteMutation = useVoteTopic({ side: 'TOPIC_A', sort: 'createdAt,DESC' });
   const [A, B] = props.choices;
-
-  const handleSelectSide = (side: 'A' | 'B') => {
-    setSelectedSide(side);
-  };
 
   const handleCommentChipClick = () => {
     toggleSheet();
+  };
+
+  const handleVote = (side: 'CHOICE_A' | 'CHOICE_B') => {
+    if (props.selectedOption === null) {
+      voteMutation.mutate({
+        topicId: props.topicId,
+        choiceOption: side,
+        votedAt: new Date().getTime() / 1000,
+      });
+    }
   };
 
   return (
@@ -47,25 +51,33 @@ const AlphaTopicCard = (props: AlphaTopicCardProps) => {
         </Row>
         <Col gap={5} style={{ marginBottom: 14 }}>
           <ProgressBar
-            revealed={selectedSide !== undefined}
-            highlighted={selectedSide === 'A'}
+            revealed={props.selectedOption !== null}
+            highlighted={props.selectedOption === 'CHOICE_A'}
             title={A.content.text || ''}
             percentage={75}
-            onClick={() => handleSelectSide('A')}
+            onClick={() => handleVote('CHOICE_A')}
             left={() => (
-              <Text color={selectedSide === 'A' ? colors.A_80 : colors.A_40} size={24} weight={900}>
+              <Text
+                color={props.selectedOption === 'CHOICE_A' ? colors.A_80 : colors.A_40}
+                size={24}
+                weight={900}
+              >
                 A
               </Text>
             )}
           />
           <ProgressBar
-            revealed={selectedSide !== undefined}
-            highlighted={selectedSide === 'B'}
+            revealed={props.selectedOption !== null}
+            highlighted={props.selectedOption === 'CHOICE_B'}
             title={B.content.text || ''}
             percentage={25}
-            onClick={() => handleSelectSide('B')}
+            onClick={() => handleVote('CHOICE_B')}
             left={() => (
-              <Text color={selectedSide === 'B' ? colors.B_80 : colors.B_40} size={24} weight={900}>
+              <Text
+                color={props.selectedOption === 'CHOICE_B' ? colors.B_80 : colors.B_40}
+                size={24}
+                weight={900}
+              >
                 B
               </Text>
             )}
