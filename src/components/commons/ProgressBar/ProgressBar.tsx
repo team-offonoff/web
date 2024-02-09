@@ -38,10 +38,14 @@ const ProgressBar = ({
           {title}
         </Text>
       </Row>
-      <Text size={14} weight={textWeight} color={textColor}>
-        {percentage}%
-      </Text>
-      <PercentageBar highlighted={highlighted} percentage={revealed ? percentage : 0} />
+      {revealed && (
+        <>
+          <Text size={14} weight={textWeight} color={textColor}>
+            {percentage}%
+          </Text>
+          <PercentageBar highlighted={highlighted} percentage={revealed ? percentage : 0} />
+        </>
+      )}
     </ProgressBarContainer>
   );
 };

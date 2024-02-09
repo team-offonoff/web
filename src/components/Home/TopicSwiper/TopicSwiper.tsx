@@ -11,14 +11,32 @@ import { RightChevronIcon } from '@icons/index';
 SwiperCore.use([Navigation]);
 
 interface TopicSwiperProps {
-  children: React.ReactNode[];
+  children: JSX.Element[];
+  fetchNextPage: () => void;
+  hasNextPage: boolean;
 }
 
-const TopicSwiper = ({ children }: TopicSwiperProps) => {
+const TopicSwiper = ({ children, fetchNextPage, hasNextPage }: TopicSwiperProps) => {
   const swiperRef = useRef<SwiperCore>();
   const [init, setInit] = useState(true);
   const [prevDisabled, setPrevDisabled] = useState(false);
   const [nextDisabled, setNextDisabled] = useState(false);
+
+  const handleReachBeginning = () => {
+    setPrevDisabled(true);
+  };
+
+  const handleSlideChange = (swiper: SwiperCore) => {
+    setInit(false);
+
+    if (swiper.slides.length - swiper.realIndex === 2) {
+      fetchNextPage();
+    }
+
+    if (!hasNextPage && children.length - swiper.realIndex === 1) {
+      setNextDisabled(true);
+    }
+  };
 
   return (
     <React.Fragment>
@@ -38,9 +56,9 @@ const TopicSwiper = ({ children }: TopicSwiperProps) => {
         slidesPerView={1}
         style={{ height: '100%' }}
         onBeforeInit={(swiper) => (swiperRef.current = swiper)}
-        onSlideChange={() => setInit(false)}
-        onReachBeginning={() => setPrevDisabled(true)}
-        onReachEnd={() => setNextDisabled(true)}
+        onSlideChange={handleSlideChange}
+        onReachBeginning={handleReachBeginning}
+        observer={true}
       >
         {children.map((child, index) => (
           <SwiperSlide key={index}>{child}</SwiperSlide>
