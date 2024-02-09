@@ -71,7 +71,7 @@ const TopicCard = ({ topic }: TopicCardProps) => {
       choiceOption: choiceOption,
       votedAt: new Date().getTime() / 1000,
     });
-    setLatestComment(data);
+    setLatestComment(data.latestComment);
   };
 
   return (
