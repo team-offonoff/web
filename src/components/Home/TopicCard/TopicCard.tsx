@@ -34,30 +34,9 @@ interface TopicCardProps {
 }
 
 const TopicCard = ({ topic }: TopicCardProps) => {
-  const choices: Choice[] = [
-    {
-      choiceId: 0,
-      content: {
-        text: 'choiceA',
-        imageUrl: null,
-        type: 'IMAGE_TEXT',
-      },
-      choiceOption: CHOICE_OPTIONS.CHOICE_A,
-    },
-    {
-      choiceId: 2,
-      content: {
-        text: 'Choice 2',
-        imageUrl: null,
-        type: 'IMAGE_TEXT',
-      },
-      choiceOption: CHOICE_OPTIONS.CHOICE_B,
-    },
-  ]; // TBD: 투표 선택지가 비어있는 더미 데이터가 존재해서 만들어둠
-
   const [, setSearchParams] = useSearchParams();
   const swiperSlide = useSwiperSlide();
-  const { BottomSheet: CommentSheet, toggleSheet, isOpen } = useBottomSheet({});
+  const { BottomSheet: CommentSheet, toggleSheet } = useBottomSheet({});
   const voteMutation = useVoteTopic();
   const { data: latestCommentData, isSuccess } = useLatestComment(
     topic.topicId,
@@ -122,10 +101,7 @@ const TopicCard = ({ topic }: TopicCardProps) => {
             }
           />
         ) : (
-          <ChoiceSlider
-            onVote={handleOnVote}
-            choices={topic.choices.length > 0 ? topic.choices : choices}
-          />
+          <ChoiceSlider onVote={handleOnVote} choices={topic.choices} />
         )}
         {topic.deadline && <Timer endTime={topic.deadline} />}
         <SelectTextContainer $voted={topic.selectedOption !== null}>
