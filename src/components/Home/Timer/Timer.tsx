@@ -11,7 +11,7 @@ interface TimerProps {
 
 const Timer = ({ endTime }: TimerProps) => {
   const timer = useTimer({
-    endTime: endTime,
+    endTime: endTime * 1000,
   });
 
   return (
