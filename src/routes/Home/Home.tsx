@@ -4,6 +4,7 @@ import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 
 import React from 'react';
+import { SwiperSlide } from 'swiper/react';
 
 import useTopics from '@apis/topic/useTopics';
 import NotificationButton from '@components/commons/Header/NotificationButton/NotificationButton';
@@ -14,22 +15,26 @@ import TopicSwiper from '@components/Home/TopicSwiper/TopicSwiper';
 import { Container } from './Home.styles';
 
 const Home = () => {
-  const topics = useTopics();
+  const { data, fetchNextPage, hasNextPage } = useTopics({ size: 10 });
 
-  if (topics.isLoading) {
-    return <></>;
-  }
+  const topics = data?.pages.flatMap((page) => page.data);
+
+  const handleFetchNextPage = () => {
+    if (hasNextPage) {
+      fetchNextPage();
+    }
+  };
 
   return (
     <Layout HeaderRight={<NotificationButton />}>
       <Container>
-        <TopicSwiper>
-          {
-            topics.data?.data.map((topic) => {
-              return <TopicCard topic={topic} key={topic.topicId} />;
-            }) as React.ReactNode[]
-          }
-        </TopicSwiper>
+        {topics && (
+          <TopicSwiper fetchNextPage={handleFetchNextPage} hasNextPage={hasNextPage}>
+            {topics.map((topic) => (
+              <TopicCard topic={topic} key={topic.topicId} />
+            ))}
+          </TopicSwiper>
+        )}
       </Container>
     </Layout>
   );
