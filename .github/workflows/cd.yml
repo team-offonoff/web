@@ -12,6 +12,15 @@ jobs:
     steps:
       - name: checkout Github Action
         uses: actions/checkout@v3
+
+      - name: .env setting
+        run: |
+          echo "VITE_API_BASE_URL=${{ secrets.VITE_API_BASE_URL }}" >> .env.production
+          echo "VITE_API_ACCESS_TOKEN=${{ secrets.VITE_API_ACCESS_TOKEN }}" >> .env.production
+          echo "VITE_KAKAO_OAUTH_KEY=${{ secrets.VITE_KAKAO_OAUTH_KEY }}" >> .env.production
+          echo "VITE_KAKAO_REDIRECT_URI=${{ secrets.VITE_KAKAO_REDIRECT_URI }}" >> .env.production
+          echo "VITE_GOOGLE_OAUTH_KEY=${{ secrets.VITE_GOOGLE_OAUTH_KEY }}" >> .env.production
+          echo "VITE_GOOGLE_REDIRECT_URI=${{ secrets.VITE_GOOGLE_REDIRECT_URI }}" >> .env.production
       
       - name: Get npm cache directory
         id: npm-cache-dir
@@ -44,8 +53,7 @@ jobs:
         env:
           BUCKET_NAME: ${{ secrets.AWS_S3_BUCKET_NAME}}
         run: |
-          aws s3 sync \
-            ./ s3://$BUCKET_NAME
+          aws s3 cp --recursive --region ap-northeast-2 dist s3://$BUCKET_NAME
       
       # cloudfront로 배포되는 파일은 기본설정 상 24시간동안 캐시가 유지됩니다.
       # 배포 후 S3에는 최신 정적리소스가 올라가있지만 엣지로케이션엔 이전 파일이 올라가있는 상태라는 의미입니다.
