@@ -13,7 +13,7 @@ interface TopicsRequestDTO {
   keyword_id?: number;
   page?: number;
   size?: number;
-  sort?: 'voteCount' | 'desc';
+  sort?: 'voteCount' | 'desc' | 'createdAt' | 'asc';
   side?: 'TOPIC_A' | 'TOPIC_B';
 }
 
