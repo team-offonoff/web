@@ -9,10 +9,12 @@ interface TopicResponse {
   topicTitle: string;
   deadline: number | null; // 1702914494
   voteCount: number;
+  commentCount: number;
   topicContent: string | null;
   keyword: Keyword | null;
   choices: Choice[];
   author: Author;
+  createdAt: number;
   selectedOption: typeof CHOICE_OPTIONS.CHOICE_A | typeof CHOICE_OPTIONS.CHOICE_B | null;
 }
 

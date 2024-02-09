@@ -18,7 +18,7 @@ const GlobalStyle = styled.createGlobalStyle`
 
   body {
     font-size: 1.6rem;
-    background-color: #f6f6f6;
+    background-color: ${(props) => props.theme.colors.navy};
   }
 
   html,

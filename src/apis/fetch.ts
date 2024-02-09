@@ -23,8 +23,9 @@ class Fetch {
     }
   }
 
-  async get<T>(path: string): Promise<T> {
-    const response = await fetch(`${this.baseURL}${path}`, {
+  async get<T>(path: string, qs?: Record<string, any>): Promise<T> {
+    const queryString = qs ? `?${new URLSearchParams(qs).toString()}` : '';
+    const response = await fetch(`${this.baseURL}${path}${queryString}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
