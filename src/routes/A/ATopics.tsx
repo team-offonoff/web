@@ -14,7 +14,7 @@ import { ALogoIcon, UpDownChevronIcon } from '@icons/index';
 import { Container } from './ATopics.styles';
 
 const AlphaTopics = () => {
-  const { data } = useTopics({ side: 'TOPIC_A', sort: 'createdAt' });
+  const { data } = useTopics({ side: 'TOPIC_A', sort: 'createdAt,DESC' });
   const [topicFilter, setTopicFilter] = useState('진행중');
   const [isMineOnly, setIsMineOnly] = useState(false);
   const [isLatest, setIsLatest] = useState(true);
@@ -76,7 +76,6 @@ const AlphaTopics = () => {
             return (
               <ATopicCard
                 key={topic.topicId}
-                // chip="popular"
                 topicId={topic.topicId}
                 topicSide={'TOPIC_A'}
                 topicTitle={topic.topicTitle}
