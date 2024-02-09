@@ -104,7 +104,9 @@ const TopicCard = ({ topic }: TopicCardProps) => {
           </Text>
         </BestTopicCotainer>
         <TopicContainer>
-          <Topic>{topic.topicTitle}</Topic>
+          <Topic style={{ width: 170, wordBreak: 'keep-all', overflowWrap: 'break-word' }}>
+            {topic.topicTitle}
+          </Topic>
         </TopicContainer>
         <UserInfoContainer>
           <ProfileImg url={topic.author.profileImageUrl} size={20} />
