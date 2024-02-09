@@ -3,10 +3,15 @@ import { getDateDistance, getDateDistanceText, TimeUnits } from '@toss/date';
 export function getDateDiff(UTCdate: number) {
   const startDate = new Date(UTCdate * 1000);
   const distance = getDateDistance(startDate, new Date());
+
+  if (!distance.days && !distance.hours && !distance.minutes) {
+    return '방금';
+  }
+
   return getDateDistanceText(distance, {
-    hours: (t: TimeUnits) => t.hours > 0 && t.days < 1,
-    minutes: (t: TimeUnits) => t.minutes > 0 && t.hours < 1,
-    seconds: (t: TimeUnits) => t.minutes < 1,
+    hours: (t: TimeUnits) => t.days === 0,
+    minutes: (t: TimeUnits) => t.days === 0 && t.hours === 0,
+    seconds: () => false,
   });
 }
 
