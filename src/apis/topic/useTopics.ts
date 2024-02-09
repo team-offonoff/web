@@ -1,4 +1,4 @@
-import { replaceEqualDeep, useInfiniteQuery, useMutation, useQuery } from '@tanstack/react-query';
+import { useInfiniteQuery, useMutation } from '@tanstack/react-query';
 
 import { TopicCreateRequestDTO, TopicResponse } from '@interfaces/api/topic';
 
@@ -8,12 +8,12 @@ import client from '@apis/fetch';
 
 export const TOPIC_KEY = 'topics';
 
-interface TopicsRequestDTO {
+export interface TopicsRequestDTO {
   status?: 'VOTING' | 'CLOSED';
   keyword_id?: number;
   page?: number;
   size?: number;
-  sort?: 'voteCount' | 'desc' | 'createdAt' | 'asc';
+  sort?: string;
   side?: 'TOPIC_A' | 'TOPIC_B';
 }
 
