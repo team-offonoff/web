@@ -69,7 +69,13 @@ const ChoiceSlide = ({ side, topicContent }: ChoiceSlideProps) => {
           </div>
         ) : (
           <TextContainer>
-            <Text color={colors.white} size={20} weight={600}>
+            <Text
+              style={{ wordBreak: 'keep-all', overflowWrap: 'break-word' }}
+              color={colors.white}
+              size={topicContent.text && topicContent.text.length >= 21 ? 16 : 20}
+              weight={600}
+              align="center"
+            >
               {topicContent.text}
             </Text>
           </TextContainer>
