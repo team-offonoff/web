@@ -9,8 +9,8 @@ export function getDateDiff(UTCdate: number) {
   }
 
   return getDateDistanceText(distance, {
-    hours: (t: TimeUnits) => t.days === 0,
-    minutes: (t: TimeUnits) => t.days === 0 && t.hours === 0,
+    hours: (t: TimeUnits) => t.days === 0 && t.hours > 0,
+    minutes: (t: TimeUnits) => t.days === 0 && t.hours === 0 && t.minutes > 0,
     seconds: () => false,
   });
 }
