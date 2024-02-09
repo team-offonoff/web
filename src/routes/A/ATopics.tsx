@@ -1,5 +1,6 @@
 import { ChangeEvent, useState } from 'react';
 
+import useTopics from '@apis/topic/useTopics';
 import ATopicCard from '@components/A/ATopicCard';
 import { Col, Row } from '@components/commons/Flex/Flex';
 import Layout from '@components/commons/Layout/Layout';
@@ -13,9 +14,12 @@ import { ALogoIcon, UpDownChevronIcon } from '@icons/index';
 import { Container } from './ATopics.styles';
 
 const AlphaTopics = () => {
+  const { data } = useTopics({ side: 'TOPIC_A' });
   const [topicFilter, setTopicFilter] = useState('진행중');
   const [isMineOnly, setIsMineOnly] = useState(false);
   const [isLatest, setIsLatest] = useState(true);
+
+  const topics = data?.pages.flatMap((page) => page.data);
 
   const handleTopicStatusChange = (e: ChangeEvent<HTMLInputElement>) => {
     setTopicFilter(e.target.value);
@@ -67,28 +71,27 @@ const AlphaTopics = () => {
             </Row>
           </button>
         </Row>
-        <Col>
-          <ATopicCard
-            chip="popular"
-            topicId={241}
-            topicSide={'TOPIC_A'}
-            topicTitle={'topicTitle'}
-            deadline={0}
-            voteCount={42}
-            topicContent={''}
-            keyword={{
-              keywordId: 12,
-              keywordName: 'keywordName',
-              topicSide: 'topicSide',
-            }}
-            choices={[]}
-            author={{
-              id: 123,
-              nickname: 'nickname',
-              profileImageUrl: null,
-            }}
-            selectedOption={null}
-          />
+        <Col style={{ backgroundColor: 'inherit', paddingBottom: 100 }}>
+          {topics?.map((topic) => {
+            return (
+              <ATopicCard
+                key={topic.topicId}
+                // chip="popular"
+                topicId={topic.topicId}
+                topicSide={'TOPIC_A'}
+                topicTitle={topic.topicTitle}
+                deadline={topic.deadline}
+                voteCount={topic.voteCount}
+                topicContent={topic.topicContent}
+                keyword={topic.keyword}
+                choices={topic.choices}
+                author={topic.author}
+                selectedOption={topic.selectedOption}
+                commentCount={topic.commentCount}
+                createdAt={topic.createdAt}
+              />
+            );
+          })}
         </Col>
       </Container>
     </Layout>

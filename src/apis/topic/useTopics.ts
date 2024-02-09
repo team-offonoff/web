@@ -14,6 +14,7 @@ interface TopicsRequestDTO {
   page?: number;
   size?: number;
   sort?: 'voteCount' | 'desc';
+  side?: 'TOPIC_A' | 'TOPIC_B';
 }
 
 const getTopics = (
