@@ -37,8 +37,8 @@ const BTopicCreate = () => {
 
   const handleDeadline = (deadline: number) => {
     const date = new Date();
-    date.setHours(date.getHours() + deadline);
-    return Math.floor(date.getTime() / 1000);
+    const result = Math.floor(date.getTime() / 1000) + deadline * 60 * 60;
+    return result;
   };
 
   const handleSubmitForm = async () => {
