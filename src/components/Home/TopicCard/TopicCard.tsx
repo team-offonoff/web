@@ -12,7 +12,7 @@ import Timer from '@components/Home/Timer/Timer';
 import VoteCompletion from '@components/Home/VoteCompletion/VoteCompletion';
 import useBottomSheet from '@hooks/useBottomSheet/useBottomSheet';
 import { LatestComment } from '@interfaces/api/comment';
-import { Choice, CHOICE_OPTIONS, TopicResponse } from '@interfaces/api/topic';
+import { Choice, TopicResponse } from '@interfaces/api/topic';
 
 import { colors } from '@styles/theme';
 
