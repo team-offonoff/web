@@ -12,7 +12,7 @@ import Timer from '@components/Home/Timer/Timer';
 import VoteCompletion from '@components/Home/VoteCompletion/VoteCompletion';
 import useBottomSheet from '@hooks/useBottomSheet/useBottomSheet';
 import { LatestComment } from '@interfaces/api/comment';
-import { Choice, CHOICE_OPTIONS, TopicResponse } from '@interfaces/api/topic';
+import { Choice, TopicResponse } from '@interfaces/api/topic';
 
 import { colors } from '@styles/theme';
 
@@ -34,30 +34,9 @@ interface TopicCardProps {
 }
 
 const TopicCard = ({ topic }: TopicCardProps) => {
-  const choices: Choice[] = [
-    {
-      choiceId: 0,
-      content: {
-        text: 'choiceA',
-        imageUrl: null,
-        type: 'IMAGE_TEXT',
-      },
-      choiceOption: CHOICE_OPTIONS.CHOICE_A,
-    },
-    {
-      choiceId: 2,
-      content: {
-        text: 'Choice 2',
-        imageUrl: null,
-        type: 'IMAGE_TEXT',
-      },
-      choiceOption: CHOICE_OPTIONS.CHOICE_B,
-    },
-  ]; // TBD: 투표 선택지가 비어있는 더미 데이터가 존재해서 만들어둠
-
   const [, setSearchParams] = useSearchParams();
   const swiperSlide = useSwiperSlide();
-  const { BottomSheet: CommentSheet, toggleSheet, isOpen } = useBottomSheet({});
+  const { BottomSheet: CommentSheet, toggleSheet } = useBottomSheet({});
   const voteMutation = useVoteTopic();
   const { data: latestCommentData, isSuccess } = useLatestComment(
     topic.topicId,
@@ -92,7 +71,7 @@ const TopicCard = ({ topic }: TopicCardProps) => {
       choiceOption: choiceOption,
       votedAt: new Date().getTime() / 1000,
     });
-    setLatestComment(data);
+    setLatestComment(data.latestComment);
   };
 
   return (
@@ -104,7 +83,9 @@ const TopicCard = ({ topic }: TopicCardProps) => {
           </Text>
         </BestTopicCotainer>
         <TopicContainer>
-          <Topic>{topic.topicTitle}</Topic>
+          <Topic style={{ width: 170, wordBreak: 'keep-all', overflowWrap: 'break-word' }}>
+            {topic.topicTitle}
+          </Topic>
         </TopicContainer>
         <UserInfoContainer>
           <ProfileImg url={topic.author.profileImageUrl} size={20} />
@@ -122,12 +103,9 @@ const TopicCard = ({ topic }: TopicCardProps) => {
             }
           />
         ) : (
-          <ChoiceSlider
-            onVote={handleOnVote}
-            choices={topic.choices.length > 0 ? topic.choices : choices}
-          />
+          <ChoiceSlider onVote={handleOnVote} choices={topic.choices} />
         )}
-        <Timer endTime={topic.deadline} />
+        {topic.deadline && <Timer endTime={topic.deadline} />}
         <SelectTextContainer $voted={topic.selectedOption !== null}>
           <LeftDoubleArrowIcon />
           <Text size={14} weight={'regular'} color={colors.white_40}>
@@ -136,12 +114,12 @@ const TopicCard = ({ topic }: TopicCardProps) => {
           <RightDoubleArrowIcon />
         </SelectTextContainer>
         <CommentBox
-          side={topic.keyword.topicSide === 'TOPIC_A' ? 'A' : 'B'}
+          side={topic.topicSide}
           hasVoted={topic.selectedOption !== null}
           topicId={topic.topicId}
           commentCount={0}
           voteCount={0}
-          keyword={'키워드'}
+          keyword={topic.keyword}
           latestComment={latestComment}
           onClick={handleOnClickCommentBox}
         />

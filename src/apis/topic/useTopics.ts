@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useInfiniteQuery, useMutation } from '@tanstack/react-query';
 
 import { TopicCreateRequestDTO, TopicResponse } from '@interfaces/api/topic';
 
@@ -8,12 +8,30 @@ import client from '@apis/fetch';
 
 export const TOPIC_KEY = 'topics';
 
-const getTopics = () => {
-  return client.get<PagingDataResponse<TopicResponse>>('/topics/info?size=100');
+export interface TopicsRequestDTO {
+  status?: 'VOTING' | 'CLOSED';
+  keyword_id?: number;
+  page?: number;
+  size?: number;
+  sort?: string;
+  side?: 'TOPIC_A' | 'TOPIC_B';
+}
+
+const getTopics = (
+  req: TopicsRequestDTO = { status: 'VOTING', page: 0, size: 10, sort: 'voteCount' }
+) => {
+  return client.get<PagingDataResponse<TopicResponse>>('/topics/info', req);
 };
 
-const useTopics = () => {
-  return useQuery({ queryKey: [TOPIC_KEY], queryFn: getTopics });
+const useTopics = (req?: TopicsRequestDTO) => {
+  return useInfiniteQuery({
+    queryKey: [TOPIC_KEY, req],
+    queryFn: ({ pageParam }) => getTopics({ ...req, page: pageParam }),
+    initialPageParam: 0,
+    getNextPageParam: (lastPage) => {
+      return lastPage.pageInfo.last ? undefined : lastPage.pageInfo.page + 1;
+    },
+  });
 };
 
 const createTopics = (req: TopicCreateRequestDTO) => {

@@ -5,14 +5,16 @@ export const CHOICE_OPTIONS = {
 
 interface TopicResponse {
   topicId: number;
-  topicSide: string;
+  topicSide: 'TOPIC_A' | 'TOPIC_B';
   topicTitle: string;
-  deadline: number; // 1702914494
+  deadline: number | null; // 1702914494
   voteCount: number;
-  topicContent: string; // TBD
-  keyword: Keyword;
+  commentCount: number;
+  topicContent: string | null;
+  keyword: Keyword | null;
   choices: Choice[];
   author: Author;
+  createdAt: number;
   selectedOption: typeof CHOICE_OPTIONS.CHOICE_A | typeof CHOICE_OPTIONS.CHOICE_B | null;
 }
 

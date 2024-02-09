@@ -6,6 +6,7 @@ import Text from '@components/commons/Text/Text';
 import { UserProfileImage } from '@components/Home/TopicCard/TopicCard.styles';
 import useModal from '@hooks/useModal/useModal';
 import { LatestComment } from '@interfaces/api/comment';
+import { TopicResponse } from '@interfaces/api/topic';
 
 import { colors } from '@styles/theme';
 
@@ -27,8 +28,8 @@ interface CommentBoxProps {
   onClick: () => void;
   topicId: number;
   hasVoted: boolean;
-  side: 'A' | 'B';
-  keyword: string;
+  side: TopicResponse['topicSide'];
+  keyword: TopicResponse['keyword'];
   commentCount: number;
   voteCount: number;
   latestComment: LatestComment | undefined;
@@ -65,14 +66,19 @@ const CommentBox = ({
       <CommentHeader>
         <KeywordContainer>
           <Text size={13} weight={'regular'} color={colors.purple}>
-            {side} 사이드
+            {side === 'TOPIC_A' ? 'A' : 'B'} 사이드
           </Text>
-          <Text size={14} weight={'regular'} color={colors.white_20}>
-            |
-          </Text>
-          <Text size={13} weight={'regular'} color={colors.white_60}>
-            {keyword}
-          </Text>
+          {keyword && (
+            <>
+              {' '}
+              <Text size={14} weight={'regular'} color={colors.white_20}>
+                |
+              </Text>
+              <Text size={13} weight={'regular'} color={colors.white_60}>
+                {keyword.keywordName}
+              </Text>
+            </>
+          )}
         </KeywordContainer>
         <button onClick={handleOnClickCommentMenu}>
           <MeatballIcon fill={colors.white_60} />
