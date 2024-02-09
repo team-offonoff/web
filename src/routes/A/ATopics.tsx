@@ -14,7 +14,7 @@ import { ALogoIcon, UpDownChevronIcon } from '@icons/index';
 import { Container } from './ATopics.styles';
 
 const AlphaTopics = () => {
-  const { data } = useTopics({ side: 'TOPIC_A' });
+  const { data } = useTopics({ side: 'TOPIC_A', sort: 'createdAt' });
   const [topicFilter, setTopicFilter] = useState('진행중');
   const [isMineOnly, setIsMineOnly] = useState(false);
   const [isLatest, setIsLatest] = useState(true);
