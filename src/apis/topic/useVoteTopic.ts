@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-import { LatestComment } from '@interfaces/api/comment';
 import { Choice, TopicResponse } from '@interfaces/api/topic';
+import { TopicVoteResponse } from '@interfaces/api/vote';
 
 import { PagingDataResponse } from '@interfaces/api';
 
@@ -16,7 +16,7 @@ interface VoteTopicRequest {
 }
 
 const voteTopic = ({ topicId, choiceOption, votedAt }: VoteTopicRequest) => {
-  return client.post<LatestComment>({
+  return client.post<TopicVoteResponse>({
     path: `/topics/${topicId}/vote`,
     body: {
       choiceOption,
