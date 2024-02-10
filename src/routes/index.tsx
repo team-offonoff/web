@@ -23,25 +23,19 @@ import TopicSideSelection from './Topic/TopicSideSelection';
 const AuthRoute = () => {
   const reLogin = useAuthStore((store) => store.reLogin);
   const [isLoading, setIsLoading] = useState(true);
-  const [isError, setIsError] = useState(false);
 
   useLayoutEffect(() => {
     const handleReLogin = async () => {
       try {
         await reLogin();
-        setIsLoading(false);
       } catch (e) {
         console.error(e);
-        setIsError(true);
       }
+      setIsLoading(false);
     };
 
     handleReLogin();
   }, []);
-
-  if (isError) {
-    return <Navigate to={'/login'} replace />;
-  }
 
   if (isLoading) {
     return <></>;
