@@ -1,7 +1,5 @@
 import { ErrorResponse } from '@interfaces/api/error';
 
-import { ACCESS_TOKEN } from '@constants/localStorage';
-
 export class ResponseError extends Error {
   errorData: ErrorResponse;
 
@@ -17,10 +15,6 @@ class Fetch {
 
   constructor() {
     this.baseURL = import.meta.env.VITE_API_BASE_URL;
-
-    if (import.meta.env.DEV) {
-      this.accessToken = import.meta.env.VITE_API_ACCESS_TOKEN;
-    }
   }
 
   async get<T>(path: string, qs?: Record<string, any>): Promise<T> {
@@ -79,7 +73,6 @@ class Fetch {
 
   setAccessToken(token: string) {
     this.accessToken = token;
-    localStorage.setItem(ACCESS_TOKEN, token);
   }
 }
 
