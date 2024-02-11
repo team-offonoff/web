@@ -61,7 +61,9 @@ const TopicSwiper = ({ children, fetchNextPage, hasNextPage }: TopicSwiperProps)
         observer={true}
       >
         {children.map((child, index) => (
-          <SwiperSlide key={index}>{child}</SwiperSlide>
+          <SwiperSlide key={index} style={{ overflowY: 'auto' }}>
+            {child}
+          </SwiperSlide>
         ))}
       </Swiper>
       <NextButton

@@ -9,7 +9,7 @@ export const TopicCardContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100%;
+  margin-bottom: 100px;
   overflow: hidden;
 `;
 
