@@ -52,7 +52,7 @@ const TopicSwiper = ({ children, fetchNextPage, hasNextPage }: TopicSwiperProps)
         observer={true}
       >
         {children.map((child, index) => (
-          <SwiperSlide key={index} style={{ overflowY: 'auto' }}>
+          <TopicSlide key={index} style={{ overflowY: 'auto' }}>
             <PrevButton
               disabled={init || prevDisabled}
               onClick={() => {
@@ -72,14 +72,25 @@ const TopicSwiper = ({ children, fetchNextPage, hasNextPage }: TopicSwiperProps)
             >
               <RightChevronIcon stroke={colors.white_40} />
             </NextButton>
-          </SwiperSlide>
+          </TopicSlide>
         ))}
       </Swiper>
     </React.Fragment>
   );
 };
 
+const TopicSlide = styled(SwiperSlide)`
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+`;
+
 const SlideButton = styled.button<{ disabled: boolean }>`
+  position: absolute;
+  top: 63px;
   z-index: 100;
   width: 32px;
   height: 32px;
@@ -91,14 +102,10 @@ const SlideButton = styled.button<{ disabled: boolean }>`
 `;
 
 const PrevButton = styled(SlideButton)`
-  position: absolute;
-  top: 110px;
   left: 20px;
 `;
 
 const NextButton = styled(SlideButton)`
-  position: absolute;
-  top: 110px;
   right: 20px;
 `;
 
