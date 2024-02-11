@@ -35,6 +35,7 @@ interface Choice {
   choiceId: number;
   content: ChoiceContent;
   choiceOption: typeof CHOICE_OPTIONS.CHOICE_A | typeof CHOICE_OPTIONS.CHOICE_B;
+  voteCount: number;
 }
 
 interface ChoiceContent {

@@ -40,7 +40,7 @@ const ProgressBar = ({
       </Row>
       {revealed && (
         <>
-          <Text size={14} weight={textWeight} color={textColor}>
+          <Text size={14} weight={textWeight} color={textColor} style={{ zIndex: 20 }}>
             {percentage}%
           </Text>
           <PercentageBar highlighted={highlighted} percentage={revealed ? percentage : 0} />

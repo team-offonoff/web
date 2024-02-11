@@ -1,4 +1,4 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { InfiniteData, useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { Choice, TopicResponse } from '@interfaces/api/topic';
 import { TopicVoteResponse } from '@interfaces/api/vote';
@@ -32,13 +32,21 @@ const useVoteTopic = (req?: TopicsRequestDTO) => {
     mutationFn: (params: VoteTopicRequest) => voteTopic(params),
     onSuccess: (data, variables: VoteTopicRequest) => {
       queryClient.setQueryData(
-        [TOPIC_KEY, ...(req ? [req] : [])],
-        (prev: PagingDataResponse<TopicResponse>) => {
+        [TOPIC_KEY, req],
+        (prev: InfiniteData<PagingDataResponse<TopicResponse>, unknown> | undefined) => {
+          if (!prev) {
+            return prev;
+          }
           return {
-            data: prev.data.map((topic) => {
-              return topic.topicId === variables.topicId ? { ...data.topic } : { ...topic };
+            ...prev,
+            pages: prev.pages.map((page) => {
+              return {
+                ...page,
+                data: page.data.map((topic) =>
+                  topic.topicId === data.topic.topicId ? data.topic : topic
+                ),
+              };
             }),
-            pageInfo: prev.pageInfo,
           };
         }
       );

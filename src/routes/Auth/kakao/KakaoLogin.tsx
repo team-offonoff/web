@@ -31,8 +31,7 @@ const KakaoLogin = () => {
             state: { memberId: response.memberId },
           });
         } else {
-          client.setAccessToken(response.accessToken);
-          login(response.memberId);
+          login(response.accessToken, response.refreshToken, response.memberId);
           navigate('/');
         }
       } catch (err) {
