@@ -40,15 +40,6 @@ const TopicSwiper = ({ children, fetchNextPage, hasNextPage }: TopicSwiperProps)
 
   return (
     <React.Fragment>
-      <PrevButton
-        disabled={init || prevDisabled}
-        onClick={() => {
-          swiperRef.current?.slidePrev();
-          setNextDisabled(false);
-        }}
-      >
-        <RightChevronIcon style={{ transform: 'rotate(180deg)' }} stroke={colors.white_40} />
-      </PrevButton>
       <Swiper
         allowTouchMove={false}
         modules={[Navigation]}
@@ -62,19 +53,28 @@ const TopicSwiper = ({ children, fetchNextPage, hasNextPage }: TopicSwiperProps)
       >
         {children.map((child, index) => (
           <SwiperSlide key={index} style={{ overflowY: 'auto' }}>
+            <PrevButton
+              disabled={init || prevDisabled}
+              onClick={() => {
+                swiperRef.current?.slidePrev();
+                setNextDisabled(false);
+              }}
+            >
+              <RightChevronIcon style={{ transform: 'rotate(180deg)' }} stroke={colors.white_40} />
+            </PrevButton>
             {child}
+            <NextButton
+              disabled={nextDisabled}
+              onClick={() => {
+                swiperRef.current?.slideNext();
+                setPrevDisabled(false);
+              }}
+            >
+              <RightChevronIcon stroke={colors.white_40} />
+            </NextButton>
           </SwiperSlide>
         ))}
       </Swiper>
-      <NextButton
-        disabled={nextDisabled}
-        onClick={() => {
-          swiperRef.current?.slideNext();
-          setPrevDisabled(false);
-        }}
-      >
-        <RightChevronIcon stroke={colors.white_40} />
-      </NextButton>
     </React.Fragment>
   );
 };
