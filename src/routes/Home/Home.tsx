@@ -3,9 +3,6 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 
-import React from 'react';
-import { SwiperSlide } from 'swiper/react';
-
 import useTopics from '@apis/topic/useTopics';
 import NotificationButton from '@components/commons/Header/NotificationButton/NotificationButton';
 import Layout from '@components/commons/Layout/Layout';
@@ -15,7 +12,7 @@ import TopicSwiper from '@components/Home/TopicSwiper/TopicSwiper';
 import { Container } from './Home.styles';
 
 const Home = () => {
-  const { data, fetchNextPage, hasNextPage } = useTopics({ size: 10 });
+  const { data, fetchNextPage, hasNextPage } = useTopics();
 
   const topics = data?.pages.flatMap((page) => page.data);
 
