@@ -1,3 +1,5 @@
+import React from 'react';
+
 import useVoteTopic from '@apis/topic/useVoteTopic';
 import Chip from '@components/commons/Chip/Chip';
 import CommentChip from '@components/commons/Chip/CommentChip';
@@ -16,7 +18,7 @@ interface AlphaTopicCardProps extends TopicResponse {
   chip?: 'popular' | 'close';
 }
 
-const AlphaTopicCard = (props: AlphaTopicCardProps) => {
+const AlphaTopicCard = React.memo((props: AlphaTopicCardProps) => {
   const { BottomSheet: CommentSheet, toggleSheet } = useBottomSheet({});
   const voteMutation = useVoteTopic({ side: 'TOPIC_A', sort: 'createdAt,DESC' });
   const [A, B] = props.choices;
@@ -54,7 +56,7 @@ const AlphaTopicCard = (props: AlphaTopicCardProps) => {
             revealed={props.selectedOption !== null}
             highlighted={props.selectedOption === 'CHOICE_A'}
             title={A.content.text || ''}
-            percentage={75}
+            percentage={(A.voteCount / props.voteCount) * 100}
             onClick={() => handleVote('CHOICE_A')}
             left={() => (
               <Text
@@ -70,7 +72,7 @@ const AlphaTopicCard = (props: AlphaTopicCardProps) => {
             revealed={props.selectedOption !== null}
             highlighted={props.selectedOption === 'CHOICE_B'}
             title={B.content.text || ''}
-            percentage={25}
+            percentage={(B.voteCount / props.voteCount) * 100}
             onClick={() => handleVote('CHOICE_B')}
             left={() => (
               <Text
@@ -95,6 +97,6 @@ const AlphaTopicCard = (props: AlphaTopicCardProps) => {
       </CommentSheet>
     </>
   );
-};
+});
 
 export default AlphaTopicCard;
