@@ -40,15 +40,6 @@ const TopicSwiper = ({ children, fetchNextPage, hasNextPage }: TopicSwiperProps)
 
   return (
     <React.Fragment>
-      <PrevButton
-        disabled={init || prevDisabled}
-        onClick={() => {
-          swiperRef.current?.slidePrev();
-          setNextDisabled(false);
-        }}
-      >
-        <RightChevronIcon style={{ transform: 'rotate(180deg)' }} stroke={colors.white_40} />
-      </PrevButton>
       <Swiper
         allowTouchMove={false}
         modules={[Navigation]}
@@ -61,23 +52,45 @@ const TopicSwiper = ({ children, fetchNextPage, hasNextPage }: TopicSwiperProps)
         observer={true}
       >
         {children.map((child, index) => (
-          <SwiperSlide key={index}>{child}</SwiperSlide>
+          <TopicSlide key={index} style={{ overflowY: 'auto' }}>
+            <PrevButton
+              disabled={init || prevDisabled}
+              onClick={() => {
+                swiperRef.current?.slidePrev();
+                setNextDisabled(false);
+              }}
+            >
+              <RightChevronIcon style={{ transform: 'rotate(180deg)' }} stroke={colors.white_40} />
+            </PrevButton>
+            {child}
+            <NextButton
+              disabled={nextDisabled}
+              onClick={() => {
+                swiperRef.current?.slideNext();
+                setPrevDisabled(false);
+              }}
+            >
+              <RightChevronIcon stroke={colors.white_40} />
+            </NextButton>
+          </TopicSlide>
         ))}
       </Swiper>
-      <NextButton
-        disabled={nextDisabled}
-        onClick={() => {
-          swiperRef.current?.slideNext();
-          setPrevDisabled(false);
-        }}
-      >
-        <RightChevronIcon stroke={colors.white_40} />
-      </NextButton>
     </React.Fragment>
   );
 };
 
+const TopicSlide = styled(SwiperSlide)`
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+`;
+
 const SlideButton = styled.button<{ disabled: boolean }>`
+  position: absolute;
+  top: 63px;
   z-index: 100;
   width: 32px;
   height: 32px;
@@ -89,14 +102,10 @@ const SlideButton = styled.button<{ disabled: boolean }>`
 `;
 
 const PrevButton = styled(SlideButton)`
-  position: absolute;
-  top: 110px;
   left: 20px;
 `;
 
 const NextButton = styled(SlideButton)`
-  position: absolute;
-  top: 110px;
   right: 20px;
 `;
 

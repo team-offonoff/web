@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useSwiperSlide } from 'swiper/react';
 
@@ -44,6 +44,8 @@ const TopicCard = ({ topic }: TopicCardProps) => {
   );
   const [latestComment, setLatestComment] = useState<LatestComment | undefined>();
 
+  const containerRef = useRef<HTMLDivElement | null>(null);
+
   useEffect(() => {
     if (swiperSlide.isActive) {
       setSearchParams((searchParams) => {
@@ -76,7 +78,14 @@ const TopicCard = ({ topic }: TopicCardProps) => {
 
   return (
     <React.Fragment>
-      <TopicCardContainer>
+      <TopicCardContainer
+        ref={containerRef}
+        style={{
+          marginBottom: containerRef.current
+            ? window.innerHeight - containerRef.current.scrollHeight + 60
+            : 0,
+        }}
+      >
         <BestTopicCotainer>
           <Text size={18} color={colors.purple}>
             실시간 인기 토픽
