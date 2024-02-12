@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useLayoutEffect, useState } from 'react';
 import {
   Navigate,
   Outlet,
@@ -21,10 +21,34 @@ import Notification from './Notification/Notification';
 import TopicCreate from './Topic/Create/TopicCreate';
 import TopicSideSelection from './Topic/TopicSideSelection';
 
-const ProtectedRoute = () => {
-  const isLoggedIn = useAuthStore((store) => store.isLoggedIn);
+const AuthRoute = () => {
+  const reLogin = useAuthStore((store) => store.reLogin);
+  const [isLoading, setIsLoading] = useState(true);
 
-  if (!isLoggedIn) {
+  useLayoutEffect(() => {
+    const handleReLogin = async () => {
+      try {
+        await reLogin();
+      } catch (e) {
+        console.error(e);
+      }
+      setIsLoading(false);
+    };
+
+    handleReLogin();
+  }, []);
+
+  if (isLoading) {
+    return <></>;
+  }
+
+  return <Outlet />;
+};
+
+const ProtectedRoute = () => {
+  const isLoggedin = useAuthStore((store) => store.isLoggedIn);
+
+  if (!isLoggedin) {
     return <Navigate to={'/login'} replace />;
   }
 
@@ -34,7 +58,7 @@ const ProtectedRoute = () => {
 const Router = () => {
   const router = createBrowserRouter(
     createRoutesFromElements(
-      <Route path="/" errorElement={<div>Error...</div>}>
+      <Route path="/" errorElement={<div>Error...</div>} element={<AuthRoute />}>
         <Route path="*" element={<ProtectedRoute />}>
           <Route index element={<Home />} />
           <Route path="topics">
@@ -45,7 +69,6 @@ const Router = () => {
           <Route path="mypage" element={<MyPage />} />
           <Route path="notifications" element={<Notification />} />
         </Route>
-
         <Route path="login" element={<Login />} />
         <Route path="login/kakao" element={<KakaoLogin />} />
         <Route path="login/google" element={<GoogleLogin />} />
