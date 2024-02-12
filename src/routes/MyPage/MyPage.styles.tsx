@@ -14,6 +14,13 @@ export const Container = styled.div`
   background-color: ${(props) => props.theme.colors.navy};
 `;
 
+export const ProfileImgContainer = styled.div`
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
 export const BackButton = styled.button`
   width: 24px;
   height: 24px;
@@ -36,4 +43,24 @@ export const Divider = styled.div`
   width: 100%;
   height: 1px;
   background-color: rgb(255 255 255 / 10%);
+`;
+
+export const PhotoButton = styled.button`
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 35px;
+  height: 35px;
+  padding: 7px 6px 7.5px;
+  background-color: ${(props) => props.theme.colors.navy2};
+  backdrop-filter: blur(10px);
+  border: 3px solid ${(props) => props.theme.colors.navy};
+  border-radius: 50%;
+`;
+
+export const ImageInput = styled.input`
+  display: none;
 `;

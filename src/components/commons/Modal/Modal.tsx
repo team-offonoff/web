@@ -48,7 +48,7 @@ const actionModalStyle: Styles = {
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: 'white',
-    borderRadius: '12px',
+    borderRadius: '24px',
     position: 'fixed',
     height: 'fit-content',
     width: 'calc(100% - 12px)',
