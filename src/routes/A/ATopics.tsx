@@ -1,6 +1,7 @@
 import { ChangeEvent, useState } from 'react';
 
 import useTopics from '@apis/topic/useTopics';
+import useVoteTopic from '@apis/topic/useVoteTopic';
 import ATopicCard from '@components/A/ATopicCard';
 import { Col, Row } from '@components/commons/Flex/Flex';
 import Layout from '@components/commons/Layout/Layout';
@@ -15,6 +16,7 @@ import { Container } from './ATopics.styles';
 
 const ATopics = () => {
   const { data } = useTopics({ side: 'TOPIC_A', sort: 'createdAt,DESC' });
+  const voteMutation = useVoteTopic({ side: 'TOPIC_A', sort: 'createdAt,DESC' });
   const [topicFilter, setTopicFilter] = useState('진행중');
   const [isMineOnly, setIsMineOnly] = useState(false);
   const [isLatest, setIsLatest] = useState(true);
@@ -23,6 +25,14 @@ const ATopics = () => {
 
   const handleTopicStatusChange = (e: ChangeEvent<HTMLInputElement>) => {
     setTopicFilter(e.target.value);
+  };
+
+  const handleVote = (topicId: number, side: 'CHOICE_A' | 'CHOICE_B') => {
+    voteMutation.mutate({
+      topicId: topicId,
+      choiceOption: side,
+      votedAt: new Date().getTime() / 1000,
+    });
   };
 
   return (
@@ -88,6 +98,7 @@ const ATopics = () => {
                 selectedOption={topic.selectedOption}
                 commentCount={topic.commentCount}
                 createdAt={topic.createdAt}
+                onVote={handleVote}
               />
             );
           })}
