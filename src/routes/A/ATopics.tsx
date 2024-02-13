@@ -13,7 +13,7 @@ import { ALogoIcon, UpDownChevronIcon } from '@icons/index';
 
 import { Container } from './ATopics.styles';
 
-const AlphaTopics = () => {
+const ATopics = () => {
   const { data } = useTopics({ side: 'TOPIC_A', sort: 'createdAt,DESC' });
   const [topicFilter, setTopicFilter] = useState('진행중');
   const [isMineOnly, setIsMineOnly] = useState(false);
@@ -97,4 +97,4 @@ const AlphaTopics = () => {
   );
 };
 
-export default AlphaTopics;
+export default ATopics;

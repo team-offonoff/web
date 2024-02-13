@@ -10,11 +10,12 @@ import {
 
 import { useAuthStore } from '@store/auth';
 
-import AlphaTopics from './A/ATopics';
+import ATopics from './A/ATopics';
 import GoogleLogin from './Auth/google/GoogleLogin';
 import KakaoLogin from './Auth/kakao/KakaoLogin';
 import Login from './Auth/login/Login';
 import Signup from './Auth/signup/Signup';
+import BTopics from './B/BTopics';
 import Home from './Home/Home';
 import Notification from './Notification/Notification';
 import TopicCreate from './Topic/Create/TopicCreate';
@@ -61,7 +62,8 @@ const Router = () => {
         <Route path="*" element={<ProtectedRoute />}>
           <Route index element={<Home />} />
           <Route path="topics">
-            <Route path="a" element={<AlphaTopics />} />
+            <Route path="a" element={<ATopics />} />
+            <Route path="b" element={<BTopics />} />
             <Route path="create" element={<TopicSideSelection />} />
             <Route path="create/:topicSide" element={<TopicCreate />} />
           </Route>
