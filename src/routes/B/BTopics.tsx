@@ -1,6 +1,7 @@
 import React, { ChangeEvent, useLayoutEffect, useState } from 'react';
 
 import useTopics from '@apis/topic/useTopics';
+import BTopicCard from '@components/B/BTopicCard';
 import { Row, Col } from '@components/commons/Flex/Flex';
 import Layout from '@components/commons/Layout/Layout';
 import Text from '@components/commons/Text/Text';
@@ -13,7 +14,7 @@ import { BFillLogoIcon, UpDownChevronIcon } from '@icons/index';
 import { Container } from './BTopics.styles';
 
 const BTopics = () => {
-  const { data } = useTopics({ side: 'TOPIC_A', sort: 'createdAt,DESC' });
+  const { data } = useTopics({ side: 'TOPIC_B', sort: 'createdAt,DESC' });
   const [topicFilter, setTopicFilter] = useState('진행중');
   const [isMineOnly, setIsMineOnly] = useState(false);
   const [isLatest, setIsLatest] = useState(true);
@@ -24,6 +25,9 @@ const BTopics = () => {
     setTopicFilter(e.target.value);
   };
 
+  /**
+   * set body background color to dark and restore it on cleanup
+   */
   useLayoutEffect(() => {
     const prevColor = document.body.style.backgroundColor;
     document.body.style.backgroundColor = '#0e0d16';
@@ -79,10 +83,8 @@ const BTopics = () => {
             </Row>
           </button>
         </Row>
-        <Col style={{ backgroundColor: 'inherit', paddingBottom: 100 }}>
-          {topics?.map((topic) => {
-            return <></>;
-          })}
+        <Col padding={'0 20px 100px'} gap={30}>
+          {topics?.map((topic) => <BTopicCard key={topic.topicId} topic={topic} />)}
         </Col>
       </Container>
     </Layout>
