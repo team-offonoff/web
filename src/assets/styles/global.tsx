@@ -19,7 +19,8 @@ const GlobalStyle = styled.createGlobalStyle`
   body {
     font-size: 1.6rem;
     background-color: ${(props) => props.theme.colors.navy};
-    transition: 0.2s;
+
+    /* transition: 0.2s; */
   }
 
   html,
