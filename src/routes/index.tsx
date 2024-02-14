@@ -12,17 +12,20 @@ import Loading from '@components/commons/Loading/Loading';
 
 import { useAuthStore } from '@store/auth';
 
+
 const Home = lazy(() => import('./Home/Home'));
 const ATopics = lazy(() => import('./A/ATopics'));
 const BTopic = lazy(() => import('./B/BTopic'));
 const BTopics = lazy(() => import('./B/BTopics'));
 const TopicSideSelection = lazy(() => import('./Topic/TopicSideSelection'));
 const TopicCreate = lazy(() => import('./Topic/Create/TopicCreate'));
+const MyPage = lazy(() => import('./MyPage/MyPage'));
 const Notification = lazy(() => import('./Notification/Notification'));
 const Login = lazy(() => import('./Auth/login/Login'));
 const KakaoLogin = lazy(() => import('./Auth/kakao/KakaoLogin'));
 const GoogleLogin = lazy(() => import('./Auth/google/GoogleLogin'));
 const Signup = lazy(() => import('./Auth/signup/Signup'));
+
 
 const AuthRoute = () => {
   const reLogin = useAuthStore((store) => store.reLogin);
@@ -69,6 +72,7 @@ const Router = () => {
             <Route path="create" element={<TopicSideSelection />} />
             <Route path="create/:topicSide" element={<TopicCreate />} />
           </Route>
+          <Route path="mypage" element={<MyPage />} />
           <Route path="notifications" element={<Notification />} />
         </Route>
         <Route path="login">

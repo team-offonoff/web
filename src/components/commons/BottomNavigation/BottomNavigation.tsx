@@ -69,7 +69,7 @@ const BottomNavigation = () => {
             </>
           )}
         </StyledNavLink>
-        <StyledNavLink to={'/profile'}>
+        <StyledNavLink to={'/mypage'}>
           {({ isActive }) => (
             <>
               <ProfileIcon

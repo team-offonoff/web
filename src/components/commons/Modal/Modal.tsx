@@ -48,7 +48,7 @@ const actionModalStyle: Styles = {
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: 'white',
-    borderRadius: '12px',
+    borderRadius: '24px',
     position: 'fixed',
     height: 'fit-content',
     width: 'calc(100% - 12px)',
@@ -73,9 +73,7 @@ const Modal = ({ isOpen, onClose, children }: ModalProps) => {
 const ActionModal = ({ isOpen, onClose, children }: ModalProps) => {
   return (
     <ReactModal isOpen={isOpen} onRequestClose={onClose} style={actionModalStyle} ariaHideApp>
-      <Col padding={'36px 24px'} gap={20}>
-        {children}
-      </Col>
+      {children}
     </ReactModal>
   );
 };

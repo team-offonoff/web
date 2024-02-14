@@ -58,6 +58,26 @@ class Fetch {
     return data as TData;
   }
 
+  async put<TData>({ path, headers, body }: { path: string; headers?: HeadersInit; body: object }) {
+    const response = await fetch(`${this.baseURL}${path}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json;charset=UTF-8',
+        ...(this.accessToken && { Authorization: `Bearer ${this.accessToken}` }),
+        ...headers,
+      },
+      body: JSON.stringify(body),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new ResponseError(data);
+    }
+
+    return data as TData;
+  }
+
   async delete<T>(path: string, body?: object): Promise<T> {
     const response = await fetch(`${this.baseURL}${path}`, {
       method: 'DELETE',
