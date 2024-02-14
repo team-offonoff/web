@@ -59,7 +59,9 @@ const CommentBox = ({
     toggleModal();
   };
 
-  const handleRevoteTopic = () => {};
+  const handleRevoteTopic = () => {
+    throw new Error('투표 다시하기 기능을 사용할 수 없습니다.');
+  };
 
   return (
     <CommentContainer>
