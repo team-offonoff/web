@@ -11,7 +11,8 @@ import {
 import { useAuthStore } from '@store/auth';
 
 const Home = lazy(() => import('./Home/Home'));
-const AlphaTopics = lazy(() => import('./A/ATopics'));
+const ATopics = lazy(() => import('./A/ATopics'));
+const BTopics = lazy(() => import('./B/BTopics'));
 const TopicSideSelection = lazy(() => import('./Topic/TopicSideSelection'));
 const TopicCreate = lazy(() => import('./Topic/Create/TopicCreate'));
 const Notification = lazy(() => import('./Notification/Notification'));
