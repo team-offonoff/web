@@ -45,6 +45,15 @@ export const Divider = styled.div`
   background-color: rgb(255 255 255 / 10%);
 `;
 
+export const ModalDivider = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 1px;
+  background-color: ${(props) => props.theme.colors.black_20};
+`;
+
 export const PhotoButton = styled.button`
   position: absolute;
   right: 0;

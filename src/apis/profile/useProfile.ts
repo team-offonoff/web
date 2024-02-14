@@ -35,6 +35,10 @@ const updateProfileImgURL = (profileImgURL: string) => {
   });
 };
 
+const deleteProfileImg = () => {
+  return client.delete(`/members/profile/image`);
+};
+
 const useGetPresignedURL = (fileName: string) => {
   return useMutation({ mutationFn: () => getPresignedURL(fileName) });
 };
@@ -43,4 +47,8 @@ const useUpdateProfileImgURL = (profileImgURL: string) => {
   return useMutation({ mutationFn: () => updateProfileImgURL(profileImgURL) });
 };
 
-export { getProfile, useGetPresignedURL, useUpdateProfileImgURL };
+const useDeleteProfileImg = () => {
+  return useMutation({ mutationFn: () => deleteProfileImg() });
+};
+
+export { getProfile, useGetPresignedURL, useUpdateProfileImgURL, useDeleteProfileImg };

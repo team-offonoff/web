@@ -1,11 +1,16 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { set } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 
-import { getProfile, useGetPresignedURL, useUpdateProfileImgURL } from '@apis/profile/useProfile';
+import {
+  getProfile,
+  useDeleteProfileImg,
+  useGetPresignedURL,
+  useUpdateProfileImgURL,
+} from '@apis/profile/useProfile';
 import { Col, Row } from '@components/commons/Flex/Flex';
 import Layout from '@components/commons/Layout/Layout';
 import ActionModalButton from '@components/commons/Modal/ActionModalButton';
-import Modal from '@components/commons/Modal/Modal';
 import ProfileImg from '@components/commons/ProfileImg/ProfileImg';
 import Text from '@components/commons/Text/Text';
 import useModal from '@hooks/useModal/useModal';
@@ -19,6 +24,7 @@ import {
   Container,
   Divider,
   ImageInput,
+  ModalDivider,
   MyInfoUpdateButton,
   PhotoButton,
   ProfileImgContainer,
@@ -29,7 +35,7 @@ const MyPage = () => {
 
   const profileImageInputRef = useRef<HTMLInputElement>(null);
 
-  const [profileImg, setProfileImgUrl] = useState<string | null>(null);
+  const [profileImg, setProfileImg] = useState<string | null>(null);
   const [nickName, setNickName] = useState<string>('');
   const [fileName, setFileName] = useState<string>('');
   const [file, setFile] = useState<File>();
@@ -37,8 +43,9 @@ const MyPage = () => {
 
   const updateProfileImgMutation = useGetPresignedURL('.' + fileName);
   const updateProfileImgURLMutation = useUpdateProfileImgURL(presignedURL);
-
+  const deleteProfileImg = useDeleteProfileImg();
   const { Modal, toggleModal } = useModal('action');
+  const [isDeleteModal, setIsDeleteModal] = useState<boolean>(false);
 
   const removeQueryString = (url: string): string => {
     const urlObj = new URL(url);
@@ -53,7 +60,6 @@ const MyPage = () => {
       const presignedURLResponse = await updateProfileImgMutation.mutateAsync();
       const imageUrl = removeQueryString(presignedURLResponse.presignedUrl);
 
-      console.log(imageUrl);
       setpresignedURL(imageUrl);
 
       const result = await fetch(presignedURLResponse.presignedUrl, {
@@ -65,19 +71,25 @@ const MyPage = () => {
       });
 
       if (result.ok) {
-        console.log('Upload successful');
-        const res = await updateProfileImgURLMutation.mutateAsync();
-        console.log('result', res);
+        await updateProfileImgURLMutation.mutateAsync();
       } else {
         console.error('Upload failed');
       }
     } catch (error) {
-      // 오류 처리 로직
+      console.error('Get PresignedURL failed');
     }
   };
 
   const handleSelectFromAlbum = () => {
     profileImageInputRef.current?.click();
+  };
+
+  const handleDeleteCurrentProfileImg = () => {
+    setProfileImg(null);
+    setIsDeleteModal(false);
+    const res = deleteProfileImg.mutate();
+    console.log('delete성공', res);
+    toggleModal();
   };
 
   const handleProfileImgFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -88,7 +100,7 @@ const MyPage = () => {
 
     const reader = new FileReader();
     reader.onloadend = () => {
-      setProfileImgUrl(reader.result as string);
+      setProfileImg(reader.result as string);
       const type = fileObj.name.split('.');
       setFileName(type[type.length - 1].toLowerCase());
       setFile(fileObj);
@@ -97,7 +109,9 @@ const MyPage = () => {
     toggleModal();
   };
 
-  const handleRemoveCurrentImage = () => {};
+  const handleRemoveCurrentImage = () => {
+    setIsDeleteModal(true);
+  };
 
   const handleOnClickPhotoButton = () => {
     toggleModal();
@@ -108,7 +122,7 @@ const MyPage = () => {
       try {
         const response = await getProfile();
         if (response.profileImageUrl) {
-          setProfileImgUrl(response.profileImageUrl);
+          setProfileImg(response.profileImageUrl);
         }
         setNickName(response.nickname);
       } catch (error) {
@@ -187,16 +201,54 @@ const MyPage = () => {
           onChange={handleProfileImgFileChange}
         />
         <Modal>
-          <ActionModalButton
-            handleClick={handleSelectFromAlbum}
-            Icon={() => <AlbumIcon />}
-            label={'앨범에서 가져오기'}
-          />
-          <ActionModalButton
-            handleClick={handleRemoveCurrentImage}
-            Icon={() => <TrashIcon />}
-            label={'현재 사진 삭제하기'}
-          />
+          {isDeleteModal ? (
+            <Col
+              style={{ width: '100%' }}
+              padding={'16px 0px 0px 0px'}
+              gap={0}
+              justifyContent="center"
+              alignItems="center"
+            >
+              <Text style={{ paddingBottom: 8 }} size={15} weight={400} color={colors.black_60}>
+                현재 프로필 사진을 삭제합니다.
+              </Text>
+              <Text
+                onClick={handleDeleteCurrentProfileImg}
+                style={{ width: '100%', padding: '22px 0px' }}
+                size={18}
+                weight={500}
+                color={colors.purple2}
+              >
+                삭제하기
+              </Text>
+              <ModalDivider />
+              <Text
+                onClick={() => {
+                  setIsDeleteModal(false);
+                  toggleModal();
+                }}
+                style={{ width: '100%', padding: '22px 0px' }}
+                size={18}
+                weight={500}
+                color={colors.black_40}
+              >
+                취소
+              </Text>
+            </Col>
+          ) : (
+            <Col padding={'36px 24px'} gap={20}>
+              <ActionModalButton
+                handleClick={handleSelectFromAlbum}
+                Icon={() => <AlbumIcon />}
+                label={'앨범에서 가져오기'}
+              />
+              <ActionModalButton
+                handleClick={handleRemoveCurrentImage}
+                Icon={() => <TrashIcon />}
+                label={'현재 사진 삭제하기'}
+              />
+            </Col>
+          )}
         </Modal>
       </Container>
     </Layout>
