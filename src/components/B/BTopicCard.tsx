@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import CommentChip from '@components/commons/Chip/CommentChip';
 import { Col, Row } from '@components/commons/Flex/Flex';
@@ -17,9 +18,15 @@ interface BTopicCardProps {
 }
 
 const BTopicCard = ({ topic }: BTopicCardProps) => {
+  const navigate = useNavigate();
+
+  const handleCardClick = () => {
+    navigate(`/topics/b/${topic.topicId}`, { state: { topic } });
+  };
+
   return (
     <>
-      <CardContainer>
+      <CardContainer onClick={handleCardClick}>
         <Col padding={'12px 22px 20px'}>
           <Row justifyContent={'space-between'} alignItems={'center'} style={{ marginBottom: 2 }}>
             <Row gap={10}>

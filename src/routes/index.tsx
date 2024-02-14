@@ -8,10 +8,13 @@ import {
   createRoutesFromElements,
 } from 'react-router-dom';
 
+import Loading from '@components/commons/Loading/Loading';
+
 import { useAuthStore } from '@store/auth';
 
 const Home = lazy(() => import('./Home/Home'));
 const ATopics = lazy(() => import('./A/ATopics'));
+const BTopic = lazy(() => import('./B/BTopic'));
 const BTopics = lazy(() => import('./B/BTopics'));
 const TopicSideSelection = lazy(() => import('./Topic/TopicSideSelection'));
 const TopicCreate = lazy(() => import('./Topic/Create/TopicCreate'));
@@ -23,7 +26,6 @@ const Signup = lazy(() => import('./Auth/signup/Signup'));
 
 const AuthRoute = () => {
   const reLogin = useAuthStore((store) => store.reLogin);
-  const [isLoading, setIsLoading] = useState(true);
 
   useLayoutEffect(() => {
     const handleReLogin = async () => {
@@ -32,18 +34,13 @@ const AuthRoute = () => {
       } catch (e) {
         console.error(e);
       }
-      setIsLoading(false);
     };
 
     handleReLogin();
   }, []);
 
-  if (isLoading) {
-    return <></>;
-  }
-
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<Loading />}>
       <Outlet />
     </Suspense>
   );
@@ -68,6 +65,7 @@ const Router = () => {
           <Route path="topics">
             <Route path="a" element={<ATopics />} />
             <Route path="b" element={<BTopics />} />
+            <Route path="b/:topicId" element={<BTopic />} />
             <Route path="create" element={<TopicSideSelection />} />
             <Route path="create/:topicSide" element={<TopicCreate />} />
           </Route>
