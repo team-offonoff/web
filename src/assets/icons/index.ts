@@ -5,11 +5,13 @@ import ABLogoIcon from './ab-logo.svg?react';
 import ABIcon from './ab.svg?react';
 import AlarmIcon from './alarm-default.svg?react';
 import NewAlarmIcon from './alarm-new.svg?react';
+import AlbumIcon from './album.svg?react';
 import AppleIcon from './apple.svg?react';
 import BFillLogoIcon from './b-fill-logo.svg?react';
 import BLogoIcon from './b-logo.svg?react';
 import BStrokeLogoIcon from './b-stroke-logo.svg?react';
 import BigDownChevronIcon from './big-down-chevron.svg?react';
+import CameraIcon from './camera.svg?react';
 import CheckIcon from './check.svg?react';
 import ClockIcon from './clock.svg?react';
 import CloseIcon from './close.svg?react';
@@ -39,6 +41,7 @@ import SelectedTextIcon from './text-icon-selected.svg?react';
 import TextIcon from './text-icon.svg?react';
 import ThumbsIcon from './thumbs.svg?react';
 import TopicCreatBackgrounIcon from './topic-create-background.svg?react';
+import TrashIcon from './trash.svg?react';
 import UpDownChevronIcon from './up-down.svg?react';
 import WriteBoxIcon from './write-box.svg?react';
 
@@ -85,4 +88,7 @@ export {
   ImageIcon,
   SelectedImageIcon,
   DeleteIcon,
+  TrashIcon,
+  AlbumIcon,
+  CameraIcon,
 };

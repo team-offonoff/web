@@ -1,6 +1,7 @@
 import React from 'react';
 
 import useReportTopic from '@apis/topic/useReportTopic';
+import { Col } from '@components/commons/Flex/Flex';
 import ActionModalButton from '@components/commons/Modal/ActionModalButton';
 import Text from '@components/commons/Text/Text';
 import { UserProfileImage } from '@components/Home/TopicCard/TopicCard.styles';
@@ -59,7 +60,9 @@ const CommentBox = ({
     toggleModal();
   };
 
-  const handleRevoteTopic = () => {};
+  const handleRevoteTopic = () => {
+    throw new Error('투표 다시하기 기능을 사용할 수 없습니다.');
+  };
 
   return (
     <CommentContainer>
@@ -104,21 +107,23 @@ const CommentBox = ({
         </Comment>
       </CommnetBodyContainer>
       <Modal>
-        <ActionModalButton
-          handleClick={handleHideTopic}
-          Icon={() => <HideIcon />}
-          label={'이런 토픽은 안볼래요'}
-        />
-        <ActionModalButton
-          handleClick={handleReportTopic}
-          Icon={() => <ReportIcon />}
-          label={'신고하기'}
-        />
-        <ActionModalButton
-          handleClick={handleRevoteTopic}
-          Icon={() => <RefreshIcon />}
-          label={'투표 다시 하기'}
-        />
+        <Col padding={'36px 24px'} gap={20}>
+          <ActionModalButton
+            handleClick={handleHideTopic}
+            Icon={() => <HideIcon />}
+            label={'이런 토픽은 안볼래요'}
+          />
+          <ActionModalButton
+            handleClick={handleReportTopic}
+            Icon={() => <ReportIcon />}
+            label={'신고하기'}
+          />
+          <ActionModalButton
+            handleClick={handleRevoteTopic}
+            Icon={() => <RefreshIcon />}
+            label={'투표 다시 하기'}
+          />
+        </Col>
       </Modal>
     </CommentContainer>
   );
