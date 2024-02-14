@@ -1,12 +1,8 @@
 import React from 'react';
 
 import Text from '@components/commons/Text/Text';
-import { UserProfileImage } from '@components/Home/TopicCard/TopicCard.styles';
-import useModal from '@hooks/useModal/useModal';
 
 import { colors } from '@styles/theme';
-
-import { MeatballIcon } from '@icons/index';
 
 import {
   VoteCompletionContainer,
@@ -21,8 +17,6 @@ interface VoteCompletionProps {
 }
 
 const VoteCompletion = ({ side, topicContent }: VoteCompletionProps) => {
-  const handleOnClickCommentMenu = () => {};
-
   return (
     <VoteCompletionContainer>
       <VoteCompletionBackground side={side}>
