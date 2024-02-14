@@ -1,22 +1,20 @@
-import { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useLayoutEffect, useState } from 'react';
 
 import useTopics from '@apis/topic/useTopics';
-import useVoteTopic from '@apis/topic/useVoteTopic';
-import ATopicCard from '@components/A/ATopicCard';
-import { Col, Row } from '@components/commons/Flex/Flex';
+import BTopicCard from '@components/B/BTopicCard';
+import { Row, Col } from '@components/commons/Flex/Flex';
 import Layout from '@components/commons/Layout/Layout';
 import Text from '@components/commons/Text/Text';
 import ToggleSwitch from '@components/commons/ToggleSwitch/ToggleSwitch';
 
 import { colors } from '@styles/theme';
 
-import { ALogoIcon, UpDownChevronIcon } from '@icons/index';
+import { BFillLogoIcon, UpDownChevronIcon } from '@icons/index';
 
-import { Container } from './ATopics.styles';
+import { Container } from './BTopics.styles';
 
-const ATopics = () => {
-  const { data } = useTopics({ side: 'TOPIC_A', sort: 'createdAt,DESC' });
-  const voteMutation = useVoteTopic({ side: 'TOPIC_A', sort: 'createdAt,DESC' });
+const BTopics = () => {
+  const { data } = useTopics({ side: 'TOPIC_B', sort: 'createdAt,DESC' });
   const [topicFilter, setTopicFilter] = useState('진행중');
   const [isMineOnly, setIsMineOnly] = useState(false);
   const [isLatest, setIsLatest] = useState(true);
@@ -27,18 +25,22 @@ const ATopics = () => {
     setTopicFilter(e.target.value);
   };
 
-  const handleVote = (topicId: number, side: 'CHOICE_A' | 'CHOICE_B') => {
-    voteMutation.mutate({
-      topicId: topicId,
-      choiceOption: side,
-      votedAt: new Date().getTime() / 1000,
-    });
-  };
+  /**
+   * set body background color to dark and restore it on cleanup
+   */
+  useLayoutEffect(() => {
+    const prevColor = document.body.style.backgroundColor;
+    document.body.style.backgroundColor = '#0e0d16';
+
+    return () => {
+      document.body.style.backgroundColor = prevColor;
+    };
+  }, []);
 
   return (
     <Layout
       hasBottomNavigation
-      HeaderLeft={<ALogoIcon width={30} height={30} fill={colors.white} />}
+      HeaderLeft={<BFillLogoIcon width={30} height={30} fill={colors.white} />}
       HeaderCenter={
         <ToggleSwitch value={topicFilter} onChange={handleTopicStatusChange}>
           <ToggleSwitch.Option value={'진행중'}>
@@ -81,31 +83,12 @@ const ATopics = () => {
             </Row>
           </button>
         </Row>
-        <Col style={{ backgroundColor: 'inherit', paddingBottom: 100 }}>
-          {topics?.map((topic) => {
-            return (
-              <ATopicCard
-                key={topic.topicId}
-                topicId={topic.topicId}
-                topicSide={'TOPIC_A'}
-                topicTitle={topic.topicTitle}
-                deadline={topic.deadline}
-                voteCount={topic.voteCount}
-                topicContent={topic.topicContent}
-                keyword={topic.keyword}
-                choices={topic.choices}
-                author={topic.author}
-                selectedOption={topic.selectedOption}
-                commentCount={topic.commentCount}
-                createdAt={topic.createdAt}
-                onVote={handleVote}
-              />
-            );
-          })}
+        <Col padding={'0 20px 100px'} gap={30}>
+          {topics?.map((topic) => <BTopicCard key={topic.topicId} topic={topic} />)}
         </Col>
       </Container>
     </Layout>
   );
 };
 
-export default ATopics;
+export default BTopics;

@@ -59,7 +59,7 @@ const BottomNavigation = () => {
           )}
         </StyledNavLink>
         <Empty />
-        <StyledNavLink to={'/b'}>
+        <StyledNavLink to={'/topics/b'}>
           {({ isActive }) => (
             <>
               {isActive ? <BFillLogoIcon /> : <BStrokeLogoIcon />}
