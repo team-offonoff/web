@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router';
 
 import { kakaoLogin } from '@apis/oauth/kakao';
 import { Row } from '@components/commons/Flex/Flex';
+import Loading from '@components/commons/Loading/Loading';
 
 import { useAuthStore } from '@store/auth';
 
@@ -55,27 +56,7 @@ const KakaoLogin = () => {
 
   return (
     <Container>
-      <div
-        className="loading"
-        style={{
-          position: 'fixed',
-          overflow: 'hidden',
-          height: 'calc(var(--vh, 1vh) * 100)',
-          width: '100vw',
-          zIndex: zIndex.modal,
-          backgroundColor: colors.navy_60,
-        }}
-      >
-        <Row
-          justifyContent={'center'}
-          alignItems={'center'}
-          gap={7.5}
-          style={{ width: '100%', height: '100%' }}
-        >
-          <ALogoIcon width={65} fill={colors.A} />
-          <BLogoIcon width={66} fill={colors.B} />
-        </Row>
-      </div>
+      <Loading />
       <Login />
     </Container>
   );
