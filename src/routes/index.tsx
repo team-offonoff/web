@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useState } from 'react';
+import React, { Suspense, lazy, useLayoutEffect, useState } from 'react';
 import {
   Navigate,
   Outlet,
@@ -10,16 +10,15 @@ import {
 
 import { useAuthStore } from '@store/auth';
 
-import ATopics from './A/ATopics';
-import GoogleLogin from './Auth/google/GoogleLogin';
-import KakaoLogin from './Auth/kakao/KakaoLogin';
-import Login from './Auth/login/Login';
-import Signup from './Auth/signup/Signup';
-import BTopics from './B/BTopics';
-import Home from './Home/Home';
-import Notification from './Notification/Notification';
-import TopicCreate from './Topic/Create/TopicCreate';
-import TopicSideSelection from './Topic/TopicSideSelection';
+const Home = lazy(() => import('./Home/Home'));
+const AlphaTopics = lazy(() => import('./A/ATopics'));
+const TopicSideSelection = lazy(() => import('./Topic/TopicSideSelection'));
+const TopicCreate = lazy(() => import('./Topic/Create/TopicCreate'));
+const Notification = lazy(() => import('./Notification/Notification'));
+const Login = lazy(() => import('./Auth/login/Login'));
+const KakaoLogin = lazy(() => import('./Auth/kakao/KakaoLogin'));
+const GoogleLogin = lazy(() => import('./Auth/google/GoogleLogin'));
+const Signup = lazy(() => import('./Auth/signup/Signup'));
 
 const AuthRoute = () => {
   const reLogin = useAuthStore((store) => store.reLogin);
@@ -42,7 +41,11 @@ const AuthRoute = () => {
     return <></>;
   }
 
-  return <Outlet />;
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <Outlet />
+    </Suspense>
+  );
 };
 
 const ProtectedRoute = () => {
@@ -69,9 +72,11 @@ const Router = () => {
           </Route>
           <Route path="notifications" element={<Notification />} />
         </Route>
-        <Route path="login" element={<Login />} />
-        <Route path="login/kakao" element={<KakaoLogin />} />
-        <Route path="login/google" element={<GoogleLogin />} />
+        <Route path="login">
+          <Route index element={<Login />} />
+          <Route path="kakao" element={<KakaoLogin />} />
+          <Route path="google" element={<GoogleLogin />} />
+        </Route>
         <Route path="signup" element={<Signup />} />
       </Route>
     )
