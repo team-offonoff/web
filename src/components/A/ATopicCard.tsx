@@ -16,11 +16,11 @@ import { getDateDiff } from '@utils/date';
 
 interface AlphaTopicCardProps extends TopicResponse {
   chip?: 'popular' | 'close';
+  onVote: (topicId: number, side: 'CHOICE_A' | 'CHOICE_B') => void;
 }
 
 const AlphaTopicCard = React.memo((props: AlphaTopicCardProps) => {
   const { BottomSheet: CommentSheet, toggleSheet } = useBottomSheet({});
-  const voteMutation = useVoteTopic({ side: 'TOPIC_A', sort: 'createdAt,DESC' });
   const [A, B] = props.choices;
 
   const handleCommentChipClick = () => {
@@ -28,13 +28,7 @@ const AlphaTopicCard = React.memo((props: AlphaTopicCardProps) => {
   };
 
   const handleVote = (side: 'CHOICE_A' | 'CHOICE_B') => {
-    if (props.selectedOption === null) {
-      voteMutation.mutate({
-        topicId: props.topicId,
-        choiceOption: side,
-        votedAt: new Date().getTime() / 1000,
-      });
-    }
+    props.onVote(props.topicId, side);
   };
 
   return (

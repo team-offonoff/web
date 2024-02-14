@@ -65,7 +65,8 @@ const Router = () => {
         <Route path="*" element={<ProtectedRoute />}>
           <Route index element={<Home />} />
           <Route path="topics">
-            <Route path="a" element={<AlphaTopics />} />
+            <Route path="a" element={<ATopics />} />
+            <Route path="b" element={<BTopics />} />
             <Route path="create" element={<TopicSideSelection />} />
             <Route path="create/:topicSide" element={<TopicCreate />} />
           </Route>
