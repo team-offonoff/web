@@ -1,4 +1,5 @@
 import React, { ChangeEvent, useLayoutEffect, useState } from 'react';
+import { Helmet } from 'react-helmet';
 
 import useTopics from '@apis/topic/useTopics';
 import BTopicCard from '@components/B/BTopicCard';
@@ -39,6 +40,7 @@ const BTopics = () => {
 
   return (
     <Layout
+      ThemeColor="#0e0d16"
       hasBottomNavigation
       HeaderLeft={<BFillLogoIcon width={30} height={30} fill={colors.white} />}
       HeaderCenter={
