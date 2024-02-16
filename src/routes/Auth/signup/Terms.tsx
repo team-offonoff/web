@@ -1,13 +1,12 @@
 import React, { ChangeEvent, useState } from 'react';
 
 import { useTerms } from '@apis/oauth/signup';
+import DefaultButton from '@components/commons/Button/DefaultButton';
 import Checkbox from '@components/commons/CheckBox/CheckBox';
 import { Col, Row } from '@components/commons/Flex/Flex';
 import Text from '@components/commons/Text/Text';
 
 import { colors } from '@styles/theme';
-
-import { NextButton } from './Signup.styles';
 
 interface TermsProps {
   memberId: number;
@@ -37,7 +36,9 @@ const Terms = ({ memberId }: TermsProps) => {
   };
 
   const handleSubmitConsetToTerm = async () => {
-    if (disabled) {return;}
+    if (disabled) {
+      return;
+    }
 
     const response = await consentToTermMutation.mutateAsync({
       memberId,
@@ -98,9 +99,12 @@ const Terms = ({ memberId }: TermsProps) => {
       </Col>
       <Row style={{ padding: '0 20px 48px 20px' }}>
         {/* SAFE AREA */}
-        <NextButton type={'button'} disabled={disabled} onClick={handleSubmitConsetToTerm}>
-          다음
-        </NextButton>
+        <DefaultButton
+          type={'button'}
+          disabled={disabled}
+          onClick={handleSubmitConsetToTerm}
+          title={'AB 시작하기'}
+        />
       </Row>
     </Col>
   );
