@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useState } from 'react';
+import React, { Suspense, lazy, useLayoutEffect, useState } from 'react';
 import {
   Navigate,
   Outlet,
@@ -8,22 +8,27 @@ import {
   createRoutesFromElements,
 } from 'react-router-dom';
 
+import Loading from '@components/commons/Loading/Loading';
+
 import { useAuthStore } from '@store/auth';
 
-import AlphaTopics from './A/ATopics';
-import GoogleLogin from './Auth/google/GoogleLogin';
-import KakaoLogin from './Auth/kakao/KakaoLogin';
-import Login from './Auth/login/Login';
-import Signup from './Auth/signup/Signup';
-import Home from './Home/Home';
-import MyPage from './MyPage/MyPage';
-import Notification from './Notification/Notification';
-import TopicCreate from './Topic/Create/TopicCreate';
-import TopicSideSelection from './Topic/TopicSideSelection';
+
+const Home = lazy(() => import('./Home/Home'));
+const ATopics = lazy(() => import('./A/ATopics'));
+const BTopic = lazy(() => import('./B/BTopic'));
+const BTopics = lazy(() => import('./B/BTopics'));
+const TopicSideSelection = lazy(() => import('./Topic/TopicSideSelection'));
+const TopicCreate = lazy(() => import('./Topic/Create/TopicCreate'));
+const MyPage = lazy(() => import('./MyPage/MyPage'));
+const Notification = lazy(() => import('./Notification/Notification'));
+const Login = lazy(() => import('./Auth/login/Login'));
+const KakaoLogin = lazy(() => import('./Auth/kakao/KakaoLogin'));
+const GoogleLogin = lazy(() => import('./Auth/google/GoogleLogin'));
+const Signup = lazy(() => import('./Auth/signup/Signup'));
+
 
 const AuthRoute = () => {
   const reLogin = useAuthStore((store) => store.reLogin);
-  const [isLoading, setIsLoading] = useState(true);
 
   useLayoutEffect(() => {
     const handleReLogin = async () => {
@@ -32,17 +37,16 @@ const AuthRoute = () => {
       } catch (e) {
         console.error(e);
       }
-      setIsLoading(false);
     };
 
     handleReLogin();
   }, []);
 
-  if (isLoading) {
-    return <></>;
-  }
-
-  return <Outlet />;
+  return (
+    <Suspense fallback={<Loading />}>
+      <Outlet />
+    </Suspense>
+  );
 };
 
 const ProtectedRoute = () => {
@@ -62,16 +66,20 @@ const Router = () => {
         <Route path="*" element={<ProtectedRoute />}>
           <Route index element={<Home />} />
           <Route path="topics">
-            <Route path="a" element={<AlphaTopics />} />
+            <Route path="a" element={<ATopics />} />
+            <Route path="b" element={<BTopics />} />
+            <Route path="b/:topicId" element={<BTopic />} />
             <Route path="create" element={<TopicSideSelection />} />
             <Route path="create/:topicSide" element={<TopicCreate />} />
           </Route>
           <Route path="mypage" element={<MyPage />} />
           <Route path="notifications" element={<Notification />} />
         </Route>
-        <Route path="login" element={<Login />} />
-        <Route path="login/kakao" element={<KakaoLogin />} />
-        <Route path="login/google" element={<GoogleLogin />} />
+        <Route path="login">
+          <Route index element={<Login />} />
+          <Route path="kakao" element={<KakaoLogin />} />
+          <Route path="google" element={<GoogleLogin />} />
+        </Route>
         <Route path="signup" element={<Signup />} />
       </Route>
     )

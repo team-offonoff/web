@@ -31,6 +31,7 @@ export const BetaSideContainer = styled(SlideContainer)`
 
 export const TextContainer = styled.div`
   z-index: 1;
+  box-sizing: content-box;
   justify-content: flex-start;
   width: 87px;
   padding: 0 44px;
