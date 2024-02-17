@@ -17,7 +17,7 @@ const Login = () => {
   const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${KakaoRestApiKey}&redirect_uri=${KakaoRedirectUri}&response_type=code`;
 
   const GoogleClientID = import.meta.env.VITE_GOOGLE_OAUTH_KEY;
-  const GoogleRedirectUri = 'http://localhost:5173/login/google';
+  const GoogleRedirectUri = import.meta.env.VITE_KAKAO_REDIRECT_URI;
   const googleURL = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${GoogleClientID}&response_type=token&redirect_uri=${GoogleRedirectUri}&scope=https://www.googleapis.com/auth/userinfo.email`;
 
   const handleKaKaoLogin = () => {
