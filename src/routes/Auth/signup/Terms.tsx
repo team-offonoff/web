@@ -1,4 +1,5 @@
 import React, { ChangeEvent, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { useTerms } from '@apis/oauth/signup';
 import DefaultButton from '@components/commons/Button/DefaultButton';
@@ -13,6 +14,7 @@ interface TermsProps {
 }
 
 const Terms = ({ memberId }: TermsProps) => {
+  const navigate = useNavigate();
   const consentToTermMutation = useTerms();
   const [all, setAll] = useState(false);
   const [consentToTerm, setConsentToTerm] = useState(false);
@@ -40,10 +42,12 @@ const Terms = ({ memberId }: TermsProps) => {
       return;
     }
 
-    const response = await consentToTermMutation.mutateAsync({
+    await consentToTermMutation.mutateAsync({
       memberId,
       listen_marketing: consetToMarketing,
     });
+
+    navigate('/');
   };
 
   return (
