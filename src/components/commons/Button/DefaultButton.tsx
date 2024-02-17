@@ -2,15 +2,15 @@ import { styled } from 'styled-components';
 
 import { colors } from '@styles/theme';
 
-interface DefaultButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
+interface DefaultButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   onClick: () => void;
   disabled: boolean;
   title: string;
 }
 
-const DefaultButton = ({ onClick, disabled, title }: DefaultButtonProps) => {
+const DefaultButton = ({ onClick, disabled, title, ...rest }: DefaultButtonProps) => {
   return (
-    <StyledButton onClick={onClick} disabled={disabled}>
+    <StyledButton onClick={onClick} disabled={disabled} {...rest}>
       {title}
     </StyledButton>
   );

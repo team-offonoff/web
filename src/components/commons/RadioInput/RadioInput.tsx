@@ -26,10 +26,9 @@ const RadioLabel = styled.label<{ checked: boolean }>`
   padding: 18px 0;
   font-size: 1.6rem;
   font-weight: 700;
-  color: ${({ theme }) => theme.colors.purple};
+  color: ${({ theme }) => theme.colors.white};
   text-align: center;
-  background-color: ${({ checked, theme }) => (checked ? theme.colors.navy2 : 'transparent')};
-  border: 1px solid ${({ theme }) => theme.colors.purple};
+  background-color: ${({ checked, theme }) => (checked ? theme.colors.purple : theme.colors.navy2)};
   border-radius: 10px;
 `;
 
