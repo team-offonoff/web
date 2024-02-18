@@ -1,11 +1,33 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
+
+import Loading from '@components/commons/Loading/Loading';
+import useOAuth from '@hooks/useOAuth/useOAuth';
+
+import Login from '../login/Login';
 
 import { Container } from './GoogleLogin.styles';
 
 const GoogleLogin = () => {
-  const googleCode = new URL(window.location.href).hash.split('=')[1].split('&')[0];
-  // console.log('구글 인가코드:', googleCode);
+  const oauth = useOAuth({ type: 'google' });
+  const code = oauth.getCode();
 
-  return <Container>구글로딩화면</Container>;
+  const handleGoogleLogin = async () => {
+    if (code) {
+      oauth.handleLogin(code);
+    } else {
+      throw new Error('code is invalid');
+    }
+  };
+
+  useEffect(() => {
+    handleGoogleLogin();
+  }, []);
+
+  return (
+    <Container>
+      <Loading />
+      <Login />
+    </Container>
+  );
 };
 export default GoogleLogin;
