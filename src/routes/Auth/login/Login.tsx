@@ -1,13 +1,16 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { Col, Row } from '@components/commons/Flex/Flex';
 import Layout from '@components/commons/Layout/Layout';
 import Text from '@components/commons/Text/Text';
 import LoginButton from '@components/Login/LoginButton';
 
+import { useAuthStore } from '@store/auth';
+
 import { colors, theme } from '@styles/theme';
 
-import { ABLogoIcon, AppleIcon, GoogleIcon, KakaoIcon } from '@icons/index';
+import { ABLogoIcon, AppleIcon, GoogleIcon, KakaoIcon, ProfileIcon } from '@icons/index';
 
 import { Container, Divider, LoginButtonContainer } from './Login.styles';
 
@@ -25,6 +28,9 @@ function getLoginUrl(type: 'kakao' | 'google' | 'apple') {
 }
 
 const Login = () => {
+  const login = useAuthStore((store) => store.login);
+  const navigate = useNavigate();
+
   const kakaoURL = getLoginUrl('kakao');
   const googleURL = getLoginUrl('google');
 
@@ -34,6 +40,11 @@ const Login = () => {
 
   const handleGoogleLogin = () => {
     window.location.href = googleURL;
+  };
+
+  const handleAdminLogin = () => {
+    login(import.meta.env.VITE_API_ACCESS_TOKEN, '', 4);
+    navigate('/');
   };
 
   return (
@@ -74,6 +85,15 @@ const Login = () => {
               Icon={() => <AppleIcon />}
               buttonText="애플로 계속하기"
             />
+            {import.meta.env.DEV && (
+              <LoginButton
+                onClick={handleAdminLogin}
+                backgroundColor={colors.purple}
+                color={colors.white}
+                Icon={() => <ProfileIcon />}
+                buttonText="어드민으로 로그인"
+              />
+            )}
           </LoginButtonContainer>
         </Col>
       </Container>
