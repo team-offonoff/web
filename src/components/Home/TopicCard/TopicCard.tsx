@@ -6,6 +6,7 @@ import { useLatestComment } from '@apis/comment/useComment';
 import useVoteTopic from '@apis/topic/useVoteTopic';
 import ProfileImg from '@components/commons/ProfileImg/ProfileImg';
 import Text from '@components/commons/Text/Text';
+import { Toast } from '@components/commons/Toast/Toast';
 import ChoiceSlider from '@components/Home/ChoiceSlider/ChoiceSlider';
 import CommentBox from '@components/Home/CommentBox/CommentBox';
 import Timer from '@components/Home/Timer/Timer';
@@ -17,6 +18,8 @@ import { Choice, TopicResponse } from '@interfaces/api/topic';
 import { colors } from '@styles/theme';
 
 import { LeftDoubleArrowIcon, RightDoubleArrowIcon } from '@icons/index';
+
+import { ResponseError } from '@apis/fetch';
 
 import TopicComments from '../TopicComments/TopicComments';
 
@@ -68,12 +71,22 @@ const TopicCard = ({ topic }: TopicCardProps) => {
   };
 
   const handleOnVote = async (choiceOption: Choice['choiceOption']) => {
-    const data = await voteMutation.mutateAsync({
-      topicId: topic.topicId,
-      choiceOption: choiceOption,
-      votedAt: new Date().getTime() / 1000,
-    });
-    setLatestComment(data.latestComment);
+    try {
+      const data = await voteMutation.mutateAsync({
+        topicId: topic.topicId,
+        choiceOption: choiceOption,
+        votedAt: new Date().getTime() / 1000,
+      });
+      setLatestComment(data.latestComment);
+      return true;
+    } catch (error) {
+      if (error instanceof ResponseError) {
+        if (error.errorData.abCode === 'VOTED_BY_AUTHOR') {
+          Toast.error('토픽을 작성한 사람은 투표할 수 없어요');
+        }
+      }
+      return false;
+    }
   };
 
   return (
