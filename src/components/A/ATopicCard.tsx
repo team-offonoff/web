@@ -18,6 +18,7 @@ interface AlphaTopicCardProps {
   topic: TopicResponse;
   onVote: (topicId: number, side: 'CHOICE_A' | 'CHOICE_B') => void;
   chip?: 'popular' | 'close';
+  onVote: (topicId: number, side: 'CHOICE_A' | 'CHOICE_B') => void;
 }
 
 const AlphaTopicCard = React.memo(({ topic, onVote, chip }: AlphaTopicCardProps) => {
