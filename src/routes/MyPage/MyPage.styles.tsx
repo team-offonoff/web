@@ -27,7 +27,7 @@ export const BackButton = styled.button`
   padding: 3.6px 7.8px;
 `;
 
-export const MyInfoUpdateButton = styled.button`
+export const ModifyProfileButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
