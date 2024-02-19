@@ -6,6 +6,7 @@ import { useLatestComment } from '@apis/comment/useComment';
 import useVoteTopic from '@apis/topic/useVoteTopic';
 import ProfileImg from '@components/commons/ProfileImg/ProfileImg';
 import Text from '@components/commons/Text/Text';
+import { Toast } from '@components/commons/Toast/Toast';
 import ChoiceSlider from '@components/Home/ChoiceSlider/ChoiceSlider';
 import CommentBox from '@components/Home/CommentBox/CommentBox';
 import Timer from '@components/Home/Timer/Timer';
@@ -14,9 +15,13 @@ import useBottomSheet from '@hooks/useBottomSheet/useBottomSheet';
 import { LatestComment } from '@interfaces/api/comment';
 import { Choice, TopicResponse } from '@interfaces/api/topic';
 
+import { useAuthStore } from '@store/auth';
+
 import { colors } from '@styles/theme';
 
 import { LeftDoubleArrowIcon, RightDoubleArrowIcon } from '@icons/index';
+
+import { ResponseError } from '@apis/fetch';
 
 import TopicComments from '../TopicComments/TopicComments';
 
@@ -35,12 +40,15 @@ interface TopicCardProps {
 
 const TopicCard = ({ topic }: TopicCardProps) => {
   const [, setSearchParams] = useSearchParams();
+  const memberId = useAuthStore((store) => store.memberId);
+  const isMyTopic = topic.author.id === memberId;
+
   const swiperSlide = useSwiperSlide();
   const { BottomSheet: CommentSheet, toggleSheet } = useBottomSheet({});
   const voteMutation = useVoteTopic();
   const { data: latestCommentData, isSuccess } = useLatestComment(
     topic.topicId,
-    topic.selectedOption !== null
+    topic.selectedOption !== null || isMyTopic
   );
   const [latestComment, setLatestComment] = useState<LatestComment | undefined>();
 
@@ -62,18 +70,28 @@ const TopicCard = ({ topic }: TopicCardProps) => {
   }, [isSuccess]);
 
   const handleOnClickCommentBox = () => {
-    if (topic.selectedOption !== null) {
+    if (isMyTopic || topic.selectedOption !== null) {
       toggleSheet();
     }
   };
 
   const handleOnVote = async (choiceOption: Choice['choiceOption']) => {
-    const data = await voteMutation.mutateAsync({
-      topicId: topic.topicId,
-      choiceOption: choiceOption,
-      votedAt: new Date().getTime() / 1000,
-    });
-    setLatestComment(data.latestComment);
+    try {
+      const data = await voteMutation.mutateAsync({
+        topicId: topic.topicId,
+        choiceOption: choiceOption,
+        votedAt: new Date().getTime() / 1000,
+      });
+      setLatestComment(data.latestComment);
+      return true;
+    } catch (error) {
+      if (error instanceof ResponseError) {
+        if (error.errorData.abCode === 'VOTED_BY_AUTHOR') {
+          Toast.error('토픽을 작성한 사람은 투표할 수 없어요');
+        }
+      }
+      return false;
+    }
   };
 
   return (
@@ -124,7 +142,7 @@ const TopicCard = ({ topic }: TopicCardProps) => {
         </SelectTextContainer>
         <CommentBox
           side={topic.topicSide}
-          hasVoted={topic.selectedOption !== null}
+          hasVoted={topic.selectedOption !== null || isMyTopic}
           topicId={topic.topicId}
           commentCount={0}
           voteCount={0}

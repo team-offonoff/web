@@ -8,7 +8,7 @@ import { Choice } from '@interfaces/api/topic';
 import { getScreenWidth } from '@utils/screenWidth';
 
 interface ChoiceSliderProps {
-  onVote: (choiceOption: Choice['choiceOption']) => void;
+  onVote: (choiceOption: Choice['choiceOption']) => Promise<boolean>;
   choices: Choice[];
 }
 
@@ -28,17 +28,27 @@ const ChoiceSlider = ({ onVote, choices }: ChoiceSliderProps) => {
       translateX: -(screenWidth / 2 + 7.5 + screenWidth),
       opacity: 0,
     },
+    reset: {
+      translateX: 0,
+      opacity: 1,
+    },
   };
 
-  const handleDragEnd = (_: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
+  const handleDragEnd = async (_: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
     if (info.velocity.x > 0 && info.offset.x > screenWidth / 2 + 7.5) {
       // A 슬라이드
       controls.start('A');
-      onVote(choices[0].choiceOption);
+      const result = await onVote(choices[0].choiceOption);
+      if (!result) {
+        controls.start('reset');
+      }
     } else if (info.velocity.x < 0 && info.offset.x < -(screenWidth / 2 + 7.5)) {
       // B 슬라이드
       controls.start('B');
-      onVote(choices[1].choiceOption);
+      const result = await onVote(choices[1].choiceOption);
+      if (!result) {
+        controls.start('reset');
+      }
     }
   };
 

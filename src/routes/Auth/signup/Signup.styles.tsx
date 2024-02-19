@@ -4,7 +4,6 @@ export const FormContainer = styled.form`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 100%;
   padding: 50px 20px 48px;
   background-color: ${(props) => props.theme.colors.navy};
 `;

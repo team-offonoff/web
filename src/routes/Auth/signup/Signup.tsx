@@ -3,6 +3,7 @@ import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { useLocation, useSearchParams } from 'react-router-dom';
 
 import { SingnUpRequestDTO, useSignup } from '@apis/oauth/signup';
+import DefaultButton from '@components/commons/Button/DefaultButton';
 import { Col } from '@components/commons/Flex/Flex';
 import InputField from '@components/commons/InputField/InputField';
 import Layout from '@components/commons/Layout/Layout';
@@ -19,7 +20,7 @@ import { colors } from '@styles/theme';
 
 import { ResponseError } from '@apis/fetch';
 
-import { FormContainer, NextButton } from './Signup.styles';
+import { FormContainer } from './Signup.styles';
 import Terms from './Terms';
 
 type SignupForm = Omit<SingnUpRequestDTO, 'memberId'>;
@@ -32,8 +33,8 @@ const Signup = () => {
   const methods = useForm<Omit<SingnUpRequestDTO, 'memberId'>>({ mode: 'onChange' });
   const signupMutation = useSignup();
   const { BottomSheet: TermsSheet, toggleSheet } = useBottomSheet({
-    snapPoints: [0.5, 0.5, 0],
-    initialSnap: 0.5,
+    snapPoints: [0.6, 0.6, 0],
+    initialSnap: 0.6,
     transparent: false,
   });
 
@@ -132,10 +133,13 @@ const Signup = () => {
                 selectOptions={JOBS}
               />
             </InputField>
+            <DefaultButton
+              type="submit"
+              disabled={!methods.formState.isValid}
+              onClick={() => {}}
+              title={'다 입력 했어요'}
+            />
           </Col>
-          <NextButton type={'submit'} disabled={!methods.formState.isValid}>
-            다음
-          </NextButton>
         </FormContainer>
       </FormProvider>
       <TermsSheet>

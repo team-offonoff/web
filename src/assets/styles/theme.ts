@@ -49,6 +49,7 @@ export const zIndex = {
 };
 
 export type ColorsTypes = typeof colors;
+export type ZIndexTypes = typeof zIndex;
 
 export const theme: DefaultTheme = {
   colors,
