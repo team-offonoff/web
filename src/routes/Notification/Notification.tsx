@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 import { Col } from '@components/commons/Flex/Flex';
+import BackButton from '@components/commons/Header/BackButton/BackButton';
 import Layout from '@components/commons/Layout/Layout';
 import Text from '@components/commons/Text/Text';
 import NotificationItem from '@components/Notifications/NotificationItem';
@@ -70,6 +71,7 @@ const Notification = () => {
   return (
     <Layout
       hasBottomNavigation={false}
+      HeaderLeft={<BackButton />}
       HeaderCenter={
         <Text size={20} weight={600} color={colors.white}>
           알림
