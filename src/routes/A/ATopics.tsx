@@ -83,24 +83,7 @@ const ATopics = () => {
         </Row>
         <Col style={{ backgroundColor: 'inherit', paddingBottom: 100 }}>
           {topics?.map((topic) => {
-            return (
-              <ATopicCard
-                key={topic.topicId}
-                topicId={topic.topicId}
-                topicSide={'TOPIC_A'}
-                topicTitle={topic.topicTitle}
-                deadline={topic.deadline}
-                voteCount={topic.voteCount}
-                topicContent={topic.topicContent}
-                keyword={topic.keyword}
-                choices={topic.choices}
-                author={topic.author}
-                selectedOption={topic.selectedOption}
-                commentCount={topic.commentCount}
-                createdAt={topic.createdAt}
-                onVote={handleVote}
-              />
-            );
+            return <ATopicCard key={topic.topicId} topic={topic} onVote={handleVote} />;
           })}
         </Col>
       </Container>
