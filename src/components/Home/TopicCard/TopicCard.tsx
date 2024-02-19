@@ -65,7 +65,6 @@ const TopicCard = ({ topic }: TopicCardProps) => {
 
   useEffect(() => {
     if (isSuccess) {
-      console.log('🚀 ~ useEffect ~ latestCommentData:', latestCommentData);
       setLatestComment(latestCommentData.data[0] as LatestComment);
     }
   }, [isSuccess]);
