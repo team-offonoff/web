@@ -15,6 +15,8 @@ import useBottomSheet from '@hooks/useBottomSheet/useBottomSheet';
 import { LatestComment } from '@interfaces/api/comment';
 import { Choice, TopicResponse } from '@interfaces/api/topic';
 
+import { useAuthStore } from '@store/auth';
+
 import { colors } from '@styles/theme';
 
 import { LeftDoubleArrowIcon, RightDoubleArrowIcon } from '@icons/index';
@@ -38,12 +40,15 @@ interface TopicCardProps {
 
 const TopicCard = ({ topic }: TopicCardProps) => {
   const [, setSearchParams] = useSearchParams();
+  const memberId = useAuthStore((store) => store.memberId);
+  const isMyTopic = topic.author.id === memberId;
+
   const swiperSlide = useSwiperSlide();
   const { BottomSheet: CommentSheet, toggleSheet } = useBottomSheet({});
   const voteMutation = useVoteTopic();
   const { data: latestCommentData, isSuccess } = useLatestComment(
     topic.topicId,
-    topic.selectedOption !== null
+    topic.selectedOption !== null || isMyTopic
   );
   const [latestComment, setLatestComment] = useState<LatestComment | undefined>();
 
@@ -65,7 +70,7 @@ const TopicCard = ({ topic }: TopicCardProps) => {
   }, [isSuccess]);
 
   const handleOnClickCommentBox = () => {
-    if (topic.selectedOption !== null) {
+    if (isMyTopic || topic.selectedOption !== null) {
       toggleSheet();
     }
   };
@@ -137,7 +142,7 @@ const TopicCard = ({ topic }: TopicCardProps) => {
         </SelectTextContainer>
         <CommentBox
           side={topic.topicSide}
-          hasVoted={topic.selectedOption !== null}
+          hasVoted={topic.selectedOption !== null || isMyTopic}
           topicId={topic.topicId}
           commentCount={0}
           voteCount={0}

@@ -19,7 +19,6 @@ export const enableScrollLock = () => {
 // 스크롤 잠금 해제
 export const disableScrollLock = () => {
   const { body } = document;
-  console.log('🚀 ~ disableScrollLock ~ body:', body.getAttribute('scrollY'));
 
   if (body.getAttribute('scrollY')) {
     body.style.removeProperty('overflow');
