@@ -22,6 +22,8 @@ interface AlphaTopicCardProps extends TopicResponse {
 const AlphaTopicCard = React.memo((props: AlphaTopicCardProps) => {
   const { BottomSheet: CommentSheet, toggleSheet } = useBottomSheet({});
   const [A, B] = props.choices;
+  const roundedPercentageA = Math.round((A.voteCount / props.voteCount) * 100);
+  const roundedPercentageB = 100 - roundedPercentageA;
 
   const handleCommentChipClick = () => {
     toggleSheet();
@@ -50,7 +52,7 @@ const AlphaTopicCard = React.memo((props: AlphaTopicCardProps) => {
             revealed={props.selectedOption !== null}
             highlighted={props.selectedOption === 'CHOICE_A'}
             title={A.content.text || ''}
-            percentage={(A.voteCount / props.voteCount) * 100}
+            percentage={roundedPercentageA}
             onClick={() => handleVote('CHOICE_A')}
             left={() => (
               <Text
@@ -66,7 +68,7 @@ const AlphaTopicCard = React.memo((props: AlphaTopicCardProps) => {
             revealed={props.selectedOption !== null}
             highlighted={props.selectedOption === 'CHOICE_B'}
             title={B.content.text || ''}
-            percentage={(B.voteCount / props.voteCount) * 100}
+            percentage={roundedPercentageB}
             onClick={() => handleVote('CHOICE_B')}
             left={() => (
               <Text
