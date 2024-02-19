@@ -103,7 +103,7 @@ const Signup = () => {
                 options={CONFIG.NICKNAME.options}
                 placeholder={'한글, 영문, 숫자 최대 8자'}
                 right={() => (
-                  <Text size={14} weight={700} color={colors.purple}>
+                  <Text size={14} weight={700} color={colors.purple_60}>
                     {nicknameProgress}
                   </Text>
                 )}
