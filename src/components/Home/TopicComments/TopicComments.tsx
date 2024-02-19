@@ -45,7 +45,9 @@ const TopicComments = memo(({ topic }: TopicCommentsProps) => {
         </Row>
       </TopicCommentsHeader>
       <CommentsContainer>
-        {comments?.map((comment) => <Comment key={comment.commentId} comment={comment} />)}
+        {comments?.map((comment) => (
+          <Comment key={comment.commentId} comment={comment} choices={topic.choices} />
+        ))}
       </CommentsContainer>
       <CommentInputContainer>
         <CommentInput
