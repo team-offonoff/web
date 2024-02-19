@@ -17,7 +17,7 @@ class Fetch {
     this.baseURL = import.meta.env.VITE_API_BASE_URL;
   }
 
-  async get<T>(path: string, qs?: Record<string, any>): Promise<T> {
+  async get<TData>(path: string, qs?: Record<string, any>) {
     const queryString = qs ? `?${new URLSearchParams(qs).toString()}` : '';
     const response = await fetch(`${this.baseURL}${path}${queryString}`, {
       method: 'GET',
@@ -26,8 +26,13 @@ class Fetch {
         ...(this.accessToken && { Authorization: `Bearer ${this.accessToken}` }),
       },
     });
-    const data: T = await response.json();
-    return data;
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new ResponseError(data);
+    }
+
+    return data as TData;
   }
 
   async post<TData>({

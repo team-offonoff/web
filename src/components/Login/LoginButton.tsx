@@ -22,7 +22,7 @@ const LoginButton = ({
   buttonText,
 }: LoginButtonProps) => (
   <Button onClick={onClick} style={{ backgroundColor }}>
-    <Row padding={'15px 20px'} justifyContent={'space-between'}>
+    <Row padding={'15px 20px'} justifyContent={'space-between'} alignItems="center">
       <Icon />
       <Text size={16} color={color} weight={'bold'}>
         {buttonText}

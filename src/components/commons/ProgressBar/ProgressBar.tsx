@@ -34,9 +34,9 @@ const ProgressBar = ({
         style={{ zIndex: 20, width: 'unset' }}
       >
         {left && left()}
-        <Text size={14} weight={textWeight} color={textColor}>
+        <Content size={14} weight={textWeight} color={textColor}>
           {title}
-        </Text>
+        </Content>
       </Row>
       {revealed && (
         <>
@@ -75,4 +75,13 @@ const PercentageBar = styled.div<{ percentage: number; highlighted: boolean }>`
   border-radius: 10px;
   transition: 0.2s;
   transition-timing-function: ease-in-out;
+`;
+
+const Content = styled(Text)`
+  display: -webkit-box;
+  height: 100%;
+  overflow: hidden;
+  word-wrap: break-word;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
 `;

@@ -50,6 +50,7 @@ const BTopic = () => {
       votedAt: new Date().getTime() / 1000,
     });
     setLatestComment(data.latestComment);
+    return true;
   };
 
   const handleCommentBoxClick = () => {

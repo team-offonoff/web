@@ -6,11 +6,14 @@ import ATopicCard from '@components/A/ATopicCard';
 import { Col, Row } from '@components/commons/Flex/Flex';
 import Layout from '@components/commons/Layout/Layout';
 import Text from '@components/commons/Text/Text';
+import { Toast } from '@components/commons/Toast/Toast';
 import ToggleSwitch from '@components/commons/ToggleSwitch/ToggleSwitch';
 
 import { colors } from '@styles/theme';
 
 import { ALogoIcon, UpDownChevronIcon } from '@icons/index';
+
+import { ResponseError } from '@apis/fetch';
 
 import { Container } from './ATopics.styles';
 
@@ -27,12 +30,18 @@ const ATopics = () => {
     setTopicFilter(e.target.value);
   };
 
-  const handleVote = (topicId: number, side: 'CHOICE_A' | 'CHOICE_B') => {
-    voteMutation.mutate({
-      topicId: topicId,
-      choiceOption: side,
-      votedAt: new Date().getTime() / 1000,
-    });
+  const handleVote = async (topicId: number, side: 'CHOICE_A' | 'CHOICE_B') => {
+    try {
+      await voteMutation.mutateAsync({
+        topicId: topicId,
+        choiceOption: side,
+        votedAt: new Date().getTime() / 1000,
+      });
+    } catch (error) {
+      if (error instanceof ResponseError && error.errorData.abCode === 'VOTED_BY_AUTHOR') {
+        Toast.error('토픽을 작성한 사람은 투표할 수 없어요');
+      }
+    }
   };
 
   return (
@@ -83,24 +92,7 @@ const ATopics = () => {
         </Row>
         <Col style={{ backgroundColor: 'inherit', paddingBottom: 100 }}>
           {topics?.map((topic) => {
-            return (
-              <ATopicCard
-                key={topic.topicId}
-                topicId={topic.topicId}
-                topicSide={'TOPIC_A'}
-                topicTitle={topic.topicTitle}
-                deadline={topic.deadline}
-                voteCount={topic.voteCount}
-                topicContent={topic.topicContent}
-                keyword={topic.keyword}
-                choices={topic.choices}
-                author={topic.author}
-                selectedOption={topic.selectedOption}
-                commentCount={topic.commentCount}
-                createdAt={topic.createdAt}
-                onVote={handleVote}
-              />
-            );
+            return <ATopicCard key={topic.topicId} topic={topic} onVote={handleVote} />;
           })}
         </Col>
       </Container>

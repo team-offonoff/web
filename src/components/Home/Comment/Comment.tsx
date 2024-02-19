@@ -7,6 +7,7 @@ import ProfileImg from '@components/commons/ProfileImg/ProfileImg';
 import Text from '@components/commons/Text/Text';
 import useModal from '@hooks/useModal/useModal';
 import { CommentResponse } from '@interfaces/api/comment';
+import { Choice } from '@interfaces/api/topic';
 
 import { useAuthStore } from '@store/auth';
 
@@ -18,9 +19,10 @@ import Thumbs from './Thumbs';
 
 interface CommentProps {
   comment: CommentResponse;
+  choices: Choice[];
 }
 
-const Comment = React.memo(({ comment }: CommentProps) => {
+const Comment = React.memo(({ comment, choices }: CommentProps) => {
   const { Modal, toggleModal } = useModal('action');
   const reactMutation = useReactComment(comment.topicId, comment.commentId);
   const memberId = useAuthStore((store) => store.memberId);
@@ -79,8 +81,12 @@ const Comment = React.memo(({ comment }: CommentProps) => {
                   {'·'} {distanceText}전
                 </Text>
               </Row>
-              <Text size={14} color={colors.A} weight={600}>
-                {comment.writersVotedOption}
+              <Text
+                size={14}
+                color={comment.writersVotedOption === 'CHOICE_A' ? colors.A_60 : colors.B_60}
+                weight={600}
+              >
+                {choices[comment.writersVotedOption === 'CHOICE_A' ? 0 : 1].content.text}
               </Text>
             </Col>
           </Row>

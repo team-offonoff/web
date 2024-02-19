@@ -3,6 +3,8 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useEffect } from 'react';
 import { StyleSheetManager, ThemeProvider } from 'styled-components';
 
+import { StyledToastConatiner } from '@components/commons/Toast/Toast';
+
 import GlobalStyle from '@styles/global';
 import { theme } from '@styles/theme';
 
@@ -22,6 +24,7 @@ const App = () => {
       <QueryClientProvider client={queryClient}>
         <ThemeProvider theme={theme}>
           <GlobalStyle />
+          <StyledToastConatiner limit={1} />
           <Router />
         </ThemeProvider>
       </QueryClientProvider>

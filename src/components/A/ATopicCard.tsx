@@ -14,47 +14,51 @@ import { colors } from '@styles/theme';
 
 import { getDateDiff } from '@utils/date';
 
-interface AlphaTopicCardProps extends TopicResponse {
+interface AlphaTopicCardProps {
+  topic: TopicResponse;
+  onVote: (topicId: number, side: 'CHOICE_A' | 'CHOICE_B') => void;
   chip?: 'popular' | 'close';
   onVote: (topicId: number, side: 'CHOICE_A' | 'CHOICE_B') => void;
 }
 
-const AlphaTopicCard = React.memo((props: AlphaTopicCardProps) => {
+const AlphaTopicCard = React.memo(({ topic, onVote, chip }: AlphaTopicCardProps) => {
   const { BottomSheet: CommentSheet, toggleSheet } = useBottomSheet({});
-  const [A, B] = props.choices;
+  const [A, B] = topic.choices;
+  const roundedPercentageA = Math.round((A.voteCount / topic.voteCount) * 100);
+  const roundedPercentageB = 100 - roundedPercentageA;
 
   const handleCommentChipClick = () => {
     toggleSheet();
   };
 
   const handleVote = (side: 'CHOICE_A' | 'CHOICE_B') => {
-    props.onVote(props.topicId, side);
+    onVote(topic.topicId, side);
   };
 
   return (
     <>
       <Col padding={'20px'}>
-        {props.chip && (
+        {chip && (
           <Row style={{ marginBottom: 12 }}>
             <Chip tintColor={'#D3FF9C'} label={'실시간 인기 토픽'} />
           </Row>
         )}
         <Row justifyContent={'space-between'} style={{ marginBottom: 14 }}>
           <Text size={18} weight={500} color={colors.white}>
-            {props.topicTitle}
+            {topic.topicTitle}
           </Text>
           <button> - </button>
         </Row>
         <Col gap={5} style={{ marginBottom: 14 }}>
           <ProgressBar
-            revealed={props.selectedOption !== null}
-            highlighted={props.selectedOption === 'CHOICE_A'}
+            revealed={topic.selectedOption !== null}
+            highlighted={topic.selectedOption === 'CHOICE_A'}
             title={A.content.text || ''}
-            percentage={(A.voteCount / props.voteCount) * 100}
+            percentage={roundedPercentageA}
             onClick={() => handleVote('CHOICE_A')}
             left={() => (
               <Text
-                color={props.selectedOption === 'CHOICE_A' ? colors.A_80 : colors.A_40}
+                color={topic.selectedOption === 'CHOICE_A' ? colors.A_80 : colors.A_40}
                 size={24}
                 weight={900}
               >
@@ -63,14 +67,14 @@ const AlphaTopicCard = React.memo((props: AlphaTopicCardProps) => {
             )}
           />
           <ProgressBar
-            revealed={props.selectedOption !== null}
-            highlighted={props.selectedOption === 'CHOICE_B'}
+            revealed={topic.selectedOption !== null}
+            highlighted={topic.selectedOption === 'CHOICE_B'}
             title={B.content.text || ''}
-            percentage={(B.voteCount / props.voteCount) * 100}
+            percentage={roundedPercentageB}
             onClick={() => handleVote('CHOICE_B')}
             left={() => (
               <Text
-                color={props.selectedOption === 'CHOICE_B' ? colors.B_80 : colors.B_40}
+                color={topic.selectedOption === 'CHOICE_B' ? colors.B_80 : colors.B_40}
                 size={24}
                 weight={900}
               >
@@ -81,13 +85,13 @@ const AlphaTopicCard = React.memo((props: AlphaTopicCardProps) => {
         </Col>
         <Row justifyContent={'space-between'} alignItems={'center'}>
           <Text size={13} color={colors.white_40}>
-            {getDateDiff(props.createdAt)} 전
+            {getDateDiff(topic.createdAt)} 전
           </Text>
-          <CommentChip count={props.commentCount} onClick={handleCommentChipClick} />
+          <CommentChip count={topic.commentCount} onClick={handleCommentChipClick} />
         </Row>
       </Col>
       <CommentSheet>
-        <TopicComments topic={props} />
+        <TopicComments topic={topic} />
       </CommentSheet>
     </>
   );
