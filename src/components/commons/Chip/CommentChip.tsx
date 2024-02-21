@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 import { colors } from '@styles/theme';
 
-import { CommentIcon } from '@icons/index';
+import { CommentBoxIcon, CommentIcon } from '@icons/index';
 
 import Text from '../Text/Text';
 
@@ -19,7 +19,7 @@ const CommentChip = ({ count, onClick, backgroundColor }: CommentChipProps) => {
       onClick={onClick}
       style={{ backgroundColor: backgroundColor || colors.black_40 }}
     >
-      <CommentIcon width={18} height={18} />
+      <CommentBoxIcon width={18} height={18} />
       <Text size={13} weight={400} color={colors.white}>
         댓글
       </Text>
