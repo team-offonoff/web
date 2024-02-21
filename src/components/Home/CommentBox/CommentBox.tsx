@@ -1,3 +1,4 @@
+import { formatToKoreanNumber } from '@toss/utils';
 import React from 'react';
 
 import useReportTopic from '@apis/topic/useReportTopic';
@@ -90,10 +91,10 @@ const CommentBox = ({
       <CommnetBodyContainer onClick={onClick}>
         <CommentInfoContainer>
           <Text size={14} weight={600} color={colors.white_60}>
-            <HighlightText>{commentCount}천개</HighlightText>의 댓글
+            <HighlightText>{formatToKoreanNumber(commentCount)}개</HighlightText>의 댓글
           </Text>
           <Text size={14} weight={600} color={colors.white_60}>
-            <HighlightText>{voteCount}명</HighlightText>이 선택했어요
+            <HighlightText>{formatToKoreanNumber(voteCount)}명</HighlightText>이 선택했어요
           </Text>
         </CommentInfoContainer>
         <Comment>

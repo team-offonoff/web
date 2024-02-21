@@ -1,3 +1,4 @@
+import { formatToKoreanNumber } from '@toss/utils';
 import React, { memo, useLayoutEffect, useState } from 'react';
 
 import { useComments, useCreateComment } from '@apis/comment/useComment';
@@ -37,7 +38,7 @@ const TopicComments = memo(({ topic }: TopicCommentsProps) => {
       <TopicCommentsHeader className="draggable">
         <Row className="draggable">
           <Text className="draggable" size={18} weight={500} color={colors.black}>
-            {commentCount}개
+            {formatToKoreanNumber(commentCount || 0)}개
           </Text>
           <Text className="draggable" size={18} weight={500} color={colors.black_40}>
             의 댓글

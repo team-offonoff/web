@@ -144,8 +144,8 @@ const TopicCard = ({ topic }: TopicCardProps) => {
           side={topic.topicSide}
           hasVoted={topic.selectedOption !== null || isMyTopic}
           topicId={topic.topicId}
-          commentCount={0}
-          voteCount={0}
+          commentCount={topic.commentCount}
+          voteCount={topic.voteCount}
           keyword={topic.keyword}
           latestComment={latestComment}
           onClick={handleOnClickCommentBox}
