@@ -18,7 +18,8 @@ export const theme1: TextInputTheme = {
   fontSize: '1.4rem',
   fontWeight: 600,
   backgroundColor: colors.navy2_40,
-  placeholderColor: colors.purple,
+  placeholderColor: colors.purple_60,
+  placeholderSize: '1.4rem',
 };
 
 export const theme2: TextInputTheme = {
@@ -28,6 +29,7 @@ export const theme2: TextInputTheme = {
   fontWeight: 500,
   backgroundColor: colors.navy2_40,
   placeholderColor: colors.purple,
+  placeholderSize: '1.6rem',
 };
 
 export const theme3: TextInputTheme = {

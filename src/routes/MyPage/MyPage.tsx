@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { set } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import {
   getProfile,
@@ -25,7 +25,7 @@ import {
   Divider,
   ImageInput,
   ModalDivider,
-  MyInfoUpdateButton,
+  ModifyProfileButton,
   PhotoButton,
   ProfileImgContainer,
 } from './MyPage.styles';
@@ -37,6 +37,8 @@ const MyPage = () => {
 
   const [profileImg, setProfileImg] = useState<string | null>(null);
   const [nickName, setNickName] = useState<string>('');
+  const [birth, setBirth] = useState<string>('');
+  const [gender, setGender] = useState<string>('');
   const [fileName, setFileName] = useState<string>('');
   const [file, setFile] = useState<File>();
   const [presignedURL, setpresignedURL] = useState<string>('');
@@ -117,6 +119,10 @@ const MyPage = () => {
     toggleModal();
   };
 
+  const handleOnClickModifyProfile = () => {
+    navigate('/mypage/modify-profile', { state: { birth, gender } });
+  };
+
   useEffect(() => {
     const fetchProfile = async () => {
       try {
@@ -125,6 +131,8 @@ const MyPage = () => {
           setProfileImg(response.profileImageUrl);
         }
         setNickName(response.nickname);
+        setBirth(response.birth.replace(/-/g, '/'));
+        setGender(response.gender === 'FEMALE' ? '여자' : '남자');
       } catch (error) {
         console.error(error);
       }
@@ -168,15 +176,26 @@ const MyPage = () => {
           </Col>
           <Col gap={32} alignItems="flex-start">
             <Row padding="0 7px" gap={3} alignItems="center">
-              <Text size={16} weight={400} color={colors.white}>
+              <Text
+                size={16}
+                weight={400}
+                color={colors.white}
+                onClick={handleOnClickModifyProfile}
+              >
                 내 정보 수정
               </Text>
-              <MyInfoUpdateButton>
+              <ModifyProfileButton onClick={handleOnClickModifyProfile}>
                 <RightChevronIcon stroke={colors.white_40} />
-              </MyInfoUpdateButton>
+              </ModifyProfileButton>
             </Row>
             <Divider />
-            <Text style={{ padding: '0 7px' }} size={16} weight={400} color={colors.white}>
+            <Text
+              style={{ padding: '0 7px' }}
+              size={16}
+              weight={400}
+              color={colors.white}
+              align="start"
+            >
               약관
             </Text>
             <Row padding="0 7px" gap={10} alignItems="center">
@@ -188,7 +207,13 @@ const MyPage = () => {
               </Text>
             </Row>
             <Divider />
-            <Text style={{ padding: '0 7px' }} size={16} weight={400} color={colors.white_40}>
+            <Text
+              style={{ padding: '0 7px' }}
+              size={16}
+              weight={400}
+              color={colors.white_40}
+              align="start"
+            >
               로그아웃
             </Text>
           </Col>

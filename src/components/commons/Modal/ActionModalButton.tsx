@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { colors } from '@styles/theme';
+
 import { Row } from '../Flex/Flex';
 import Text from '../Text/Text';
 
@@ -14,7 +16,7 @@ const ActionModalButton = ({ handleClick, Icon, label }: ActionModalButtonProps)
     <button onClick={handleClick}>
       <Row alignItems={'center'} gap={14}>
         <Icon />
-        <Text size={16} weight={500}>
+        <Text size={16} weight={500} color={colors.black}>
           {label}
         </Text>
       </Row>

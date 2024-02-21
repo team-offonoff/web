@@ -4,7 +4,7 @@ import { TextInputTheme } from './theme';
 
 const StyledInput = styled.input<{ inputTheme: TextInputTheme }>`
   width: 100%;
-  font-size: ${({ inputTheme }) => inputTheme.placeholderSize};
+  font-size: ${({ inputTheme }) => inputTheme.fontSize};
   font-weight: ${({ inputTheme }) => inputTheme.fontWeight};
   line-height: 1.4;
   color: ${({ theme }) => theme.colors.white};
