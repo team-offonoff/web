@@ -1746,6 +1746,13 @@
   dependencies:
     regenerator-runtime "^0.14.0"
 
+"@babel/runtime@^7.14.8":
+  version "7.23.9"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.23.9.tgz#47791a15e4603bb5f905bc0753801cf21d6345f7"
+  integrity sha512-0CX6F+BI2s9dkUqr08KFrAIZgNFj75rdBU/DjCyYLIaV/quFjkk6T+EJ2LkZHyZTbEV4L5p97mNkUsHl2wLFAw==
+  dependencies:
+    regenerator-runtime "^0.14.0"
+
 "@babel/template@^7.22.15", "@babel/template@^7.22.5":
   version "7.22.15"
   resolved "https://registry.yarnpkg.com/@babel/template/-/template-7.22.15.tgz#09576efc3830f0430f4548ef971dde1350ef2f38"
@@ -3535,6 +3542,14 @@
   resolved "https://registry.yarnpkg.com/@toss/date/-/date-1.1.8.tgz#6813d6cf8f307dce92e601a57517fac91a93891b"
   integrity sha512-7a1XXWuyWA/Pj2gPqHcxfX5ffShLFzrGpw1pxyJBQp+PfGY3KwcHSBM+/S8Sr2Fi+ztjQKCPtPes1UvnKZ04RA==
   dependencies:
+    date-fns "^2.25.0"
+
+"@toss/utils@^1.4.6":
+  version "1.4.6"
+  resolved "https://registry.yarnpkg.com/@toss/utils/-/utils-1.4.6.tgz#5f2db113253ad2d44a4e746f34a07ed4e7076d9e"
+  integrity sha512-MXLAL44Q6HU3fZ8v0DxgMiVqLLwSxegqPd7OsOsV5/tSJL5Ti6zFZRDMidIi73wp7IE3VAa4YswSEiuXbEwHZA==
+  dependencies:
+    "@babel/runtime" "^7.14.8"
     date-fns "^2.25.0"
 
 "@types/aria-query@^5.0.1":
