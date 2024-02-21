@@ -12,8 +12,6 @@ import Loading from '@components/commons/Loading/Loading';
 
 import { useAuthStore } from '@store/auth';
 
-import ModifyProfile from './MyPage/ModifyProfile/ModifyProfile';
-
 const Home = lazy(() => import('./Home/Home'));
 const ATopics = lazy(() => import('./A/ATopics'));
 const BTopic = lazy(() => import('./B/BTopic'));
@@ -21,6 +19,7 @@ const BTopics = lazy(() => import('./B/BTopics'));
 const TopicSideSelection = lazy(() => import('./Topic/TopicSideSelection'));
 const TopicCreate = lazy(() => import('./Topic/Create/TopicCreate'));
 const MyPage = lazy(() => import('./MyPage/MyPage'));
+const ModifyProfile = lazy(() => import('./MyPage/ModifyProfile/ModifyProfile'));
 const Notification = lazy(() => import('./Notification/Notification'));
 const Login = lazy(() => import('./Auth/login/Login'));
 const KakaoLogin = lazy(() => import('./Auth/kakao/KakaoLogin'));
