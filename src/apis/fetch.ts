@@ -74,13 +74,21 @@ class Fetch {
       body: JSON.stringify(body),
     });
 
-    const data = await response.json();
-
     if (!response.ok) {
+      const data = await response.json();
       throw new ResponseError(data);
     }
 
-    return data as TData;
+    // 응답 본문이 있는지 확인
+    const text = await response.text();
+    if (text) {
+      // 응답 본문이 있으면 JSON으로 파싱
+      const data = JSON.parse(text);
+      return data as TData;
+    } else {
+      // 응답 본문이 없으면 null 반환
+      return null;
+    }
   }
 
   async delete<T>(path: string, body?: object): Promise<T> {

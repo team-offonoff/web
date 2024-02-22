@@ -29,12 +29,11 @@ const StyledSelect = styled.select<{ selected: boolean }>`
   font-size: 1.4rem;
   font-weight: 600;
   line-height: 1.4;
-  color: ${({ theme }) => theme.colors.purple};
+  color: ${({ selected, theme }) => (selected ? theme.colors.white : theme.colors.purple_60)};
   appearance: none;
-  background-color: #342b52;
+  background-color: ${({ theme }) => theme.colors.navy2_40};
   border: none;
   border-radius: 10px;
-  opacity: 0.6;
 
   &:focus {
     outline: none;
@@ -61,7 +60,11 @@ const SelectInput = (props: SelectInputProps) => {
       <SelectLabel htmlFor={id}>
         <DownChevronIcon />
       </SelectLabel>
-      <StyledSelect {...register(id, options)} selected={watch(id) !== undefined} id={id}>
+      <StyledSelect
+        {...register(id, options)}
+        selected={watch(id) !== undefined && watch(id) !== ''}
+        id={id}
+      >
         <option value="" disabled selected style={{ display: 'none' }}>
           {placeholder}
         </option>

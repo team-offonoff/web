@@ -9,7 +9,6 @@ export const TopicCardContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 100px;
   overflow: hidden;
 `;
 
@@ -90,4 +89,10 @@ export const SelectTextContainer = styled.div<{ $voted: boolean }>`
   height: 25px;
   margin: 4px 0 0;
   visibility: ${(props) => (props.$voted ? 'hidden' : 'visible')};
+`;
+
+export const TopicFooter = styled.div`
+  box-sizing: border-box;
+  width: 100%;
+  padding: 50px 20px 20px;
 `;

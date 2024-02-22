@@ -10,6 +10,7 @@ export interface TextProps extends React.HTMLAttributes<HTMLDivElement> {
   align?: React.CSSProperties['textAlign'];
   lineHeight?: React.CSSProperties['lineHeight'];
   noWrap?: boolean;
+  ellipsis?: number;
 }
 
 const getFontSize = (sizeInPx: number) => `${sizeInPx / 10}rem`;
@@ -25,6 +26,16 @@ const Text = React.memo((props: TextProps) => {
 });
 
 const StyledText = styled('div')<TextProps>`
+  ${({ ellipsis }) =>
+    ellipsis &&
+    css`
+      display: -webkit-box;
+      height: 100%;
+      overflow: hidden;
+      word-wrap: break-word;
+      -webkit-line-clamp: ${ellipsis};
+      -webkit-box-orient: vertical;
+    `}
   ${({ lineHeight = 1.4 }) =>
     lineHeight &&
     css`

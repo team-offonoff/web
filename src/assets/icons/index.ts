@@ -15,6 +15,7 @@ import CameraIcon from './camera.svg?react';
 import CheckIcon from './check.svg?react';
 import ClockIcon from './clock.svg?react';
 import CloseIcon from './close.svg?react';
+import CommentBoxIcon from './comment-box.svg?react';
 import CommentIcon from './comment.svg?react';
 import DefaultProfileIcon from './default-profile.svg?react';
 import DeleteIcon from './delete.svg?react';
@@ -60,6 +61,7 @@ export {
   ClockIcon,
   CloseIcon,
   CommentIcon,
+  CommentBoxIcon,
   DefaultProfileIcon,
   DownChevronIcon,
   GoogleIcon,

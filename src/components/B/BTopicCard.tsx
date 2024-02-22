@@ -8,6 +8,8 @@ import { TopicResponse } from '@interfaces/api/topic';
 
 import { colors } from '@styles/theme';
 
+import { MeatballIcon } from '@icons/index';
+
 import { getDateDiff } from '@utils/date';
 
 import { CardContainer, CardFooter } from './BTopicCard.styles';
@@ -23,6 +25,8 @@ const BTopicCard = ({ topic }: BTopicCardProps) => {
   const handleCardClick = () => {
     navigate(`/topics/b/${topic.topicId}`, { state: { topic } });
   };
+
+  const handleOptionClick = () => {};
 
   return (
     <>
@@ -57,7 +61,10 @@ const BTopicCard = ({ topic }: BTopicCardProps) => {
             <Text size={18} weight={600} color={colors.white}>
               {topic.topicTitle}
             </Text>
-            <button>-</button>
+            {/* TBD: 1차 스펙 아웃 */}
+            {/* <button onClick={handleOptionClick}>
+              <MeatballIcon fill={colors.white_60} />
+            </button> */}
           </Row>
           <Row gap={5}>
             <BTopicChoice

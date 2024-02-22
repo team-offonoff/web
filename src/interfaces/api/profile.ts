@@ -10,4 +10,9 @@ interface PresignedURLResponse {
   presignedUrl: string;
 }
 
-export type { ProfileResponse, PresignedURLResponse };
+interface ModifyProfileRequestDTO {
+  nickname: string;
+  job: string;
+}
+
+export type { ProfileResponse, PresignedURLResponse, ModifyProfileRequestDTO };

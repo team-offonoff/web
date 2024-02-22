@@ -12,6 +12,8 @@ import { TopicResponse } from '@interfaces/api/topic';
 
 import { colors } from '@styles/theme';
 
+import { MeatballIcon } from '@icons/index';
+
 import { getDateDiff } from '@utils/date';
 
 interface AlphaTopicCardProps {
@@ -34,6 +36,8 @@ const AlphaTopicCard = React.memo(({ topic, onVote, chip }: AlphaTopicCardProps)
     onVote(topic.topicId, side);
   };
 
+  const handleOptionClick = () => {};
+
   return (
     <>
       <Col padding={'20px'}>
@@ -46,7 +50,10 @@ const AlphaTopicCard = React.memo(({ topic, onVote, chip }: AlphaTopicCardProps)
           <Text size={18} weight={500} color={colors.white}>
             {topic.topicTitle}
           </Text>
-          <button> - </button>
+          {/* TBD: 1차 스펙 아웃 */}
+          {/* <button onClick={handleOptionClick}>
+            <MeatballIcon fill={colors.white_60} />
+          </button> */}
         </Row>
         <Col gap={5} style={{ marginBottom: 14 }}>
           <ProgressBar

@@ -83,10 +83,18 @@ const Comment = React.memo(({ comment, choices }: CommentProps) => {
               </Row>
               <Text
                 size={14}
-                color={comment.writersVotedOption === 'CHOICE_A' ? colors.A_60 : colors.B_60}
+                color={
+                  comment.writersVotedOption
+                    ? comment.writersVotedOption === 'CHOICE_A'
+                      ? colors.A_60
+                      : colors.B_60
+                    : colors.purple
+                }
                 weight={600}
               >
-                {choices[comment.writersVotedOption === 'CHOICE_A' ? 0 : 1].content.text}
+                {comment.writersVotedOption
+                  ? choices[comment.writersVotedOption === 'CHOICE_A' ? 0 : 1].content.text
+                  : '작성자'}
               </Text>
             </Col>
           </Row>

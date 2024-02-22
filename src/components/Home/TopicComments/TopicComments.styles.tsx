@@ -15,6 +15,13 @@ export const CommentsContainer = styled.div`
   overflow-y: auto;
 `;
 
+export const EmptyCommentContainer = styled.div`
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+`;
+
 export const CommentInputContainer = styled.div`
   width: 100%;
   padding: 10px 20px 32px;

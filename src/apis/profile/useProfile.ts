@@ -1,17 +1,12 @@
 import { useMutation } from '@tanstack/react-query';
 
-import { PresignedURLResponse, ProfileResponse } from '@interfaces/api/profile';
+import {
+  ModifyProfileRequestDTO,
+  PresignedURLResponse,
+  ProfileResponse,
+} from '@interfaces/api/profile';
 
 import client from '@apis/fetch';
-
-// export interface profileRequestDTO {
-//   status?: 'VOTING' | 'CLOSED';
-//   keyword_id?: number;
-//   page?: number;
-//   size?: number;
-//   sort?: string;
-//   side?: 'TOPIC_A' | 'TOPIC_B';
-// }
 
 const getProfile = () => {
   return client.get<ProfileResponse>('/members/profile');
@@ -35,6 +30,13 @@ const updateProfileImgURL = (profileImgURL: string) => {
   });
 };
 
+const modifyProfile = (req: ModifyProfileRequestDTO) => {
+  return client.put({
+    path: `/members/profile/information`,
+    body: req,
+  });
+};
+
 const deleteProfileImg = () => {
   return client.delete(`/members/profile/image`);
 };
@@ -51,4 +53,14 @@ const useDeleteProfileImg = () => {
   return useMutation({ mutationFn: () => deleteProfileImg() });
 };
 
-export { getProfile, useGetPresignedURL, useUpdateProfileImgURL, useDeleteProfileImg };
+const useModifyProfile = () => {
+  return useMutation({ mutationFn: modifyProfile });
+};
+
+export {
+  getProfile,
+  useGetPresignedURL,
+  useUpdateProfileImgURL,
+  useDeleteProfileImg,
+  useModifyProfile,
+};
