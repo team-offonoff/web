@@ -3,7 +3,10 @@ import { useSearchParams } from 'react-router-dom';
 import { useSwiperSlide } from 'swiper/react';
 
 import { useLatestComment } from '@apis/comment/useComment';
+import useReportTopic from '@apis/topic/useReportTopic';
 import useVoteTopic from '@apis/topic/useVoteTopic';
+import { Col, Row } from '@components/commons/Flex/Flex';
+import ActionModalButton from '@components/commons/Modal/ActionModalButton';
 import ProfileImg from '@components/commons/ProfileImg/ProfileImg';
 import Text from '@components/commons/Text/Text';
 import { Toast } from '@components/commons/Toast/Toast';
@@ -12,6 +15,7 @@ import CommentBox from '@components/Home/CommentBox/CommentBox';
 import Timer from '@components/Home/Timer/Timer';
 import VoteCompletion from '@components/Home/VoteCompletion/VoteCompletion';
 import useBottomSheet from '@hooks/useBottomSheet/useBottomSheet';
+import useModal from '@hooks/useModal/useModal';
 import { LatestComment } from '@interfaces/api/comment';
 import { Choice, TopicResponse } from '@interfaces/api/topic';
 
@@ -19,7 +23,14 @@ import { useAuthStore } from '@store/auth';
 
 import { colors } from '@styles/theme';
 
-import { LeftDoubleArrowIcon, RightDoubleArrowIcon } from '@icons/index';
+import {
+  HideIcon,
+  LeftDoubleArrowIcon,
+  MeatballIcon,
+  RefreshIcon,
+  ReportIcon,
+  RightDoubleArrowIcon,
+} from '@icons/index';
 
 import { ResponseError } from '@apis/fetch';
 
@@ -32,6 +43,7 @@ import {
   UserInfoContainer,
   TopicCardContainer,
   SelectTextContainer,
+  TopicFooter,
 } from './TopicCard.styles';
 
 interface TopicCardProps {
@@ -51,6 +63,8 @@ const TopicCard = ({ topic }: TopicCardProps) => {
     topic.selectedOption !== null || isMyTopic
   );
   const [latestComment, setLatestComment] = useState<LatestComment | undefined>();
+  const { Modal, toggleModal } = useModal('action');
+  const reportMutation = useReportTopic(topic.topicId);
 
   const containerRef = useRef<HTMLDivElement | null>(null);
 
@@ -69,10 +83,25 @@ const TopicCard = ({ topic }: TopicCardProps) => {
     }
   }, [isSuccess]);
 
+  const handleHideTopic = () => {};
+
+  const handleReportTopic = () => {
+    reportMutation.mutate();
+    toggleModal();
+  };
+
+  const handleRevoteTopic = () => {
+    throw new Error('투표 다시하기 기능을 사용할 수 없습니다.');
+  };
+
   const handleOnClickCommentBox = () => {
     if (isMyTopic || topic.selectedOption !== null) {
       toggleSheet();
     }
+  };
+
+  const handleOnClickCommentMenu = () => {
+    toggleModal();
   };
 
   const handleOnVote = async (choiceOption: Choice['choiceOption']) => {
@@ -140,20 +169,58 @@ const TopicCard = ({ topic }: TopicCardProps) => {
           </Text>
           <RightDoubleArrowIcon />
         </SelectTextContainer>
-        <CommentBox
-          side={topic.topicSide}
-          hasVoted={topic.selectedOption !== null || isMyTopic}
-          topicId={topic.topicId}
-          commentCount={topic.commentCount}
-          voteCount={topic.voteCount}
-          keyword={topic.keyword}
-          latestComment={latestComment}
-          onClick={handleOnClickCommentBox}
-        />
+        <TopicFooter>
+          <Row>
+            <Row gap={6}>
+              <Text size={13} weight={'regular'} color={colors.purple}>
+                {topic.topicSide === 'TOPIC_A' ? 'A' : 'B'} 사이드
+              </Text>
+              {topic.keyword && (
+                <>
+                  <Text size={14} weight={'regular'} color={colors.white_20}>
+                    |
+                  </Text>
+                  <Text size={13} weight={'regular'} color={colors.white_60}>
+                    {topic.keyword.keywordName}
+                  </Text>
+                </>
+              )}
+            </Row>
+            <button onClick={handleOnClickCommentMenu}>
+              <MeatballIcon fill={colors.white_60} />
+            </button>
+          </Row>
+          <CommentBox
+            hasVoted={topic.selectedOption !== null || isMyTopic}
+            commentCount={topic.commentCount}
+            voteCount={topic.voteCount}
+            latestComment={latestComment}
+            onClick={handleOnClickCommentBox}
+          />
+        </TopicFooter>
       </TopicCardContainer>
       <CommentSheet>
         <TopicComments topic={topic} />
       </CommentSheet>
+      <Modal>
+        <Col padding={'36px 24px'} gap={20}>
+          <ActionModalButton
+            handleClick={handleHideTopic}
+            Icon={() => <HideIcon />}
+            label={'이런 토픽은 안볼래요'}
+          />
+          <ActionModalButton
+            handleClick={handleReportTopic}
+            Icon={() => <ReportIcon />}
+            label={'신고하기'}
+          />
+          <ActionModalButton
+            handleClick={handleRevoteTopic}
+            Icon={() => <RefreshIcon />}
+            label={'투표 다시 하기'}
+          />
+        </Col>
+      </Modal>
     </React.Fragment>
   );
 };

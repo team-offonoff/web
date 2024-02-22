@@ -9,7 +9,6 @@ export const CommentContainer = styled.div`
   align-items: center;
   justify-content: flex-start;
   width: 100%;
-  padding: 41px 20px 0;
 `;
 
 export const CommentHeader = styled.div`
