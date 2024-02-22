@@ -59,7 +59,7 @@ const TopicSwiper = ({ topics, fetchNextPage, hasNextPage }: TopicSwiperProps) =
       >
         {topics.map((topic) => {
           return (
-            <SwiperSlide>
+            <SwiperSlide key={topic.topicId}>
               <SlideContainer>
                 <PrevButton
                   disabled={init || prevDisabled}
