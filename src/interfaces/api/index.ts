@@ -6,6 +6,7 @@ export interface PagingDataResponse<T> {
 interface PageInfo {
   page: number;
   size: number;
+  total: number;
   empty: boolean;
   last: boolean;
 }
