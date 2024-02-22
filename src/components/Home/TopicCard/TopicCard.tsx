@@ -56,25 +56,20 @@ const TopicCard = ({ topic }: TopicCardProps) => {
 
   const swiperSlide = useSwiperSlide();
   const { BottomSheet: CommentSheet, toggleSheet } = useBottomSheet({});
-  const voteMutation = useVoteTopic();
+  /** Home의 useTopics에서 사용한 req와 동일하게 할것 */
+  const voteMutation = useVoteTopic({
+    status: 'VOTING',
+    side: 'TOPIC_B',
+    size: 10,
+  });
   const { data: previewComment } = usePreviewComment(
     topic.topicId,
-    topic.selectedOption !== null || isMyTopic
+    (topic.selectedOption !== null || isMyTopic) && swiperSlide.isActive
   );
   const { Modal, toggleModal } = useModal('action');
-  1;
   const reportMutation = useReportTopic(topic.topicId);
 
   const containerRef = useRef<HTMLDivElement | null>(null);
-
-  useEffect(() => {
-    if (swiperSlide.isActive) {
-      setSearchParams((searchParams) => {
-        searchParams.set('topicId', topic.topicId.toString());
-        return searchParams;
-      });
-    }
-  }, [swiperSlide]);
 
   const handleHideTopic = () => {};
 
@@ -117,14 +112,7 @@ const TopicCard = ({ topic }: TopicCardProps) => {
 
   return (
     <React.Fragment>
-      <TopicCardContainer
-        ref={containerRef}
-        style={{
-          marginBottom: containerRef.current
-            ? window.innerHeight - containerRef.current.scrollHeight + 60
-            : 0,
-        }}
-      >
+      <TopicCardContainer ref={containerRef}>
         <BestTopicCotainer>
           <Text size={18} color={colors.purple}>
             실시간 인기 토픽
@@ -191,6 +179,13 @@ const TopicCard = ({ topic }: TopicCardProps) => {
           />
         </TopicFooter>
       </TopicCardContainer>
+      <div
+        style={{
+          height: containerRef.current
+            ? window.innerHeight - containerRef.current.scrollHeight + 80
+            : 0,
+        }}
+      />
       <CommentSheet>
         <TopicComments topic={topic} />
       </CommentSheet>
