@@ -9,6 +9,7 @@ interface FlexProps extends React.HTMLAttributes<HTMLDivElement> {
   padding?: React.CSSProperties['padding'];
   margin?: React.CSSProperties['margin'];
   borderRadius?: React.CSSProperties['borderRadius'];
+  width?: React.CSSProperties['width'];
   children: React.ReactNode;
 }
 
@@ -52,6 +53,7 @@ interface StyledFlexProps {
   padding?: React.CSSProperties['padding'];
   margin?: React.CSSProperties['margin'];
   gap?: React.CSSProperties['gap'];
+  width?: React.CSSProperties['width'];
 }
 
 const Flex = styled.div<StyledFlexProps>`
@@ -72,7 +74,11 @@ const Flex = styled.div<StyledFlexProps>`
     css`
       gap: ${gap}px;
     `}
-  width: 100%;
+    ${({ width = '100%' }) =>
+    width &&
+    css`
+      width: ${width};
+    `}
   ${({ padding }) =>
     padding &&
     css`

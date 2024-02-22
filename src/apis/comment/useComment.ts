@@ -6,7 +6,7 @@ import {
   useQueryClient,
 } from '@tanstack/react-query';
 
-import { CommentReaction, CommentResponse } from '@interfaces/api/comment';
+import { CommentReaction, CommentResponse, LatestComment } from '@interfaces/api/comment';
 
 import { PagingDataResponse } from '@interfaces/api';
 
@@ -18,6 +18,10 @@ const getComments = ({ topicId, page, size }: { topicId: number; page: number; s
   return client.get<PagingDataResponse<CommentResponse>>(
     `/comments?topic-id=${topicId}&page=${page}&size=${size}`
   );
+};
+
+const getCommentPreview = (topicId: number) => {
+  return client.get<LatestComment>(`/topics/${topicId}/comment`);
 };
 
 const createComments = ({ topicId, content }: { topicId: number; content: string }) => {
@@ -47,10 +51,10 @@ const useComments = (topicId: number) => {
   });
 };
 
-const useLatestComment = (topicId: number, enabled: boolean) => {
+const usePreviewComment = (topicId: number, enabled: boolean) => {
   return useQuery({
     queryKey: [COMMENT_KEY, 'latest', topicId],
-    queryFn: () => getComments({ topicId: topicId, page: 0, size: 1 }),
+    queryFn: () => getCommentPreview(topicId),
     enabled: enabled,
   });
 };
@@ -96,4 +100,4 @@ const useReactComment = (topicId: number, commentId: number) => {
   });
 };
 
-export { COMMENT_KEY, useComments, useCreateComment, useReactComment, useLatestComment };
+export { COMMENT_KEY, useComments, useCreateComment, useReactComment, usePreviewComment };

@@ -1,19 +1,26 @@
 import React, { useRef, useState } from 'react';
+import styled from 'styled-components';
 import SwiperCore from 'swiper';
 import { Navigation } from 'swiper/modules';
-import { Swiper } from 'swiper/react';
+import { Swiper, SwiperSlide } from 'swiper/react';
 
-import TopicSlide from './TopicSlide';
+import { TopicResponse } from '@interfaces/api/topic';
+
+import { colors } from '@styles/theme';
+
+import { RightChevronIcon } from '@icons/index';
+
+import TopicCard from '../TopicCard/TopicCard';
 
 SwiperCore.use([Navigation]);
 
 interface TopicSwiperProps {
-  children: JSX.Element[];
+  topics: TopicResponse[];
   fetchNextPage: () => void;
   hasNextPage: boolean;
 }
 
-const TopicSwiper = ({ children, fetchNextPage, hasNextPage }: TopicSwiperProps) => {
+const TopicSwiper = ({ topics, fetchNextPage, hasNextPage }: TopicSwiperProps) => {
   const swiperRef = useRef<SwiperCore>();
   const [init, setInit] = useState(true);
   const [prevDisabled, setPrevDisabled] = useState(false);
@@ -30,7 +37,7 @@ const TopicSwiper = ({ children, fetchNextPage, hasNextPage }: TopicSwiperProps)
       fetchNextPage();
     }
 
-    if (!hasNextPage && children.length - swiper.realIndex === 1) {
+    if (!hasNextPage && topics.length - swiper.realIndex === 1) {
       setNextDisabled(true);
     }
   };
@@ -42,25 +49,42 @@ const TopicSwiper = ({ children, fetchNextPage, hasNextPage }: TopicSwiperProps)
         modules={[Navigation]}
         spaceBetween={0}
         slidesPerView={1}
-        style={{ height: '100%' }}
+        style={{ height: '100%', overflowY: 'auto' }}
         onBeforeInit={(swiper) => (swiperRef.current = swiper)}
         onSlideChange={handleSlideChange}
         onReachBeginning={handleReachBeginning}
         observer={true}
+        observeSlideChildren={true}
+        observeParents={true}
       >
-        {children.map((child) => {
+        {topics.map((topic) => {
           return (
-            <TopicSlide
-              key={child.key}
-              init={init}
-              prevDisabled={prevDisabled}
-              swiperRef={swiperRef}
-              setNextDisabled={setNextDisabled}
-              nextDisabled={nextDisabled}
-              setPrevDisabled={setPrevDisabled}
-            >
-              {child}
-            </TopicSlide>
+            <SwiperSlide key={topic.topicId}>
+              <SlideContainer>
+                <PrevButton
+                  disabled={init || prevDisabled}
+                  onClick={() => {
+                    swiperRef.current?.slidePrev();
+                    setNextDisabled(false);
+                  }}
+                >
+                  <RightChevronIcon
+                    style={{ transform: 'rotate(180deg)' }}
+                    stroke={colors.white_40}
+                  />
+                </PrevButton>
+                <TopicCard topic={topic} />
+                <NextButton
+                  disabled={nextDisabled}
+                  onClick={() => {
+                    swiperRef.current?.slideNext();
+                    setPrevDisabled(false);
+                  }}
+                >
+                  <RightChevronIcon stroke={colors.white_40} />
+                </NextButton>
+              </SlideContainer>
+            </SwiperSlide>
           );
         })}
       </Swiper>
@@ -69,3 +93,35 @@ const TopicSwiper = ({ children, fetchNextPage, hasNextPage }: TopicSwiperProps)
 };
 
 export default TopicSwiper;
+
+const SlideButton = styled.button<{ disabled: boolean }>`
+  position: absolute;
+  top: 63px;
+  z-index: 100;
+  width: 32px;
+  height: 32px;
+  padding: 4.8px 10.4px;
+  cursor: pointer;
+  background-color: transparent;
+
+  ${(props) => props.disabled && `display: none;`}
+`;
+
+const PrevButton = styled(SlideButton)`
+  left: 20px;
+`;
+
+const NextButton = styled(SlideButton)`
+  right: 20px;
+`;
+
+const SlideContainer = styled.div`
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+`;
