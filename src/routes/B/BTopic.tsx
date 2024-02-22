@@ -150,6 +150,7 @@ const BTopic = () => {
               voteCount={topic.voteCount}
               previewComment={previewComment}
               onClick={handleCommentBoxClick}
+              isBig={true}
             />
           </TopicFooter>
         </TopicCardContainer>

@@ -23,6 +23,7 @@ interface CommentBoxProps {
   commentCount: number;
   voteCount: number;
   previewComment: LatestComment | undefined;
+  isBig?: boolean;
 }
 
 const CommentBox = ({
@@ -31,30 +32,47 @@ const CommentBox = ({
   voteCount,
   previewComment,
   hasVoted,
+  isBig = false,
 }: CommentBoxProps) => {
   return (
     <CommentContainer>
       <CommnetBodyContainer onClick={onClick}>
         <CommentInfoContainer>
-          <Text size={14} weight={600} color={colors.white_60}>
-            <HighlightText>{formatToKoreanNumber(commentCount)}개</HighlightText>의 댓글
-          </Text>
+          {previewComment && (
+            <Text size={14} weight={600} color={colors.white_60}>
+              <HighlightText>{formatToKoreanNumber(commentCount)}개</HighlightText>의 댓글
+            </Text>
+          )}
           <Text size={14} weight={600} color={colors.white_60}>
             <HighlightText>{formatToKoreanNumber(voteCount)}명</HighlightText>이 선택했어요
           </Text>
         </CommentInfoContainer>
         <Comment>
-          <Blur $voted={hasVoted}>
-            {previewComment && (
-              <Row gap={10} alignItems="center">
-                <ProfileImg url={previewComment.writer?.profileImageUrl} size={22} />
-                <Text size={15} weight={'regular'} color={colors.white}>
-                  {previewComment.content || ''}
-                </Text>
-              </Row>
-            )}
-          </Blur>
-          {!hasVoted && <CommentButton>선택하고 댓글 보기</CommentButton>}
+          {hasVoted ? (
+            <Blur $voted={hasVoted}>
+              {previewComment ? (
+                <Row
+                  gap={10}
+                  alignItems="center"
+                  margin={isBig ? '25px 16px' : '18px 16px'}
+                  width={'unset'}
+                >
+                  <ProfileImg url={previewComment.writer?.profileImageUrl} size={22} />
+                  <Text size={15} weight={'regular'} color={colors.white} align="left">
+                    {previewComment.content || ''}
+                  </Text>
+                </Row>
+              ) : (
+                <Row justifyContent="center" margin={isBig ? '35px 0' : '18px 0px'}>
+                  <Text size={14} color={colors.white_60}>
+                    선택 후 가장 먼저 댓글을 작성해 보세요!
+                  </Text>
+                </Row>
+              )}
+            </Blur>
+          ) : (
+            <CommentButton>선택하고 댓글 보기</CommentButton>
+          )}
         </Comment>
       </CommnetBodyContainer>
     </CommentContainer>

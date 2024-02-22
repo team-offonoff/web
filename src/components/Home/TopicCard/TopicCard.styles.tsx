@@ -94,5 +94,5 @@ export const SelectTextContainer = styled.div<{ $voted: boolean }>`
 export const TopicFooter = styled.div`
   box-sizing: border-box;
   width: 100%;
-  padding: 50px 20px 0;
+  padding: 50px 20px 20px;
 `;

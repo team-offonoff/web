@@ -64,7 +64,7 @@ const TopicCard = ({ topic }: TopicCardProps) => {
   });
   const { data: previewComment } = usePreviewComment(
     topic.topicId,
-    (topic.selectedOption !== null || isMyTopic) && swiperSlide.isActive
+    topic.selectedOption !== null || isMyTopic
   );
   const { Modal, toggleModal } = useModal('action');
   const reportMutation = useReportTopic(topic.topicId);
