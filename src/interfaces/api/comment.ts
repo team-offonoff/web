@@ -2,7 +2,7 @@ export interface CommentResponse {
   commentId: number;
   topicId: number;
   writer: Writer;
-  writersVotedOption?: 'CHOICE_A' | 'CHOICE_B';
+  writersVotedOption: 'CHOICE_A' | 'CHOICE_B' | null;
   content: string;
   commentReaction: CommentReaction;
   createdAt: number;
