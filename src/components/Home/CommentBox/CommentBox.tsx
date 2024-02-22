@@ -1,8 +1,8 @@
 import { formatToKoreanNumber } from '@toss/utils';
-import React from 'react';
 
+import { Row } from '@components/commons/Flex/Flex';
+import ProfileImg from '@components/commons/ProfileImg/ProfileImg';
 import Text from '@components/commons/Text/Text';
-import { UserProfileImage } from '@components/Home/TopicCard/TopicCard.styles';
 import { LatestComment } from '@interfaces/api/comment';
 
 import { colors } from '@styles/theme';
@@ -22,14 +22,14 @@ interface CommentBoxProps {
   hasVoted: boolean;
   commentCount: number;
   voteCount: number;
-  latestComment: LatestComment | undefined;
+  previewComment: LatestComment | undefined;
 }
 
 const CommentBox = ({
   onClick,
   commentCount,
   voteCount,
-  latestComment,
+  previewComment,
   hasVoted,
 }: CommentBoxProps) => {
   return (
@@ -45,10 +45,14 @@ const CommentBox = ({
         </CommentInfoContainer>
         <Comment>
           <Blur $voted={hasVoted}>
-            <UserProfileImage src={latestComment?.writer?.profileImageUrl || ''} />
-            <Text size={15} weight={'regular'} color={colors.white}>
-              {latestComment?.content || ''}
-            </Text>
+            {previewComment && (
+              <Row gap={10} alignItems="center">
+                <ProfileImg url={previewComment.writer?.profileImageUrl} size={22} />
+                <Text size={15} weight={'regular'} color={colors.white}>
+                  {previewComment.content || ''}
+                </Text>
+              </Row>
+            )}
           </Blur>
           {!hasVoted && <CommentButton>선택하고 댓글 보기</CommentButton>}
         </Comment>

@@ -11,13 +11,11 @@ interface ProfileImgProps {
 const ProfileImg = ({ url, size = '100%', rounded = true }: ProfileImgProps) => {
   if (!url) {
     return (
-      <div>
-        <DefaultProfileIcon
-          width={size}
-          height={size}
-          style={rounded ? { borderRadius: '50%' } : {}}
-        />
-      </div>
+      <DefaultProfileIcon
+        width={size}
+        height={size}
+        style={rounded ? { borderRadius: '50%' } : {}}
+      />
     );
   }
 

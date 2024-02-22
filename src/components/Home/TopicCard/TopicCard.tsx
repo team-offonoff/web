@@ -1,8 +1,8 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useSwiperSlide } from 'swiper/react';
 
-import { useLatestComment } from '@apis/comment/useComment';
+import { usePreviewComment } from '@apis/comment/useComment';
 import useReportTopic from '@apis/topic/useReportTopic';
 import useVoteTopic from '@apis/topic/useVoteTopic';
 import { Col, Row } from '@components/commons/Flex/Flex';
@@ -16,7 +16,6 @@ import Timer from '@components/Home/Timer/Timer';
 import VoteCompletion from '@components/Home/VoteCompletion/VoteCompletion';
 import useBottomSheet from '@hooks/useBottomSheet/useBottomSheet';
 import useModal from '@hooks/useModal/useModal';
-import { LatestComment } from '@interfaces/api/comment';
 import { Choice, TopicResponse } from '@interfaces/api/topic';
 
 import { useAuthStore } from '@store/auth';
@@ -58,12 +57,12 @@ const TopicCard = ({ topic }: TopicCardProps) => {
   const swiperSlide = useSwiperSlide();
   const { BottomSheet: CommentSheet, toggleSheet } = useBottomSheet({});
   const voteMutation = useVoteTopic();
-  const { data: latestCommentData, isSuccess } = useLatestComment(
+  const { data: previewComment } = usePreviewComment(
     topic.topicId,
     topic.selectedOption !== null || isMyTopic
   );
-  const [latestComment, setLatestComment] = useState<LatestComment | undefined>();
   const { Modal, toggleModal } = useModal('action');
+  1;
   const reportMutation = useReportTopic(topic.topicId);
 
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -76,12 +75,6 @@ const TopicCard = ({ topic }: TopicCardProps) => {
       });
     }
   }, [swiperSlide]);
-
-  useEffect(() => {
-    if (isSuccess) {
-      setLatestComment(latestCommentData.data[0] as LatestComment);
-    }
-  }, [isSuccess]);
 
   const handleHideTopic = () => {};
 
@@ -106,12 +99,11 @@ const TopicCard = ({ topic }: TopicCardProps) => {
 
   const handleOnVote = async (choiceOption: Choice['choiceOption']) => {
     try {
-      const data = await voteMutation.mutateAsync({
+      await voteMutation.mutateAsync({
         topicId: topic.topicId,
         choiceOption: choiceOption,
         votedAt: new Date().getTime() / 1000,
       });
-      setLatestComment(data.latestComment);
       return true;
     } catch (error) {
       if (error instanceof ResponseError) {
@@ -194,7 +186,7 @@ const TopicCard = ({ topic }: TopicCardProps) => {
             hasVoted={topic.selectedOption !== null || isMyTopic}
             commentCount={topic.commentCount}
             voteCount={topic.voteCount}
-            latestComment={latestComment}
+            previewComment={previewComment}
             onClick={handleOnClickCommentBox}
           />
         </TopicFooter>
