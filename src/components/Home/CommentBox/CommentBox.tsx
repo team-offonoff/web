@@ -58,7 +58,7 @@ const CommentBox = ({
                   width={'unset'}
                 >
                   <ProfileImg url={previewComment.writer?.profileImageUrl} size={22} />
-                  <Text size={15} weight={'regular'} color={colors.white} align="left">
+                  <Text size={15} weight={'regular'} color={colors.white} align="left" ellipsis={2}>
                     {previewComment.content || ''}
                   </Text>
                 </Row>
