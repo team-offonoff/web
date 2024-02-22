@@ -13,6 +13,7 @@ import { Container } from './Home.styles';
 const Home = () => {
   const { data, fetchNextPage, hasNextPage } = useTopics({
     status: 'VOTING',
+    side: 'TOPIC_B',
     size: 10,
   });
 
