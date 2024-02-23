@@ -15,7 +15,7 @@ interface Confirm {
 }
 
 interface Action {
-  icon: React.FunctionComponent;
+  icon: JSX.Element;
   label: string;
   onClick?: () => void;
   confirm?: Confirm;
@@ -85,8 +85,12 @@ const useActionSheet = ({ actions }: UseActionSheetProps) => {
             return (
               <button onClick={handleActionClick} disabled={action.disabled}>
                 <Row alignItems={'center'} gap={14}>
-                  <action.icon />
-                  <Text size={16} weight={500}>
+                  {action.icon}
+                  <Text
+                    size={16}
+                    weight={500}
+                    color={action.disabled ? colors.black_20 : colors.black}
+                  >
                     {action.label}
                   </Text>
                 </Row>
