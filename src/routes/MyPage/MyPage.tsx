@@ -13,6 +13,7 @@ import Layout from '@components/commons/Layout/Layout';
 import ActionModalButton from '@components/commons/Modal/ActionModalButton';
 import ProfileImg from '@components/commons/ProfileImg/ProfileImg';
 import Text from '@components/commons/Text/Text';
+import useActionSheet from '@hooks/useModal/useActionSheet';
 import useModal from '@hooks/useModal/useModal';
 
 import { colors } from '@styles/theme';
@@ -46,7 +47,6 @@ const MyPage = () => {
   const updateProfileImgMutation = useGetPresignedURL('.' + fileName);
   const updateProfileImgURLMutation = useUpdateProfileImgURL(presignedURL);
   const deleteProfileImg = useDeleteProfileImg();
-  const { Modal, toggleModal } = useModal('action');
   const [isDeleteModal, setIsDeleteModal] = useState<boolean>(false);
 
   const removeQueryString = (url: string): string => {
@@ -147,6 +147,25 @@ const MyPage = () => {
     }
   }, [fileName, file]);
 
+  const { Modal: ImageActionSheet, toggleModal } = useActionSheet({
+    actions: [
+      {
+        icon: <AlbumIcon />,
+        label: '앨범에서 가져오기',
+        onClick: handleSelectFromAlbum,
+      },
+      {
+        icon: <TrashIcon />,
+        label: '현재 사진 삭제하기',
+        confirm: {
+          description: '현재 프로필 사진을 삭제합니다.',
+          label: '삭제하기',
+          onConfirm: handleDeleteCurrentProfileImg,
+        },
+      },
+    ],
+  });
+
   return (
     <Layout
       hasBottomNavigation={true}
@@ -225,56 +244,7 @@ const MyPage = () => {
           accept="image/*"
           onChange={handleProfileImgFileChange}
         />
-        <Modal>
-          {isDeleteModal ? (
-            <Col
-              style={{ width: '100%' }}
-              padding={'16px 0px 0px 0px'}
-              gap={0}
-              justifyContent="center"
-              alignItems="center"
-            >
-              <Text style={{ paddingBottom: 8 }} size={15} weight={400} color={colors.black_60}>
-                현재 프로필 사진을 삭제합니다.
-              </Text>
-              <Text
-                onClick={handleDeleteCurrentProfileImg}
-                style={{ width: '100%', padding: '22px 0px' }}
-                size={18}
-                weight={500}
-                color={colors.purple2}
-              >
-                삭제하기
-              </Text>
-              <ModalDivider />
-              <Text
-                onClick={() => {
-                  setIsDeleteModal(false);
-                  toggleModal();
-                }}
-                style={{ width: '100%', padding: '22px 0px' }}
-                size={18}
-                weight={500}
-                color={colors.black_40}
-              >
-                취소
-              </Text>
-            </Col>
-          ) : (
-            <Col padding={'36px 24px'} gap={20}>
-              <ActionModalButton
-                handleClick={handleSelectFromAlbum}
-                Icon={() => <AlbumIcon />}
-                label={'앨범에서 가져오기'}
-              />
-              <ActionModalButton
-                handleClick={handleRemoveCurrentImage}
-                Icon={() => <TrashIcon />}
-                label={'현재 사진 삭제하기'}
-              />
-            </Col>
-          )}
-        </Modal>
+        <ImageActionSheet />
       </Container>
     </Layout>
   );

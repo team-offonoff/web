@@ -1,11 +1,11 @@
 import { TimeUnits, getDateDistance, getDateDistanceText } from '@toss/date';
 import React from 'react';
 
-import { useReactComment } from '@apis/comment/useComment';
+import { useDeleteComment, useReactComment, useReportComment } from '@apis/comment/useComment';
 import { Col, Row } from '@components/commons/Flex/Flex';
 import ProfileImg from '@components/commons/ProfileImg/ProfileImg';
 import Text from '@components/commons/Text/Text';
-import useModal from '@hooks/useModal/useModal';
+import useActionSheet from '@hooks/useModal/useActionSheet';
 import { CommentResponse } from '@interfaces/api/comment';
 import { Choice } from '@interfaces/api/topic';
 
@@ -13,7 +13,7 @@ import { useAuthStore } from '@store/auth';
 
 import { colors } from '@styles/theme';
 
-import { MeatballIcon, ReportIcon } from '@icons/index';
+import { MeatballIcon, PencilIcon, ReportIcon, TrashCanIcon } from '@icons/index';
 
 import Thumbs from './Thumbs';
 
@@ -23,8 +23,9 @@ interface CommentProps {
 }
 
 const Comment = React.memo(({ comment, choices }: CommentProps) => {
-  const { Modal, toggleModal } = useModal('action');
   const reactMutation = useReactComment(comment.topicId, comment.commentId);
+  const reportMutation = useReportComment(comment.commentId);
+  const deleteMutation = useDeleteComment(comment.commentId);
   const memberId = useAuthStore((store) => store.memberId);
   const likeCount = Math.max(
     comment.commentReaction.likeCount - comment.commentReaction.hateCount,
@@ -44,17 +45,17 @@ const Comment = React.memo(({ comment, choices }: CommentProps) => {
   };
 
   const handleCommentModify = () => {
-    // TODO: 수정하기 기능 구현
+    // TBD: 1차 스펙 아웃
     toggleModal();
   };
 
   const handleCommentDelete = () => {
-    // TODO: 삭제하기 기능 구현
+    deleteMutation.mutate();
     toggleModal();
   };
 
   const handleCommentReport = () => {
-    // TODO: 신고하기 기능 구현
+    reportMutation.mutate();
     toggleModal();
   };
 
@@ -65,6 +66,34 @@ const Comment = React.memo(({ comment, choices }: CommentProps) => {
   const handleCommentHate = () => {
     reactMutation.mutate({ reaction: 'hate', enable: !comment.commentReaction.hated });
   };
+
+  const { Modal: CommentModal, toggleModal } = useActionSheet({
+    actions:
+      memberId === comment.writer.id
+        ? [
+            {
+              icon: <PencilIcon />,
+              label: '수정',
+              onClick: handleCommentModify,
+            },
+            {
+              icon: <TrashCanIcon />,
+              label: '삭제',
+              confirm: {
+                description: '내가 작성한 댓글을 삭제합니다.',
+                label: '삭제하기',
+                onConfirm: handleCommentDelete,
+              },
+            },
+          ]
+        : [
+            {
+              icon: <ReportIcon />,
+              label: '신고하기',
+              onClick: handleCommentReport,
+            },
+          ],
+  });
 
   return (
     <React.Fragment>
@@ -119,37 +148,7 @@ const Comment = React.memo(({ comment, choices }: CommentProps) => {
           </Row>
         </Col>
       </Col>
-      <Modal>
-        {memberId === comment.writer.id ? (
-          <Col gap={14}>
-            <button onClick={handleCommentModify}>
-              <Row alignItems={'center'} gap={14}>
-                <ReportIcon />
-                <Text size={16} weight={500}>
-                  수정
-                </Text>
-              </Row>
-            </button>
-            <button onClick={handleCommentDelete}>
-              <Row alignItems={'center'} gap={14}>
-                <ReportIcon />
-                <Text size={16} weight={500}>
-                  삭제
-                </Text>
-              </Row>
-            </button>
-          </Col>
-        ) : (
-          <button onClick={handleCommentReport}>
-            <Row alignItems={'center'} gap={14}>
-              <ReportIcon />
-              <Text size={16} weight={500}>
-                신고하기
-              </Text>
-            </Row>
-          </button>
-        )}
-      </Modal>
+      <CommentModal />
     </React.Fragment>
   );
 });

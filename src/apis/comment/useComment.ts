@@ -41,6 +41,17 @@ const reactComment = (commentId: number, reaction: 'like' | 'hate', enable: bool
   });
 };
 
+const reportComment = (commentId: number) => {
+  return client.post<CommentReaction>({
+    path: `/comments/${commentId}/report`,
+    body: {},
+  });
+};
+
+const deleteComment = (commentId: number) => {
+  return client.delete<CommentReaction>(`/comments/${commentId}`);
+};
+
 const useComments = (topicId: number) => {
   return useInfiniteQuery({
     queryKey: [COMMENT_KEY, topicId],
@@ -67,6 +78,18 @@ const useCreateComment = (topicId: number) => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [COMMENT_KEY, topicId] });
     },
+  });
+};
+
+const useReportComment = (commentId: number) => {
+  return useMutation({
+    mutationFn: () => reportComment(commentId),
+  });
+};
+
+const useDeleteComment = (commentId: number) => {
+  return useMutation({
+    mutationFn: () => deleteComment(commentId),
   });
 };
 
@@ -100,4 +123,18 @@ const useReactComment = (topicId: number, commentId: number) => {
   });
 };
 
-export { COMMENT_KEY, useComments, useCreateComment, useReactComment, usePreviewComment };
+export {
+  COMMENT_KEY,
+  getComments,
+  getCommentPreview,
+  createComments,
+  reactComment,
+  reportComment,
+  deleteComment,
+  useComments,
+  usePreviewComment,
+  useCreateComment,
+  useReportComment,
+  useDeleteComment,
+  useReactComment,
+};

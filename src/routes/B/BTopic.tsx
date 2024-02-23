@@ -2,12 +2,12 @@ import React from 'react';
 import { useLocation } from 'react-router-dom';
 
 import { usePreviewComment } from '@apis/comment/useComment';
+import useHideTopic from '@apis/topic/useHideTopic';
 import useReportTopic from '@apis/topic/useReportTopic';
 import useVoteTopic from '@apis/topic/useVoteTopic';
-import { Col, Row } from '@components/commons/Flex/Flex';
+import { Row } from '@components/commons/Flex/Flex';
 import BackButton from '@components/commons/Header/BackButton/BackButton';
 import Layout from '@components/commons/Layout/Layout';
-import ActionModalButton from '@components/commons/Modal/ActionModalButton';
 import ProfileImg from '@components/commons/ProfileImg/ProfileImg';
 import Text from '@components/commons/Text/Text';
 import { Toast } from '@components/commons/Toast/Toast';
@@ -24,7 +24,7 @@ import {
 import TopicComments from '@components/Home/TopicComments/TopicComments';
 import VoteCompletion from '@components/Home/VoteCompletion/VoteCompletion';
 import useBottomSheet from '@hooks/useBottomSheet/useBottomSheet';
-import useModal from '@hooks/useModal/useModal';
+import useActionSheet from '@hooks/useModal/useActionSheet';
 import { Choice, TopicResponse } from '@interfaces/api/topic';
 
 import { useAuthStore } from '@store/auth';
@@ -49,7 +49,6 @@ interface BTopicProps {
 const BTopic = () => {
   const location = useLocation();
   const { BottomSheet: CommentSheet, toggleSheet } = useBottomSheet({});
-  const { Modal, toggleModal } = useModal('action');
   const memberId = useAuthStore((store) => store.memberId);
   const { topic } = location.state as BTopicProps;
   const isMyTopic = topic.author.id === memberId;
@@ -60,6 +59,7 @@ const BTopic = () => {
   );
   const voteMutation = useVoteTopic();
   const reportMutation = useReportTopic(topic.topicId);
+  const hideMutation = useHideTopic(topic.topicId);
 
   const handleVote = async (choiceOption: Choice['choiceOption']) => {
     try {
@@ -89,16 +89,42 @@ const BTopic = () => {
     toggleModal();
   };
 
-  const handleHideTopic = () => {};
+  const handleHideTopic = () => {
+    hideMutation.mutate();
+    toggleModal();
+    Toast.error('관련 카테고리의 토픽을 더이상 추천하지 않아요.');
+  };
 
   const handleReportTopic = () => {
     reportMutation.mutate();
     toggleModal();
+    Toast.error('해당 토픽을 신고하였어요.');
   };
 
   const handleRevoteTopic = () => {
     throw new Error('투표 다시하기 기능을 사용할 수 없습니다.');
   };
+
+  const { Modal: TopicModal, toggleModal } = useActionSheet({
+    actions: [
+      {
+        icon: <HideIcon />,
+        label: '이런 토픽은 안볼래요',
+        onClick: handleHideTopic,
+      },
+      {
+        icon: <ReportIcon />,
+        label: '신고하기',
+        onClick: handleReportTopic,
+      },
+      {
+        icon: <RefreshIcon fill={topic.selectedOption === null ? colors.black_20 : colors.black} />,
+        label: '투표 다시 하기',
+        onClick: handleRevoteTopic,
+        disabled: topic.selectedOption === null,
+      },
+    ],
+  });
 
   return (
     <React.Fragment>
@@ -158,25 +184,7 @@ const BTopic = () => {
       <CommentSheet>
         <TopicComments topic={topic} />
       </CommentSheet>
-      <Modal>
-        <Col padding={'36px 24px'} gap={20}>
-          <ActionModalButton
-            handleClick={handleHideTopic}
-            Icon={() => <HideIcon />}
-            label={'이런 토픽은 안볼래요'}
-          />
-          <ActionModalButton
-            handleClick={handleReportTopic}
-            Icon={() => <ReportIcon />}
-            label={'신고하기'}
-          />
-          <ActionModalButton
-            handleClick={handleRevoteTopic}
-            Icon={() => <RefreshIcon />}
-            label={'투표 다시 하기'}
-          />
-        </Col>
-      </Modal>
+      <TopicModal />
     </React.Fragment>
   );
 };
