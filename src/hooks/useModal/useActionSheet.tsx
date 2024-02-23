@@ -19,6 +19,7 @@ interface Action {
   label: string;
   onClick?: () => void;
   confirm?: Confirm;
+  disabled?: boolean;
 }
 
 interface UseActionSheetProps {
@@ -82,7 +83,7 @@ const useActionSheet = ({ actions }: UseActionSheetProps) => {
               }
             };
             return (
-              <button onClick={handleActionClick}>
+              <button onClick={handleActionClick} disabled={action.disabled}>
                 <Row alignItems={'center'} gap={14}>
                   <action.icon />
                   <Text size={16} weight={500}>
