@@ -30,6 +30,7 @@ import ImageIcon from './image-icon.svg?react';
 import KakaoIcon from './kakao.svg?react';
 import LeftDoubleArrowIcon from './left-double-arrow.svg?react';
 import MeatballIcon from './meatball.svg?react';
+import PencilIcon from './pencil.svg?react';
 import PlusBoxIcon from './plus-box.svg?react';
 import ProfileIcon from './profile.svg?react';
 import RefreshIcon from './refresh.svg?react';
@@ -42,6 +43,7 @@ import SelectedTextIcon from './text-icon-selected.svg?react';
 import TextIcon from './text-icon.svg?react';
 import ThumbsIcon from './thumbs.svg?react';
 import TopicCreatBackgrounIcon from './topic-create-background.svg?react';
+import TrashCanIcon from './trash-can.svg?react';
 import TrashIcon from './trash.svg?react';
 import UpDownChevronIcon from './up-down.svg?react';
 import WriteBoxIcon from './write-box.svg?react';
@@ -72,6 +74,7 @@ export {
   KakaoIcon,
   LeftDoubleArrowIcon,
   MeatballIcon,
+  PencilIcon,
   NewAlarmIcon,
   PlusBoxIcon,
   ProfileIcon,
@@ -83,6 +86,7 @@ export {
   SizeUpIcon,
   ThumbsIcon,
   TopicCreatBackgrounIcon,
+  TrashCanIcon,
   UpDownChevronIcon,
   WriteBoxIcon,
   TextIcon,

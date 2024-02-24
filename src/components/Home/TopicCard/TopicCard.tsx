@@ -1,12 +1,10 @@
-import React, { useEffect, useRef } from 'react';
-import { useSearchParams } from 'react-router-dom';
-import { useSwiperSlide } from 'swiper/react';
+import React, { useRef } from 'react';
 
 import { usePreviewComment } from '@apis/comment/useComment';
+import useHideTopic from '@apis/topic/useHideTopic';
 import useReportTopic from '@apis/topic/useReportTopic';
 import useVoteTopic from '@apis/topic/useVoteTopic';
-import { Col, Row } from '@components/commons/Flex/Flex';
-import ActionModalButton from '@components/commons/Modal/ActionModalButton';
+import { Row } from '@components/commons/Flex/Flex';
 import ProfileImg from '@components/commons/ProfileImg/ProfileImg';
 import Text from '@components/commons/Text/Text';
 import { Toast } from '@components/commons/Toast/Toast';
@@ -15,7 +13,7 @@ import CommentBox from '@components/Home/CommentBox/CommentBox';
 import Timer from '@components/Home/Timer/Timer';
 import VoteCompletion from '@components/Home/VoteCompletion/VoteCompletion';
 import useBottomSheet from '@hooks/useBottomSheet/useBottomSheet';
-import useModal from '@hooks/useModal/useModal';
+import useActionSheet from '@hooks/useModal/useActionSheet';
 import { Choice, TopicResponse } from '@interfaces/api/topic';
 
 import { useAuthStore } from '@store/auth';
@@ -50,11 +48,9 @@ interface TopicCardProps {
 }
 
 const TopicCard = ({ topic }: TopicCardProps) => {
-  const [, setSearchParams] = useSearchParams();
   const memberId = useAuthStore((store) => store.memberId);
   const isMyTopic = topic.author.id === memberId;
 
-  const swiperSlide = useSwiperSlide();
   const { BottomSheet: CommentSheet, toggleSheet } = useBottomSheet({});
   /** Home의 useTopics에서 사용한 req와 동일하게 할것 */
   const voteMutation = useVoteTopic({
@@ -66,21 +62,10 @@ const TopicCard = ({ topic }: TopicCardProps) => {
     topic.topicId,
     topic.selectedOption !== null || isMyTopic
   );
-  const { Modal, toggleModal } = useModal('action');
   const reportMutation = useReportTopic(topic.topicId);
+  const hideMutation = useHideTopic(topic.topicId);
 
   const containerRef = useRef<HTMLDivElement | null>(null);
-
-  const handleHideTopic = () => {};
-
-  const handleReportTopic = () => {
-    reportMutation.mutate();
-    toggleModal();
-  };
-
-  const handleRevoteTopic = () => {
-    throw new Error('투표 다시하기 기능을 사용할 수 없습니다.');
-  };
 
   const handleOnClickCommentBox = () => {
     if (isMyTopic || topic.selectedOption !== null) {
@@ -109,6 +94,43 @@ const TopicCard = ({ topic }: TopicCardProps) => {
       return false;
     }
   };
+
+  const handleHideTopic = () => {
+    hideMutation.mutate();
+    toggleModal();
+    Toast.error('관련 카테고리의 토픽을 더이상 추천하지 않아요.');
+  };
+
+  const handleReportTopic = () => {
+    reportMutation.mutate();
+    toggleModal();
+    Toast.error('해당 토픽을 신고하였어요.');
+  };
+
+  const handleRevoteTopic = () => {
+    throw new Error('투표 다시하기 기능을 사용할 수 없습니다.');
+  };
+
+  const { Modal: TopicModal, toggleModal } = useActionSheet({
+    actions: [
+      {
+        icon: <HideIcon />,
+        label: '이런 토픽은 안볼래요',
+        onClick: handleHideTopic,
+      },
+      {
+        icon: <ReportIcon />,
+        label: '신고하기',
+        onClick: handleReportTopic,
+      },
+      {
+        icon: <RefreshIcon fill={topic.selectedOption === null ? colors.black_20 : colors.black} />,
+        label: '투표 다시 하기',
+        onClick: handleRevoteTopic,
+        disabled: topic.selectedOption === null,
+      },
+    ],
+  });
 
   return (
     <React.Fragment>
@@ -189,25 +211,7 @@ const TopicCard = ({ topic }: TopicCardProps) => {
       <CommentSheet>
         <TopicComments topic={topic} />
       </CommentSheet>
-      <Modal>
-        <Col padding={'36px 24px'} gap={20}>
-          <ActionModalButton
-            handleClick={handleHideTopic}
-            Icon={() => <HideIcon />}
-            label={'이런 토픽은 안볼래요'}
-          />
-          <ActionModalButton
-            handleClick={handleReportTopic}
-            Icon={() => <ReportIcon />}
-            label={'신고하기'}
-          />
-          <ActionModalButton
-            handleClick={handleRevoteTopic}
-            Icon={() => <RefreshIcon />}
-            label={'투표 다시 하기'}
-          />
-        </Col>
-      </Modal>
+      <TopicModal />
     </React.Fragment>
   );
 };
