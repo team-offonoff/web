@@ -15,10 +15,14 @@ import { BFillLogoIcon, UpDownChevronIcon } from '@icons/index';
 import { Container } from './BTopics.styles';
 
 const BTopics = () => {
-  const { data } = useTopics({ side: 'TOPIC_B', sort: 'createdAt,DESC' });
   const [topicFilter, setTopicFilter] = useState('진행중');
   const [isMineOnly, setIsMineOnly] = useState(false);
   const [isLatest, setIsLatest] = useState(true);
+  const { data } = useTopics({
+    side: 'TOPIC_B',
+    sort: 'createdAt,DESC',
+    status: topicFilter === '진행중' ? 'VOTING' : 'CLOSED',
+  });
 
   const topics = data?.pages.flatMap((page) => page.data);
 
