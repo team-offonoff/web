@@ -22,10 +22,10 @@ import {
 const TopicCreateTextInput = () => {
   const { register, watch, getFieldState, formState, setValue } = useFormContext();
   const ATopicProgress = watch(INPUT_TYPE.A_TOPIC)
-    ? `${watch(INPUT_TYPE.A_TOPIC)?.length}/25`
+    ? `${Array.from(watch(INPUT_TYPE.A_TOPIC)).length}/25`
     : '0/25';
   const BTopicProgress = watch(INPUT_TYPE.B_TOPIC)
-    ? `${watch(INPUT_TYPE.B_TOPIC)?.length}/25`
+    ? `${Array.from(watch(INPUT_TYPE.B_TOPIC)).length}/25`
     : '0/25';
 
   const [isTopicFilled, setIsTopicFilled] = useState(false);

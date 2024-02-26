@@ -17,11 +17,11 @@ const BTopicCreateStep1 = () => {
   const navigate = useNavigate();
   const methods = useFormContext();
   const titleProgress = methods.watch(INPUT_TYPE.TOPIC_TITLE)
-    ? `${Math.min(methods.watch(INPUT_TYPE.TOPIC_TITLE)?.length, 20)}/20`
+    ? `${Math.min(Array.from(methods.watch(INPUT_TYPE.TOPIC_TITLE)).length, 20)}/20`
     : '0/20';
 
   const categoryProgress = methods.watch(INPUT_TYPE.TOPIC_CATEGORY)
-    ? `${Math.min(methods.watch(INPUT_TYPE.TOPIC_CATEGORY)?.length, 20)}/6`
+    ? `${Math.min(Array.from(methods.watch(INPUT_TYPE.TOPIC_CATEGORY)).length, 20)}/6`
     : '0/6';
 
   const categoryChipList = ['스포츠', '연예방송', '일상다반사', '게임', '일상'];

@@ -41,7 +41,7 @@ const ModifyProfile = () => {
   const modifyProfileMutation = useModifyProfile();
 
   const nicknameProgress = methods.watch(INPUT_TYPE.NICKNAME)
-    ? `${methods.watch(INPUT_TYPE.NICKNAME)?.length}/${MAX_NICKNAME_LENGTH}`
+    ? `${Array.from(methods.watch(INPUT_TYPE.NICKNAME)).length}/${MAX_NICKNAME_LENGTH}`
     : '';
 
   const handleSubmitForm = async () => {
