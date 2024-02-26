@@ -20,15 +20,15 @@ import { Container } from './ATopics.styles';
 const ATopics = () => {
   const { data } = useTopics({ side: 'TOPIC_A', sort: 'createdAt,DESC' });
   const voteMutation = useVoteTopic({ side: 'TOPIC_A', sort: 'createdAt,DESC' });
-  const [topicFilter, setTopicFilter] = useState('진행중');
+  // const [topicFilter, setTopicFilter] = useState('진행중');
   const [isMineOnly, setIsMineOnly] = useState(false);
   const [isLatest, setIsLatest] = useState(true);
 
   const topics = data?.pages.flatMap((page) => page.data);
 
-  const handleTopicStatusChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setTopicFilter(e.target.value);
-  };
+  // const handleTopicStatusChange = (e: ChangeEvent<HTMLInputElement>) => {
+  //   setTopicFilter(e.target.value);
+  // };
 
   const handleVote = async (topicId: number, side: 'CHOICE_A' | 'CHOICE_B') => {
     try {
@@ -48,20 +48,20 @@ const ATopics = () => {
     <Layout
       hasBottomNavigation
       HeaderLeft={<ALogoIcon width={30} height={30} fill={colors.white} />}
-      HeaderCenter={
-        <ToggleSwitch value={topicFilter} onChange={handleTopicStatusChange}>
-          <ToggleSwitch.Option value={'진행중'}>
-            <Text size={15} weight={500} color={'inherit'}>
-              진행중
-            </Text>
-          </ToggleSwitch.Option>
-          <ToggleSwitch.Option value={'종료된'}>
-            <Text size={15} weight={500} color={'inherit'}>
-              종료된
-            </Text>
-          </ToggleSwitch.Option>
-        </ToggleSwitch>
-      }
+      // HeaderCenter={
+      //   <ToggleSwitch value={topicFilter} onChange={handleTopicStatusChange}>
+      //     <ToggleSwitch.Option value={'진행중'}>
+      //       <Text size={15} weight={500} color={'inherit'}>
+      //         진행중
+      //       </Text>
+      //     </ToggleSwitch.Option>
+      //     <ToggleSwitch.Option value={'종료된'}>
+      //       <Text size={15} weight={500} color={'inherit'}>
+      //         종료된
+      //       </Text>
+      //     </ToggleSwitch.Option>
+      //   </ToggleSwitch>
+      // }
     >
       <Container>
         <Row justifyContent={'flex-end'} gap={12} padding="15px 20px">
