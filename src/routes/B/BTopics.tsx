@@ -38,7 +38,6 @@ const BTopics = () => {
     setTopicFilter(e.target.value as TopicStatusType);
   };
 
-  // TODO: let's make this to custom hooks someday...
   useLayoutEffect(() => {
     const prevColor = document.body.style.backgroundColor;
     document.body.style.backgroundColor = '#0e0d16';
@@ -59,7 +58,7 @@ const BTopics = () => {
 
   return (
     <Layout
-      ThemeColor="#0e0d16"
+      themeColor="#0e0d16"
       hasBottomNavigation
       HeaderLeft={<BFillLogoIcon width={30} height={30} fill={colors.white} />}
       HeaderCenter={
@@ -105,7 +104,9 @@ const BTopics = () => {
           </button>
         </Row>
         <Col padding={'0 20px 100px'} gap={30}>
-          {topics?.map((topic) => <BTopicCard key={topic.topicId} topic={topic} />)}
+          {topics?.map((topic) => (
+            <BTopicCard key={topic.topicId} topic={topic} topicStatus={topicFilter} />
+          ))}
         </Col>
       </Container>
     </Layout>
