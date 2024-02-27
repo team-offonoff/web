@@ -32,7 +32,6 @@ export const TopicContainer = styled.div`
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 68px;
   padding: 0 12px;
   margin-top: 20px;
 `;

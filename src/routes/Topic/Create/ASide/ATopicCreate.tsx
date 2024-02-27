@@ -23,7 +23,7 @@ const ATopicCreate = () => {
   const methods = useForm<TopicCreateDTO>({ mode: 'onChange' });
 
   const titleProgress = methods.watch(INPUT_TYPE.TOPIC_TITLE)
-    ? `${methods.watch(INPUT_TYPE.TOPIC_TITLE)?.length}/20`
+    ? `${Array.from(methods.watch(INPUT_TYPE.TOPIC_TITLE)).length}/20`
     : '0/20';
   const [isFormFilled, setIsFormFilled] = useState(false);
 

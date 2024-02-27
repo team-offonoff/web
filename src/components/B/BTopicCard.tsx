@@ -67,14 +67,15 @@ const BTopicCard = ({ topic }: BTopicCardProps) => {
             </button> */}
           </Row>
           <Row gap={5}>
-            <BTopicChoice
-              side={topic.choices[0].choiceOption}
-              content={topic.choices[0].content.text || ''}
-            />
-            <BTopicChoice
-              side={topic.choices[1].choiceOption}
-              content={topic.choices[1].content.text || ''}
-            />
+            {topic.choices.map((choice) => {
+              return (
+                <BTopicChoice
+                  key={choice.choiceId}
+                  side={choice.choiceOption}
+                  content={choice.content.text || ''}
+                />
+              );
+            })}
           </Row>
         </Col>
         <CardFooter>

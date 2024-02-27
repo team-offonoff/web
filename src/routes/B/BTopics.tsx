@@ -1,5 +1,6 @@
-import React, { ChangeEvent, useLayoutEffect, useState } from 'react';
+import React, { ChangeEvent, useEffect, useLayoutEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
+import { useSearchParams } from 'react-router-dom';
 
 import useTopics from '@apis/topic/useTopics';
 import BTopicCard from '@components/B/BTopicCard';
@@ -15,10 +16,19 @@ import { BFillLogoIcon, UpDownChevronIcon } from '@icons/index';
 import { Container } from './BTopics.styles';
 
 const BTopics = () => {
-  const { data } = useTopics({ side: 'TOPIC_B', sort: 'createdAt,DESC' });
-  const [topicFilter, setTopicFilter] = useState('진행중');
-  const [isMineOnly, setIsMineOnly] = useState(false);
-  const [isLatest, setIsLatest] = useState(true);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [topicFilter, setTopicFilter] = useState(searchParams.get('status') || '진행중');
+  const [isMineOnly, setIsMineOnly] = useState<boolean>(
+    JSON.parse(searchParams.get('mine') || 'false')
+  );
+  const [isLatest, setIsLatest] = useState<boolean>(
+    JSON.parse(searchParams.get('latest') || 'true')
+  );
+  const { data } = useTopics({
+    side: 'TOPIC_B',
+    sort: 'createdAt,DESC',
+    status: topicFilter === '진행중' ? 'VOTING' : 'CLOSED',
+  });
 
   const topics = data?.pages.flatMap((page) => page.data);
 
@@ -26,9 +36,6 @@ const BTopics = () => {
     setTopicFilter(e.target.value);
   };
 
-  /**
-   * set body background color to dark and restore it on cleanup
-   */
   useLayoutEffect(() => {
     const prevColor = document.body.style.backgroundColor;
     document.body.style.backgroundColor = '#0e0d16';
@@ -37,6 +44,15 @@ const BTopics = () => {
       document.body.style.backgroundColor = prevColor;
     };
   }, []);
+
+  useEffect(() => {
+    setSearchParams((searchParams) => {
+      searchParams.set('status', topicFilter);
+      searchParams.set('mine', JSON.stringify(isMineOnly));
+      searchParams.set('latest', JSON.stringify(isLatest));
+      return searchParams;
+    });
+  }, [topicFilter, isMineOnly, isLatest]);
 
   return (
     <Layout
