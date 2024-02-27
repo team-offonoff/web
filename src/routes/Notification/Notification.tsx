@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 
+import { useNotifications } from '@apis/notification/useNotifications';
 import { Col } from '@components/commons/Flex/Flex';
 import BackButton from '@components/commons/Header/BackButton/BackButton';
 import Layout from '@components/commons/Layout/Layout';
@@ -17,6 +18,7 @@ const Notification = () => {
   const [currentTab, setCurrentTab] = useState<(typeof NOTIFICATIONS_TABS)[number]>(
     NOTIFICATIONS_TABS[0]
   );
+  const { data } = useNotifications();
 
   const notifications: Array<{
     type: 'hit' | 'comment' | 'like' | 'close';
