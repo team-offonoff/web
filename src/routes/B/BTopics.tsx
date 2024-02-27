@@ -1,5 +1,4 @@
 import React, { ChangeEvent, useEffect, useLayoutEffect, useState } from 'react';
-import { Helmet } from 'react-helmet';
 import { useSearchParams } from 'react-router-dom';
 
 import useTopics from '@apis/topic/useTopics';
@@ -8,6 +7,7 @@ import { Row, Col } from '@components/commons/Flex/Flex';
 import Layout from '@components/commons/Layout/Layout';
 import Text from '@components/commons/Text/Text';
 import ToggleSwitch from '@components/commons/ToggleSwitch/ToggleSwitch';
+import { TopicStatus, TopicStatusType } from '@interfaces/models/topic';
 
 import { colors } from '@styles/theme';
 
@@ -17,7 +17,9 @@ import { Container } from './BTopics.styles';
 
 const BTopics = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [topicFilter, setTopicFilter] = useState(searchParams.get('status') || '진행중');
+  const [topicFilter, setTopicFilter] = useState<TopicStatusType>(
+    (searchParams.get('status') as TopicStatusType) || TopicStatus.VOTING
+  );
   const [isMineOnly, setIsMineOnly] = useState<boolean>(
     JSON.parse(searchParams.get('mine') || 'false')
   );
@@ -27,15 +29,16 @@ const BTopics = () => {
   const { data } = useTopics({
     side: 'TOPIC_B',
     sort: 'createdAt,DESC',
-    status: topicFilter === '진행중' ? 'VOTING' : 'CLOSED',
+    status: topicFilter,
   });
 
   const topics = data?.pages.flatMap((page) => page.data);
 
   const handleTopicStatusChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setTopicFilter(e.target.value);
+    setTopicFilter(e.target.value as TopicStatusType);
   };
 
+  // TODO: let's make this to custom hooks someday...
   useLayoutEffect(() => {
     const prevColor = document.body.style.backgroundColor;
     document.body.style.backgroundColor = '#0e0d16';
@@ -61,12 +64,12 @@ const BTopics = () => {
       HeaderLeft={<BFillLogoIcon width={30} height={30} fill={colors.white} />}
       HeaderCenter={
         <ToggleSwitch value={topicFilter} onChange={handleTopicStatusChange}>
-          <ToggleSwitch.Option value={'진행중'}>
+          <ToggleSwitch.Option value={TopicStatus.VOTING}>
             <Text size={15} weight={500} color={'inherit'}>
               진행중
             </Text>
           </ToggleSwitch.Option>
-          <ToggleSwitch.Option value={'종료된'}>
+          <ToggleSwitch.Option value={TopicStatus.CLOSED}>
             <Text size={15} weight={500} color={'inherit'}>
               종료된
             </Text>
