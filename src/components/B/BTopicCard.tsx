@@ -5,6 +5,7 @@ import CommentChip from '@components/commons/Chip/CommentChip';
 import { Col, Row } from '@components/commons/Flex/Flex';
 import Text from '@components/commons/Text/Text';
 import { TopicResponse } from '@interfaces/api/topic';
+import { TopicStatusType } from '@interfaces/models/topic';
 
 import { colors } from '@styles/theme';
 
@@ -17,13 +18,14 @@ import BTopicChoice from './BTopicChoice';
 
 interface BTopicCardProps {
   topic: TopicResponse;
+  topicStatus: TopicStatusType;
 }
 
-const BTopicCard = ({ topic }: BTopicCardProps) => {
+const BTopicCard = ({ topic, topicStatus }: BTopicCardProps) => {
   const navigate = useNavigate();
 
   const handleCardClick = () => {
-    navigate(`/topics/b/${topic.topicId}`, { state: { topic } });
+    navigate(`/topics/b/${topic.topicId}`, { state: { topic, topicStatus } });
   };
 
   const handleOptionClick = () => {};
