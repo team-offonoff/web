@@ -17,6 +17,7 @@ import ClockIcon from './clock.svg?react';
 import CloseIcon from './close.svg?react';
 import CommentBoxIcon from './comment-box.svg?react';
 import CommentIcon from './comment.svg?react';
+import CrownIcon from './crown.svg?react';
 import DefaultProfileIcon from './default-profile.svg?react';
 import DeleteIcon from './delete.svg?react';
 import DownChevronIcon from './down-chevron.svg?react';
@@ -62,6 +63,7 @@ export {
   CheckIcon,
   ClockIcon,
   CloseIcon,
+  CrownIcon,
   CommentIcon,
   CommentBoxIcon,
   DefaultProfileIcon,
