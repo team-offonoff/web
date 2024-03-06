@@ -5,7 +5,6 @@ import CommentChip from '@components/commons/Chip/CommentChip';
 import { Col, Row } from '@components/commons/Flex/Flex';
 import Text from '@components/commons/Text/Text';
 import { TopicResponse } from '@interfaces/api/topic';
-import { TopicStatusType } from '@interfaces/models/topic';
 
 import { colors } from '@styles/theme';
 
@@ -13,19 +12,18 @@ import { MeatballIcon } from '@icons/index';
 
 import { getDateDiff } from '@utils/date';
 
-import { CardContainer, CardFooter } from './BTopicCard.styles';
 import BTopicChoice from './BTopicChoice';
+import { CardContainer, CardFooter } from './TopicCard.styles';
 
-interface BTopicCardProps {
+interface VotingCardProps {
   topic: TopicResponse;
-  topicStatus: TopicStatusType;
 }
 
-const BTopicCard = ({ topic, topicStatus }: BTopicCardProps) => {
+const VotingCard = ({ topic }: VotingCardProps) => {
   const navigate = useNavigate();
 
   const handleCardClick = () => {
-    navigate(`/topics/b/${topic.topicId}`, { state: { topic, topicStatus } });
+    navigate(`/topics/b/${topic.topicId}`, { state: { topic } });
   };
 
   const handleOptionClick = () => {};
@@ -102,4 +100,4 @@ const BTopicCard = ({ topic, topicStatus }: BTopicCardProps) => {
   );
 };
 
-export default BTopicCard;
+export default VotingCard;
