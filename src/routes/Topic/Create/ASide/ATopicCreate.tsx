@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { useCreateTopics } from '@apis/topic/useTopics';
 import DefaultButton from '@components/commons/Button/DefaultButton';
+import TopicCreateButton from '@components/commons/Button/TopicCreateButton';
 import { Col } from '@components/commons/Flex/Flex';
 import Text from '@components/commons/Text/Text';
 import TextInput from '@components/commons/TextInput/TextInput';
@@ -101,11 +102,12 @@ const ATopicCreate = () => {
           <TopicCreateTextInput />
         </Col>
         <SubmitButton>
-          <DefaultButton
-            title={'토픽 던지기'}
+          <TopicCreateButton
+            title={isFormFilled ? '토픽 던지기' : '내용을 입력해 주세요'}
             onClick={handleSubmitForm}
             disabled={!isFormFilled}
-          ></DefaultButton>
+            topicType="A"
+          />
         </SubmitButton>
       </Container>
     </FormProvider>

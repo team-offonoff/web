@@ -19,6 +19,7 @@ import CommentBoxIcon from './comment-box.svg?react';
 import CommentIcon from './comment.svg?react';
 import DefaultProfileIcon from './default-profile.svg?react';
 import DeleteIcon from './delete.svg?react';
+import DotIcon from './dot.svg?react';
 import DownChevronIcon from './down-chevron.svg?react';
 import GoogleIcon from './google.svg?react';
 import HideIcon from './hide.svg?react';
@@ -97,4 +98,5 @@ export {
   TrashIcon,
   AlbumIcon,
   CameraIcon,
+  DotIcon,
 };
