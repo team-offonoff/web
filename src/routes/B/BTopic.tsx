@@ -53,8 +53,11 @@ const BTopic = () => {
   const { BottomSheet: CommentSheet, toggleSheet } = useBottomSheet({});
   const memberId = useAuthStore((store) => store.memberId);
   const { topic, topicStatus } = location.state as BTopicProps;
+
   const isMyTopic = topic.author.id === memberId;
   const isVoting = topicStatus === 'VOTING';
+  const [choiceA, choiceB] = topic.choices;
+  const winChoice = choiceA.voteCount > choiceB.voteCount ? choiceA : choiceB;
 
   const { data: previewComment } = usePreviewComment(
     topic.topicId,
@@ -170,10 +173,7 @@ const BTopic = () => {
             </>
           ) : (
             <>
-              <ResultSlide
-                topicSide={'TOPIC_A'}
-                choiceContent={topic.choices[topic.selectedOption === 'CHOICE_A' ? 0 : 1].content}
-              />
+              <ResultSlide choice={winChoice} />
             </>
           )}
           <TopicFooter>
