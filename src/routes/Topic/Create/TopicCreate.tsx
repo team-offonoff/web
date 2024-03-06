@@ -23,8 +23,8 @@ export interface TopicCreateDTO {
   ATopic: string;
   BTopic: string;
   topicCategory: string;
-  ATopicImageURL: string;
-  BTopicImageURL: string;
+  ATopicImage: File;
+  BTopicImage: File;
   topicDeadline: number;
   topicType: string;
 }
