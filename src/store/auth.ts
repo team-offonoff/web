@@ -42,6 +42,10 @@ export const useAuthStore = create(
             },
           });
           const { refreshToken: newRefreshToken, memberId, accessToken } = response;
+
+          if (!newRefreshToken || !memberId || !accessToken) {
+            throw new Error('토큰이 올바르지 않습니다.');
+          }
           set({ refreshToken: newRefreshToken, isLoggedIn: true, memberId });
           client.setAccessToken(accessToken);
           return get().isLoggedIn;
