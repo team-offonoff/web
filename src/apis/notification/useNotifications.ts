@@ -8,6 +8,10 @@ const getNotifications = () => {
   return client.get('/notifications');
 };
 
+const getUnreadNotifications = () => {
+  return client.get('/notifications/counts/unchecked');
+};
+
 const useNotifications = () => {
   return useQuery({
     queryKey: [NOTICE_KEY],
@@ -15,4 +19,11 @@ const useNotifications = () => {
   });
 };
 
-export { useNotifications };
+const useUnreadNotifications = () => {
+  return useQuery({
+    queryKey: [NOTICE_KEY, 'unread'],
+    queryFn: getUnreadNotifications,
+  });
+};
+
+export { useNotifications, useUnreadNotifications };
