@@ -83,7 +83,7 @@ const useActionSheet = ({ actions }: UseActionSheetProps) => {
               }
             };
             return (
-              <button onClick={handleActionClick} disabled={action.disabled}>
+              <button key={action.label} onClick={handleActionClick} disabled={action.disabled}>
                 <Row alignItems={'center'} gap={14}>
                   {action.icon}
                   <Text

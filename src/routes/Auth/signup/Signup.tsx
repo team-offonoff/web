@@ -43,7 +43,10 @@ const Signup = () => {
 
   const birthdayInput = methods.watch(INPUT_TYPE.BIRTHDAY);
   const nicknameProgress = methods.watch(INPUT_TYPE.NICKNAME)
-    ? `${methods.watch(INPUT_TYPE.NICKNAME)?.length}/${MAX_NICKNAME_LENGTH}`
+    ? `${Math.min(
+        Array.from(methods.watch(INPUT_TYPE.NICKNAME)).length,
+        MAX_NICKNAME_LENGTH
+      )}/${MAX_NICKNAME_LENGTH}`
     : '';
 
   const handleBirthdayInputKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -100,6 +103,7 @@ const Signup = () => {
             <InputField label="AB에서 사용할 닉네임을 정해주세요.">
               <TextInput
                 id={INPUT_TYPE.NICKNAME}
+                maxLength={MAX_NICKNAME_LENGTH}
                 options={CONFIG.NICKNAME.options}
                 placeholder={'한글, 영문, 숫자 최대 8자'}
                 right={() => (

@@ -34,6 +34,9 @@ export default function useOAuth({ type }: UseOAuthProps) {
           state: { memberId: response.memberId },
         });
       } else {
+        if (!response.accessToken || !response.refreshToken || !response.memberId) {
+          throw new Error('토큰이 올바르지 않습니다.');
+        }
         login(response.accessToken, response.refreshToken, response.memberId);
         navigate('/');
       }
