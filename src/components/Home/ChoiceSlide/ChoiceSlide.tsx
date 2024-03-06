@@ -62,7 +62,7 @@ const ChoiceSlide = ({ side, topicContent }: ChoiceSlideProps) => {
               justifyContent: side === 'A' ? 'flex-end' : 'flex-start',
             }}
           >
-            <SideImage />
+            <SideImage src={topicContent.imageUrl} />
             <SizeUpButton onClick={handleOnClickSizeUpButton}>
               <SizeUpIcon />
             </SizeUpButton>

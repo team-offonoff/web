@@ -52,7 +52,7 @@ const ResultSlide = ({ choice }: Props) => {
               justifyContent: choice.choiceOption === 'CHOICE_A' ? 'flex-end' : 'flex-start',
             }}
           >
-            <SideImage />
+            <SideImage src={choice.content.imageUrl} />
           </div>
         ) : (
           <ResultSlideTextContainer>
