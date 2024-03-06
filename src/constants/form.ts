@@ -12,8 +12,8 @@ export const INPUT_TYPE = {
   TOPIC_TITLE: 'topicTitle',
   A_TOPIC: 'ATopic',
   B_TOPIC: 'BTopic',
-  A_TOPIC_IMAGEURL: 'ATopicImageURL',
-  B_TOPIC_IMAGEURL: 'BTopicImageURL',
+  A_TOPIC_IMAGE: 'ATopicImage',
+  B_TOPIC_IMAGE: 'BTopicImage',
   TOPIC_CONTENT_TYPE: 'topicType',
   TOPIC_CATEGORY: 'topicCategory',
   TOPIC_DEADLINE: 'topicDeadline',
@@ -95,12 +95,12 @@ export const CONFIG: Record<ConfigKeys, ConfigField> = {
       },
     },
   },
-  A_TOPIC_IMAGEURL: {
+  A_TOPIC_IMAGE: {
     options: {
       required: true,
     },
   },
-  B_TOPIC_IMAGEURL: {
+  B_TOPIC_IMAGE: {
     options: {
       required: true,
     },

@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { set } from 'react-hook-form';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import {
   getProfile,
@@ -10,11 +9,9 @@ import {
 } from '@apis/profile/useProfile';
 import { Col, Row } from '@components/commons/Flex/Flex';
 import Layout from '@components/commons/Layout/Layout';
-import ActionModalButton from '@components/commons/Modal/ActionModalButton';
 import ProfileImg from '@components/commons/ProfileImg/ProfileImg';
 import Text from '@components/commons/Text/Text';
 import useActionSheet from '@hooks/useModal/useActionSheet';
-import useModal from '@hooks/useModal/useModal';
 
 import { colors } from '@styles/theme';
 
@@ -25,7 +22,6 @@ import {
   Container,
   Divider,
   ImageInput,
-  ModalDivider,
   ModifyProfileButton,
   PhotoButton,
   ProfileImgContainer,
@@ -44,10 +40,9 @@ const MyPage = () => {
   const [file, setFile] = useState<File>();
   const [presignedURL, setpresignedURL] = useState<string>('');
 
-  const updateProfileImgMutation = useGetPresignedURL('.' + fileName);
+  const getProfileImgMutation = useGetPresignedURL('.' + fileName);
   const updateProfileImgURLMutation = useUpdateProfileImgURL(presignedURL);
   const deleteProfileImg = useDeleteProfileImg();
-  const [isDeleteModal, setIsDeleteModal] = useState<boolean>(false);
 
   const removeQueryString = (url: string): string => {
     const urlObj = new URL(url);
@@ -59,7 +54,7 @@ const MyPage = () => {
       return;
     }
     try {
-      const presignedURLResponse = await updateProfileImgMutation.mutateAsync();
+      const presignedURLResponse = await getProfileImgMutation.mutateAsync();
       const imageUrl = removeQueryString(presignedURLResponse.presignedUrl);
 
       setpresignedURL(imageUrl);
@@ -88,7 +83,6 @@ const MyPage = () => {
 
   const handleDeleteCurrentProfileImg = () => {
     setProfileImg(null);
-    setIsDeleteModal(false);
     const res = deleteProfileImg.mutate();
     console.log('delete성공', res);
     toggleModal();
@@ -109,10 +103,6 @@ const MyPage = () => {
     };
     reader.readAsDataURL(fileObj);
     toggleModal();
-  };
-
-  const handleRemoveCurrentImage = () => {
-    setIsDeleteModal(true);
   };
 
   const handleOnClickPhotoButton = () => {

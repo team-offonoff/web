@@ -35,21 +35,6 @@ const BTopicCreateStep1 = () => {
     methods.clearErrors(INPUT_TYPE.TOPIC_CATEGORY);
   };
 
-  const handleEnterkey = async (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
-      e.preventDefault();
-
-      // Trigger validation for the fields
-      const result = await methods.trigger([INPUT_TYPE.TOPIC_TITLE, INPUT_TYPE.TOPIC_CATEGORY]);
-
-      if (result) {
-        setTimeout(() => navigateToNextStep(), 1000);
-      } else {
-        console.log('invalid');
-      }
-    }
-  };
-
   return (
     <Container>
       <Col gap={63}>
@@ -63,7 +48,6 @@ const BTopicCreateStep1 = () => {
             options={CONFIG.TOPIC_TITLE.options}
             placeholder={'제목을 입력해주세요.'}
             theme={theme3}
-            onKeyDown={handleEnterkey}
             right={() => (
               <Text size={15} weight={400} color={colors.purple_60}>
                 {titleProgress}
@@ -82,7 +66,6 @@ const BTopicCreateStep1 = () => {
               placeholder={'한글, 영문, 숫자만 가능.'}
               maxLength={6}
               theme={theme2}
-              onKeyDown={handleEnterkey}
               right={() => (
                 <Text style={{ opacity: 0.6 }} size={14} weight={600} color={colors.purple_60}>
                   {categoryProgress}

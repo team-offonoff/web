@@ -1,5 +1,6 @@
 import { useInfiniteQuery, useMutation } from '@tanstack/react-query';
 
+import { PresignedURLResponse } from '@interfaces/api/profile';
 import { TopicCreateRequestDTO, TopicResponse } from '@interfaces/api/topic';
 
 import { PagingDataResponse } from '@interfaces/api';
@@ -41,10 +42,23 @@ const createTopics = (req: TopicCreateRequestDTO) => {
   });
 };
 
+const getPresignedURL = (fileName: string) => {
+  return client.post<PresignedURLResponse>({
+    path: `/images/topic`,
+    body: {
+      fileName: fileName,
+    },
+  });
+};
+
 const useCreateTopics = () => {
   return useMutation({ mutationFn: createTopics });
 };
 
+const useGetPresignedURL = () => {
+  return useMutation({ mutationFn: (fileName: string) => getPresignedURL(fileName) });
+};
+
 export default useTopics;
 
-export { useCreateTopics };
+export { useCreateTopics, useGetPresignedURL };

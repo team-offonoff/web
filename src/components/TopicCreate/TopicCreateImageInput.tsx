@@ -20,19 +20,19 @@ const TopicCreateImageInput = () => {
   const [isImageFilled, setIsImageFilled] = useState(false);
 
   const handleReplaceButtonClick = () => {
-    const aImage = getValues(INPUT_TYPE.A_TOPIC_IMAGEURL);
-    const bImage = getValues(INPUT_TYPE.B_TOPIC_IMAGEURL);
+    const aImage = getValues(INPUT_TYPE.A_TOPIC_IMAGE);
+    const bImage = getValues(INPUT_TYPE.B_TOPIC_IMAGE);
 
-    setValue(INPUT_TYPE.A_TOPIC_IMAGEURL, bImage);
-    setValue(INPUT_TYPE.B_TOPIC_IMAGEURL, aImage);
+    setValue(INPUT_TYPE.A_TOPIC_IMAGE, bImage);
+    setValue(INPUT_TYPE.B_TOPIC_IMAGE, aImage);
   };
 
   useEffect(() => {
     if (
-      getFieldState(INPUT_TYPE.A_TOPIC_IMAGEURL, formState).isDirty &&
-      !getFieldState(INPUT_TYPE.A_TOPIC_IMAGEURL, formState).invalid &&
-      getFieldState(INPUT_TYPE.B_TOPIC_IMAGEURL, formState).isDirty &&
-      !getFieldState(INPUT_TYPE.B_TOPIC_IMAGEURL, formState).invalid
+      getFieldState(INPUT_TYPE.A_TOPIC_IMAGE, formState).isDirty &&
+      !getFieldState(INPUT_TYPE.A_TOPIC_IMAGE, formState).invalid &&
+      getFieldState(INPUT_TYPE.B_TOPIC_IMAGE, formState).isDirty &&
+      !getFieldState(INPUT_TYPE.B_TOPIC_IMAGE, formState).invalid
     ) {
       setIsImageFilled(true);
     } else {
