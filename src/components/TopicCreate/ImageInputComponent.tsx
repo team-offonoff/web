@@ -32,9 +32,9 @@ interface ImageInputComponetProps {
 const ImageInputComponent = ({ label }: ImageInputComponetProps) => {
   const { Modal, toggleModal } = useModal('default');
   const { register, setValue, watch } = useFormContext();
-  const id = label === 'A' ? INPUT_TYPE.A_TOPIC_IMAGEURL : INPUT_TYPE.B_TOPIC_IMAGEURL;
-  const config = label === 'A' ? CONFIG.A_TOPIC_IMAGEURL : CONFIG.B_TOPIC_IMAGEURL;
-  const imageUrl = watch(id);
+  const id = label === 'A' ? INPUT_TYPE.A_TOPIC_IMAGE : INPUT_TYPE.B_TOPIC_IMAGE;
+  const config = label === 'A' ? CONFIG.A_TOPIC_IMAGE : CONFIG.B_TOPIC_IMAGE;
+  const [imageUrl, setImageUrl] = useState<string | null>(null);
 
   const handleFileChange = (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -49,7 +49,8 @@ const ImageInputComponent = ({ label }: ImageInputComponetProps) => {
 
     const reader = new FileReader();
     reader.onloadend = () => {
-      setValue(id, reader.result as string);
+      setImageUrl(reader.result as string);
+      setValue(id, fileObj);
     };
     reader.readAsDataURL(fileObj);
   };
