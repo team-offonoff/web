@@ -9,6 +9,7 @@ import TopicComments from '@components/Home/TopicComments/TopicComments';
 import useBottomSheet from '@hooks/useBottomSheet/useBottomSheet';
 import { TopicResponse } from '@interfaces/api/topic';
 
+
 import { colors } from '@styles/theme';
 
 import { HotIcon, MeatballIcon, TrendingIcon } from '@icons/index';
@@ -19,13 +20,18 @@ interface AlphaTopicCardProps {
   topic: TopicResponse;
   onVote: (topicId: number, side: 'CHOICE_A' | 'CHOICE_B') => void;
   isTrending?: boolean;
+  isMine: boolean;
 }
 
-const AlphaTopicCard = React.memo(({ topic, onVote, isTrending }: AlphaTopicCardProps) => {
+const AlphaTopicCard = React.memo(({ topic, onVote, isTrending, isMine }: AlphaTopicCardProps) => {
   const { BottomSheet: CommentSheet, toggleSheet } = useBottomSheet({});
+
+  const isRevealed = topic.selectedOption !== null || isMine;
+
   const [A, B] = topic.choices;
   const roundedPercentageA = Math.round((A.voteCount / topic.voteCount) * 100);
   const roundedPercentageB = 100 - roundedPercentageA;
+
   const isHot = 45 < roundedPercentageA && roundedPercentageA < 55;
   const hasChip = isTrending || isHot;
 
@@ -63,8 +69,8 @@ const AlphaTopicCard = React.memo(({ topic, onVote, isTrending }: AlphaTopicCard
         </Row>
         <Col gap={5} style={{ marginBottom: 14 }}>
           <ProgressBar
-            revealed={topic.selectedOption !== null}
-            highlighted={topic.selectedOption === 'CHOICE_A'}
+            revealed={isRevealed}
+            highlighted={topic.selectedOption === 'CHOICE_A' || isMine}
             title={A.content.text || ''}
             percentage={roundedPercentageA}
             onClick={() => handleVote('CHOICE_A')}
@@ -79,8 +85,8 @@ const AlphaTopicCard = React.memo(({ topic, onVote, isTrending }: AlphaTopicCard
             )}
           />
           <ProgressBar
-            revealed={topic.selectedOption !== null}
-            highlighted={topic.selectedOption === 'CHOICE_B'}
+            revealed={isRevealed}
+            highlighted={topic.selectedOption === 'CHOICE_B' || isMine}
             title={B.content.text || ''}
             percentage={roundedPercentageB}
             onClick={() => handleVote('CHOICE_B')}
@@ -96,9 +102,14 @@ const AlphaTopicCard = React.memo(({ topic, onVote, isTrending }: AlphaTopicCard
           />
         </Col>
         <Row justifyContent={'space-between'} alignItems={'center'}>
-          <Text size={13} color={colors.white_40}>
-            {getDateDiff(topic.createdAt)} 전
-          </Text>
+          <Row gap={8}>
+            <Text size={13} color={colors.white_40}>
+              {getDateDiff(topic.createdAt)} 전
+            </Text>
+            <Text size={13} color={colors[2].neutral_80}>
+              {topic.voteCount}명 참여
+            </Text>
+          </Row>
           <CommentChip count={topic.commentCount} onClick={handleCommentChipClick} />
         </Row>
       </Col>
