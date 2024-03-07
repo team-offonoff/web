@@ -9,7 +9,6 @@ import TopicComments from '@components/Home/TopicComments/TopicComments';
 import useBottomSheet from '@hooks/useBottomSheet/useBottomSheet';
 import { TopicResponse } from '@interfaces/api/topic';
 
-
 import { colors } from '@styles/theme';
 
 import { HotIcon, MeatballIcon, TrendingIcon } from '@icons/index';
@@ -76,7 +75,7 @@ const AlphaTopicCard = React.memo(({ topic, onVote, isTrending, isMine }: AlphaT
             onClick={() => handleVote('CHOICE_A')}
             left={() => (
               <Text
-                color={topic.selectedOption === 'CHOICE_A' ? colors.A_80 : colors.A_40}
+                color={topic.selectedOption === 'CHOICE_A' || isMine ? colors.A_80 : colors.A_40}
                 size={24}
                 weight={900}
               >
@@ -92,7 +91,7 @@ const AlphaTopicCard = React.memo(({ topic, onVote, isTrending, isMine }: AlphaT
             onClick={() => handleVote('CHOICE_B')}
             left={() => (
               <Text
-                color={topic.selectedOption === 'CHOICE_B' ? colors.B_80 : colors.B_40}
+                color={topic.selectedOption === 'CHOICE_B' || isMine ? colors.B_80 : colors.B_40}
                 size={24}
                 weight={900}
               >
