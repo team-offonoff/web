@@ -13,6 +13,8 @@ import ProfileImg from '@components/commons/ProfileImg/ProfileImg';
 import Text from '@components/commons/Text/Text';
 import useActionSheet from '@hooks/useModal/useActionSheet';
 
+import { useAuthStore } from '@store/auth';
+
 import { colors } from '@styles/theme';
 
 import { AlbumIcon, CameraIcon, RightChevronIcon, TrashIcon } from '@icons/index';
@@ -29,6 +31,7 @@ import {
 
 const MyPage = () => {
   const navigate = useNavigate();
+  const logout = useAuthStore((state) => state.logout);
 
   const profileImageInputRef = useRef<HTMLInputElement>(null);
 
@@ -156,6 +159,10 @@ const MyPage = () => {
     ],
   });
 
+  const handleLogout = () => {
+    logout();
+  };
+
   return (
     <Layout
       hasBottomNavigation={true}
@@ -217,15 +224,17 @@ const MyPage = () => {
             </Row>
             <Divider />
             <Row>
-              <Text
-                style={{ padding: '0 7px' }}
-                size={16}
-                weight={400}
-                color={colors.white}
-                align="start"
-              >
-                로그아웃
-              </Text>
+              <button onClick={handleLogout}>
+                <Text
+                  style={{ padding: '0 7px' }}
+                  size={16}
+                  weight={400}
+                  color={colors.white}
+                  align="start"
+                >
+                  로그아웃
+                </Text>
+              </button>
             </Row>
           </Col>
         </Col>
