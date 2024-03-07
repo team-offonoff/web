@@ -1,6 +1,5 @@
 import React from 'react';
 
-import useVoteTopic from '@apis/topic/useVoteTopic';
 import Chip from '@components/commons/Chip/Chip';
 import CommentChip from '@components/commons/Chip/CommentChip';
 import { Col, Row } from '@components/commons/Flex/Flex';
@@ -12,21 +11,23 @@ import { TopicResponse } from '@interfaces/api/topic';
 
 import { colors } from '@styles/theme';
 
-import { MeatballIcon } from '@icons/index';
+import { HotIcon, MeatballIcon, TrendingIcon } from '@icons/index';
 
 import { getDateDiff } from '@utils/date';
 
 interface AlphaTopicCardProps {
   topic: TopicResponse;
   onVote: (topicId: number, side: 'CHOICE_A' | 'CHOICE_B') => void;
-  chip?: 'popular' | 'close';
+  isTrending?: boolean;
 }
 
-const AlphaTopicCard = React.memo(({ topic, onVote, chip }: AlphaTopicCardProps) => {
+const AlphaTopicCard = React.memo(({ topic, onVote, isTrending }: AlphaTopicCardProps) => {
   const { BottomSheet: CommentSheet, toggleSheet } = useBottomSheet({});
   const [A, B] = topic.choices;
   const roundedPercentageA = Math.round((A.voteCount / topic.voteCount) * 100);
   const roundedPercentageB = 100 - roundedPercentageA;
+  const isHot = 45 < roundedPercentageA && roundedPercentageA < 55;
+  const hasChip = isTrending || isHot;
 
   const handleCommentChipClick = () => {
     toggleSheet();
@@ -38,22 +39,27 @@ const AlphaTopicCard = React.memo(({ topic, onVote, chip }: AlphaTopicCardProps)
 
   const handleOptionClick = () => {};
 
+  const TrendingChip = () => (
+    <Chip icon={<TrendingIcon />} tintColor={'#8CFF8A'} label={'실시간 인기 토픽'} />
+  );
+  const HotChip = () => <Chip icon={<HotIcon />} tintColor={'#FF61B7'} label={'치열한 경쟁 중'} />;
+  const TopicCardChip = () => (isTrending ? <TrendingChip /> : isHot ? <HotChip /> : null);
+
   return (
     <>
       <Col padding={'20px'}>
-        {chip && (
+        {hasChip && (
           <Row style={{ marginBottom: 12 }}>
-            <Chip tintColor={'#D3FF9C'} label={'실시간 인기 토픽'} />
+            <TopicCardChip />
           </Row>
         )}
         <Row justifyContent={'space-between'} style={{ marginBottom: 14 }}>
           <Text size={18} weight={500} color={colors.white}>
             {topic.topicTitle}
           </Text>
-          {/* TBD: 1차 스펙 아웃 */}
-          {/* <button onClick={handleOptionClick}>
+          <button onClick={handleOptionClick}>
             <MeatballIcon fill={colors.white_60} />
-          </button> */}
+          </button>
         </Row>
         <Col gap={5} style={{ marginBottom: 14 }}>
           <ProgressBar
