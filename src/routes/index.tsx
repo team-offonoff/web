@@ -28,11 +28,13 @@ const Signup = lazy(() => import('./Auth/signup/Signup'));
 
 const AuthRoute = () => {
   const reLogin = useAuthStore((store) => store.reLogin);
+  const [isLoading, setIsLoading] = useState(true);
 
   useLayoutEffect(() => {
     const handleReLogin = async () => {
       try {
         await reLogin();
+        setIsLoading(false);
       } catch (e) {
         console.error(e);
       }
@@ -42,9 +44,10 @@ const AuthRoute = () => {
   }, []);
 
   return (
-    <Suspense fallback={<Loading />}>
+    <>
+      {isLoading && <Loading />}
       <Outlet />
-    </Suspense>
+    </>
   );
 };
 
