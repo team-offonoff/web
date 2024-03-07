@@ -35,6 +35,10 @@ const useTopics = (req?: TopicsRequestDTO) => {
   });
 };
 
+const useTrendingTopics = () => {
+  return useTopics({ status: 'VOTING', sort: 'voteCount,DESC', page: 0, size: 3, side: 'TOPIC_A' });
+};
+
 const createTopics = (req: TopicCreateRequestDTO) => {
   return client.post({
     path: `/topics`,
@@ -61,4 +65,12 @@ const useGetPresignedURL = () => {
 
 export default useTopics;
 
-export { useCreateTopics, useGetPresignedURL };
+export {
+  getTopics,
+  useTopics,
+  useTrendingTopics,
+  createTopics,
+  getPresignedURL,
+  useCreateTopics,
+  useGetPresignedURL,
+};
