@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 
 import useTopics, { useTrendingTopics } from '@apis/topic/useTopics';
 import useVoteTopic from '@apis/topic/useVoteTopic';
@@ -12,15 +12,33 @@ import { colors } from '@styles/theme';
 
 import { ALogoIcon, UpDownChevronIcon } from '@icons/index';
 
+import { useIntersectionObserver } from '@hooks/useIntersectionObserver';
+
 import { ResponseError } from '@apis/fetch';
 
 import { Container } from './ATopics.styles';
 
 const ATopics = () => {
-  const { data: topicPages } = useTopics({ side: 'TOPIC_A', sort: 'createdAt,DESC' });
+  const {
+    data: topicPages,
+    hasNextPage,
+    fetchNextPage,
+  } = useTopics({ side: 'TOPIC_A', sort: 'createdAt,DESC' });
   const { data: trendingTopicPages } = useTrendingTopics();
-
   const voteMutation = useVoteTopic({ side: 'TOPIC_A', sort: 'createdAt,DESC' });
+  const [setTargetRef] = useIntersectionObserver({
+    threshold: 0.5,
+    triggerOnce: false,
+    onIntersect: useCallback(
+      ([{ isIntersecting }]) => {
+        if (isIntersecting && hasNextPage) {
+          fetchNextPage();
+        }
+      },
+      [fetchNextPage, hasNextPage]
+    ),
+  });
+
   const [isMineOnly, setIsMineOnly] = useState(false);
   const [isLatest, setIsLatest] = useState(true);
 
@@ -87,6 +105,7 @@ const ATopics = () => {
               />
             );
           })}
+          <div ref={setTargetRef} />
         </Col>
       </Container>
     </Layout>
