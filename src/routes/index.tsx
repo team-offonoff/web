@@ -90,7 +90,11 @@ const Router = () => {
     )
   );
 
-  return <RouterProvider router={router} />;
+  return (
+    <Suspense fallback={<Loading />}>
+      <RouterProvider router={router} />
+    </Suspense>
+  );
 };
 
 export default Router;

@@ -216,15 +216,17 @@ const MyPage = () => {
               </Text>
             </Row>
             <Divider />
-            <Text
-              style={{ padding: '0 7px' }}
-              size={16}
-              weight={400}
-              color={colors.white_40}
-              align="start"
-            >
-              로그아웃
-            </Text>
+            <Row>
+              <Text
+                style={{ padding: '0 7px' }}
+                size={16}
+                weight={400}
+                color={colors.white}
+                align="start"
+              >
+                로그아웃
+              </Text>
+            </Row>
           </Col>
         </Col>
         <ImageInput
