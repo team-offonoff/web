@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 
 import useTopics, { TopicsRequestDTO, useTrendingTopics } from '@apis/topic/useTopics';
 import useVoteTopic from '@apis/topic/useVoteTopic';
@@ -13,6 +13,8 @@ import { useAuthStore } from '@store/auth';
 import { colors } from '@styles/theme';
 
 import { ALogoIcon, UpDownChevronIcon } from '@icons/index';
+
+import { useIntersectionObserver } from '@hooks/useIntersectionObserver';
 
 import { ResponseError } from '@apis/fetch';
 
@@ -108,6 +110,7 @@ const ATopics = () => {
               />
             );
           })}
+          <div ref={setTargetRef} />
         </Col>
       </Container>
     </Layout>
