@@ -41,7 +41,9 @@ const AlphaTopicCard = React.memo(({ topic, onVote, isTrending, isMine }: AlphaT
   };
 
   const handleVote = (side: 'CHOICE_A' | 'CHOICE_B') => {
-    onVote(topic.topicId, side);
+    if (topic.selectedOption === null) {
+      onVote(topic.topicId, side);
+    }
   };
 
   const handleOptionClick = () => {};
