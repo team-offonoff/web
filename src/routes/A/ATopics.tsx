@@ -31,8 +31,21 @@ const ATopics = () => {
   };
 
   const { data: trendingTopicPages } = useTrendingTopics();
-  const { data: topicPages } = useTopics(requestParams);
+  const { data: topicPages, hasNextPage, fetchNextPage } = useTopics(requestParams);
   const voteMutation = useVoteTopic(requestParams);
+
+  const [setTargetRef] = useIntersectionObserver({
+    threshold: 0.5,
+    triggerOnce: false,
+    onIntersect: useCallback(
+      ([{ isIntersecting }]) => {
+        if (isIntersecting && hasNextPage) {
+          fetchNextPage();
+        }
+      },
+      [fetchNextPage, hasNextPage]
+    ),
+  });
 
   const topics = isMineOnly
     ? topicPages?.pages.flatMap((page) => page.data).filter((topic) => topic.author.id === memberId)
@@ -65,6 +78,7 @@ const ATopics = () => {
             top: 112,
             right: -42,
             overflow: 'hidden',
+            pointerEvents: 'none',
           }}
         >
           <ALogoIcon width={352} height={400} fill={colors.navy2_20} />
