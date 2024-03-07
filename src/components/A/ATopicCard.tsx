@@ -60,7 +60,7 @@ const AlphaTopicCard = React.memo(({ topic, onVote, isTrending, isMine }: AlphaT
             <TopicCardChip />
           </Row>
         )}
-        <Row justifyContent={'space-between'} style={{ marginBottom: 14 }}>
+        <Row justifyContent={'space-between'} style={{ marginBottom: 14 }} gap={77}>
           <Text size={18} weight={500} color={colors.white}>
             {topic.topicTitle}
           </Text>
