@@ -15,6 +15,8 @@ import { HotIcon, MeatballIcon, TrendingIcon } from '@icons/index';
 
 import { getDateDiff } from '@utils/date';
 
+import { Container } from './ATopicCard.styles';
+
 interface AlphaTopicCardProps {
   topic: TopicResponse;
   onVote: (topicId: number, side: 'CHOICE_A' | 'CHOICE_B') => void;
@@ -52,7 +54,7 @@ const AlphaTopicCard = React.memo(({ topic, onVote, isTrending, isMine }: AlphaT
 
   return (
     <>
-      <Col padding={'20px'}>
+      <Container>
         {hasChip && (
           <Row style={{ marginBottom: 12 }}>
             <TopicCardChip />
@@ -111,7 +113,7 @@ const AlphaTopicCard = React.memo(({ topic, onVote, isTrending, isMine }: AlphaT
           </Row>
           <CommentChip count={topic.commentCount} onClick={handleCommentChipClick} />
         </Row>
-      </Col>
+      </Container>
       <CommentSheet>
         <TopicComments topic={topic} />
       </CommentSheet>

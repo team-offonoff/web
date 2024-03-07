@@ -57,6 +57,16 @@ const ATopics = () => {
       HeaderLeft={<ALogoIcon width={30} height={30} fill={colors.white} />}
     >
       <Container>
+        <div
+          style={{
+            position: 'absolute',
+            top: 112,
+            right: -42,
+            overflow: 'hidden',
+          }}
+        >
+          <ALogoIcon width={352} height={400} fill={colors.navy2_20} />
+        </div>
         <Row justifyContent={'flex-end'} gap={12} padding="15px 20px">
           <button onClick={() => setIsMineOnly((prev) => !prev)}>
             <Row alignItems="center" gap={6}>
