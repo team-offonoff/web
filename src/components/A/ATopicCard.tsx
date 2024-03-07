@@ -15,17 +15,24 @@ import { HotIcon, MeatballIcon, TrendingIcon } from '@icons/index';
 
 import { getDateDiff } from '@utils/date';
 
+import { Container } from './ATopicCard.styles';
+
 interface AlphaTopicCardProps {
   topic: TopicResponse;
   onVote: (topicId: number, side: 'CHOICE_A' | 'CHOICE_B') => void;
   isTrending?: boolean;
+  isMine: boolean;
 }
 
-const AlphaTopicCard = React.memo(({ topic, onVote, isTrending }: AlphaTopicCardProps) => {
+const AlphaTopicCard = React.memo(({ topic, onVote, isTrending, isMine }: AlphaTopicCardProps) => {
   const { BottomSheet: CommentSheet, toggleSheet } = useBottomSheet({});
+
+  const isRevealed = topic.selectedOption !== null || isMine;
+
   const [A, B] = topic.choices;
   const roundedPercentageA = Math.round((A.voteCount / topic.voteCount) * 100);
   const roundedPercentageB = 100 - roundedPercentageA;
+
   const isHot = 45 < roundedPercentageA && roundedPercentageA < 55;
   const hasChip = isTrending || isHot;
 
@@ -34,7 +41,9 @@ const AlphaTopicCard = React.memo(({ topic, onVote, isTrending }: AlphaTopicCard
   };
 
   const handleVote = (side: 'CHOICE_A' | 'CHOICE_B') => {
-    onVote(topic.topicId, side);
+    if (topic.selectedOption === null) {
+      onVote(topic.topicId, side);
+    }
   };
 
   const handleOptionClick = () => {};
@@ -47,13 +56,13 @@ const AlphaTopicCard = React.memo(({ topic, onVote, isTrending }: AlphaTopicCard
 
   return (
     <>
-      <Col padding={'20px'}>
+      <Container>
         {hasChip && (
           <Row style={{ marginBottom: 12 }}>
             <TopicCardChip />
           </Row>
         )}
-        <Row justifyContent={'space-between'} style={{ marginBottom: 14 }}>
+        <Row justifyContent={'space-between'} style={{ marginBottom: 14 }} gap={77}>
           <Text size={18} weight={500} color={colors.white}>
             {topic.topicTitle}
           </Text>
@@ -63,14 +72,14 @@ const AlphaTopicCard = React.memo(({ topic, onVote, isTrending }: AlphaTopicCard
         </Row>
         <Col gap={5} style={{ marginBottom: 14 }}>
           <ProgressBar
-            revealed={topic.selectedOption !== null}
-            highlighted={topic.selectedOption === 'CHOICE_A'}
+            revealed={isRevealed}
+            highlighted={topic.selectedOption === 'CHOICE_A' || isMine}
             title={A.content.text || ''}
             percentage={roundedPercentageA}
             onClick={() => handleVote('CHOICE_A')}
             left={() => (
               <Text
-                color={topic.selectedOption === 'CHOICE_A' ? colors.A_80 : colors.A_40}
+                color={topic.selectedOption === 'CHOICE_A' || isMine ? colors.A_80 : colors.A_40}
                 size={24}
                 weight={900}
               >
@@ -79,14 +88,14 @@ const AlphaTopicCard = React.memo(({ topic, onVote, isTrending }: AlphaTopicCard
             )}
           />
           <ProgressBar
-            revealed={topic.selectedOption !== null}
-            highlighted={topic.selectedOption === 'CHOICE_B'}
+            revealed={isRevealed}
+            highlighted={topic.selectedOption === 'CHOICE_B' || isMine}
             title={B.content.text || ''}
             percentage={roundedPercentageB}
             onClick={() => handleVote('CHOICE_B')}
             left={() => (
               <Text
-                color={topic.selectedOption === 'CHOICE_B' ? colors.B_80 : colors.B_40}
+                color={topic.selectedOption === 'CHOICE_B' || isMine ? colors.B_80 : colors.B_40}
                 size={24}
                 weight={900}
               >
@@ -96,12 +105,17 @@ const AlphaTopicCard = React.memo(({ topic, onVote, isTrending }: AlphaTopicCard
           />
         </Col>
         <Row justifyContent={'space-between'} alignItems={'center'}>
-          <Text size={13} color={colors.white_40}>
-            {getDateDiff(topic.createdAt)} 전
-          </Text>
+          <Row gap={8}>
+            <Text size={13} color={colors.white_40}>
+              {getDateDiff(topic.createdAt)} 전
+            </Text>
+            <Text size={13} color={colors[2].neutral_80}>
+              {topic.voteCount}명 참여
+            </Text>
+          </Row>
           <CommentChip count={topic.commentCount} onClick={handleCommentChipClick} />
         </Row>
-      </Col>
+      </Container>
       <CommentSheet>
         <TopicComments topic={topic} />
       </CommentSheet>

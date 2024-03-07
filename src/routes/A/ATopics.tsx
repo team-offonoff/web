@@ -1,12 +1,14 @@
 import { useCallback, useState } from 'react';
 
-import useTopics, { useTrendingTopics } from '@apis/topic/useTopics';
+import useTopics, { TopicsRequestDTO, useTrendingTopics } from '@apis/topic/useTopics';
 import useVoteTopic from '@apis/topic/useVoteTopic';
 import ATopicCard from '@components/A/ATopicCard';
 import { Col, Row } from '@components/commons/Flex/Flex';
 import Layout from '@components/commons/Layout/Layout';
 import Text from '@components/commons/Text/Text';
 import { Toast } from '@components/commons/Toast/Toast';
+
+import { useAuthStore } from '@store/auth';
 
 import { colors } from '@styles/theme';
 
@@ -19,13 +21,19 @@ import { ResponseError } from '@apis/fetch';
 import { Container } from './ATopics.styles';
 
 const ATopics = () => {
-  const {
-    data: topicPages,
-    hasNextPage,
-    fetchNextPage,
-  } = useTopics({ side: 'TOPIC_A', sort: 'createdAt,DESC' });
+  const memberId = useAuthStore((state) => state.memberId);
+  const [isMineOnly, setIsMineOnly] = useState(false);
+  const [isLatest, setIsLatest] = useState(true);
+
+  const requestParams: TopicsRequestDTO = {
+    side: 'TOPIC_A',
+    sort: isLatest ? 'createdAt,DESC' : 'voteCount,DESC',
+  };
+
   const { data: trendingTopicPages } = useTrendingTopics();
-  const voteMutation = useVoteTopic({ side: 'TOPIC_A', sort: 'createdAt,DESC' });
+  const { data: topicPages, hasNextPage, fetchNextPage } = useTopics(requestParams);
+  const voteMutation = useVoteTopic(requestParams);
+
   const [setTargetRef] = useIntersectionObserver({
     threshold: 0.5,
     triggerOnce: false,
@@ -39,10 +47,9 @@ const ATopics = () => {
     ),
   });
 
-  const [isMineOnly, setIsMineOnly] = useState(false);
-  const [isLatest, setIsLatest] = useState(true);
-
-  const topics = topicPages?.pages.flatMap((page) => page.data);
+  const topics = isMineOnly
+    ? topicPages?.pages.flatMap((page) => page.data).filter((topic) => topic.author.id === memberId)
+    : topicPages?.pages.flatMap((page) => page.data);
   const trendingTopics = trendingTopicPages?.pages.flatMap((page) => page.data);
 
   const handleVote = async (topicId: number, side: 'CHOICE_A' | 'CHOICE_B') => {
@@ -65,6 +72,17 @@ const ATopics = () => {
       HeaderLeft={<ALogoIcon width={30} height={30} fill={colors.white} />}
     >
       <Container>
+        <div
+          style={{
+            position: 'absolute',
+            top: 112,
+            right: -42,
+            overflow: 'hidden',
+            pointerEvents: 'none',
+          }}
+        >
+          <ALogoIcon width={352} height={400} fill={colors.navy2_20} />
+        </div>
         <Row justifyContent={'flex-end'} gap={12} padding="15px 20px">
           <button onClick={() => setIsMineOnly((prev) => !prev)}>
             <Row alignItems="center" gap={6}>
@@ -84,9 +102,9 @@ const ATopics = () => {
           </button>
           <button onClick={() => setIsLatest((prev) => !prev)}>
             <Row alignItems="center" gap={6}>
-              <UpDownChevronIcon stroke={isLatest ? colors.white : colors.white_40} />
-              <Text size={13} color={isLatest ? colors.white : colors.white_40}>
-                최신순
+              <UpDownChevronIcon stroke={colors.white} />
+              <Text size={13} color={colors.white}>
+                {isLatest ? '최신순' : '인기순'}
               </Text>
             </Row>
           </button>
@@ -102,6 +120,7 @@ const ATopics = () => {
                 topic={topic}
                 onVote={handleVote}
                 isTrending={isTrending}
+                isMine={topic.author.id === memberId}
               />
             );
           })}

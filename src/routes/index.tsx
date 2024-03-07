@@ -43,12 +43,7 @@ const AuthRoute = () => {
     handleReLogin();
   }, []);
 
-  return (
-    <>
-      {isLoading && <Loading />}
-      <Outlet />
-    </>
-  );
+  return <>{isLoading ? <Loading /> : <Outlet />}</>;
 };
 
 const ProtectedRoute = () => {
