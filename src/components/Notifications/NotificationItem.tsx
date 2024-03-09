@@ -1,34 +1,34 @@
 import React from 'react';
 
+import { useReadNotification } from '@apis/notification/useNotifications';
 import { Col, Row } from '@components/commons/Flex/Flex';
 import Text from '@components/commons/Text/Text';
+import { NotificationResponse } from '@interfaces/api/notification';
 
 import { colors } from '@styles/theme';
 
 import { ClockIcon, CommentIcon, HitIcon, ThumbsIcon } from '@icons/index';
 
+import { getDateDiff } from '@utils/date';
+
 import { IconWrapper } from './NotificationItem.styles';
 
 interface NotificationItem {
-  onClick: () => void;
-  notification: {
-    type: 'hit' | 'comment' | 'like' | 'close';
-    title: string;
-    date: number;
-    checked: boolean;
-  };
+  notification: NotificationResponse;
 }
 
-const NotificationItem = ({ onClick, notification }: NotificationItem) => {
+const NotificationItem = ({ notification }: NotificationItem) => {
+  const readNotification = useReadNotification(notification.id);
+
   const renderIcon = () => {
     switch (notification.type) {
-      case 'close':
+      case 'VOTE_RESULT':
         return <ClockIcon />;
-      case 'comment':
+      case 'COMMENT_ON_TOPIC':
         return <CommentIcon />;
-      case 'hit':
+      case 'VOTE_COUNT_ON_TOPIC':
         return <HitIcon />;
-      case 'like':
+      case 'LIKE_IN_COMMENT':
         return (
           <ThumbsIcon
             stroke={colors.white_40}
@@ -42,27 +42,47 @@ const NotificationItem = ({ onClick, notification }: NotificationItem) => {
     }
   };
 
+  const handleNotificationClick = () => {
+    if (!notification.isRead) {
+      readNotification.mutate();
+    }
+  };
+
   return (
     <Row
-      onClick={onClick}
+      onClick={handleNotificationClick}
       justifyContent="space-between"
       padding={'24px 20px'}
-      style={{ ...(!notification.checked && { backgroundColor: '#2e234a' }) }}
+      style={{ ...(!notification.isRead && { backgroundColor: '#2e234a' }), position: 'relative' }}
       gap={28}
     >
       <Row gap={16}>
+        {!notification.isRead && (
+          <div
+            style={{
+              width: 8,
+              height: 8,
+              borderRadius: 4,
+              backgroundColor: colors.purple2,
+              position: 'absolute',
+              left: 18,
+              top: 18,
+            }}
+          />
+        )}
+
         <IconWrapper>{renderIcon()}</IconWrapper>
         <Col gap={8}>
           <Text size={15} weight={500} color={colors.white}>
-            투표가 마감 되었어요, 지금 바로 결과를 확인해 보세요!
+            {notification.message.title}
           </Text>
           <Text size={14} weight={400} color={colors.purple2}>
-            성수 치킨 버거의 종결지는? 성수 치킨 버거의 종결지는?
+            {notification.message.content}
           </Text>
         </Col>
       </Row>
       <Text size={13} weight={400} color={colors.white_40} style={{ flexShrink: 0 }}>
-        방금
+        {getDateDiff(notification.createdAt)} 전
       </Text>
     </Row>
   );
