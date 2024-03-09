@@ -102,7 +102,7 @@ const AlphaTopicCard = React.memo(({ topic, onVote, isTrending, isMine }: AlphaT
         icon: <RefreshIcon fill={topic.selectedOption === null ? colors.black_20 : colors.black} />,
         label: '투표 다시 하기',
         onClick: handleRevoteTopic,
-        disabled: topic.selectedOption === null,
+        disabled: true,
       },
     ],
   });
