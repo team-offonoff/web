@@ -31,7 +31,7 @@ export const useAuthStore = create(
 
         if (!refreshToken) {
           set({ isLoggedIn: false });
-          throw new Error('저장되어 있는 refreshToken이 없습니다.');
+          throw new Error('REFRESH_TOKEN_EMPTY');
         }
 
         try {

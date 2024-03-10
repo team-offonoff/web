@@ -36,7 +36,12 @@ const AuthRoute = () => {
         await reLogin();
         setIsLoading(false);
       } catch (e) {
-        console.error(e);
+        if (e instanceof Error) {
+          if (e.message === 'REFRESH_TOKEN_EMPTY') {
+            setIsLoading(false);
+            console.error(e);
+          }
+        }
       }
     };
 
