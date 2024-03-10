@@ -1,17 +1,29 @@
 import React from 'react';
 
+import useHideTopic from '@apis/topic/useHideTopic';
+import useReportTopic from '@apis/topic/useReportTopic';
 import Chip from '@components/commons/Chip/Chip';
 import CommentChip from '@components/commons/Chip/CommentChip';
 import { Col, Row } from '@components/commons/Flex/Flex';
 import ProgressBar from '@components/commons/ProgressBar/ProgressBar';
 import Text from '@components/commons/Text/Text';
+import { Toast } from '@components/commons/Toast/Toast';
 import TopicComments from '@components/Home/TopicComments/TopicComments';
 import useBottomSheet from '@hooks/useBottomSheet/useBottomSheet';
+import useActionSheet from '@hooks/useModal/useActionSheet';
 import { TopicResponse } from '@interfaces/api/topic';
 
 import { colors } from '@styles/theme';
 
-import { HotIcon, MeatballIcon, TrendingIcon } from '@icons/index';
+import {
+  HideIcon,
+  HotIcon,
+  MeatballIcon,
+  RefreshIcon,
+  ReportIcon,
+  TrashCanIcon,
+  TrendingIcon,
+} from '@icons/index';
 
 import { getDateDiff } from '@utils/date';
 
@@ -26,6 +38,8 @@ interface AlphaTopicCardProps {
 
 const AlphaTopicCard = React.memo(({ topic, onVote, isTrending, isMine }: AlphaTopicCardProps) => {
   const { BottomSheet: CommentSheet, toggleSheet } = useBottomSheet({});
+  const reportMutation = useReportTopic(topic.topicId);
+  const hideMutation = useHideTopic(topic.topicId);
 
   const isRevealed = topic.selectedOption !== null || isMine;
 
@@ -46,13 +60,52 @@ const AlphaTopicCard = React.memo(({ topic, onVote, isTrending, isMine }: AlphaT
     }
   };
 
-  const handleOptionClick = () => {};
+  const handleOptionClick = () => {
+    toggleModal();
+  };
 
   const TrendingChip = () => (
     <Chip icon={<TrendingIcon />} tintColor={'#8CFF8A'} label={'실시간 인기 토픽'} />
   );
   const HotChip = () => <Chip icon={<HotIcon />} tintColor={'#FF61B7'} label={'치열한 경쟁 중'} />;
   const TopicCardChip = () => (isTrending ? <TrendingChip /> : isHot ? <HotChip /> : null);
+
+  const handleHideTopic = () => {
+    hideMutation.mutate();
+    toggleModal();
+    Toast.error('관련 카테고리의 토픽을 더이상 추천하지 않아요.');
+  };
+
+  const handleReportTopic = () => {
+    reportMutation.mutate();
+    toggleModal();
+    Toast.error('해당 토픽을 신고하였어요.');
+  };
+
+  const handleRevoteTopic = () => {
+    throw new Error('투표 다시하기 기능을 사용할 수 없습니다.');
+  };
+
+  const { Modal: TopicModal, toggleModal } = useActionSheet({
+    actions: [
+      {
+        icon: <HideIcon />,
+        label: '이런 토픽은 안볼래요',
+        onClick: handleHideTopic,
+      },
+      {
+        icon: <ReportIcon />,
+        label: '신고하기',
+        onClick: handleReportTopic,
+      },
+      {
+        icon: <RefreshIcon fill={topic.selectedOption === null ? colors.black_20 : colors.black} />,
+        label: '투표 다시 하기',
+        onClick: handleRevoteTopic,
+        disabled: true,
+      },
+    ],
+  });
 
   return (
     <>
@@ -119,6 +172,7 @@ const AlphaTopicCard = React.memo(({ topic, onVote, isTrending, isMine }: AlphaT
       <CommentSheet>
         <TopicComments topic={topic} />
       </CommentSheet>
+      <TopicModal />
     </>
   );
 });
