@@ -2,10 +2,13 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 
+import { useUnreadNotifications } from '@apis/notification/useNotifications';
+
 import { AlarmIcon } from '@icons/index';
 
 const NotificationButton = () => {
   const navigate = useNavigate();
+  const unreadNotifications = useUnreadNotifications();
 
   return (
     <AlarmButton onClick={() => navigate('/notifications')}>
