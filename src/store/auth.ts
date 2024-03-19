@@ -31,7 +31,7 @@ export const useAuthStore = create(
 
         if (!refreshToken) {
           set({ isLoggedIn: false });
-          throw new Error('저장되어 있는 refreshToken이 없습니다.');
+          throw new Error('REFRESH_TOKEN_EMPTY');
         }
 
         try {
@@ -42,6 +42,10 @@ export const useAuthStore = create(
             },
           });
           const { refreshToken: newRefreshToken, memberId, accessToken } = response;
+
+          if (!newRefreshToken || !memberId || !accessToken) {
+            throw new Error('토큰이 올바르지 않습니다.');
+          }
           set({ refreshToken: newRefreshToken, isLoggedIn: true, memberId });
           client.setAccessToken(accessToken);
           return get().isLoggedIn;

@@ -17,6 +17,7 @@ import ClockIcon from './clock.svg?react';
 import CloseIcon from './close.svg?react';
 import CommentBoxIcon from './comment-box.svg?react';
 import CommentIcon from './comment.svg?react';
+import CrownIcon from './crown.svg?react';
 import DefaultProfileIcon from './default-profile.svg?react';
 import DeleteIcon from './delete.svg?react';
 import DotIcon from './dot.svg?react';
@@ -26,6 +27,7 @@ import HideIcon from './hide.svg?react';
 import HitIcon from './hit.svg?react';
 import HomeStrokeIcon from './home-stroke.svg?react';
 import HomeIcon from './home.svg?react';
+import HotIcon from './hot.svg?react';
 import SelectedImageIcon from './image-icon-selected.svg?react';
 import ImageIcon from './image-icon.svg?react';
 import KakaoIcon from './kakao.svg?react';
@@ -46,6 +48,7 @@ import ThumbsIcon from './thumbs.svg?react';
 import TopicCreatBackgrounIcon from './topic-create-background.svg?react';
 import TrashCanIcon from './trash-can.svg?react';
 import TrashIcon from './trash.svg?react';
+import TrendingIcon from './trending.svg?react';
 import UpDownChevronIcon from './up-down.svg?react';
 import WriteBoxIcon from './write-box.svg?react';
 
@@ -63,6 +66,7 @@ export {
   CheckIcon,
   ClockIcon,
   CloseIcon,
+  CrownIcon,
   CommentIcon,
   CommentBoxIcon,
   DefaultProfileIcon,
@@ -71,6 +75,7 @@ export {
   HideIcon,
   HitIcon,
   HomeIcon,
+  HotIcon,
   HomeStrokeIcon,
   KakaoIcon,
   LeftDoubleArrowIcon,
@@ -96,6 +101,7 @@ export {
   SelectedImageIcon,
   DeleteIcon,
   TrashIcon,
+  TrendingIcon,
   AlbumIcon,
   CameraIcon,
   DotIcon,

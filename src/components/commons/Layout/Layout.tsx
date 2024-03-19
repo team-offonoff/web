@@ -1,6 +1,8 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 
+import { colors } from '@styles/theme';
+
 import BottomNavigation from '../BottomNavigation/BottomNavigation';
 
 import {
@@ -16,7 +18,7 @@ interface LayoutProps {
   HeaderCenter?: React.ReactNode;
   HeaderRight?: React.ReactNode;
   hasBottomNavigation?: boolean;
-  ThemeColor?: string;
+  themeColor?: string;
   children: React.ReactNode;
 }
 
@@ -26,7 +28,7 @@ const Layout = (props: LayoutProps) => {
   return (
     <Main>
       <Helmet>
-        <meta name="theme-color" content={props.ThemeColor || '#242036'} />
+        <meta name="theme-color" content={props.themeColor || colors.navy} />
       </Helmet>
       <Header>
         <HeaderSection style={{ justifySelf: 'start' }}>{HeaderLeft}</HeaderSection>

@@ -5,6 +5,7 @@ export const Main = styled.main`
   max-width: 512px;
   height: calc(var(--vh, 1vh) * 100);
   margin: 0 auto;
+  overflow-x: hidden;
 
   /* background-color: ${(props) => props.theme.colors.navy}; */
 

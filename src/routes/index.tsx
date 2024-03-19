@@ -28,24 +28,27 @@ const Signup = lazy(() => import('./Auth/signup/Signup'));
 
 const AuthRoute = () => {
   const reLogin = useAuthStore((store) => store.reLogin);
+  const [isLoading, setIsLoading] = useState(true);
 
   useLayoutEffect(() => {
     const handleReLogin = async () => {
       try {
         await reLogin();
+        setIsLoading(false);
       } catch (e) {
-        console.error(e);
+        if (e instanceof Error) {
+          if (e.message === 'REFRESH_TOKEN_EMPTY') {
+            setIsLoading(false);
+            console.error(e);
+          }
+        }
       }
     };
 
     handleReLogin();
   }, []);
 
-  return (
-    <Suspense fallback={<Loading />}>
-      <Outlet />
-    </Suspense>
-  );
+  return <>{isLoading ? <Loading /> : <Outlet />}</>;
 };
 
 const ProtectedRoute = () => {
@@ -87,7 +90,11 @@ const Router = () => {
     )
   );
 
-  return <RouterProvider router={router} />;
+  return (
+    <Suspense fallback={<Loading />}>
+      <RouterProvider router={router} />
+    </Suspense>
+  );
 };
 
 export default Router;

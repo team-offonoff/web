@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useLayoutEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import { usePreviewComment } from '@apis/comment/useComment';
 import useHideTopic from '@apis/topic/useHideTopic';
 import useReportTopic from '@apis/topic/useReportTopic';
 import useVoteTopic from '@apis/topic/useVoteTopic';
+import ResultSlide from '@components/B/ResultSlide';
 import { Row } from '@components/commons/Flex/Flex';
 import BackButton from '@components/commons/Header/BackButton/BackButton';
 import Layout from '@components/commons/Layout/Layout';
@@ -22,10 +23,10 @@ import {
   TopicFooter,
 } from '@components/Home/TopicCard/TopicCard.styles';
 import TopicComments from '@components/Home/TopicComments/TopicComments';
-import VoteCompletion from '@components/Home/VoteCompletion/VoteCompletion';
 import useBottomSheet from '@hooks/useBottomSheet/useBottomSheet';
 import useActionSheet from '@hooks/useModal/useActionSheet';
 import { Choice, TopicResponse } from '@interfaces/api/topic';
+import { TopicStatusType } from '@interfaces/models/topic';
 
 import { useAuthStore } from '@store/auth';
 
@@ -44,14 +45,19 @@ import { ResponseError } from '@apis/fetch';
 
 interface BTopicProps {
   topic: TopicResponse;
+  topicStatus: TopicStatusType;
 }
 
 const BTopic = () => {
   const location = useLocation();
   const { BottomSheet: CommentSheet, toggleSheet } = useBottomSheet({});
   const memberId = useAuthStore((store) => store.memberId);
-  const { topic } = location.state as BTopicProps;
+  const { topic, topicStatus } = location.state as BTopicProps;
+
   const isMyTopic = topic.author.id === memberId;
+  const isVoting = topicStatus === 'VOTING';
+  const [choiceA, choiceB] = topic.choices;
+  const winChoice = choiceA.voteCount > choiceB.voteCount ? choiceA : choiceB;
 
   const { data: previewComment } = usePreviewComment(
     topic.topicId,
@@ -126,9 +132,24 @@ const BTopic = () => {
     ],
   });
 
+  useLayoutEffect(() => {
+    if (!isVoting) {
+      const prevColor = document.body.style.backgroundColor;
+      document.body.style.backgroundColor = '#3D3060';
+
+      return () => {
+        document.body.style.backgroundColor = prevColor;
+      };
+    }
+  }, []);
+
   return (
     <React.Fragment>
-      <Layout hasBottomNavigation={false} HeaderLeft={<BackButton />}>
+      <Layout
+        themeColor={isVoting ? colors.navy : '#3D3060'}
+        hasBottomNavigation={false}
+        HeaderLeft={<BackButton />}
+      >
         <TopicCardContainer>
           <Text size={18} color={colors.purple}>
             {topic.keyword?.keywordName}
@@ -138,26 +159,23 @@ const BTopic = () => {
               {topic.topicTitle}
             </Topic>
           </TopicContainer>
-          {topic.selectedOption !== null ? (
-            <VoteCompletion
-              side={topic.selectedOption === 'CHOICE_A' ? 'A' : 'B'}
-              topicContent={
-                topic.selectedOption === 'CHOICE_A'
-                  ? topic.choices[0]?.content?.text || 'A'
-                  : topic.choices[1]?.content?.text || 'B'
-              }
-            />
+          {isVoting ? (
+            <>
+              <ChoiceSlider onVote={handleVote} choices={topic.choices} />
+              {topic.deadline && <Timer endTime={topic.deadline} />}
+              <SelectTextContainer $voted={topic.selectedOption !== null}>
+                <LeftDoubleArrowIcon />
+                <Text size={14} weight={'regular'} color={colors.white_40}>
+                  밀어서 선택하기
+                </Text>
+                <RightDoubleArrowIcon />
+              </SelectTextContainer>
+            </>
           ) : (
-            <ChoiceSlider onVote={handleVote} choices={topic.choices} />
+            <>
+              <ResultSlide choice={winChoice} />
+            </>
           )}
-          {topic.deadline && <Timer endTime={topic.deadline} />}
-          <SelectTextContainer $voted={topic.selectedOption !== null}>
-            <LeftDoubleArrowIcon />
-            <Text size={14} weight={'regular'} color={colors.white_40}>
-              밀어서 선택하기
-            </Text>
-            <RightDoubleArrowIcon />
-          </SelectTextContainer>
           <TopicFooter>
             <Row>
               <Row gap={8} alignItems="center">

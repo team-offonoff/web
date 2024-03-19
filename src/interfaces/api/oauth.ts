@@ -33,6 +33,6 @@ export interface OAuthResponse {
   newMember: boolean;
   memberId: number;
   joinStatus: JoinStatus;
-  accessToken: string;
-  refreshToken: string;
+  accessToken?: string;
+  refreshToken?: string;
 }
